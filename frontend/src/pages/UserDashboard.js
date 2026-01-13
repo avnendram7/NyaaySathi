@@ -280,7 +280,7 @@ export default function UserDashboard() {
                       </div>
                       <div>
                         <p className="font-semibold text-purple-400">Next hearing date scheduled</p>
-                        <p className="text-xs text-slate-500">Sep 30, 2024</p>
+                        <p className="text-xs text-slate-500">Jan 28, 2026</p>
                       </div>
                     </div>
                     
@@ -290,7 +290,7 @@ export default function UserDashboard() {
                       </div>
                       <div>
                         <p className="font-semibold text-slate-300">Court discussion summary added</p>
-                        <p className="text-xs text-slate-500">Sep 28, 2024</p>
+                        <p className="text-xs text-slate-500">Jan 25, 2026</p>
                       </div>
                     </div>
                     
@@ -300,7 +300,7 @@ export default function UserDashboard() {
                       </div>
                       <div>
                         <p className="font-semibold text-slate-300">Consultation completed</p>
-                        <p className="text-xs text-slate-500">Sep 25, 2024</p>
+                        <p className="text-xs text-slate-500">Jan 20, 2026</p>
                       </div>
                     </div>
                     
@@ -310,7 +310,7 @@ export default function UserDashboard() {
                       </div>
                       <div>
                         <p className="font-semibold text-slate-300">Case filed</p>
-                        <p className="text-xs text-slate-500">Sep 20, 2024</p>
+                        <p className="text-xs text-slate-500">Jan 15, 2026</p>
                       </div>
                     </div>
                   </div>
