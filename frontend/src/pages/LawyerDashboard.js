@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
-import { Scale, LogOut, LayoutDashboard, Calendar as CalendarIcon, MessageSquare, FileText, Users, TrendingUp, Search, MoreVertical, User, Clock, Phone, Video, CheckCircle, AlertCircle, Archive } from 'lucide-react';
+import { Scale, LogOut, LayoutDashboard, Calendar as CalendarIcon, MessageSquare, FileText, Users, TrendingUp, Search, MoreVertical, User, Clock, Phone, Video, CheckCircle, AlertCircle, Archive, Shield } from 'lucide-react';
 import { toast } from 'sonner';
 import axios from 'axios';
 import { API } from '../App';
@@ -253,6 +253,7 @@ export default function LawyerDashboard() {
       
       {/* Main Content */}
       <div className="flex-1 overflow-y-auto bg-slate-950">
+        {/* Dashboard Tab */}
         {activeTab === 'dashboard' && (
           <div className="p-8">
             {/* Header */}
@@ -425,70 +426,75 @@ export default function LawyerDashboard() {
           </div>
         )}
         
+        {/* Cases Tab - Dark Theme */}
         {activeTab === 'cases' && (
           <div className="p-8">
             <div className="flex items-center justify-between mb-8">
               <div>
-                <h1 className="text-3xl font-bold mb-2">Case Management</h1>
-                <p className="text-slate-600">Track your active cases, clients, and legal proceedings.</p>
+                <h1 className="text-3xl font-bold mb-2 text-white">Case Management</h1>
+                <p className="text-slate-400">Track your active cases, clients, and legal proceedings.</p>
               </div>
-              <Button className="bg-slate-900 hover:bg-slate-800 text-white rounded-xl px-6">
+              <Button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl px-6 shadow-lg shadow-blue-500/50">
                 + New Case
               </Button>
             </div>
             
             {/* Stats */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-              <div className="bg-white rounded-2xl border border-slate-200 p-6">
-                <div className="flex items-center space-x-3 mb-3">
-                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                    <FileText className="w-5 h-5 text-blue-700" />
+              <div className="glass rounded-2xl border border-blue-500/20 p-6 relative overflow-hidden group">
+                <div className="absolute -right-4 -top-4 w-24 h-24 bg-blue-500/10 rounded-full blur-2xl"></div>
+                <div className="flex items-center space-x-3 mb-3 relative z-10">
+                  <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center shadow-lg shadow-blue-500/50 transform group-hover:scale-110 transition-all duration-300">
+                    <FileText className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-3xl font-bold">124</h3>
-                    <p className="text-xs text-slate-500 uppercase">Total Cases</p>
+                    <h3 className="text-3xl font-bold text-white">124</h3>
+                    <p className="text-xs text-slate-400 uppercase">Total Cases</p>
                   </div>
                 </div>
-                <p className="text-xs text-blue-700">All Time</p>
+                <p className="text-xs text-blue-400 relative z-10">All Time</p>
               </div>
               
-              <div className="bg-white rounded-2xl border border-slate-200 p-6">
-                <div className="flex items-center space-x-3 mb-3">
-                  <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-                    <CheckCircle className="w-5 h-5 text-green-700" />
+              <div className="glass rounded-2xl border border-green-500/20 p-6 relative overflow-hidden group">
+                <div className="absolute -right-4 -top-4 w-24 h-24 bg-green-500/10 rounded-full blur-2xl"></div>
+                <div className="flex items-center space-x-3 mb-3 relative z-10">
+                  <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center shadow-lg shadow-green-500/50 transform group-hover:scale-110 transition-all duration-300">
+                    <CheckCircle className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-3xl font-bold">12</h3>
-                    <p className="text-xs text-slate-500 uppercase">Active</p>
+                    <h3 className="text-3xl font-bold text-white">12</h3>
+                    <p className="text-xs text-slate-400 uppercase">Active</p>
                   </div>
                 </div>
-                <p className="text-xs text-green-700">Current</p>
+                <p className="text-xs text-green-400 relative z-10">Current</p>
               </div>
               
-              <div className="bg-white rounded-2xl border border-slate-200 p-6">
-                <div className="flex items-center space-x-3 mb-3">
-                  <div className="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center">
-                    <Clock className="w-5 h-5 text-amber-700" />
+              <div className="glass rounded-2xl border border-amber-500/20 p-6 relative overflow-hidden group">
+                <div className="absolute -right-4 -top-4 w-24 h-24 bg-amber-500/10 rounded-full blur-2xl"></div>
+                <div className="flex items-center space-x-3 mb-3 relative z-10">
+                  <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-600 rounded-lg flex items-center justify-center shadow-lg shadow-amber-500/50 transform group-hover:scale-110 transition-all duration-300">
+                    <Clock className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-3xl font-bold">8</h3>
-                    <p className="text-xs text-slate-500 uppercase">Pending</p>
+                    <h3 className="text-3xl font-bold text-white">8</h3>
+                    <p className="text-xs text-slate-400 uppercase">Pending</p>
                   </div>
                 </div>
-                <p className="text-xs text-amber-700">Needs Action</p>
+                <p className="text-xs text-amber-400 relative z-10">Needs Action</p>
               </div>
               
-              <div className="bg-white rounded-2xl border border-slate-200 p-6">
-                <div className="flex items-center space-x-3 mb-3">
-                  <div className="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center">
-                    <Archive className="w-5 h-5 text-slate-700" />
+              <div className="glass rounded-2xl border border-slate-500/20 p-6 relative overflow-hidden group">
+                <div className="absolute -right-4 -top-4 w-24 h-24 bg-slate-500/10 rounded-full blur-2xl"></div>
+                <div className="flex items-center space-x-3 mb-3 relative z-10">
+                  <div className="w-10 h-10 bg-gradient-to-br from-slate-500 to-slate-700 rounded-lg flex items-center justify-center shadow-lg shadow-slate-500/50 transform group-hover:scale-110 transition-all duration-300">
+                    <Archive className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-3xl font-bold">104</h3>
-                    <p className="text-xs text-slate-500 uppercase">Archived</p>
+                    <h3 className="text-3xl font-bold text-white">104</h3>
+                    <p className="text-xs text-slate-400 uppercase">Archived</p>
                   </div>
                 </div>
-                <p className="text-xs text-slate-700">Closed</p>
+                <p className="text-xs text-slate-400 relative z-10">Closed</p>
               </div>
             </div>
             
@@ -498,51 +504,51 @@ export default function LawyerDashboard() {
                 <Search className="w-5 h-5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                 <Input
                   placeholder="Search cases, clients..."
-                  className="pl-10 bg-white border-slate-200 rounded-xl"
+                  className="pl-10 bg-slate-900/50 border-slate-700/50 rounded-xl text-white placeholder-slate-500"
                 />
               </div>
               <div className="flex items-center space-x-3">
-                <Button variant="outline" className="border-slate-200 rounded-xl">
+                <Button variant="outline" className="border-slate-700/50 text-slate-300 hover:bg-slate-800 rounded-xl">
                   <span className="mr-2">⚙️</span> Filter
                 </Button>
-                <select className="px-4 py-2 border border-slate-200 rounded-xl bg-white">
+                <select className="px-4 py-2 border border-slate-700/50 rounded-xl bg-slate-900/50 text-white">
                   <option>Sort by Date</option>
                 </select>
               </div>
             </div>
             
             {/* Cases Table */}
-            <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+            <div className="glass rounded-2xl border border-blue-500/20 overflow-hidden">
               <table className="w-full">
-                <thead className="bg-slate-50 border-b border-slate-200">
+                <thead className="bg-slate-900/50 border-b border-slate-800/50">
                   <tr>
-                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-600 uppercase">Case Details</th>
-                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-600 uppercase">Type</th>
-                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-600 uppercase">Activity</th>
-                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-600 uppercase">Status</th>
-                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-600 uppercase">Action</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Case Details</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Type</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Activity</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Status</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   {dummyCases.map((caseItem) => (
-                    <tr key={caseItem.id} className="border-b border-slate-100 hover:bg-slate-50">
+                    <tr key={caseItem.id} className="border-b border-slate-800/30 hover:bg-slate-900/30 transition-all duration-200">
                       <td className="px-6 py-4">
-                        <p className="font-semibold">{caseItem.title}</p>
-                        <p className="text-sm text-slate-500">👤 {caseItem.client}</p>
+                        <p className="font-semibold text-white">{caseItem.title}</p>
+                        <p className="text-sm text-slate-400">👤 {caseItem.client}</p>
                       </td>
-                      <td className="px-6 py-4 text-sm text-slate-600">{caseItem.type}</td>
-                      <td className="px-6 py-4 text-sm text-slate-600">{caseItem.activity}</td>
+                      <td className="px-6 py-4 text-sm text-slate-300">{caseItem.type}</td>
+                      <td className="px-6 py-4 text-sm text-slate-400">{caseItem.activity}</td>
                       <td className="px-6 py-4">
                         <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                          caseItem.status === 'Active' ? 'bg-green-100 text-green-700' :
-                          caseItem.status === 'Pending' ? 'bg-amber-100 text-amber-700' :
-                          'bg-slate-100 text-slate-700'
+                          caseItem.status === 'Active' ? 'bg-green-500/20 text-green-400 border border-green-500/30' :
+                          caseItem.status === 'Pending' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30' :
+                          'bg-slate-700/50 text-slate-400 border border-slate-600/30'
                         }`}>
                           {caseItem.status}
                         </span>
                       </td>
                       <td className="px-6 py-4">
-                        <button className="text-slate-400 hover:text-slate-600">
+                        <button className="text-slate-400 hover:text-white transition-colors">
                           <MoreVertical className="w-5 h-5" />
                         </button>
                       </td>
@@ -554,6 +560,146 @@ export default function LawyerDashboard() {
           </div>
         )}
         
+        {/* Calendar Tab */}
+        {activeTab === 'calendar' && (
+          <div className="p-8">
+            <h1 className="text-3xl font-bold text-white mb-8">Calendar</h1>
+            <div className="glass rounded-2xl border border-blue-500/20 p-8 text-center">
+              <CalendarIcon className="w-16 h-16 text-slate-600 mx-auto mb-4" />
+              <p className="text-slate-400">Calendar feature coming soon</p>
+            </div>
+          </div>
+        )}
+        
+        {/* Messages Tab */}
+        {activeTab === 'messages' && (
+          <div className="p-8">
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <div className="flex items-center space-x-3 mb-2">
+                  <h1 className="text-3xl font-bold text-white">Messages</h1>
+                  <span className="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-xs font-semibold border border-green-500/30 flex items-center">
+                    <Shield className="w-3 h-3 mr-1" />
+                    End-to-End Encrypted
+                  </span>
+                </div>
+                <p className="text-slate-400">Secure communication with your clients</p>
+              </div>
+            </div>
+            <div className="glass rounded-2xl border border-blue-500/20 p-8 text-center">
+              <MessageSquare className="w-16 h-16 text-slate-600 mx-auto mb-4" />
+              <p className="text-slate-400">Message system coming soon</p>
+            </div>
+          </div>
+        )}
+        
+        {/* Documents Tab */}
+        {activeTab === 'documents' && (
+          <div className="p-8">
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <div className="flex items-center space-x-3 mb-2">
+                  <h1 className="text-3xl font-bold text-white">Document Management</h1>
+                  <span className="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-xs font-semibold border border-green-500/30 flex items-center">
+                    <Shield className="w-3 h-3 mr-1" />
+                    End-to-End Encrypted
+                  </span>
+                </div>
+                <p className="text-sm text-green-400 flex items-center">
+                  <span className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
+                  Secure encrypted vault
+                </p>
+              </div>
+              <Button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl px-6 shadow-lg shadow-blue-500/50">
+                Upload Document
+              </Button>
+            </div>
+            
+            {/* Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              <div className="glass rounded-2xl border border-blue-500/20 p-6 relative overflow-hidden group">
+                <div className="absolute -right-4 -top-4 w-24 h-24 bg-blue-500/10 rounded-full blur-2xl"></div>
+                <div className="flex items-center space-x-3 relative z-10">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/50 transform group-hover:scale-110 transition-all duration-300">
+                    <FileText className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-slate-400 uppercase mb-1">Total Documents</p>
+                    <h3 className="text-3xl font-bold text-white">12</h3>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="glass rounded-2xl border border-purple-500/20 p-6 relative overflow-hidden group">
+                <div className="absolute -right-4 -top-4 w-24 h-24 bg-purple-500/10 rounded-full blur-2xl"></div>
+                <div className="flex items-center space-x-3 relative z-10">
+                  <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/50 transform group-hover:scale-110 transition-all duration-300">
+                    <span className="text-2xl">💾</span>
+                  </div>
+                  <div>
+                    <p className="text-xs text-slate-400 uppercase mb-1">Storage Used</p>
+                    <h3 className="text-3xl font-bold text-white">15.2 GB</h3>
+                    <p className="text-xs text-slate-500">/ 50 GB</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="glass rounded-2xl border border-green-500/20 p-6 relative overflow-hidden group">
+                <div className="absolute -right-4 -top-4 w-24 h-24 bg-green-500/10 rounded-full blur-2xl"></div>
+                <div className="flex items-center space-x-3 relative z-10">
+                  <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg shadow-green-500/50 transform group-hover:scale-110 transition-all duration-300">
+                    <Clock className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-slate-400 uppercase mb-1">Recent Uploads</p>
+                    <h3 className="text-3xl font-bold text-white">12</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Documents Table */}
+            <div className="glass rounded-2xl border border-blue-500/20 overflow-hidden">
+              <table className="w-full">
+                <thead className="bg-slate-900/50 border-b border-slate-800/50">
+                  <tr>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Document Name</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Associated Case</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Type</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Date</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Size</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {documents.map((doc, idx) => (
+                    <tr key={idx} className="border-b border-slate-800/30 hover:bg-slate-900/30 transition-all duration-200">
+                      <td className="px-6 py-4 flex items-center space-x-2">
+                        <FileText className="w-5 h-5 text-red-400" />
+                        <span className="font-medium text-white">{doc.name}</span>
+                      </td>
+                      <td className="px-6 py-4 text-sm text-slate-400">{doc.case}</td>
+                      <td className="px-6 py-4">
+                        <span className="px-3 py-1 bg-slate-800/50 text-slate-300 rounded-full text-xs border border-slate-700/50">
+                          {doc.type}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 text-sm text-slate-400">{doc.date}</td>
+                      <td className="px-6 py-4 text-sm text-slate-400">{doc.size}</td>
+                      <td className="px-6 py-4">
+                        <button className="text-slate-400 hover:text-white transition-colors">
+                          <MoreVertical className="w-5 h-5" />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+        
+        {/* Lawyer Network Tab */}
         {activeTab === 'network' && (
           <div className="p-8">
             <div className="flex items-center justify-between mb-8">
@@ -674,146 +820,7 @@ export default function LawyerDashboard() {
           </div>
         )}
         
-        {activeTab === 'messages' && (
-          <div className="p-8">
-            <div className="flex items-center justify-between mb-8">
-              <div>
-                <div className="flex items-center space-x-3 mb-2">
-                  <h1 className="text-3xl font-bold text-white">Messages</h1>
-                  <span className="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-xs font-semibold border border-green-500/30 flex items-center">
-                    <Shield className="w-3 h-3 mr-1" />
-                    End-to-End Encrypted
-                  </span>
-                </div>
-                <p className="text-slate-400">Secure communication with your clients</p>
-              </div>
-            </div>
-            <div className="glass rounded-2xl border border-blue-500/20 p-8 text-center">
-              <MessageSquare className="w-16 h-16 text-slate-600 mx-auto mb-4" />
-              <p className="text-slate-400">Message system coming soon</p>
-            </div>
-          </div>
-        )}
-        
-        {activeTab === 'calendar' && (
-          <div className="p-8">
-            <h1 className="text-3xl font-bold text-white mb-8">Calendar</h1>
-            <div className="glass rounded-2xl border border-blue-500/20 p-8 text-center">
-              <CalendarIcon className="w-16 h-16 text-slate-600 mx-auto mb-4" />
-              <p className="text-slate-400">Calendar feature coming soon</p>
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
-        
-        {activeTab === 'documents' && (
-          <div className="p-8">
-            <div className="flex items-center justify-between mb-8">
-              <div>
-                <div className="flex items-center space-x-3 mb-2">
-                  <h1 className="text-3xl font-bold text-white">Document Management</h1>
-                  <span className="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-xs font-semibold border border-green-500/30 flex items-center">
-                    <Shield className="w-3 h-3 mr-1" />
-                    End-to-End Encrypted
-                  </span>
-                </div>
-                <p className="text-sm text-green-400 flex items-center">
-                  <span className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
-                  Secure encrypted vault
-                </p>
-              </div>
-              <Button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl px-6 shadow-lg shadow-blue-500/50">
-                Upload Document
-              </Button>
-            </div>
-            
-            {/* Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="glass rounded-2xl border border-blue-500/20 p-6 relative overflow-hidden group">
-                <div className="absolute -right-4 -top-4 w-24 h-24 bg-blue-500/10 rounded-full blur-2xl"></div>
-                <div className="flex items-center space-x-3 relative z-10">
-                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/50 transform group-hover:scale-110 transition-all duration-300">
-                    <FileText className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-slate-400 uppercase mb-1">Total Documents</p>
-                    <h3 className="text-3xl font-bold text-white">12</h3>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="glass rounded-2xl border border-purple-500/20 p-6 relative overflow-hidden group">
-                <div className="absolute -right-4 -top-4 w-24 h-24 bg-purple-500/10 rounded-full blur-2xl"></div>
-                <div className="flex items-center space-x-3 relative z-10">
-                  <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/50 transform group-hover:scale-110 transition-all duration-300">
-                    <span className="text-2xl">💾</span>
-                  </div>
-                  <div>
-                    <p className="text-xs text-slate-400 uppercase mb-1">Storage Used</p>
-                    <h3 className="text-3xl font-bold text-white">15.2 GB</h3>
-                    <p className="text-xs text-slate-500">/ 50 GB</p>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="glass rounded-2xl border border-green-500/20 p-6 relative overflow-hidden group">
-                <div className="absolute -right-4 -top-4 w-24 h-24 bg-green-500/10 rounded-full blur-2xl"></div>
-                <div className="flex items-center space-x-3 relative z-10">
-                  <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg shadow-green-500/50 transform group-hover:scale-110 transition-all duration-300">
-                    <Clock className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-slate-400 uppercase mb-1">Recent Uploads</p>
-                    <h3 className="text-3xl font-bold text-white">12</h3>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            {/* Documents Table */}
-            <div className="glass rounded-2xl border border-blue-500/20 overflow-hidden">
-              <table className="w-full">
-                <thead className="bg-slate-900/50 border-b border-slate-800/50">
-                  <tr>
-                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Document Name</th>
-                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Associated Case</th>
-                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Type</th>
-                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Date</th>
-                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Size</th>
-                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {documents.map((doc, idx) => (
-                    <tr key={idx} className="border-b border-slate-800/30 hover:bg-slate-900/30 transition-all duration-200">
-                      <td className="px-6 py-4 flex items-center space-x-2">
-                        <FileText className="w-5 h-5 text-red-400" />
-                        <span className="font-medium text-white">{doc.name}</span>
-                      </td>
-                      <td className="px-6 py-4 text-sm text-slate-400">{doc.case}</td>
-                      <td className="px-6 py-4">
-                        <span className="px-3 py-1 bg-slate-800/50 text-slate-300 rounded-full text-xs border border-slate-700/50">
-                          {doc.type}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 text-sm text-slate-400">{doc.date}</td>
-                      <td className="px-6 py-4 text-sm text-slate-400">{doc.size}</td>
-                      <td className="px-6 py-4">
-                        <button className="text-slate-400 hover:text-white transition-colors">
-                          <MoreVertical className="w-5 h-5" />
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        )}
-        
+        {/* Earnings Tab */}
         {activeTab === 'earnings' && (
           <div className="p-8">
             <div className="flex items-center justify-between mb-8">
