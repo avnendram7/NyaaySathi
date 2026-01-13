@@ -55,52 +55,7 @@ export default function CinematicHero() {
   return (
     <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-black via-slate-950 to-blue-950">
       {/* Top Navigation Bar */}
-      <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-blue-500/20">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="flex items-center space-x-2">
-            <Scale className="w-6 h-6 text-blue-500" />
-            <span className="text-xl font-bold text-white">Nyaay Sathi</span>
-          </div>
-          
-          <div className="flex items-center space-x-8">
-            <button
-              data-testid="nav-home"
-              onClick={() => navigate('/')}
-              className="flex items-center space-x-2 text-slate-300 hover:text-white transition-colors duration-300"
-            >
-              <Home className="w-4 h-4" />
-              <span>Home</span>
-            </button>
-            
-            <button
-              data-testid="nav-about"
-              onClick={() => navigate('/about')}
-              className="flex items-center space-x-2 text-slate-300 hover:text-white transition-colors duration-300"
-            >
-              <Info className="w-4 h-4" />
-              <span>About</span>
-            </button>
-            
-            <button
-              data-testid="nav-features"
-              onClick={() => navigate('/features')}
-              className="flex items-center space-x-2 text-slate-300 hover:text-white transition-colors duration-300"
-            >
-              <Sparkles className="w-4 h-4" />
-              <span>Features</span>
-            </button>
-            
-            <button
-              data-testid="nav-help"
-              onClick={() => navigate('/contact')}
-              className="flex items-center space-x-2 text-slate-300 hover:text-white transition-colors duration-300"
-            >
-              <HelpCircle className="w-4 h-4" />
-              <span>Help</span>
-            </button>
-          </div>
-        </div>
-      </nav>
+      <Navbar />
       
       {/* Animated background particles */}
       <div className="absolute inset-0">
