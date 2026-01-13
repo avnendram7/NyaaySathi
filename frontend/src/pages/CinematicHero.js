@@ -307,12 +307,14 @@ export default function CinematicHero() {
           </p>
         </motion.div>
         
-        {/* CTA Button */}
+        {/* CTA Buttons */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 1, duration: 0.5 }}
+          className="flex flex-col sm:flex-row gap-4 items-center"
         >
+          {/* Get Started Button */}
           <div className="relative group">
             {/* Button glow effect */}
             <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 rounded-full blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300 animate-pulse" />
@@ -324,6 +326,21 @@ export default function CinematicHero() {
             >
               <span>Get Started</span>
               <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform duration-300" />
+            </Button>
+          </div>
+          
+          {/* AI Chat Button */}
+          <div className="relative group">
+            {/* Button glow effect */}
+            <div className="absolute -inset-1 bg-gradient-to-r from-green-600 via-emerald-600 to-green-600 rounded-full blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300 animate-pulse" />
+            
+            <Button
+              data-testid="cinematic-ai-chat-btn"
+              onClick={() => navigate('/quick-chat')}
+              className="relative bg-gradient-to-r from-emerald-600 to-green-700 hover:from-emerald-700 hover:to-green-800 text-white text-xl px-12 py-6 rounded-full font-semibold shadow-2xl flex items-center space-x-3 border-2 border-emerald-400/50"
+            >
+              <MessageSquare className="w-6 h-6" />
+              <span>AI Chat</span>
             </Button>
           </div>
         </motion.div>
