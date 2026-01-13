@@ -5,6 +5,8 @@ import axios from 'axios';
 import { Toaster } from './components/ui/sonner';
 
 // Pages
+import InitialLanding from './pages/InitialLanding';
+import RoleSelection from './pages/RoleSelection';
 import LandingPage from './pages/LandingPage';
 import AboutPage from './pages/AboutPage';
 import HowItWorksPage from './pages/HowItWorksPage';
@@ -14,8 +16,10 @@ import ForLawyersPage from './pages/ForLawyersPage';
 import ContactPage from './pages/ContactPage';
 import UserLoginPage from './pages/UserLoginPage';
 import LawyerLoginPage from './pages/LawyerLoginPage';
+import LawFirmLoginPage from './pages/LawFirmLoginPage';
 import UserDashboard from './pages/UserDashboard';
 import LawyerDashboard from './pages/LawyerDashboard';
+import LawFirmDashboard from './pages/LawFirmDashboard';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 export const API = `${BACKEND_URL}/api`;
@@ -28,7 +32,9 @@ const ProtectedRoute = ({ children, requiredType }) => {
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   
   if (!token) {
-    return <Navigate to={requiredType === 'lawyer' ? '/lawyer-login' : '/user-login'} />;
+    if (requiredType === 'lawyer') return <Navigate to="/lawyer-login" />;
+    if (requiredType === 'law_firm') return <Navigate to="/lawfirm-login" />;
+    return <Navigate to="/user-login" />;
   }
   
   if (requiredType && user.user_type !== requiredType) {
