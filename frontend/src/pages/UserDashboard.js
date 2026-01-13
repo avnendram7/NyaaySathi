@@ -398,7 +398,7 @@ export default function UserDashboard() {
                     </div>
                     <div>
                       <h4 className="text-lg font-bold">{lawyer.full_name}</h4>
-                      <p className="text-sm text-purple-400">Corporate Law</p>
+                      <p className="text-sm text-purple-400">Civil & Criminal Law</p>
                     </div>
                   </div>
                   
