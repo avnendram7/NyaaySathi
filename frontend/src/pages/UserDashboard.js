@@ -247,8 +247,8 @@ export default function UserDashboard() {
                     <MapPin className="w-5 h-5 text-blue-500" />
                     <h3 className="text-xl font-bold">Court You Must Report To</h3>
                   </div>
-                  <h4 className="text-lg font-semibold mb-2">City Central Courthouse</h4>
-                  <p className="text-slate-400 text-sm mb-4">123 Justice Avenue, Metropolis, ZIP 10001</p>
+                  <h4 className="text-lg font-semibold mb-2">District Court Sonipat</h4>
+                  <p className="text-slate-400 text-sm mb-4">Gohana Road, Sonipat, Haryana 131001, India</p>
                   <Button className="bg-amber-600 hover:bg-amber-700 text-white rounded-xl w-full">
                     <MapPin className="w-4 h-4 mr-2" />
                     View Location
