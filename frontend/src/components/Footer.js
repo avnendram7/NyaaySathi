@@ -45,15 +45,15 @@ export const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center space-x-2 text-slate-400 text-sm">
                 <Mail className="w-4 h-4" />
-                <span>support@nyaaysathi.com</span>
+                <span>avnendram.7@gmail.com</span>
               </div>
               <div className="flex items-center space-x-2 text-slate-400 text-sm">
                 <Phone className="w-4 h-4" />
-                <span>+91 98765 43210</span>
+                <span>+91 83182 16968</span>
               </div>
               <div className="flex items-center space-x-2 text-slate-400 text-sm">
                 <MapPin className="w-4 h-4" />
-                <span>Mumbai, India</span>
+                <span>Sonipat, Haryana, India</span>
               </div>
             </div>
           </div>
