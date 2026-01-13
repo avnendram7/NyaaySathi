@@ -125,10 +125,10 @@ export default function LawyerDashboard() {
           <button
             data-testid="lawyer-dashboard-nav"
             onClick={() => setActiveTab('dashboard')}
-            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all ${
+            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 ${
               activeTab === 'dashboard' 
-                ? 'bg-blue-700 text-white' 
-                : 'text-slate-400 hover:bg-slate-800 hover:text-white'
+                ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-500/50' 
+                : 'text-slate-400 hover:bg-slate-800/50 hover:text-white'
             }`}
           >
             <LayoutDashboard className="w-5 h-5" />
@@ -138,10 +138,10 @@ export default function LawyerDashboard() {
           <button
             data-testid="lawyer-cases-nav"
             onClick={() => setActiveTab('cases')}
-            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all ${
+            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 ${
               activeTab === 'cases' 
-                ? 'bg-blue-700 text-white' 
-                : 'text-slate-400 hover:bg-slate-800 hover:text-white'
+                ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-500/50' 
+                : 'text-slate-400 hover:bg-slate-800/50 hover:text-white'
             }`}
           >
             <FileText className="w-5 h-5" />
@@ -151,10 +151,10 @@ export default function LawyerDashboard() {
           <button
             data-testid="lawyer-calendar-nav"
             onClick={() => setActiveTab('calendar')}
-            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all ${
+            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 ${
               activeTab === 'calendar' 
-                ? 'bg-blue-700 text-white' 
-                : 'text-slate-400 hover:bg-slate-800 hover:text-white'
+                ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-500/50' 
+                : 'text-slate-400 hover:bg-slate-800/50 hover:text-white'
             }`}
           >
             <CalendarIcon className="w-5 h-5" />
@@ -164,10 +164,10 @@ export default function LawyerDashboard() {
           <button
             data-testid="lawyer-messages-nav"
             onClick={() => setActiveTab('messages')}
-            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all ${
+            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 ${
               activeTab === 'messages' 
-                ? 'bg-blue-700 text-white' 
-                : 'text-slate-400 hover:bg-slate-800 hover:text-white'
+                ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-500/50' 
+                : 'text-slate-400 hover:bg-slate-800/50 hover:text-white'
             }`}
           >
             <MessageSquare className="w-5 h-5" />
@@ -177,10 +177,10 @@ export default function LawyerDashboard() {
           <button
             data-testid="lawyer-documents-nav"
             onClick={() => setActiveTab('documents')}
-            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all ${
+            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 ${
               activeTab === 'documents' 
-                ? 'bg-blue-700 text-white' 
-                : 'text-slate-400 hover:bg-slate-800 hover:text-white'
+                ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-500/50' 
+                : 'text-slate-400 hover:bg-slate-800/50 hover:text-white'
             }`}
           >
             <FileText className="w-5 h-5" />
@@ -190,10 +190,10 @@ export default function LawyerDashboard() {
           <button
             data-testid="lawyer-earnings-nav"
             onClick={() => setActiveTab('earnings')}
-            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all ${
+            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 ${
               activeTab === 'earnings' 
-                ? 'bg-blue-700 text-white' 
-                : 'text-slate-400 hover:bg-slate-800 hover:text-white'
+                ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-500/50' 
+                : 'text-slate-400 hover:bg-slate-800/50 hover:text-white'
             }`}
           >
             <TrendingUp className="w-5 h-5" />
@@ -203,25 +203,25 @@ export default function LawyerDashboard() {
         
         {/* New Case Button */}
         <div className="p-4">
-          <Button className="w-full bg-blue-700 hover:bg-blue-600 text-white rounded-xl py-6">
-            <span className="mr-2">+</span> New Case
+          <Button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl py-6 shadow-lg shadow-blue-500/50 transition-all duration-300 hover:shadow-blue-500/70">
+            <span className="mr-2 text-2xl">+</span> New Case
           </Button>
         </div>
         
         {/* User Profile */}
-        <div className="p-4 border-t border-slate-800">
+        <div className="p-4 border-t border-blue-500/20">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-600 rounded-full flex items-center justify-center">
+            <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-600 rounded-full flex items-center justify-center shadow-lg">
               <span className="text-white font-bold">L</span>
             </div>
             <div className="flex-1">
-              <p className="text-sm font-semibold">{user?.full_name || 'Lawyer'}</p>
-              <p className="text-xs text-slate-500">Criminal Law</p>
+              <p className="text-sm font-semibold text-white">{user?.full_name || 'Lawyer'}</p>
+              <p className="text-xs text-blue-400">Criminal Law</p>
             </div>
             <button
               data-testid="lawyer-logout-btn"
               onClick={handleLogout}
-              className="text-slate-400 hover:text-white"
+              className="text-slate-400 hover:text-white transition-colors"
             >
               <LogOut className="w-5 h-5" />
             </button>
@@ -230,7 +230,7 @@ export default function LawyerDashboard() {
       </div>
       
       {/* Main Content */}
-      <div className="flex-1 overflow-y-auto bg-white">
+      <div className="flex-1 overflow-y-auto bg-slate-950">
         {activeTab === 'dashboard' && (
           <div className="p-8">
             {/* Header */}
