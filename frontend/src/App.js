@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Toaster } from './components/ui/sonner';
 
 // Pages
+import CinematicHero from './pages/CinematicHero';
 import InitialLanding from './pages/InitialLanding';
 import RoleSelection from './pages/RoleSelection';
 import LandingPage from './pages/LandingPage';
