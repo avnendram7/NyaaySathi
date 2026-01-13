@@ -315,47 +315,49 @@ export default function LawyerDashboard() {
             {/* Schedule and Messages */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* Today's Schedule */}
-              <div className="lg:col-span-2 bg-white rounded-2xl border border-slate-200 p-6">
+              <div className="lg:col-span-2 glass rounded-2xl border border-blue-500/20 p-6">
                 <div className="flex items-center justify-between mb-6">
                   <div>
-                    <h2 className="text-xl font-bold mb-1">Today's Schedule</h2>
-                    <p className="text-sm text-slate-500">You have 5 sessions remaining today</p>
+                    <h2 className="text-xl font-bold text-white mb-1">Today's Schedule</h2>
+                    <p className="text-sm text-slate-400">You have 5 sessions remaining today</p>
                   </div>
-                  <button className="text-slate-400 hover:text-slate-600">
+                  <button className="text-slate-400 hover:text-white transition-colors">
                     <MoreVertical className="w-5 h-5" />
                   </button>
                 </div>
                 
                 <div className="space-y-3">
                   {todaySchedule.map((session, idx) => (
-                    <div key={idx} className="flex items-center space-x-4 p-4 bg-slate-50 rounded-xl hover:bg-slate-100 transition-colors">
+                    <div key={idx} className={`flex items-center space-x-4 p-4 rounded-xl transition-all duration-300 ${
+                      idx === 0 ? 'bg-blue-500/10 border border-blue-500/30' : 'bg-slate-900/50 border border-slate-800/50'
+                    } hover:bg-slate-800/70`}>
                       <div className="flex-shrink-0">
-                        <div className={`w-1 h-12 rounded-full ${idx === 0 ? 'bg-blue-700' : 'bg-slate-300'}`} />
+                        <div className={`w-1 h-12 rounded-full ${idx === 0 ? 'bg-blue-500 shadow-lg shadow-blue-500/50' : 'bg-slate-600'}`} />
                       </div>
                       <div className="flex-1">
                         <div className="flex items-start justify-between">
                           <div>
-                            <p className="font-bold text-lg">{session.time}</p>
-                            <p className="text-xs text-slate-500 uppercase">{session.timeLabel}</p>
+                            <p className="font-bold text-lg text-white">{session.time}</p>
+                            <p className="text-xs text-slate-400 uppercase tracking-wider">{session.timeLabel}</p>
                           </div>
                           <div className="text-right flex-1 px-4">
                             <div className="flex items-center justify-end space-x-2 mb-1">
-                              {session.type === 'Video' && <Video className="w-4 h-4 text-blue-600" />}
-                              {session.type === 'Call' && <Phone className="w-4 h-4 text-slate-600" />}
-                              {session.type === 'In-Person' && <Users className="w-4 h-4 text-purple-600" />}
+                              {session.type === 'Video' && <Video className="w-4 h-4 text-blue-400" />}
+                              {session.type === 'Call' && <Phone className="w-4 h-4 text-slate-400" />}
+                              {session.type === 'In-Person' && <Users className="w-4 h-4 text-purple-400" />}
                               <span className={`text-xs px-2 py-1 rounded-full ${
-                                session.type === 'Video' ? 'bg-blue-100 text-blue-700' :
-                                session.type === 'Call' ? 'bg-slate-100 text-slate-700' :
-                                'bg-purple-100 text-purple-700'
+                                session.type === 'Video' ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' :
+                                session.type === 'Call' ? 'bg-slate-700/50 text-slate-300 border border-slate-600/30' :
+                                'bg-purple-500/20 text-purple-400 border border-purple-500/30'
                               }`}>
                                 {session.type}
                               </span>
                             </div>
-                            <p className="font-semibold">{session.client}</p>
-                            <p className="text-xs text-slate-500">{session.matter}</p>
+                            <p className="font-semibold text-white">{session.client}</p>
+                            <p className="text-xs text-slate-400">{session.matter}</p>
                           </div>
                           {idx === 2 && (
-                            <Button className="bg-blue-700 hover:bg-blue-600 text-white rounded-lg px-4 py-2 text-sm">
+                            <Button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-lg px-4 py-2 text-sm shadow-lg shadow-blue-500/50">
                               Join
                             </Button>
                           )}
@@ -367,33 +369,33 @@ export default function LawyerDashboard() {
               </div>
               
               {/* Messages */}
-              <div className="bg-white rounded-2xl border border-slate-200 p-6">
+              <div className="glass rounded-2xl border border-blue-500/20 p-6">
                 <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-xl font-bold">Messages</h2>
-                  <button className="text-slate-400 hover:text-slate-600">
+                  <h2 className="text-xl font-bold text-white">Messages</h2>
+                  <button className="text-slate-400 hover:text-white transition-colors">
                     <Search className="w-5 h-5" />
                   </button>
                 </div>
                 
                 <div className="space-y-4">
                   {messages.map((msg, idx) => (
-                    <div key={idx} className="flex items-start space-x-3 hover:bg-slate-50 p-2 rounded-xl transition-colors">
-                      <div className={`w-10 h-10 ${msg.color} rounded-full flex items-center justify-center flex-shrink-0`}>
+                    <div key={idx} className="flex items-start space-x-3 hover:bg-slate-800/30 p-2 rounded-xl transition-all duration-300 cursor-pointer">
+                      <div className={`w-10 h-10 ${msg.color} rounded-full flex items-center justify-center flex-shrink-0 shadow-lg`}>
                         <span className="text-white font-bold">{msg.initial}</span>
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between mb-1">
-                          <p className="font-semibold text-sm">{msg.name}</p>
-                          <span className="text-xs text-slate-400">{msg.time}</span>
+                          <p className="font-semibold text-sm text-white">{msg.name}</p>
+                          <span className="text-xs text-slate-500">{msg.time}</span>
                         </div>
-                        <p className="text-xs text-slate-600 truncate">{msg.message}</p>
+                        <p className="text-xs text-slate-400 truncate">{msg.message}</p>
                       </div>
-                      <div className="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2" />
+                      <div className="w-2 h-2 bg-green-400 rounded-full flex-shrink-0 mt-2 shadow-lg shadow-green-400/50" />
                     </div>
                   ))}
                 </div>
                 
-                <Button className="w-full mt-6 bg-slate-900 hover:bg-slate-800 text-white rounded-xl py-3">
+                <Button className="w-full mt-6 bg-gradient-to-r from-slate-800 to-slate-900 hover:from-slate-700 hover:to-slate-800 text-white rounded-xl py-3 border border-slate-700/50">
                   View All Messages →
                 </Button>
               </div>
