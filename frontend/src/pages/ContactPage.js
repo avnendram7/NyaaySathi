@@ -147,7 +147,7 @@ export default function ContactPage() {
               </div>
               
               <div className="glass rounded-3xl p-8">
-                <h3 className="text-xl font-bold mb-4">Office Hours</h3>
+                <h3 className="text-xl font-bold mb-4">Office Hours (IST)</h3>
                 <div className="space-y-2 text-slate-400">
                   <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
                   <p>Saturday: 10:00 AM - 4:00 PM</p>
