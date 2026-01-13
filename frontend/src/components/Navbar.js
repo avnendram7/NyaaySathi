@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from './ui/button';
-import { Scale, Menu, X } from 'lucide-react';
+import { Scale, Menu, X, Home, Info, Sparkles, HelpCircle } from 'lucide-react';
 import { useState } from 'react';
 
 export const Navbar = () => {
@@ -26,13 +26,22 @@ export const Navbar = () => {
           
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link to="/" className="text-slate-300 hover:text-white transition-colors">Home</Link>
-            <Link to="/about" className="text-slate-300 hover:text-white transition-colors">About</Link>
-            <Link to="/how-it-works" className="text-slate-300 hover:text-white transition-colors">How It Works</Link>
-            <Link to="/features" className="text-slate-300 hover:text-white transition-colors">Features</Link>
-            <Link to="/for-clients" className="text-slate-300 hover:text-white transition-colors">For Clients</Link>
-            <Link to="/for-lawyers" className="text-slate-300 hover:text-white transition-colors">For Lawyers</Link>
-            <Link to="/contact" className="text-slate-300 hover:text-white transition-colors">Contact</Link>
+            <Link to="/" className="flex items-center space-x-1 text-slate-300 hover:text-white transition-colors">
+              <Home className="w-4 h-4" />
+              <span>Home</span>
+            </Link>
+            <Link to="/about" className="flex items-center space-x-1 text-slate-300 hover:text-white transition-colors">
+              <Info className="w-4 h-4" />
+              <span>About</span>
+            </Link>
+            <Link to="/features" className="flex items-center space-x-1 text-slate-300 hover:text-white transition-colors">
+              <Sparkles className="w-4 h-4" />
+              <span>Features</span>
+            </Link>
+            <Link to="/contact" className="flex items-center space-x-1 text-slate-300 hover:text-white transition-colors">
+              <HelpCircle className="w-4 h-4" />
+              <span>Help</span>
+            </Link>
           </div>
           
           {/* Auth Buttons */}
