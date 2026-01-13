@@ -188,6 +188,20 @@ export default function LawyerDashboard() {
           </button>
           
           <button
+            data-testid="lawyer-network-nav"
+            onClick={() => setActiveTab('network')}
+            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 ${
+              activeTab === 'network' 
+                ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-500/50' 
+                : 'text-slate-400 hover:bg-slate-800/50 hover:text-white'
+            }`}
+          >
+            <Users className="w-5 h-5" />
+            <span className="font-medium">Lawyer Network</span>
+            <span className="ml-auto w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+          </button>
+          
+          <button
             data-testid="lawyer-earnings-nav"
             onClick={() => setActiveTab('earnings')}
             className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 ${
