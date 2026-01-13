@@ -818,62 +818,65 @@ export default function LawyerDashboard() {
           <div className="p-8">
             <div className="flex items-center justify-between mb-8">
               <div>
-                <h1 className="text-3xl font-bold mb-2">Earnings</h1>
-                <p className="text-slate-600">Track your income and manage your finances.</p>
+                <h1 className="text-3xl font-bold text-white mb-2">Earnings & Billing</h1>
+                <p className="text-slate-400">Track your income and manage your finances</p>
               </div>
-              <Button className="bg-blue-700 hover:bg-blue-600 text-white rounded-xl px-6">
+              <Button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl px-6 shadow-lg shadow-blue-500/50">
                 Generate Report
               </Button>
             </div>
             
             {/* Revenue Stats */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="bg-white rounded-2xl border border-slate-200 p-6">
-                <p className="text-sm text-slate-600 mb-2">Total Revenue</p>
-                <h3 className="text-4xl font-bold">₹2,56,789.50</h3>
+              <div className="glass rounded-2xl border border-blue-500/20 p-6 relative overflow-hidden group">
+                <div className="absolute -right-4 -top-4 w-24 h-24 bg-blue-500/10 rounded-full blur-2xl"></div>
+                <p className="text-sm text-slate-400 mb-2 relative z-10">Total Revenue</p>
+                <h3 className="text-4xl font-bold text-white relative z-10">₹2,56,789.50</h3>
               </div>
               
-              <div className="bg-white rounded-2xl border border-slate-200 p-6">
-                <p className="text-sm text-slate-600 mb-2">This Month</p>
-                <h3 className="text-4xl font-bold">₹15,430.00</h3>
+              <div className="glass rounded-2xl border border-green-500/20 p-6 relative overflow-hidden group">
+                <div className="absolute -right-4 -top-4 w-24 h-24 bg-green-500/10 rounded-full blur-2xl"></div>
+                <p className="text-sm text-slate-400 mb-2 relative z-10">This Month</p>
+                <h3 className="text-4xl font-bold text-white relative z-10">₹15,430.00</h3>
               </div>
               
-              <div className="bg-white rounded-2xl border border-slate-200 p-6">
-                <p className="text-sm text-slate-600 mb-2">Pending Payments</p>
-                <h3 className="text-4xl font-bold">₹8,200.00</h3>
+              <div className="glass rounded-2xl border border-amber-500/20 p-6 relative overflow-hidden group">
+                <div className="absolute -right-4 -top-4 w-24 h-24 bg-amber-500/10 rounded-full blur-2xl"></div>
+                <p className="text-sm text-slate-400 mb-2 relative z-10">Pending Payments</p>
+                <h3 className="text-4xl font-bold text-white relative z-10">₹8,200.00</h3>
               </div>
             </div>
             
             {/* Billing History */}
-            <div className="bg-white rounded-2xl border border-slate-200">
-              <div className="p-6 border-b border-slate-200">
-                <h2 className="text-xl font-bold">Billing History</h2>
+            <div className="glass rounded-2xl border border-blue-500/20">
+              <div className="p-6 border-b border-slate-800/50">
+                <h2 className="text-xl font-bold text-white">Billing History</h2>
               </div>
               
               <table className="w-full">
-                <thead className="bg-slate-50 border-b border-slate-200">
+                <thead className="bg-slate-900/50 border-b border-slate-800/50">
                   <tr>
-                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-600 uppercase">Invoice ID</th>
-                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-600 uppercase">Client Name</th>
-                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-600 uppercase">Case</th>
-                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-600 uppercase">Date</th>
-                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-600 uppercase">Amount</th>
-                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-600 uppercase">Status</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Invoice ID</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Client Name</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Case</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Date</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Amount</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Status</th>
                   </tr>
                 </thead>
                 <tbody>
                   {billingHistory.map((bill, idx) => (
-                    <tr key={idx} className="border-b border-slate-100 hover:bg-slate-50">
-                      <td className="px-6 py-4 font-medium">{bill.invoice}</td>
-                      <td className="px-6 py-4">{bill.client}</td>
-                      <td className="px-6 py-4 text-sm text-slate-600">{bill.case}</td>
-                      <td className="px-6 py-4 text-sm text-slate-600">{bill.date}</td>
-                      <td className="px-6 py-4 font-semibold">{bill.amount}</td>
+                    <tr key={idx} className="border-b border-slate-800/30 hover:bg-slate-900/30 transition-all duration-200">
+                      <td className="px-6 py-4 font-medium text-white">{bill.invoice}</td>
+                      <td className="px-6 py-4 text-white">{bill.client}</td>
+                      <td className="px-6 py-4 text-sm text-slate-400">{bill.case}</td>
+                      <td className="px-6 py-4 text-sm text-slate-400">{bill.date}</td>
+                      <td className="px-6 py-4 font-semibold text-white">{bill.amount}</td>
                       <td className="px-6 py-4">
                         <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                          bill.status === 'Paid' ? 'bg-green-100 text-green-700' :
-                          bill.status === 'Pending' ? 'bg-amber-100 text-amber-700' :
-                          'bg-red-100 text-red-700'
+                          bill.status === 'Paid' ? 'bg-green-500/20 text-green-400 border border-green-500/30' :
+                          bill.status === 'Pending' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30' :
+                          'bg-red-500/20 text-red-400 border border-red-500/30'
                         }`}>
                           {bill.status}
                         </span>
