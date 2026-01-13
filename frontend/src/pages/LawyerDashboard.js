@@ -55,6 +55,14 @@ export default function LawyerDashboard() {
     { invoice: 'INV-00121', client: 'Vikram Singh', case: 'Case #V342-A vs. Company', date: '2026-02-05', amount: '₹1,500.00', status: 'Paid' }
   ];
   
+  const networkMessages = [
+    { id: 1, sender: 'Adv. Mehra', message: 'Anyone has experience with property dispute appeals in Delhi HC?', time: '10:30 AM', replies: 3, online: true },
+    { id: 2, sender: 'Adv. Kapoor', message: 'Need urgent help: Client asking about anticipatory bail procedure. Anyone free for quick call?', time: '10:15 AM', replies: 7, online: true },
+    { id: 3, sender: 'Adv. Desai', message: 'Sharing latest Supreme Court judgment on Section 498A - very helpful!', time: '09:45 AM', replies: 12, online: false },
+    { id: 4, sender: 'Adv. Verma', message: 'Looking for junior associate for consumer court case in Sonipat. DM if interested.', time: '09:20 AM', replies: 5, online: true },
+    { id: 5, sender: 'Adv. Reddy', message: 'Question: How long does it typically take for bail hearing in Sessions Court?', time: 'Yesterday', replies: 15, online: false }
+  ];
+  
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
