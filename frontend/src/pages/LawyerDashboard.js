@@ -101,23 +101,23 @@ export default function LawyerDashboard() {
   return (
     <div className="min-h-screen bg-slate-950 flex">
       {/* Sidebar */}
-      <div className="w-64 bg-slate-900/50 border-r border-slate-800 flex flex-col">
+      <div className="w-64 bg-slate-900/80 backdrop-blur-xl border-r border-blue-500/20 flex flex-col">
         {/* Logo */}
-        <div className="p-6 border-b border-slate-800">
+        <div className="p-6 border-b border-blue-500/20">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center">
+            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full flex items-center justify-center shadow-lg shadow-blue-500/50">
               <span className="text-white font-bold text-lg">N</span>
             </div>
             <div>
-              <span className="text-xl font-bold block">NyaaySathi</span>
-              <span className="text-xs text-slate-500">LEGAL PARTNER</span>
+              <span className="text-xl font-bold block text-white">NyaaySathi</span>
+              <span className="text-xs text-blue-400">LEGAL PARTNER</span>
             </div>
           </div>
         </div>
         
         {/* Menu Label */}
         <div className="px-6 py-3">
-          <span className="text-xs text-slate-500 uppercase font-semibold">MENU</span>
+          <span className="text-xs text-slate-500 uppercase font-semibold tracking-wider">MENU</span>
         </div>
         
         {/* Navigation */}
