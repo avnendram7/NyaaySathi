@@ -236,74 +236,77 @@ export default function LawyerDashboard() {
             {/* Header */}
             <div className="flex items-center justify-between mb-8">
               <div>
-                <p className="text-sm text-green-600 flex items-center mb-2">
-                  <span className="w-2 h-2 bg-green-600 rounded-full mr-2"></span>
+                <p className="text-sm text-green-400 flex items-center mb-2">
+                  <span className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
                   Wednesday, January 14
                 </p>
-                <h1 className="text-4xl font-bold">
-                  Good Morning, <span className="text-blue-700">Lawyer</span>
+                <h1 className="text-4xl font-bold text-white">
+                  Good Morning, <span className="text-blue-400">Lawyer</span>
                 </h1>
               </div>
               <div className="flex items-center space-x-3">
-                <button className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center hover:bg-slate-50">
-                  <Search className="w-5 h-5 text-slate-600" />
+                <button className="w-10 h-10 rounded-full glass border border-blue-500/20 flex items-center justify-center hover:bg-slate-800/50 transition-all">
+                  <Search className="w-5 h-5 text-slate-400" />
                 </button>
-                <button className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center hover:bg-slate-50 relative">
-                  <span className="w-2 h-2 bg-red-500 rounded-full absolute top-2 right-2"></span>
+                <button className="w-10 h-10 rounded-full glass border border-blue-500/20 flex items-center justify-center hover:bg-slate-800/50 transition-all relative">
+                  <span className="w-2 h-2 bg-red-500 rounded-full absolute top-2 right-2 animate-pulse"></span>
                   <span className="text-xl">🔔</span>
                 </button>
-                <Button className="bg-slate-900 hover:bg-slate-800 text-white rounded-xl px-6">
+                <Button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl px-6 shadow-lg shadow-blue-500/50">
                   + New Case
                 </Button>
               </div>
             </div>
             
-            {/* Stats Cards */}
+            {/* Stats Cards with Floating Icons */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                    <FileText className="w-6 h-6 text-blue-700" />
+              <div className="glass rounded-2xl p-6 border border-blue-500/20 relative overflow-hidden group hover:border-blue-500/40 transition-all duration-300">
+                <div className="absolute -right-4 -top-4 w-24 h-24 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition-all duration-500"></div>
+                <div className="flex items-center justify-between mb-4 relative z-10">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/50 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                    <FileText className="w-6 h-6 text-white" />
                   </div>
                   <div className="text-right">
-                    <p className="text-xs text-slate-500 uppercase">Active Cases</p>
-                    <h3 className="text-4xl font-bold mt-1">12</h3>
+                    <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">Active Cases</p>
+                    <h3 className="text-4xl font-bold text-white">12</h3>
                   </div>
                 </div>
-                <div className="flex items-center text-sm">
-                  <span className="text-blue-700 font-semibold">+2 New</span>
+                <div className="flex items-center text-sm relative z-10">
+                  <span className="text-blue-400 font-semibold">+2 New</span>
                   <span className="ml-2 text-slate-500">→</span>
                 </div>
               </div>
               
-              <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center">
-                    <Clock className="w-6 h-6 text-amber-700" />
+              <div className="glass rounded-2xl p-6 border border-amber-500/20 relative overflow-hidden group hover:border-amber-500/40 transition-all duration-300">
+                <div className="absolute -right-4 -top-4 w-24 h-24 bg-amber-500/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition-all duration-500"></div>
+                <div className="flex items-center justify-between mb-4 relative z-10">
+                  <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg shadow-amber-500/50 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                    <Clock className="w-6 h-6 text-white" />
                   </div>
                   <div className="text-right">
-                    <p className="text-xs text-slate-500 uppercase">Pending Actions</p>
-                    <h3 className="text-4xl font-bold mt-1">4</h3>
+                    <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">Pending Actions</p>
+                    <h3 className="text-4xl font-bold text-white">4</h3>
                   </div>
                 </div>
-                <div className="flex items-center text-sm">
-                  <span className="text-amber-700 font-semibold">Urgent</span>
+                <div className="flex items-center text-sm relative z-10">
+                  <span className="text-amber-400 font-semibold">Urgent</span>
                   <span className="ml-2 text-slate-500">→</span>
                 </div>
               </div>
               
-              <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-                    <span className="text-2xl">₹</span>
+              <div className="glass rounded-2xl p-6 border border-green-500/20 relative overflow-hidden group hover:border-green-500/40 transition-all duration-300">
+                <div className="absolute -right-4 -top-4 w-24 h-24 bg-green-500/10 rounded-full blur-2xl group-hover:bg-green-500/20 transition-all duration-500"></div>
+                <div className="flex items-center justify-between mb-4 relative z-10">
+                  <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg shadow-green-500/50 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                    <span className="text-2xl text-white">₹</span>
                   </div>
                   <div className="text-right">
-                    <p className="text-xs text-slate-500 uppercase">Total Earnings</p>
-                    <h3 className="text-4xl font-bold mt-1">₹8,500</h3>
+                    <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">Total Earnings</p>
+                    <h3 className="text-4xl font-bold text-white">₹8,500</h3>
                   </div>
                 </div>
-                <div className="flex items-center text-sm">
-                  <span className="text-green-700 font-semibold">+15% Growth</span>
+                <div className="flex items-center text-sm relative z-10">
+                  <span className="text-green-400 font-semibold">+15% Growth</span>
                   <span className="ml-2 text-slate-500">→</span>
                 </div>
               </div>
