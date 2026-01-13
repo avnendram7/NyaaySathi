@@ -1,26 +1,59 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/ui/button';
-import { Card } from '../components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
-import { Scale, LogOut, Users, Calendar, FileText, CheckCircle, XCircle } from 'lucide-react';
+import { Input } from '../components/ui/input';
+import { Scale, LogOut, LayoutDashboard, Calendar as CalendarIcon, MessageSquare, FileText, Users, TrendingUp, Search, MoreVertical, User, Clock, Phone, Video, CheckCircle, AlertCircle, Archive } from 'lucide-react';
 import { toast } from 'sonner';
 import axios from 'axios';
 import { API } from '../App';
-import { Calendar as BigCalendar, momentLocalizer } from 'react-big-calendar';
-import moment from 'moment';
-import 'react-big-calendar/lib/css/react-big-calendar.css';
-
-const localizer = momentLocalizer(moment);
 
 export default function LawyerDashboard() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const [activeTab, setActiveTab] = useState('dashboard');
   const [cases, setCases] = useState([]);
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(false);
   
   const token = localStorage.getItem('token');
+  
+  // Dummy data for demonstration
+  const todaySchedule = [
+    { time: '03:29 AM', timeLabel: 'IN 2 HOURS', client: 'Rajesh Kumar', matter: 'Property Dispute', type: 'Video', status: 'upcoming' },
+    { time: '06:29 AM', timeLabel: 'TODAY', client: 'Priya Sharma', matter: 'Divorce Case', type: 'Call', status: 'upcoming' },
+    { time: '01:29 AM', timeLabel: 'TOMORROW', client: 'Amit Patel', matter: 'Consumer Rights', type: 'In-Person', status: 'upcoming' },
+    { time: '05:29 AM', timeLabel: 'TOMORROW', client: 'Neha Gupta', matter: 'Employment Dispute', type: 'Video', status: 'upcoming' },
+    { time: '01:29 AM', timeLabel: 'WED', client: 'Vikram Singh', matter: 'Property Agreement', type: 'In-Person', status: 'upcoming' }
+  ];
+  
+  const messages = [
+    { name: 'Rajesh Kumar', message: 'Hi, I have uploaded the documents we discussed...', time: '12m', initial: 'R', color: 'bg-blue-500' },
+    { name: 'Priya Sharma', message: 'Thanks for the update. I will review and get back...', time: '12m', initial: 'P', color: 'bg-purple-500' },
+    { name: 'Amit Patel', message: 'Quick question about the upcoming hearing...', time: '12m', initial: 'A', color: 'bg-amber-500' },
+    { name: 'Neha Gupta', message: 'Can we reschedule our meeting to next week...', time: '12m', initial: 'N', color: 'bg-blue-400' }
+  ];
+  
+  const dummyCases = [
+    { id: '1', title: 'Kumar vs. Builder Corp', client: 'Rajesh Kumar', type: 'Property Dispute', activity: '2 hours ago', status: 'Active' },
+    { id: '2', title: 'Sharma Divorce Case', client: 'Priya Sharma', type: 'Family Law', activity: 'Yesterday', status: 'Active' },
+    { id: '3', title: 'Patel Consumer Rights', client: 'Amit Patel', type: 'Consumer Law', activity: '3 days ago', status: 'Pending' },
+    { id: '4', title: 'Singh Employment Dispute', client: 'Vikram Singh', type: 'Employment Law', activity: 'June 5, 2026', status: 'Closed' }
+  ];
+  
+  const documents = [
+    { name: 'Client_Agreement_Kumar.pdf', case: 'Case #K102-B vs. Builder Corp', type: 'Contract', date: 'Feb 24, 2026', size: '2.4 MB' },
+    { name: 'Divorce_Petition_Sharma.docx', case: 'Case #S231-C vs. Sharma', type: 'Petition', date: 'Feb 22, 2026', size: '1.8 MB' },
+    { name: 'Evidence_Photos_Patel.png', case: 'Case #P102-B vs. Shop', type: 'Evidence', date: 'Feb 20, 2026', size: '15.2 MB' },
+    { name: 'Witness_Statement_Singh.pdf', case: 'Case #V102-B vs. Company', type: 'Statement', date: 'Feb 15, 2026', size: '1.2 MB' }
+  ];
+  
+  const billingHistory = [
+    { invoice: 'INV-00125', client: 'Rajesh Kumar', case: 'Case #K102-B vs. Builder', date: '2026-02-25', amount: '₹5,250.00', status: 'Paid' },
+    { invoice: 'INV-00124', client: 'Priya Sharma', case: 'Case #S231-C vs. Sharma', date: '2026-02-22', amount: '₹8,200.00', status: 'Pending' },
+    { invoice: 'INV-00123', client: 'Amit Patel', case: 'Case #P102-B vs. Shop', date: '2026-02-15', amount: '₹3,500.00', status: 'Paid' },
+    { invoice: 'INV-00122', client: 'Neha Gupta', case: 'Case #N198-A vs. Employer', date: '2026-02-10', amount: '₹12,000.00', status: 'Overdue' },
+    { invoice: 'INV-00121', client: 'Vikram Singh', case: 'Case #V342-A vs. Company', date: '2026-02-05', amount: '₹1,500.00', status: 'Paid' }
+  ];
   
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -65,210 +98,619 @@ export default function LawyerDashboard() {
     }
   };
   
-  const calendarEvents = bookings.map(booking => ({
-    title: `Consultation - ${booking.status}`,
-    start: new Date(`${booking.date} ${booking.time}`),
-    end: new Date(new Date(`${booking.date} ${booking.time}`).getTime() + 60 * 60 * 1000)
-  }));
-  
-  const stats = {
-    totalCases: cases.length,
-    totalBookings: bookings.length,
-    pendingBookings: bookings.filter(b => b.status === 'pending').length,
-    confirmedBookings: bookings.filter(b => b.status === 'confirmed').length
-  };
-  
   return (
-    <div className="min-h-screen bg-slate-950">
-      {/* Header */}
-      <div className="glass border-b border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+    <div className="min-h-screen bg-slate-950 flex">
+      {/* Sidebar */}
+      <div className="w-64 bg-slate-900/50 border-r border-slate-800 flex flex-col">
+        {/* Logo */}
+        <div className="p-6 border-b border-slate-800">
           <div className="flex items-center space-x-3">
-            <Scale className="w-8 h-8 text-blue-500" />
+            <div className="w-10 h-10 bg-blue-700 rounded-full flex items-center justify-center">
+              <span className="text-white font-bold text-lg">N</span>
+            </div>
             <div>
-              <h1 className="text-xl font-bold">Nyaay Sathi - Lawyer Portal</h1>
-              <p className="text-sm text-slate-400">Welcome, {user?.full_name}</p>
+              <span className="text-xl font-bold block">NyaaySathi</span>
+              <span className="text-xs text-slate-500">LEGAL PARTNER</span>
             </div>
           </div>
-          <Button 
-            data-testid="lawyer-dashboard-logout-btn"
-            onClick={handleLogout}
-            variant="outline"
-            className="border-slate-700"
+        </div>
+        
+        {/* Menu Label */}
+        <div className="px-6 py-3">
+          <span className="text-xs text-slate-500 uppercase font-semibold">MENU</span>
+        </div>
+        
+        {/* Navigation */}
+        <nav className="flex-1 px-4 space-y-1">
+          <button
+            data-testid="lawyer-dashboard-nav"
+            onClick={() => setActiveTab('dashboard')}
+            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all ${
+              activeTab === 'dashboard' 
+                ? 'bg-blue-700 text-white' 
+                : 'text-slate-400 hover:bg-slate-800 hover:text-white'
+            }`}
           >
-            <LogOut className="w-4 h-4 mr-2" />
-            Logout
+            <LayoutDashboard className="w-5 h-5" />
+            <span className="font-medium">Dashboard</span>
+          </button>
+          
+          <button
+            data-testid="lawyer-cases-nav"
+            onClick={() => setActiveTab('cases')}
+            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all ${
+              activeTab === 'cases' 
+                ? 'bg-blue-700 text-white' 
+                : 'text-slate-400 hover:bg-slate-800 hover:text-white'
+            }`}
+          >
+            <FileText className="w-5 h-5" />
+            <span className="font-medium">Cases</span>
+          </button>
+          
+          <button
+            data-testid="lawyer-calendar-nav"
+            onClick={() => setActiveTab('calendar')}
+            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all ${
+              activeTab === 'calendar' 
+                ? 'bg-blue-700 text-white' 
+                : 'text-slate-400 hover:bg-slate-800 hover:text-white'
+            }`}
+          >
+            <CalendarIcon className="w-5 h-5" />
+            <span className="font-medium">Calendar</span>
+          </button>
+          
+          <button
+            data-testid="lawyer-messages-nav"
+            onClick={() => setActiveTab('messages')}
+            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all ${
+              activeTab === 'messages' 
+                ? 'bg-blue-700 text-white' 
+                : 'text-slate-400 hover:bg-slate-800 hover:text-white'
+            }`}
+          >
+            <MessageSquare className="w-5 h-5" />
+            <span className="font-medium">Messages</span>
+          </button>
+          
+          <button
+            data-testid="lawyer-documents-nav"
+            onClick={() => setActiveTab('documents')}
+            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all ${
+              activeTab === 'documents' 
+                ? 'bg-blue-700 text-white' 
+                : 'text-slate-400 hover:bg-slate-800 hover:text-white'
+            }`}
+          >
+            <FileText className="w-5 h-5" />
+            <span className="font-medium">Documents</span>
+          </button>
+          
+          <button
+            data-testid="lawyer-earnings-nav"
+            onClick={() => setActiveTab('earnings')}
+            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all ${
+              activeTab === 'earnings' 
+                ? 'bg-blue-700 text-white' 
+                : 'text-slate-400 hover:bg-slate-800 hover:text-white'
+            }`}
+          >
+            <TrendingUp className="w-5 h-5" />
+            <span className="font-medium">Earnings</span>
+          </button>
+        </nav>
+        
+        {/* New Case Button */}
+        <div className="p-4">
+          <Button className="w-full bg-blue-700 hover:bg-blue-600 text-white rounded-xl py-6">
+            <span className="mr-2">+</span> New Case
           </Button>
+        </div>
+        
+        {/* User Profile */}
+        <div className="p-4 border-t border-slate-800">
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-600 rounded-full flex items-center justify-center">
+              <span className="text-white font-bold">L</span>
+            </div>
+            <div className="flex-1">
+              <p className="text-sm font-semibold">{user?.full_name || 'Lawyer'}</p>
+              <p className="text-xs text-slate-500">Criminal Law</p>
+            </div>
+            <button
+              data-testid="lawyer-logout-btn"
+              onClick={handleLogout}
+              className="text-slate-400 hover:text-white"
+            >
+              <LogOut className="w-5 h-5" />
+            </button>
+          </div>
         </div>
       </div>
       
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="bg-slate-900 border border-slate-800">
-            <TabsTrigger data-testid="lawyer-overview-tab" value="overview">Overview</TabsTrigger>
-            <TabsTrigger data-testid="lawyer-clients-tab" value="clients">Clients & Cases</TabsTrigger>
-            <TabsTrigger data-testid="lawyer-schedule-tab" value="schedule">Schedule</TabsTrigger>
-            <TabsTrigger data-testid="lawyer-bookings-tab" value="bookings">Bookings</TabsTrigger>
-          </TabsList>
-          
-          {/* Overview Tab */}
-          <TabsContent value="overview" data-testid="lawyer-overview-content">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <Card className="glass p-6">
-                <FileText className="w-10 h-10 text-blue-500 mb-3" />
-                <h3 className="text-2xl font-bold mb-1">{stats.totalCases}</h3>
-                <p className="text-slate-400">Total Cases</p>
-              </Card>
-              
-              <Card className="glass p-6">
-                <Calendar className="w-10 h-10 text-blue-500 mb-3" />
-                <h3 className="text-2xl font-bold mb-1">{stats.totalBookings}</h3>
-                <p className="text-slate-400">Consultations</p>
-              </Card>
-              
-              <Card className="glass p-6">
-                <CheckCircle className="w-10 h-10 text-green-500 mb-3" />
-                <h3 className="text-2xl font-bold mb-1">{stats.confirmedBookings}</h3>
-                <p className="text-slate-400">Confirmed</p>
-              </Card>
-              
-              <Card className="glass p-6">
-                <Users className="w-10 h-10 text-yellow-500 mb-3" />
-                <h3 className="text-2xl font-bold mb-1">{stats.pendingBookings}</h3>
-                <p className="text-slate-400">Pending</p>
-              </Card>
+      {/* Main Content */}
+      <div className="flex-1 overflow-y-auto bg-white">
+        {activeTab === 'dashboard' && (
+          <div className="p-8">
+            {/* Header */}
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <p className="text-sm text-green-600 flex items-center mb-2">
+                  <span className="w-2 h-2 bg-green-600 rounded-full mr-2"></span>
+                  Wednesday, January 14
+                </p>
+                <h1 className="text-4xl font-bold">
+                  Good Morning, <span className="text-blue-700">Lawyer</span>
+                </h1>
+              </div>
+              <div className="flex items-center space-x-3">
+                <button className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center hover:bg-slate-50">
+                  <Search className="w-5 h-5 text-slate-600" />
+                </button>
+                <button className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center hover:bg-slate-50 relative">
+                  <span className="w-2 h-2 bg-red-500 rounded-full absolute top-2 right-2"></span>
+                  <span className="text-xl">🔔</span>
+                </button>
+                <Button className="bg-slate-900 hover:bg-slate-800 text-white rounded-xl px-6">
+                  + New Case
+                </Button>
+              </div>
             </div>
             
-            <div className="mt-8 glass rounded-2xl p-6">
-              <h2 className="text-2xl font-bold mb-4">Recent Activity</h2>
-              <div className="space-y-3">
-                {bookings.slice(0, 5).map(booking => (
-                  <div key={booking.id} className="bg-slate-900 rounded-xl p-4 flex justify-between items-center">
-                    <div>
-                      <h4 className="font-bold mb-1">Consultation Request</h4>
-                      <p className="text-sm text-slate-400">{booking.date} at {booking.time}</p>
-                    </div>
-                    <span className={`px-3 py-1 rounded-full text-xs ${
-                      booking.status === 'confirmed' ? 'bg-green-700/20 text-green-400' :
-                      booking.status === 'pending' ? 'bg-yellow-700/20 text-yellow-400' :
-                      'bg-red-700/20 text-red-400'
-                    }`}>
-                      {booking.status}
-                    </span>
+            {/* Stats Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                    <FileText className="w-6 h-6 text-blue-700" />
                   </div>
-                ))}
+                  <div className="text-right">
+                    <p className="text-xs text-slate-500 uppercase">Active Cases</p>
+                    <h3 className="text-4xl font-bold mt-1">12</h3>
+                  </div>
+                </div>
+                <div className="flex items-center text-sm">
+                  <span className="text-blue-700 font-semibold">+2 New</span>
+                  <span className="ml-2 text-slate-500">→</span>
+                </div>
+              </div>
+              
+              <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center">
+                    <Clock className="w-6 h-6 text-amber-700" />
+                  </div>
+                  <div className="text-right">
+                    <p className="text-xs text-slate-500 uppercase">Pending Actions</p>
+                    <h3 className="text-4xl font-bold mt-1">4</h3>
+                  </div>
+                </div>
+                <div className="flex items-center text-sm">
+                  <span className="text-amber-700 font-semibold">Urgent</span>
+                  <span className="ml-2 text-slate-500">→</span>
+                </div>
+              </div>
+              
+              <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                    <span className="text-2xl">₹</span>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-xs text-slate-500 uppercase">Total Earnings</p>
+                    <h3 className="text-4xl font-bold mt-1">₹8,500</h3>
+                  </div>
+                </div>
+                <div className="flex items-center text-sm">
+                  <span className="text-green-700 font-semibold">+15% Growth</span>
+                  <span className="ml-2 text-slate-500">→</span>
+                </div>
               </div>
             </div>
-          </TabsContent>
-          
-          {/* Clients & Cases Tab */}
-          <TabsContent value="clients" data-testid="lawyer-clients-content">
-            <div className="glass rounded-2xl p-6">
-              <h2 className="text-2xl font-bold mb-6">All Cases</h2>
-              <div className="space-y-4">
-                {cases.length === 0 ? (
-                  <p className="text-slate-400">No cases assigned yet.</p>
-                ) : (
-                  cases.map(c => (
-                    <div key={c.id} className="bg-slate-900 rounded-xl p-6">
-                      <div className="flex justify-between items-start mb-3">
-                        <div>
-                          <h3 className="text-xl font-bold mb-1">{c.title}</h3>
-                          <p className="text-slate-400">Case #{c.case_number}</p>
-                        </div>
-                        <span className="px-3 py-1 bg-blue-700/20 text-blue-400 rounded-full text-sm">
-                          {c.status}
-                        </span>
+            
+            {/* Schedule and Messages */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Today's Schedule */}
+              <div className="lg:col-span-2 bg-white rounded-2xl border border-slate-200 p-6">
+                <div className="flex items-center justify-between mb-6">
+                  <div>
+                    <h2 className="text-xl font-bold mb-1">Today's Schedule</h2>
+                    <p className="text-sm text-slate-500">You have 5 sessions remaining today</p>
+                  </div>
+                  <button className="text-slate-400 hover:text-slate-600">
+                    <MoreVertical className="w-5 h-5" />
+                  </button>
+                </div>
+                
+                <div className="space-y-3">
+                  {todaySchedule.map((session, idx) => (
+                    <div key={idx} className="flex items-center space-x-4 p-4 bg-slate-50 rounded-xl hover:bg-slate-100 transition-colors">
+                      <div className="flex-shrink-0">
+                        <div className={`w-1 h-12 rounded-full ${idx === 0 ? 'bg-blue-700' : 'bg-slate-300'}`} />
                       </div>
-                      <p className="text-slate-300 mb-3">{c.description}</p>
-                      <div className="flex items-center justify-between text-sm">
-                        <p className="text-slate-500">
-                          Created: {new Date(c.created_at).toLocaleDateString()}
-                        </p>
+                      <div className="flex-1">
+                        <div className="flex items-start justify-between">
+                          <div>
+                            <p className="font-bold text-lg">{session.time}</p>
+                            <p className="text-xs text-slate-500 uppercase">{session.timeLabel}</p>
+                          </div>
+                          <div className="text-right flex-1 px-4">
+                            <div className="flex items-center justify-end space-x-2 mb-1">
+                              {session.type === 'Video' && <Video className="w-4 h-4 text-blue-600" />}
+                              {session.type === 'Call' && <Phone className="w-4 h-4 text-slate-600" />}
+                              {session.type === 'In-Person' && <Users className="w-4 h-4 text-purple-600" />}
+                              <span className={`text-xs px-2 py-1 rounded-full ${
+                                session.type === 'Video' ? 'bg-blue-100 text-blue-700' :
+                                session.type === 'Call' ? 'bg-slate-100 text-slate-700' :
+                                'bg-purple-100 text-purple-700'
+                              }`}>
+                                {session.type}
+                              </span>
+                            </div>
+                            <p className="font-semibold">{session.client}</p>
+                            <p className="text-xs text-slate-500">{session.matter}</p>
+                          </div>
+                          {idx === 2 && (
+                            <Button className="bg-blue-700 hover:bg-blue-600 text-white rounded-lg px-4 py-2 text-sm">
+                              Join
+                            </Button>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  ))
-                )}
+                  ))}
+                </div>
+              </div>
+              
+              {/* Messages */}
+              <div className="bg-white rounded-2xl border border-slate-200 p-6">
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-xl font-bold">Messages</h2>
+                  <button className="text-slate-400 hover:text-slate-600">
+                    <Search className="w-5 h-5" />
+                  </button>
+                </div>
+                
+                <div className="space-y-4">
+                  {messages.map((msg, idx) => (
+                    <div key={idx} className="flex items-start space-x-3 hover:bg-slate-50 p-2 rounded-xl transition-colors">
+                      <div className={`w-10 h-10 ${msg.color} rounded-full flex items-center justify-center flex-shrink-0`}>
+                        <span className="text-white font-bold">{msg.initial}</span>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between mb-1">
+                          <p className="font-semibold text-sm">{msg.name}</p>
+                          <span className="text-xs text-slate-400">{msg.time}</span>
+                        </div>
+                        <p className="text-xs text-slate-600 truncate">{msg.message}</p>
+                      </div>
+                      <div className="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2" />
+                    </div>
+                  ))}
+                </div>
+                
+                <Button className="w-full mt-6 bg-slate-900 hover:bg-slate-800 text-white rounded-xl py-3">
+                  View All Messages →
+                </Button>
               </div>
             </div>
-          </TabsContent>
-          
-          {/* Schedule Tab */}
-          <TabsContent value="schedule" data-testid="lawyer-schedule-content">
-            <div className="glass rounded-2xl p-6">
-              <h2 className="text-2xl font-bold mb-6">My Schedule</h2>
-              <div style={{ height: 600 }}>
-                <BigCalendar
-                  localizer={localizer}
-                  events={calendarEvents}
-                  startAccessor="start"
-                  endAccessor="end"
-                  style={{ color: '#fff', background: '#0f172a', borderRadius: '12px', padding: '20px' }}
+          </div>
+        )}
+        
+        {activeTab === 'cases' && (
+          <div className="p-8">
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <h1 className="text-3xl font-bold mb-2">Case Management</h1>
+                <p className="text-slate-600">Track your active cases, clients, and legal proceedings.</p>
+              </div>
+              <Button className="bg-slate-900 hover:bg-slate-800 text-white rounded-xl px-6">
+                + New Case
+              </Button>
+            </div>
+            
+            {/* Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+              <div className="bg-white rounded-2xl border border-slate-200 p-6">
+                <div className="flex items-center space-x-3 mb-3">
+                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                    <FileText className="w-5 h-5 text-blue-700" />
+                  </div>
+                  <div>
+                    <h3 className="text-3xl font-bold">124</h3>
+                    <p className="text-xs text-slate-500 uppercase">Total Cases</p>
+                  </div>
+                </div>
+                <p className="text-xs text-blue-700">All Time</p>
+              </div>
+              
+              <div className="bg-white rounded-2xl border border-slate-200 p-6">
+                <div className="flex items-center space-x-3 mb-3">
+                  <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                    <CheckCircle className="w-5 h-5 text-green-700" />
+                  </div>
+                  <div>
+                    <h3 className="text-3xl font-bold">12</h3>
+                    <p className="text-xs text-slate-500 uppercase">Active</p>
+                  </div>
+                </div>
+                <p className="text-xs text-green-700">Current</p>
+              </div>
+              
+              <div className="bg-white rounded-2xl border border-slate-200 p-6">
+                <div className="flex items-center space-x-3 mb-3">
+                  <div className="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center">
+                    <Clock className="w-5 h-5 text-amber-700" />
+                  </div>
+                  <div>
+                    <h3 className="text-3xl font-bold">8</h3>
+                    <p className="text-xs text-slate-500 uppercase">Pending</p>
+                  </div>
+                </div>
+                <p className="text-xs text-amber-700">Needs Action</p>
+              </div>
+              
+              <div className="bg-white rounded-2xl border border-slate-200 p-6">
+                <div className="flex items-center space-x-3 mb-3">
+                  <div className="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center">
+                    <Archive className="w-5 h-5 text-slate-700" />
+                  </div>
+                  <div>
+                    <h3 className="text-3xl font-bold">104</h3>
+                    <p className="text-xs text-slate-500 uppercase">Archived</p>
+                  </div>
+                </div>
+                <p className="text-xs text-slate-700">Closed</p>
+              </div>
+            </div>
+            
+            {/* Search and Filter */}
+            <div className="flex items-center justify-between mb-6">
+              <div className="relative flex-1 max-w-md">
+                <Search className="w-5 h-5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <Input
+                  placeholder="Search cases, clients..."
+                  className="pl-10 bg-white border-slate-200 rounded-xl"
                 />
               </div>
-            </div>
-          </TabsContent>
-          
-          {/* Bookings Tab */}
-          <TabsContent value="bookings" data-testid="lawyer-bookings-content">
-            <div className="glass rounded-2xl p-6">
-              <h2 className="text-2xl font-bold mb-6">Consultation Requests</h2>
-              <div className="space-y-4">
-                {bookings.length === 0 ? (
-                  <p className="text-slate-400">No consultation requests yet.</p>
-                ) : (
-                  bookings.map(booking => (
-                    <div key={booking.id} className="bg-slate-900 rounded-xl p-6">
-                      <div className="flex justify-between items-start mb-3">
-                        <div className="flex-1">
-                          <h3 className="text-xl font-bold mb-2">Consultation Request</h3>
-                          <div className="space-y-1 text-sm">
-                            <p className="text-slate-400">
-                              <Calendar className="inline w-4 h-4 mr-2" />
-                              {booking.date} at {booking.time}
-                            </p>
-                            <p className="text-slate-300 mt-2">{booking.description}</p>
-                          </div>
-                        </div>
-                        <span className={`px-3 py-1 rounded-full text-xs ${
-                          booking.status === 'confirmed' ? 'bg-green-700/20 text-green-400' :
-                          booking.status === 'pending' ? 'bg-yellow-700/20 text-yellow-400' :
-                          'bg-red-700/20 text-red-400'
-                        }`}>
-                          {booking.status}
-                        </span>
-                      </div>
-                      
-                      {booking.status === 'pending' && (
-                        <div className="flex gap-3 mt-4">
-                          <Button
-                            data-testid={`confirm-booking-${booking.id}-btn`}
-                            onClick={() => handleBookingStatus(booking.id, 'confirmed')}
-                            disabled={loading}
-                            className="bg-green-700 hover:bg-green-600 rounded-full"
-                          >
-                            <CheckCircle className="w-4 h-4 mr-2" />
-                            Confirm
-                          </Button>
-                          <Button
-                            data-testid={`reject-booking-${booking.id}-btn`}
-                            onClick={() => handleBookingStatus(booking.id, 'rejected')}
-                            disabled={loading}
-                            variant="outline"
-                            className="border-red-700 text-red-400 hover:bg-red-700/20 rounded-full"
-                          >
-                            <XCircle className="w-4 h-4 mr-2" />
-                            Reject
-                          </Button>
-                        </div>
-                      )}
-                    </div>
-                  ))
-                )}
+              <div className="flex items-center space-x-3">
+                <Button variant="outline" className="border-slate-200 rounded-xl">
+                  <span className="mr-2">⚙️</span> Filter
+                </Button>
+                <select className="px-4 py-2 border border-slate-200 rounded-xl bg-white">
+                  <option>Sort by Date</option>
+                </select>
               </div>
             </div>
-          </TabsContent>
-        </Tabs>
+            
+            {/* Cases Table */}
+            <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+              <table className="w-full">
+                <thead className="bg-slate-50 border-b border-slate-200">
+                  <tr>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-600 uppercase">Case Details</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-600 uppercase">Type</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-600 uppercase">Activity</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-600 uppercase">Status</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-600 uppercase">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {dummyCases.map((caseItem) => (
+                    <tr key={caseItem.id} className="border-b border-slate-100 hover:bg-slate-50">
+                      <td className="px-6 py-4">
+                        <p className="font-semibold">{caseItem.title}</p>
+                        <p className="text-sm text-slate-500">👤 {caseItem.client}</p>
+                      </td>
+                      <td className="px-6 py-4 text-sm text-slate-600">{caseItem.type}</td>
+                      <td className="px-6 py-4 text-sm text-slate-600">{caseItem.activity}</td>
+                      <td className="px-6 py-4">
+                        <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                          caseItem.status === 'Active' ? 'bg-green-100 text-green-700' :
+                          caseItem.status === 'Pending' ? 'bg-amber-100 text-amber-700' :
+                          'bg-slate-100 text-slate-700'
+                        }`}>
+                          {caseItem.status}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4">
+                        <button className="text-slate-400 hover:text-slate-600">
+                          <MoreVertical className="w-5 h-5" />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+        
+        {activeTab === 'calendar' && (
+          <div className="p-8">
+            <h1 className="text-3xl font-bold mb-8">Calendar Coming Soon</h1>
+            <p className="text-slate-600">Schedule management feature will be available soon.</p>
+          </div>
+        )}
+        
+        {activeTab === 'messages' && (
+          <div className="p-8">
+            <h1 className="text-3xl font-bold mb-8">Messages</h1>
+            <div className="bg-white rounded-2xl border border-slate-200 p-8 text-center">
+              <MessageSquare className="w-16 h-16 text-slate-300 mx-auto mb-4" />
+              <p className="text-slate-600">Message system coming soon</p>
+            </div>
+          </div>
+        )}
+        
+        {activeTab === 'documents' && (
+          <div className="p-8">
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <h1 className="text-3xl font-bold mb-2">Document Management</h1>
+                <p className="text-sm text-green-600 flex items-center">
+                  <span className="w-2 h-2 bg-green-600 rounded-full mr-2"></span>
+                  End-to-end encrypted vault
+                </p>
+              </div>
+              <Button className="bg-blue-700 hover:bg-blue-600 text-white rounded-xl px-6">
+                Upload Document
+              </Button>
+            </div>
+            
+            {/* Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              <div className="bg-white rounded-2xl border border-slate-200 p-6">
+                <div className="flex items-center space-x-3">
+                  <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                    <FileText className="w-6 h-6 text-blue-700" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-slate-500 uppercase mb-1">Total Documents</p>
+                    <h3 className="text-3xl font-bold">12</h3>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="bg-white rounded-2xl border border-slate-200 p-6">
+                <div className="flex items-center space-x-3">
+                  <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                    <span className="text-2xl">💾</span>
+                  </div>
+                  <div>
+                    <p className="text-xs text-slate-500 uppercase mb-1">Storage Used</p>
+                    <h3 className="text-3xl font-bold">15.2 GB</h3>
+                    <p className="text-xs text-slate-500">/ 50 GB</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="bg-white rounded-2xl border border-slate-200 p-6">
+                <div className="flex items-center space-x-3">
+                  <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                    <Clock className="w-6 h-6 text-green-700" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-slate-500 uppercase mb-1">Recent Uploads</p>
+                    <h3 className="text-3xl font-bold">12</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Documents Table */}
+            <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+              <table className="w-full">
+                <thead className="bg-slate-50 border-b border-slate-200">
+                  <tr>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-600 uppercase">Document Name</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-600 uppercase">Associated Case</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-600 uppercase">Type</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-600 uppercase">Date</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-600 uppercase">Size</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-600 uppercase">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {documents.map((doc, idx) => (
+                    <tr key={idx} className="border-b border-slate-100 hover:bg-slate-50">
+                      <td className="px-6 py-4 flex items-center space-x-2">
+                        <FileText className="w-5 h-5 text-red-500" />
+                        <span className="font-medium">{doc.name}</span>
+                      </td>
+                      <td className="px-6 py-4 text-sm text-slate-600">{doc.case}</td>
+                      <td className="px-6 py-4">
+                        <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-xs">
+                          {doc.type}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 text-sm text-slate-600">{doc.date}</td>
+                      <td className="px-6 py-4 text-sm text-slate-600">{doc.size}</td>
+                      <td className="px-6 py-4">
+                        <button className="text-slate-400 hover:text-slate-600">
+                          <MoreVertical className="w-5 h-5" />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+        
+        {activeTab === 'earnings' && (
+          <div className="p-8">
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <h1 className="text-3xl font-bold mb-2">Earnings</h1>
+                <p className="text-slate-600">Track your income and manage your finances.</p>
+              </div>
+              <Button className="bg-blue-700 hover:bg-blue-600 text-white rounded-xl px-6">
+                Generate Report
+              </Button>
+            </div>
+            
+            {/* Revenue Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              <div className="bg-white rounded-2xl border border-slate-200 p-6">
+                <p className="text-sm text-slate-600 mb-2">Total Revenue</p>
+                <h3 className="text-4xl font-bold">₹2,56,789.50</h3>
+              </div>
+              
+              <div className="bg-white rounded-2xl border border-slate-200 p-6">
+                <p className="text-sm text-slate-600 mb-2">This Month</p>
+                <h3 className="text-4xl font-bold">₹15,430.00</h3>
+              </div>
+              
+              <div className="bg-white rounded-2xl border border-slate-200 p-6">
+                <p className="text-sm text-slate-600 mb-2">Pending Payments</p>
+                <h3 className="text-4xl font-bold">₹8,200.00</h3>
+              </div>
+            </div>
+            
+            {/* Billing History */}
+            <div className="bg-white rounded-2xl border border-slate-200">
+              <div className="p-6 border-b border-slate-200">
+                <h2 className="text-xl font-bold">Billing History</h2>
+              </div>
+              
+              <table className="w-full">
+                <thead className="bg-slate-50 border-b border-slate-200">
+                  <tr>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-600 uppercase">Invoice ID</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-600 uppercase">Client Name</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-600 uppercase">Case</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-600 uppercase">Date</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-600 uppercase">Amount</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-600 uppercase">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {billingHistory.map((bill, idx) => (
+                    <tr key={idx} className="border-b border-slate-100 hover:bg-slate-50">
+                      <td className="px-6 py-4 font-medium">{bill.invoice}</td>
+                      <td className="px-6 py-4">{bill.client}</td>
+                      <td className="px-6 py-4 text-sm text-slate-600">{bill.case}</td>
+                      <td className="px-6 py-4 text-sm text-slate-600">{bill.date}</td>
+                      <td className="px-6 py-4 font-semibold">{bill.amount}</td>
+                      <td className="px-6 py-4">
+                        <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                          bill.status === 'Paid' ? 'bg-green-100 text-green-700' :
+                          bill.status === 'Pending' ? 'bg-amber-100 text-amber-700' :
+                          'bg-red-100 text-red-700'
+                        }`}>
+                          {bill.status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
