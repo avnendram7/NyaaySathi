@@ -59,7 +59,9 @@ function App() {
       <div className="App">
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<LandingPage />} />
+            <Route path="/" element={<InitialLanding />} />
+            <Route path="/role-selection" element={<RoleSelection />} />
+            <Route path="/landing" element={<LandingPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/how-it-works" element={<HowItWorksPage />} />
             <Route path="/features" element={<FeaturesPage />} />
@@ -68,6 +70,7 @@ function App() {
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/user-login" element={<UserLoginPage />} />
             <Route path="/lawyer-login" element={<LawyerLoginPage />} />
+            <Route path="/lawfirm-login" element={<LawFirmLoginPage />} />
             <Route 
               path="/user-dashboard" 
               element={
@@ -81,6 +84,14 @@ function App() {
               element={
                 <ProtectedRoute requiredType="lawyer">
                   <LawyerDashboard />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/lawfirm-dashboard" 
+              element={
+                <ProtectedRoute requiredType="law_firm">
+                  <LawFirmDashboard />
                 </ProtectedRoute>
               } 
             />
