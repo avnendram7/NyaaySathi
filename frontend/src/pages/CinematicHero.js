@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router-dom';
-import { motion, useMotionValue, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { ArrowRight, BarChart3, MessageSquare, UserCheck, Scale, Home, HelpCircle, Info, Sparkles } from 'lucide-react';
+import { ArrowRight, BarChart3, MessageSquare, UserCheck, Scale } from 'lucide-react';
 import { Button } from '../components/ui/button';
+import { Navbar } from '../components/Navbar';
 
 export default function CinematicHero() {
   const navigate = useNavigate();
