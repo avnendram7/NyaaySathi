@@ -192,7 +192,7 @@ export default function UserDashboard() {
                       <Calendar className="w-10 h-10 text-slate-400" />
                     </div>
                   </div>
-                  <h2 className="text-4xl font-bold text-center mb-2">October 26, 2024</h2>
+                  <h2 className="text-4xl font-bold text-center mb-2">March 15, 2026</h2>
                   <p className="text-center text-slate-400">Next Hearing Date</p>
                 </div>
                 
@@ -201,16 +201,16 @@ export default function UserDashboard() {
                   <div className="flex items-start justify-between mb-4">
                     <div>
                       <p className="text-xs text-slate-500 uppercase mb-2">Upcoming Event</p>
-                      <h3 className="text-2xl font-bold mb-2">Court Hearing</h3>
-                      <p className="text-slate-400 text-sm">Mark your calendar and prepare necessary documents.</p>
+                      <h3 className="text-2xl font-bold mb-2">District Court Hearing</h3>
+                      <p className="text-slate-400 text-sm">Mark your calendar and prepare necessary documents for the hearing.</p>
                     </div>
                     <div className="text-right">
                       <div className="flex items-center space-x-2 mb-1">
                         <Clock className="w-4 h-4 text-red-500" />
                         <span className="text-xs text-red-500 font-semibold">URGENT</span>
                       </div>
-                      <p className="text-3xl font-bold">28 Days</p>
-                      <p className="text-xs text-slate-500">Bail Days Remaining</p>
+                      <p className="text-3xl font-bold">45 Days</p>
+                      <p className="text-xs text-slate-500">Until Hearing</p>
                     </div>
                   </div>
                 </div>
