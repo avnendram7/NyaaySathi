@@ -173,6 +173,10 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
 async def root():
     return {"message": "Nyaay Sathi API"}
 
+@api_router.get("/health")
+async def health_check():
+    return {"status": "healthy", "service": "Nyaay Sathi API"}
+
 # Auth Routes
 @api_router.post("/auth/register", response_model=TokenResponse)
 async def register(user_data: UserCreate):
