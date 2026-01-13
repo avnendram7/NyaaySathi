@@ -7,7 +7,7 @@ export default function AboutPage() {
     <div className="min-h-screen bg-slate-950">
       <Navbar />
       
-      <div className="pt-24 pb-20 px-4">
+      <div className="pt-24 pb-20 px-4">{/* Added more top padding for fixed navbar */}
         <div className="max-w-7xl mx-auto">
           {/* Hero */}
           <div className="text-center mb-16">
