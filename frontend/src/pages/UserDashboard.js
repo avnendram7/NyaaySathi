@@ -423,7 +423,7 @@ export default function UserDashboard() {
                     </div>
                     <div className="text-center">
                       <p className="text-2xl font-bold flex items-center justify-center text-gray-900">
-                        {4.9 - idx * 0.1} <Star className="w-4 h-4 text-yellow-500 ml-1" />
+                        {(4.9 - idx * 0.1).toFixed(1)} <Star className="w-4 h-4 text-yellow-500 ml-1" />
                       </p>
                       <p className="text-xs text-gray-500 font-medium">RATING</p>
                     </div>
