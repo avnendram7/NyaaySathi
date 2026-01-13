@@ -120,7 +120,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="font-semibold mb-1">Email</h3>
-                      <p className="text-slate-400">support@nyaaysathi.com</p>
+                      <p className="text-slate-400">avnendram.7@gmail.com</p>
                     </div>
                   </div>
                   
@@ -130,7 +130,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="font-semibold mb-1">Phone</h3>
-                      <p className="text-slate-400">+91 98765 43210</p>
+                      <p className="text-slate-400">+91 83182 16968</p>
                     </div>
                   </div>
                   
@@ -140,7 +140,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="font-semibold mb-1">Location</h3>
-                      <p className="text-slate-400">Mumbai, India</p>
+                      <p className="text-slate-400">Sonipat, Haryana, India</p>
                     </div>
                   </div>
                 </div>
