@@ -329,6 +329,43 @@ async def chat(chat_msg: ChatMessage, current_user: dict = Depends(get_current_u
         logging.error(f'Chat error: {str(e)}')
         raise HTTPException(status_code=500, detail=f'Chat service error: {str(e)}')
 
+# Guest Chat Route (No authentication required)
+@api_router.post("/chat/guest", response_model=ChatResponse)
+async def guest_chat(chat_msg: ChatMessage):
+    session_id = f"guest_{uuid.uuid4()}"
+    
+    system_prompt = """You are a helpful legal assistant for Nyaay Sathi platform. 
+    Format your responses in clear, structured sections using markdown:
+    
+    ## Main Point
+    Brief summary here
+    
+    ### Key Details
+    - Point 1
+    - Point 2
+    
+    ### Next Steps
+    1. Action 1
+    2. Action 2
+    
+    Keep responses simple, clear, and organized in boxes/sections for easy readability.
+    Focus on helping users understand their legal situation without complex jargon."""
+    
+    try:
+        chat_client = LlmChat(
+            api_key=os.environ.get('EMERGENT_LLM_KEY'),
+            session_id=session_id,
+            system_message=system_prompt
+        ).with_model('gemini', 'gemini-3-flash-preview')
+        
+        user_message = UserMessage(text=chat_msg.message)
+        response = await chat_client.send_message(user_message)
+        
+        return {'response': response, 'session_id': session_id}
+    except Exception as e:
+        logging.error(f'Guest chat error: {str(e)}')
+        raise HTTPException(status_code=500, detail=f'Chat service error: {str(e)}')
+
 @api_router.get("/chat/history")
 async def get_chat_history(current_user: dict = Depends(get_current_user)):
     history = await db.chat_history.find(
