@@ -554,22 +554,160 @@ export default function LawyerDashboard() {
           </div>
         )}
         
-        {activeTab === 'calendar' && (
+        {activeTab === 'network' && (
           <div className="p-8">
-            <h1 className="text-3xl font-bold mb-8">Calendar Coming Soon</h1>
-            <p className="text-slate-600">Schedule management feature will be available soon.</p>
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <div className="flex items-center space-x-3 mb-2">
+                  <h1 className="text-3xl font-bold text-white">Lawyer Network</h1>
+                  <span className="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-xs font-semibold border border-green-500/30 flex items-center">
+                    <Shield className="w-3 h-3 mr-1" />
+                    End-to-End Encrypted
+                  </span>
+                </div>
+                <p className="text-slate-400">Connect, collaborate, and learn from fellow legal professionals</p>
+              </div>
+              <div className="flex items-center space-x-3">
+                <div className="text-right mr-4">
+                  <p className="text-sm text-slate-400">Active Lawyers</p>
+                  <p className="text-2xl font-bold text-white">247</p>
+                </div>
+                <Button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl px-6 shadow-lg shadow-blue-500/50">
+                  + New Discussion
+                </Button>
+              </div>
+            </div>
+            
+            {/* Network Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+              <div className="glass rounded-2xl p-6 border border-blue-500/20 relative overflow-hidden group">
+                <div className="absolute -right-4 -top-4 w-24 h-24 bg-blue-500/10 rounded-full blur-2xl"></div>
+                <div className="relative z-10">
+                  <Users className="w-8 h-8 text-blue-400 mb-3" />
+                  <h3 className="text-3xl font-bold text-white mb-1">247</h3>
+                  <p className="text-xs text-slate-400 uppercase">Active Members</p>
+                </div>
+              </div>
+              
+              <div className="glass rounded-2xl p-6 border border-purple-500/20 relative overflow-hidden group">
+                <div className="absolute -right-4 -top-4 w-24 h-24 bg-purple-500/10 rounded-full blur-2xl"></div>
+                <div className="relative z-10">
+                  <MessageSquare className="w-8 h-8 text-purple-400 mb-3" />
+                  <h3 className="text-3xl font-bold text-white mb-1">1,423</h3>
+                  <p className="text-xs text-slate-400 uppercase">Discussions</p>
+                </div>
+              </div>
+              
+              <div className="glass rounded-2xl p-6 border border-green-500/20 relative overflow-hidden group">
+                <div className="absolute -right-4 -top-4 w-24 h-24 bg-green-500/10 rounded-full blur-2xl"></div>
+                <div className="relative z-10">
+                  <CheckCircle className="w-8 h-8 text-green-400 mb-3" />
+                  <h3 className="text-3xl font-bold text-white mb-1">892</h3>
+                  <p className="text-xs text-slate-400 uppercase">Resolved</p>
+                </div>
+              </div>
+              
+              <div className="glass rounded-2xl p-6 border border-amber-500/20 relative overflow-hidden group">
+                <div className="absolute -right-4 -top-4 w-24 h-24 bg-amber-500/10 rounded-full blur-2xl"></div>
+                <div className="relative z-10">
+                  <FileText className="w-8 h-8 text-amber-400 mb-3" />
+                  <h3 className="text-3xl font-bold text-white mb-1">156</h3>
+                  <p className="text-xs text-slate-400 uppercase">Resources Shared</p>
+                </div>
+              </div>
+            </div>
+            
+            {/* Recent Discussions */}
+            <div className="glass rounded-2xl border border-blue-500/20 p-6">
+              <h2 className="text-xl font-bold text-white mb-6">Recent Discussions</h2>
+              
+              <div className="space-y-4">
+                {networkMessages.map((msg) => (
+                  <div key={msg.id} className="p-4 rounded-xl bg-slate-900/50 border border-slate-800/50 hover:bg-slate-800/70 transition-all duration-300 cursor-pointer">
+                    <div className="flex items-start space-x-4">
+                      <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg relative">
+                        <span className="text-white font-bold">{msg.sender.split(' ')[1][0]}</span>
+                        {msg.online && (
+                          <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-400 rounded-full border-2 border-slate-900 shadow-lg shadow-green-400/50"></span>
+                        )}
+                      </div>
+                      
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center space-x-2">
+                            <h4 className="font-semibold text-white">{msg.sender}</h4>
+                            {msg.online && (
+                              <span className="px-2 py-0.5 bg-green-500/20 text-green-400 rounded-full text-xs border border-green-500/30">
+                                Online
+                              </span>
+                            )}
+                          </div>
+                          <span className="text-xs text-slate-500">{msg.time}</span>
+                        </div>
+                        
+                        <p className="text-slate-300 text-sm mb-3">{msg.message}</p>
+                        
+                        <div className="flex items-center space-x-4 text-xs">
+                          <button className="flex items-center space-x-1 text-slate-400 hover:text-blue-400 transition-colors">
+                            <MessageSquare className="w-4 h-4" />
+                            <span>{msg.replies} Replies</span>
+                          </button>
+                          <button className="flex items-center space-x-1 text-slate-400 hover:text-blue-400 transition-colors">
+                            <span>💬</span>
+                            <span>Reply</span>
+                          </button>
+                          <button className="flex items-center space-x-1 text-slate-400 hover:text-blue-400 transition-colors">
+                            <span>🔖</span>
+                            <span>Save</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              
+              <Button className="w-full mt-6 bg-gradient-to-r from-slate-800 to-slate-900 hover:from-slate-700 hover:to-slate-800 text-white rounded-xl py-3 border border-slate-700/50">
+                Load More Discussions →
+              </Button>
+            </div>
           </div>
         )}
         
         {activeTab === 'messages' && (
           <div className="p-8">
-            <h1 className="text-3xl font-bold mb-8">Messages</h1>
-            <div className="bg-white rounded-2xl border border-slate-200 p-8 text-center">
-              <MessageSquare className="w-16 h-16 text-slate-300 mx-auto mb-4" />
-              <p className="text-slate-600">Message system coming soon</p>
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <div className="flex items-center space-x-3 mb-2">
+                  <h1 className="text-3xl font-bold text-white">Messages</h1>
+                  <span className="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-xs font-semibold border border-green-500/30 flex items-center">
+                    <Shield className="w-3 h-3 mr-1" />
+                    End-to-End Encrypted
+                  </span>
+                </div>
+                <p className="text-slate-400">Secure communication with your clients</p>
+              </div>
+            </div>
+            <div className="glass rounded-2xl border border-blue-500/20 p-8 text-center">
+              <MessageSquare className="w-16 h-16 text-slate-600 mx-auto mb-4" />
+              <p className="text-slate-400">Message system coming soon</p>
             </div>
           </div>
         )}
+        
+        {activeTab === 'calendar' && (
+          <div className="p-8">
+            <h1 className="text-3xl font-bold text-white mb-8">Calendar</h1>
+            <div className="glass rounded-2xl border border-blue-500/20 p-8 text-center">
+              <CalendarIcon className="w-16 h-16 text-slate-600 mx-auto mb-4" />
+              <p className="text-slate-400">Calendar feature coming soon</p>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
         
         {activeTab === 'documents' && (
           <div className="p-8">
