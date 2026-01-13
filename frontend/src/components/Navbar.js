@@ -102,18 +102,27 @@ export const Navbar = () => {
       {mobileMenuOpen && (
         <div data-testid="mobile-menu" className="md:hidden glass border-t border-slate-800">
           <div className="px-4 py-4 space-y-3">
-            <Link to="/" className="block text-slate-300 hover:text-white py-2">Home</Link>
-            <Link to="/about" className="block text-slate-300 hover:text-white py-2">About</Link>
-            <Link to="/how-it-works" className="block text-slate-300 hover:text-white py-2">How It Works</Link>
-            <Link to="/features" className="block text-slate-300 hover:text-white py-2">Features</Link>
-            <Link to="/for-clients" className="block text-slate-300 hover:text-white py-2">For Clients</Link>
-            <Link to="/for-lawyers" className="block text-slate-300 hover:text-white py-2">For Lawyers</Link>
-            <Link to="/contact" className="block text-slate-300 hover:text-white py-2">Contact</Link>
+            <Link to="/" className="flex items-center space-x-2 text-slate-300 hover:text-white py-2">
+              <Home className="w-4 h-4" />
+              <span>Home</span>
+            </Link>
+            <Link to="/about" className="flex items-center space-x-2 text-slate-300 hover:text-white py-2">
+              <Info className="w-4 h-4" />
+              <span>About</span>
+            </Link>
+            <Link to="/features" className="flex items-center space-x-2 text-slate-300 hover:text-white py-2">
+              <Sparkles className="w-4 h-4" />
+              <span>Features</span>
+            </Link>
+            <Link to="/contact" className="flex items-center space-x-2 text-slate-300 hover:text-white py-2">
+              <HelpCircle className="w-4 h-4" />
+              <span>Help</span>
+            </Link>
             <div className="pt-4 space-y-2">
               {user ? (
                 <>
                   <Button 
-                    onClick={() => navigate(user.user_type === 'lawyer' ? '/lawyer-dashboard' : '/user-dashboard')}
+                    onClick={() => navigate(user.user_type === 'lawyer' ? '/lawyer-dashboard' : user.user_type === 'law_firm' ? '/lawfirm-dashboard' : '/user-dashboard')}
                     className="w-full bg-blue-700 hover:bg-blue-600 text-white rounded-full"
                   >
                     Dashboard
@@ -128,14 +137,14 @@ export const Navbar = () => {
                 </>
               ) : (
                 <>
-                  <Link to="/user-login" className="block">
-                    <Button variant="outline" className="w-full border-slate-700 text-slate-200 hover:bg-slate-800 rounded-full">
-                      Client Login
+                  <Link to="/role-selection" className="block">
+                    <Button className="w-full bg-blue-700 hover:bg-blue-600 text-white rounded-full">
+                      Get Started
                     </Button>
                   </Link>
-                  <Link to="/lawyer-login" className="block">
-                    <Button className="w-full bg-blue-700 hover:bg-blue-600 text-white rounded-full">
-                      Lawyer Login
+                  <Link to="/quick-chat" className="block">
+                    <Button variant="outline" className="w-full border-slate-700 text-slate-200 hover:bg-slate-800 rounded-full">
+                      AI Chat
                     </Button>
                   </Link>
                 </>
