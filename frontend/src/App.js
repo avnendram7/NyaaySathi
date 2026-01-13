@@ -62,6 +62,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<CinematicHero />} />
+            <Route path="/quick-chat" element={<QuickChat />} />
             <Route path="/hero-alt" element={<InitialLanding />} />
             <Route path="/role-selection" element={<RoleSelection />} />
             <Route path="/landing" element={<LandingPage />} />
