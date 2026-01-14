@@ -247,66 +247,6 @@ export default function CinematicHero() {
         {/* Vignette effect */}
         <div className="absolute inset-0 bg-gradient-radial from-transparent via-transparent to-black/60 z-10" />
         
-        {/* Floating Feature Cards */}
-        {floatingCards.map((card, index) => {
-          const Icon = card.icon;
-          const parallaxX = mousePosition.x * (index % 2 === 0 ? 1 : -1) * 0.5;
-          const parallaxY = mousePosition.y * (index < 2 ? 1 : -1) * 0.5;
-          
-          return (
-            <motion.div
-              key={card.position}
-              data-testid={`floating-card-${card.position}`}
-              className="absolute z-20"
-              style={card.style}
-              animate={{
-                x: parallaxX,
-                y: parallaxY,
-                rotateY: mousePosition.x * 0.5,
-                rotateX: -mousePosition.y * 0.5,
-              }}
-              transition={{ type: 'spring', stiffness: 50, damping: 20 }}
-            >
-              <motion.div
-                className="relative group cursor-pointer"
-                whileHover={{ scale: 1.05, y: -5 }}
-                animate={{
-                  y: [0, -10, 0],
-                }}
-                transition={{
-                  y: {
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                    delay: index * 0.5,
-                  }
-                }}
-              >
-                <div className="w-64 h-48 rounded-2xl overflow-hidden glass border border-blue-500/30 shadow-2xl relative">
-                  {/* Card glow */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  
-                  {/* Card image */}
-                  <img 
-                    src={card.image} 
-                    alt={card.title}
-                    className="w-full h-full object-cover opacity-60"
-                  />
-                  
-                  {/* Card content */}
-                  <div className="absolute inset-0 flex flex-col items-center justify-center p-6 bg-gradient-to-t from-slate-950/90 to-transparent">
-                    <Icon className="w-12 h-12 text-blue-400 mb-3" />
-                    <h3 className="text-white font-semibold text-center">{card.title}</h3>
-                  </div>
-                  
-                  {/* Neon border effect */}
-                  <div className="absolute inset-0 rounded-2xl border-2 border-blue-500/0 group-hover:border-blue-500/50 transition-all duration-300" />
-                </div>
-              </motion.div>
-            </motion.div>
-          );
-        })}
-        
         {/* Central Logo Section */}
         <div className="relative z-30 flex flex-col items-center justify-center min-h-screen">
           {/* Shield Logo with Orbiting Line */}
