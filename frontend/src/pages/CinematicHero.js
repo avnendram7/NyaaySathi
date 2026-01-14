@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
-import { ArrowRight, BarChart3, MessageSquare, UserCheck, Scale, FileText, Shield, Users, Clock, Sparkles } from 'lucide-react';
+import { ArrowRight, MessageSquare, Scale, FileText, Shield, Users, Clock, Sparkles } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Navbar } from '../components/Navbar';
 
