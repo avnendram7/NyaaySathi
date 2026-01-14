@@ -34,10 +34,6 @@ export const Navbar = () => {
               <Info className="w-4 h-4" />
               <span>About</span>
             </Link>
-            <Link to="/features" className="flex items-center space-x-1 text-slate-300 hover:text-white transition-colors">
-              <Sparkles className="w-4 h-4" />
-              <span>Features</span>
-            </Link>
             <Link to="/contact" className="flex items-center space-x-1 text-slate-300 hover:text-white transition-colors">
               <HelpCircle className="w-4 h-4" />
               <span>Help</span>
