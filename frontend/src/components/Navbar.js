@@ -61,25 +61,14 @@ export const Navbar = () => {
                 </Button>
               </>
             ) : (
-              <>
-                <Link to="/user-login">
-                  <Button 
-                    data-testid="client-login-btn"
-                    variant="outline"
-                    className="border-slate-700 text-slate-200 hover:bg-slate-800 rounded-full px-6 py-2"
-                  >
-                    Client Login
-                  </Button>
-                </Link>
-                <Link to="/lawyer-login">
-                  <Button 
-                    data-testid="lawyer-login-btn"
-                    className="bg-blue-700 hover:bg-blue-600 text-white rounded-full px-6 py-2 btn-primary"
-                  >
-                    Lawyer Login
-                  </Button>
-                </Link>
-              </>
+              <Link to="/role-selection">
+                <Button 
+                  data-testid="login-btn"
+                  className="bg-blue-700 hover:bg-blue-600 text-white rounded-full px-8 py-2 btn-primary"
+                >
+                  Login
+                </Button>
+              </Link>
             )}
           </div>
           
