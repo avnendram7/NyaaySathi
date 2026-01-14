@@ -2,10 +2,208 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
-import { Scale, LogOut, LayoutDashboard, Calendar, MessageSquare, FileText, Send, User, Star, Clock, MapPin, Shield, FileCheck, Mic, CheckCircle, Search } from 'lucide-react';
+import { Scale, LogOut, LayoutDashboard, Calendar, MessageSquare, FileText, Send, User, Star, Clock, MapPin, Shield, FileCheck, Mic, CheckCircle, Search, Gavel, AlertTriangle, ListChecks, BookOpen, TrendingUp, Video } from 'lucide-react';
 import { toast } from 'sonner';
 import axios from 'axios';
 import { API } from '../App';
+
+// Legal Analysis Card Component
+const LegalAnalysisCard = ({ icon: Icon, title, content, borderColor, bgColor }) => (
+  <div className={`bg-white rounded-xl p-4 border-t-4 ${borderColor} shadow-md hover:shadow-lg transition-shadow`}>
+    <div className={`w-10 h-10 ${bgColor} rounded-lg flex items-center justify-center mb-3`}>
+      <Icon className="w-5 h-5 text-white" />
+    </div>
+    <h4 className="font-bold text-gray-900 mb-1">{title}</h4>
+    <p className="text-sm text-gray-600">{content}</p>
+  </div>
+);
+
+// Lawyer Recommendation Card Component
+const LawyerCard = ({ name, rating, specialization, experience, successRate, location, hourlyRate, onBook }) => (
+  <div className="bg-white rounded-xl p-5 border border-gray-200 shadow-md hover:shadow-lg transition-all">
+    <div className="flex items-center space-x-3 mb-4">
+      <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center shadow-md">
+        <User className="w-7 h-7 text-white" />
+      </div>
+      <div>
+        <h4 className="font-bold text-gray-900">{name}</h4>
+        <div className="flex items-center space-x-1">
+          <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
+          <span className="text-sm font-semibold text-gray-700">{rating}/5</span>
+        </div>
+      </div>
+    </div>
+    <div className="space-y-2 mb-4">
+      <p className="text-sm text-blue-600 font-medium">{specialization}</p>
+      <p className="text-sm text-gray-600">{experience} yrs • {successRate}% success</p>
+      <p className="text-sm text-gray-500 flex items-center">
+        <MapPin className="w-3 h-3 mr-1" />{location} • <span className="font-semibold text-gray-900 ml-1">₹{hourlyRate}/hr</span>
+      </p>
+    </div>
+    <div className="flex gap-2">
+      <Button onClick={onBook} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm">
+        Book Appointment
+      </Button>
+      <Button variant="outline" className="border-gray-300 rounded-lg px-3">
+        <Video className="w-4 h-4 text-gray-600" />
+      </Button>
+    </div>
+  </div>
+);
+
+// Legal Sections Component
+const LegalSectionsCard = ({ sections }) => (
+  <div className="bg-gradient-to-br from-slate-50 to-blue-50 rounded-xl p-5 border border-blue-100">
+    <div className="flex items-center space-x-2 mb-4">
+      <BookOpen className="w-5 h-5 text-blue-600" />
+      <h4 className="font-bold text-gray-900">Relevant Legal Sections</h4>
+    </div>
+    <div className="space-y-3">
+      {sections.map((section, idx) => (
+        <div key={idx} className="text-sm">
+          <span className="font-semibold text-gray-900">{section.title}:</span>
+          <span className="text-gray-600 ml-1">{section.description}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+// Parse AI response to detect if it's a legal query
+const parseLegalResponse = (response) => {
+  const lowerResponse = response.toLowerCase();
+  
+  // Keywords that indicate a legal case discussion
+  const legalKeywords = ['section', 'ipc', 'bail', 'punishment', 'court', 'trial', 'offense', 'crime', 'murder', 'theft', 'fraud', 'property', 'divorce', 'custody', 'maintenance', 'cheque bounce', 'consumer', 'complaint', 'fir', 'cognizable', 'non-bailable', 'bailable', 'imprisonment', 'fine', 'hearing', 'advocate', 'lawyer'];
+  
+  const isLegalQuery = legalKeywords.some(keyword => lowerResponse.includes(keyword));
+  
+  if (!isLegalQuery) return null;
+  
+  // Try to extract case type from response
+  let caseType = 'General Legal Matter';
+  let severity = 'Moderate';
+  let bailInfo = 'Depends on case specifics';
+  let punishment = 'Varies based on offense';
+  let timeline = '6-24 months typically';
+  let crimeType = 'Civil/Criminal';
+  let firstSteps = 'Consult a lawyer immediately';
+  let sections = [];
+  
+  // Detect specific case types
+  if (lowerResponse.includes('murder') || lowerResponse.includes('302')) {
+    caseType = 'Murder under Section 302 IPC';
+    severity = 'Extreme';
+    bailInfo = 'Generally not granted';
+    punishment = 'Life imprisonment or death penalty';
+    timeline = '24-60 months';
+    crimeType = 'Non-bailable, Cognizable';
+    firstSteps = 'Immediate legal consultation, evidence preservation';
+    sections = [
+      { title: 'Section 302 - Murder', description: 'Punishment for murder - death or life imprisonment' },
+      { title: 'Section 300 - Murder definition', description: 'Defines what constitutes murder' },
+      { title: 'Section 304 - Culpable homicide', description: 'Not amounting to murder - up to 10 years' }
+    ];
+  } else if (lowerResponse.includes('theft') || lowerResponse.includes('379')) {
+    caseType = 'Theft under Section 379 IPC';
+    severity = 'Moderate';
+    bailInfo = 'Generally granted';
+    punishment = 'Up to 3 years imprisonment';
+    timeline = '6-18 months';
+    crimeType = 'Bailable, Cognizable';
+    firstSteps = 'File FIR, gather evidence, consult lawyer';
+    sections = [
+      { title: 'Section 378 - Theft definition', description: 'Moving property without consent' },
+      { title: 'Section 379 - Punishment', description: 'Up to 3 years imprisonment or fine' },
+      { title: 'Section 380 - Theft in dwelling', description: 'Up to 7 years imprisonment' }
+    ];
+  } else if (lowerResponse.includes('divorce') || lowerResponse.includes('marriage') || lowerResponse.includes('custody')) {
+    caseType = 'Family Law Matter';
+    severity = 'Moderate';
+    bailInfo = 'Not applicable (civil matter)';
+    punishment = 'Alimony/Maintenance as per court';
+    timeline = '12-36 months';
+    crimeType = 'Civil Matter';
+    firstSteps = 'Gather marriage documents, financial records';
+    sections = [
+      { title: 'Hindu Marriage Act', description: 'Governs Hindu marriages and divorce' },
+      { title: 'Section 125 CrPC', description: 'Maintenance for wife, children' },
+      { title: 'Domestic Violence Act', description: 'Protection against domestic abuse' }
+    ];
+  } else if (lowerResponse.includes('property') || lowerResponse.includes('land') || lowerResponse.includes('possession')) {
+    caseType = 'Property Dispute';
+    severity = 'Moderate';
+    bailInfo = 'Generally granted if applicable';
+    punishment = 'Civil remedies, possible criminal charges';
+    timeline = '12-48 months';
+    crimeType = 'Civil/Criminal';
+    firstSteps = 'Verify documents, title search, legal notice';
+    sections = [
+      { title: 'Transfer of Property Act', description: 'Governs property transfers' },
+      { title: 'Section 420 IPC', description: 'Cheating and dishonestly inducing delivery' },
+      { title: 'Specific Relief Act', description: 'Recovery of possession' }
+    ];
+  } else if (lowerResponse.includes('consumer') || lowerResponse.includes('defect') || lowerResponse.includes('service')) {
+    caseType = 'Consumer Complaint';
+    severity = 'Low to Moderate';
+    bailInfo = 'Not applicable (civil matter)';
+    punishment = 'Compensation, refund, replacement';
+    timeline = '3-12 months';
+    crimeType = 'Civil Matter';
+    firstSteps = 'Collect bills, complaint to company first';
+    sections = [
+      { title: 'Consumer Protection Act 2019', description: 'Rights of consumers' },
+      { title: 'Section 2(7) - Consumer', description: 'Definition of consumer' },
+      { title: 'Section 35 - District Forum', description: 'Filing complaints up to ₹1 crore' }
+    ];
+  } else if (lowerResponse.includes('bail') || lowerResponse.includes('anticipatory')) {
+    caseType = 'Bail Application';
+    severity = 'Varies';
+    bailInfo = 'Depends on offense type';
+    punishment = 'Not applicable';
+    timeline = '1-4 weeks for hearing';
+    crimeType = 'Procedural';
+    firstSteps = 'Prepare bail application, surety arrangements';
+    sections = [
+      { title: 'Section 436 CrPC', description: 'Bail in bailable offenses' },
+      { title: 'Section 437 CrPC', description: 'Bail in non-bailable offenses' },
+      { title: 'Section 438 CrPC', description: 'Anticipatory bail' }
+    ];
+  } else if (lowerResponse.includes('cheque') || lowerResponse.includes('138') || lowerResponse.includes('dishonour')) {
+    caseType = 'Cheque Bounce - Section 138 NI Act';
+    severity = 'Moderate';
+    bailInfo = 'Generally granted';
+    punishment = 'Up to 2 years imprisonment or fine';
+    timeline = '6-18 months';
+    crimeType = 'Bailable, Compoundable';
+    firstSteps = 'Send legal notice within 30 days of return';
+    sections = [
+      { title: 'Section 138 NI Act', description: 'Dishonor of cheque for insufficiency' },
+      { title: 'Section 141 NI Act', description: 'Offenses by companies' },
+      { title: 'Section 143 NI Act', description: 'Summary trial procedure' }
+    ];
+  }
+  
+  return {
+    caseType,
+    analysis: {
+      bailInfo,
+      punishment,
+      timeline,
+      crimeType,
+      severity,
+      firstSteps
+    },
+    sections
+  };
+};
+
+// Dummy lawyers data
+const dummyLawyers = [
+  { id: 1, name: 'Adv. Rajesh Kumar', rating: 4.9, specialization: 'Criminal Defense', experience: 25, successRate: 95, location: 'Delhi', hourlyRate: 2500 },
+  { id: 2, name: 'Adv. Priya Sharma', rating: 4.8, specialization: 'Women Protection Laws', experience: 18, successRate: 92, location: 'Mumbai', hourlyRate: 2000 },
+  { id: 3, name: 'Adv. Amit Verma', rating: 4.7, specialization: 'Property & Fraud Cases', experience: 20, successRate: 88, location: 'Sonipat', hourlyRate: 1800 }
+];
 
 export default function UserDashboard() {
   const navigate = useNavigate();
@@ -18,7 +216,8 @@ export default function UserDashboard() {
   const [chatMessages, setChatMessages] = useState([
     {
       role: 'assistant',
-      content: 'Hello! I am your AI Legal Assistant. I can help you understand legal terms, draft documents, or answer questions about your ongoing case. How can I assist you today?'
+      content: 'Hello! I am your AI Legal Assistant. I can help you understand legal terms, analyze your case, or answer questions. Try asking about:\n\n• "What happens if someone files a murder case?"\n• "Explain anticipatory bail"\n• "What are my rights in a property dispute?"\n• "How to file a consumer complaint?"',
+      isStructured: false
     }
   ]);
   const [chatInput, setChatInput] = useState('');
@@ -62,7 +261,7 @@ export default function UserDashboard() {
     e.preventDefault();
     if (!chatInput.trim()) return;
     
-    const userMsg = { role: 'user', content: chatInput };
+    const userMsg = { role: 'user', content: chatInput, isStructured: false };
     setChatMessages(prev => [...prev, userMsg]);
     setChatInput('');
     setLoading(true);
@@ -71,7 +270,16 @@ export default function UserDashboard() {
       const response = await axios.post(`${API}/chat`, { message: chatInput }, {
         headers: { Authorization: `Bearer ${token}` }
       });
-      setChatMessages(prev => [...prev, { role: 'assistant', content: response.data.response }]);
+      
+      const aiResponse = response.data.response;
+      const legalData = parseLegalResponse(aiResponse);
+      
+      setChatMessages(prev => [...prev, { 
+        role: 'assistant', 
+        content: aiResponse,
+        isStructured: !!legalData,
+        legalData: legalData
+      }]);
     } catch (error) {
       toast.error('Chat error');
       setChatMessages(prev => prev.slice(0, -1));
@@ -81,10 +289,10 @@ export default function UserDashboard() {
   };
   
   const exampleQuestions = [
-    "What are my rights in this case?",
-    "Draft a request for adjournment",
-    "Explain 'Anticipatory Bail'",
-    "Summarize my last hearing"
+    "What is Section 302 IPC?",
+    "Explain anticipatory bail",
+    "Property dispute rights",
+    "Consumer complaint process"
   ];
   
   return (
@@ -400,83 +608,142 @@ export default function UserDashboard() {
             {/* Top Rated Lawyers */}
             <h2 className="text-2xl font-bold mb-6 text-gray-900">Top Rated Lawyers</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {lawyers.length > 0 ? lawyers.slice(0, 3).map((lawyer, idx) => (
-                <div key={lawyer.id} className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
-                  <div className="flex items-center space-x-3 mb-4">
-                    <div className="w-16 h-16 bg-gradient-to-br from-orange-400 to-amber-500 rounded-full flex items-center justify-center shadow-lg">
-                      <User className="w-8 h-8 text-white" />
-                    </div>
-                    <div>
-                      <h4 className="text-lg font-bold text-gray-900">{lawyer.full_name}</h4>
-                      <p className="text-sm text-blue-600 font-medium">Civil & Criminal Law</p>
-                    </div>
-                  </div>
-                  
-                  <div className="grid grid-cols-3 gap-3 mb-4">
-                    <div className="text-center">
-                      <p className="text-2xl font-bold text-gray-900">{12 + idx}+</p>
-                      <p className="text-xs text-gray-500 font-medium">YEARS</p>
-                    </div>
-                    <div className="text-center">
-                      <p className="text-2xl font-bold text-gray-900">{350 + idx * 50}+</p>
-                      <p className="text-xs text-gray-500 font-medium">CASES</p>
-                    </div>
-                    <div className="text-center">
-                      <p className="text-2xl font-bold flex items-center justify-center text-gray-900">
-                        {(4.9 - idx * 0.1).toFixed(1)} <Star className="w-4 h-4 text-yellow-500 ml-1" />
-                      </p>
-                      <p className="text-xs text-gray-500 font-medium">RATING</p>
-                    </div>
-                  </div>
-                  
-                  <Button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl w-full mb-2 shadow-lg shadow-blue-200">
-                    Book Consultation
-                  </Button>
-                  <Button variant="outline" className="border-gray-300 text-gray-700 hover:bg-gray-100 rounded-xl w-full">
-                    View Profile
-                  </Button>
-                </div>
-              )) : (
-                <div className="col-span-3 bg-white rounded-2xl p-8 border border-gray-200 text-center">
-                  <User className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                  <p className="text-gray-600">No lawyers available at the moment. Check back later!</p>
-                </div>
-              )}
+              {dummyLawyers.map((lawyer) => (
+                <LawyerCard
+                  key={lawyer.id}
+                  name={lawyer.name}
+                  rating={lawyer.rating}
+                  specialization={lawyer.specialization}
+                  experience={lawyer.experience}
+                  successRate={lawyer.successRate}
+                  location={lawyer.location}
+                  hourlyRate={lawyer.hourlyRate}
+                  onBook={() => toast.success(`Booking request sent to ${lawyer.name}`)}
+                />
+              ))}
             </div>
           </div>
         )}
         
-        {/* ChatBot Tab */}
+        {/* ChatBot Tab - Enhanced with Legal Analysis Cards */}
         {activeTab === 'chatbot' && (
-          <div className="h-full flex flex-col bg-white">
+          <div className="h-full flex flex-col bg-gray-50">
             <div className="p-6 border-b border-gray-200 bg-gradient-to-r from-blue-600 to-indigo-600">
               <div className="flex items-center justify-between">
                 <div>
                   <h1 className="text-2xl font-bold mb-1 text-white">Legal AI Assistant</h1>
-                  <p className="text-blue-100 text-sm">24/7 Instant legal support and drafting.</p>
+                  <p className="text-blue-100 text-sm">24/7 Instant legal analysis and lawyer recommendations</p>
                 </div>
                 <div className="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-semibold text-white border border-white/30">PRO USER</div>
               </div>
             </div>
             
-            <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-gray-50">
+            <div className="flex-1 overflow-y-auto p-6 space-y-6">
               {chatMessages.map((msg, idx) => (
-                <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  {msg.role === 'assistant' && (
-                    <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-full flex items-center justify-center mr-3 flex-shrink-0 shadow-lg">
-                      <Scale className="w-5 h-5 text-white" />
+                <div key={idx}>
+                  {msg.role === 'user' ? (
+                    <div className="flex justify-end">
+                      <div className="max-w-2xl rounded-2xl p-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg">
+                        <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      {/* AI Avatar and basic response */}
+                      <div className="flex justify-start">
+                        <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-full flex items-center justify-center mr-3 flex-shrink-0 shadow-lg">
+                          <Scale className="w-5 h-5 text-white" />
+                        </div>
+                        <div className="max-w-3xl">
+                          {!msg.isStructured ? (
+                            <div className="bg-white rounded-2xl p-4 border border-gray-200 shadow-sm">
+                              <p className="text-sm text-gray-800 whitespace-pre-wrap">{msg.content}</p>
+                              <p className="text-xs text-gray-400 mt-2">{new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} ✓</p>
+                            </div>
+                          ) : (
+                            <div className="space-y-6">
+                              {/* AI Legal Analysis Header */}
+                              <div className="bg-white rounded-2xl p-4 border border-gray-200 shadow-sm">
+                                <h3 className="text-lg font-bold text-gray-900 mb-2">AI Legal Analysis</h3>
+                                <p className="text-sm text-gray-600">{msg.legalData.caseType}</p>
+                              </div>
+                              
+                              {/* Analysis Cards Grid */}
+                              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                                <LegalAnalysisCard
+                                  icon={Gavel}
+                                  title="Bail Information"
+                                  content={msg.legalData.analysis.bailInfo}
+                                  borderColor="border-red-500"
+                                  bgColor="bg-red-500"
+                                />
+                                <LegalAnalysisCard
+                                  icon={Clock}
+                                  title="Trial Timeline"
+                                  content={msg.legalData.analysis.timeline}
+                                  borderColor="border-green-500"
+                                  bgColor="bg-green-500"
+                                />
+                                <LegalAnalysisCard
+                                  icon={AlertTriangle}
+                                  title="Punishment"
+                                  content={msg.legalData.analysis.punishment}
+                                  borderColor="border-orange-500"
+                                  bgColor="bg-orange-500"
+                                />
+                                <LegalAnalysisCard
+                                  icon={ListChecks}
+                                  title="First Steps"
+                                  content={msg.legalData.analysis.firstSteps}
+                                  borderColor="border-blue-500"
+                                  bgColor="bg-blue-500"
+                                />
+                                <LegalAnalysisCard
+                                  icon={Shield}
+                                  title="Crime Type"
+                                  content={msg.legalData.analysis.crimeType}
+                                  borderColor="border-purple-500"
+                                  bgColor="bg-purple-500"
+                                />
+                                <LegalAnalysisCard
+                                  icon={TrendingUp}
+                                  title="Severity"
+                                  content={msg.legalData.analysis.severity}
+                                  borderColor="border-amber-500"
+                                  bgColor="bg-amber-500"
+                                />
+                              </div>
+                              
+                              {/* Recommended Lawyers */}
+                              <div>
+                                <h3 className="text-lg font-bold text-gray-900 mb-4">Recommended Legal Experts</h3>
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                  {dummyLawyers.map((lawyer) => (
+                                    <LawyerCard
+                                      key={lawyer.id}
+                                      name={lawyer.name}
+                                      rating={lawyer.rating}
+                                      specialization={lawyer.specialization}
+                                      experience={lawyer.experience}
+                                      successRate={lawyer.successRate}
+                                      location={lawyer.location}
+                                      hourlyRate={lawyer.hourlyRate}
+                                      onBook={() => toast.success(`Booking request sent to ${lawyer.name}`)}
+                                    />
+                                  ))}
+                                </div>
+                              </div>
+                              
+                              {/* Legal Sections */}
+                              {msg.legalData.sections.length > 0 && (
+                                <LegalSectionsCard sections={msg.legalData.sections} />
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      </div>
                     </div>
                   )}
-                  <div className={`max-w-2xl rounded-2xl p-4 ${
-                    msg.role === 'user' 
-                      ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg' 
-                      : 'bg-white text-gray-800 border border-gray-200 shadow-sm'
-                  }`}>
-                    <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
-                    {msg.role === 'assistant' && (
-                      <p className="text-xs text-gray-400 mt-2">10:30 AM ✓</p>
-                    )}
-                  </div>
                 </div>
               ))}
               
@@ -503,7 +770,7 @@ export default function UserDashboard() {
                   <button
                     key={idx}
                     onClick={() => setChatInput(q)}
-                    className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-xl text-sm text-gray-700 whitespace-nowrap border border-gray-200 transition-colors"
+                    className="px-4 py-2 bg-gradient-to-r from-blue-50 to-indigo-50 hover:from-blue-100 hover:to-indigo-100 rounded-xl text-sm text-blue-700 font-medium whitespace-nowrap border border-blue-200 transition-colors"
                   >
                     {q}
                   </button>
@@ -516,7 +783,7 @@ export default function UserDashboard() {
                     data-testid="chatbot-input"
                     value={chatInput}
                     onChange={(e) => setChatInput(e.target.value)}
-                    placeholder="Ask anything..."
+                    placeholder="Describe your legal issue or ask a question..."
                     className="bg-gray-100 border-gray-200 rounded-xl py-6 pr-12 text-gray-800 placeholder-gray-500"
                     disabled={loading}
                   />
