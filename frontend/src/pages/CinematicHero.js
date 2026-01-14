@@ -7,50 +7,6 @@ import { Navbar } from '../components/Navbar';
 
 export default function CinematicHero() {
   const navigate = useNavigate();
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth - 0.5) * 20,
-        y: (e.clientY / window.innerHeight - 0.5) * 20
-      });
-    };
-    
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-  
-  const floatingCards = [
-    {
-      position: 'top-left',
-      icon: BarChart3,
-      title: 'Smart Legal Dashboard',
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400',
-      style: { top: '10%', left: '8%' }
-    },
-    {
-      position: 'top-right',
-      icon: MessageSquare,
-      title: 'AI Legal Assistant',
-      image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400',
-      style: { top: '10%', right: '8%' }
-    },
-    {
-      position: 'bottom-left',
-      icon: UserCheck,
-      title: 'Happy Clients',
-      image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400',
-      style: { bottom: '10%', left: '8%' }
-    },
-    {
-      position: 'bottom-right',
-      icon: Scale,
-      title: 'Instant Legal Consultation',
-      image: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=400',
-      style: { bottom: '10%', right: '8%' }
-    }
-  ];
 
   // Feature cards for the services section
   const featureCards = [
