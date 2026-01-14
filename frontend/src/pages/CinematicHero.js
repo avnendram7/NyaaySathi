@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { ArrowRight, BarChart3, MessageSquare, UserCheck, Scale, Briefcase, FileText, Shield, Gavel, Users, Clock, Sparkles } from 'lucide-react';
+import { ArrowRight, BarChart3, MessageSquare, UserCheck, Scale, FileText, Shield, Users, Clock, Sparkles } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Navbar } from '../components/Navbar';
 
@@ -128,14 +128,124 @@ export default function CinematicHero() {
   ];
   
   return (
-    <div className="min-h-screen relative overflow-x-hidden bg-gradient-to-br from-black via-slate-950 to-blue-950">
+    <div className="min-h-screen relative overflow-x-hidden bg-slate-950">
+      {/* Animated Water/Wave Background - Full Page */}
+      <div className="fixed inset-0 z-0 overflow-hidden">
+        {/* Base gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-blue-950/50 to-slate-950" />
+        
+        {/* Animated wave layers */}
+        <svg className="absolute bottom-0 left-0 w-full h-full opacity-30" viewBox="0 0 1440 800" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="waveGrad1" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.4" />
+              <stop offset="100%" stopColor="#1e40af" stopOpacity="0.1" />
+            </linearGradient>
+            <linearGradient id="waveGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#60a5fa" stopOpacity="0.3" />
+              <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.05" />
+            </linearGradient>
+            <linearGradient id="waveGrad3" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#93c5fd" stopOpacity="0.2" />
+              <stop offset="100%" stopColor="#60a5fa" stopOpacity="0.02" />
+            </linearGradient>
+          </defs>
+          
+          {/* Wave 1 - Slowest, deepest */}
+          <motion.path
+            d="M0,400 C150,350 350,450 500,400 C650,350 850,450 1000,400 C1150,350 1350,450 1440,400 L1440,800 L0,800 Z"
+            fill="url(#waveGrad1)"
+            animate={{
+              d: [
+                "M0,400 C150,350 350,450 500,400 C650,350 850,450 1000,400 C1150,350 1350,450 1440,400 L1440,800 L0,800 Z",
+                "M0,420 C150,470 350,370 500,420 C650,470 850,370 1000,420 C1150,470 1350,370 1440,420 L1440,800 L0,800 Z",
+                "M0,400 C150,350 350,450 500,400 C650,350 850,450 1000,400 C1150,350 1350,450 1440,400 L1440,800 L0,800 Z"
+              ]
+            }}
+            transition={{
+              duration: 12,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+          
+          {/* Wave 2 - Medium speed */}
+          <motion.path
+            d="M0,500 C200,450 400,550 600,500 C800,450 1000,550 1200,500 C1350,450 1400,550 1440,500 L1440,800 L0,800 Z"
+            fill="url(#waveGrad2)"
+            animate={{
+              d: [
+                "M0,500 C200,450 400,550 600,500 C800,450 1000,550 1200,500 C1350,450 1400,550 1440,500 L1440,800 L0,800 Z",
+                "M0,480 C200,530 400,430 600,480 C800,530 1000,430 1200,480 C1350,530 1400,430 1440,480 L1440,800 L0,800 Z",
+                "M0,500 C200,450 400,550 600,500 C800,450 1000,550 1200,500 C1350,450 1400,550 1440,500 L1440,800 L0,800 Z"
+              ]
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+          
+          {/* Wave 3 - Fastest, lightest */}
+          <motion.path
+            d="M0,600 C250,550 450,650 700,600 C950,550 1150,650 1440,600 L1440,800 L0,800 Z"
+            fill="url(#waveGrad3)"
+            animate={{
+              d: [
+                "M0,600 C250,550 450,650 700,600 C950,550 1150,650 1440,600 L1440,800 L0,800 Z",
+                "M0,580 C250,630 450,530 700,580 C950,630 1150,530 1440,580 L1440,800 L0,800 Z",
+                "M0,600 C250,550 450,650 700,600 C950,550 1150,650 1440,600 L1440,800 L0,800 Z"
+              ]
+            }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+        </svg>
+        
+        {/* Floating bubbles/particles */}
+        {[...Array(30)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute rounded-full bg-blue-400/20"
+            style={{
+              width: Math.random() * 8 + 4,
+              height: Math.random() * 8 + 4,
+              left: `${Math.random() * 100}%`,
+              bottom: `${Math.random() * 50}%`,
+            }}
+            animate={{
+              y: [0, -100 - Math.random() * 200],
+              opacity: [0.3, 0.6, 0],
+              scale: [1, 1.2, 0.8]
+            }}
+            transition={{
+              duration: 6 + Math.random() * 4,
+              repeat: Infinity,
+              delay: Math.random() * 5,
+              ease: "easeOut"
+            }}
+          />
+        ))}
+        
+        {/* Subtle light rays */}
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
+          <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/4 left-1/3 w-72 h-72 bg-indigo-500/10 rounded-full blur-3xl" />
+        </div>
+      </div>
+
       {/* Top Navigation Bar */}
       <Navbar />
       
       {/* Hero Section */}
       <section className="min-h-screen relative overflow-hidden">
         {/* Animated background particles */}
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 z-10">
           {[...Array(50)].map((_, i) => (
             <motion.div
               key={i}
@@ -158,7 +268,7 @@ export default function CinematicHero() {
         </div>
         
         {/* Vignette effect */}
-        <div className="absolute inset-0 bg-gradient-radial from-transparent via-transparent to-black/60" />
+        <div className="absolute inset-0 bg-gradient-radial from-transparent via-transparent to-black/60 z-10" />
         
         {/* Floating Feature Cards */}
         {floatingCards.map((card, index) => {
@@ -170,7 +280,7 @@ export default function CinematicHero() {
             <motion.div
               key={card.position}
               data-testid={`floating-card-${card.position}`}
-              className="absolute z-10"
+              className="absolute z-20"
               style={card.style}
               animate={{
                 x: parallaxX,
@@ -221,7 +331,7 @@ export default function CinematicHero() {
         })}
         
         {/* Central Logo Section */}
-        <div className="relative z-20 flex flex-col items-center justify-center min-h-screen">
+        <div className="relative z-30 flex flex-col items-center justify-center min-h-screen">
           {/* Shield Logo with Orbiting Line */}
           <div className="relative mb-12">
             {/* Ambient glow behind shield */}
@@ -282,7 +392,7 @@ export default function CinematicHero() {
               >
                 <svg className="w-full h-full opacity-40" viewBox="0 0 200 200">
                   <defs>
-                    <radialGradient id="waveGradient">
+                    <radialGradient id="waveGradientCircle">
                       <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.3" />
                       <stop offset="100%" stopColor="#1d4ed8" stopOpacity="0" />
                     </radialGradient>
@@ -294,7 +404,7 @@ export default function CinematicHero() {
                       cy="100"
                       r="70"
                       fill="none"
-                      stroke="url(#waveGradient)"
+                      stroke="url(#waveGradientCircle)"
                       strokeWidth="2"
                       initial={{ scale: 0.8, opacity: 0.6 }}
                       animate={{
@@ -336,7 +446,7 @@ export default function CinematicHero() {
               ⚖️ Nyaay Sathi
             </h1>
             <p className="text-2xl sm:text-3xl text-blue-200 font-light tracking-wide">
-              Justice, Powered by Intelligence.
+              Justice You Understand, Technology You Trust.
             </p>
           </motion.div>
           
@@ -400,9 +510,9 @@ export default function CinematicHero() {
       </section>
 
       {/* Core Capabilities / Features Section */}
-      <section className="relative py-24 px-4 sm:px-8">
+      <section className="relative py-24 px-4 sm:px-8 z-10">
         {/* Section background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-950/50 to-slate-950" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-950/80 to-slate-950/90" />
         
         <div className="relative z-10 max-w-7xl mx-auto">
           {/* Section Header */}
@@ -495,7 +605,8 @@ export default function CinematicHero() {
       </section>
 
       {/* Selected Case Studies Section */}
-      <section className="relative py-24 px-4 sm:px-8 bg-slate-950/50">
+      <section className="relative py-24 px-4 sm:px-8 z-10">
+        <div className="absolute inset-0 bg-slate-950/50" />
         <div className="relative z-10 max-w-7xl mx-auto">
           {/* Section Header */}
           <motion.div
@@ -516,10 +627,6 @@ export default function CinematicHero() {
                 <p className="text-slate-400 max-w-xl">
                   Our network of experienced lawyers specializes in these key practice areas with proven success rates
                 </p>
-              </div>
-              <div className="text-right">
-                <p className="text-slate-500 text-sm">All areas covered with</p>
-                <p className="text-2xl font-bold text-white">500+ Cases</p>
               </div>
             </div>
           </motion.div>
@@ -581,7 +688,7 @@ export default function CinematicHero() {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="relative py-24 px-4 sm:px-8">
+      <section className="relative py-24 px-4 sm:px-8 z-10">
         <div className="relative z-10 max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -643,7 +750,7 @@ export default function CinematicHero() {
       </section>
 
       {/* Final CTA Section */}
-      <section className="relative py-24 px-4 sm:px-8">
+      <section className="relative py-24 px-4 sm:px-8 z-10">
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -677,7 +784,7 @@ export default function CinematicHero() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-slate-800 py-8 px-4">
+      <footer className="relative z-10 border-t border-slate-800 py-8 px-4 bg-slate-950/80">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between text-slate-500 text-sm">
           <div className="flex items-center space-x-2 mb-4 md:mb-0">
             <Scale className="w-5 h-5 text-blue-500" />
