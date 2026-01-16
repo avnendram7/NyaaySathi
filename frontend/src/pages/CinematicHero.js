@@ -595,7 +595,7 @@ export default function CinematicHero() {
                   whileHover={{ y: -10 }}
                   transition={{ duration: 0.4 }}
                   className={`relative rounded-2xl overflow-hidden border backdrop-blur-xl cursor-pointer transition-colors duration-500 ${
-                    theme === 'dark' ? 'border-slate-800 bg-slate-900/60' : 'border-slate-200 bg-white/80'
+                    theme === 'dark' ? 'border-slate-800 bg-slate-900/60' : 'border-indigo-200 bg-white/90 shadow-lg'
                   }`}
                 >
                   {/* Image */}
