@@ -218,7 +218,11 @@ export default function CinematicHero() {
       {/* Hero Section */}
       <section className="min-h-screen relative overflow-hidden">
         {/* Vignette effect */}
-        <div className="absolute inset-0 bg-gradient-radial from-transparent via-transparent to-black/60 z-10" />
+        <div className={`absolute inset-0 z-10 transition-colors duration-500 ${
+          theme === 'dark' 
+            ? 'bg-gradient-radial from-transparent via-transparent to-black/60'
+            : 'bg-gradient-radial from-transparent via-transparent to-slate-100/40'
+        }`} />
         
         {/* Central Logo Section */}
         <div className="relative z-30 flex flex-col items-center justify-center min-h-screen">
@@ -226,7 +230,9 @@ export default function CinematicHero() {
           <div className="relative mb-12">
             {/* Ambient glow behind shield */}
             <div className="absolute inset-0 blur-3xl opacity-50">
-              <div className="w-full h-full bg-blue-500 rounded-full animate-pulse" />
+              <div className={`w-full h-full rounded-full animate-pulse transition-colors duration-500 ${
+                theme === 'dark' ? 'bg-blue-500' : 'bg-blue-400'
+              }`} />
             </div>
             
             {/* Orbiting line container */}
