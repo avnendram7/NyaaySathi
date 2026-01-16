@@ -60,7 +60,7 @@ export const Navbar = () => {
               className={`p-2 rounded-full transition-all duration-300 ${
                 theme === 'dark'
                   ? 'bg-slate-800 hover:bg-slate-700 text-yellow-400'
-                  : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                  : 'bg-indigo-100 hover:bg-indigo-200 text-indigo-700'
               }`}
               aria-label="Toggle theme"
             >
