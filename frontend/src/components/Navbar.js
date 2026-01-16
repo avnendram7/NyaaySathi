@@ -87,7 +87,7 @@ export const Navbar = () => {
                   className={`rounded-full px-6 py-2 ${
                     theme === 'dark'
                       ? 'border-slate-700 text-slate-200 hover:bg-slate-800'
-                      : 'border-slate-300 text-slate-700 hover:bg-slate-100'
+                      : 'border-indigo-300 text-indigo-700 hover:bg-indigo-50'
                   }`}
                 >
                   Logout
