@@ -492,7 +492,7 @@ export default function CinematicHero() {
                   <div className={`absolute inset-0 transition-colors duration-500 ${
                     theme === 'dark'
                       ? 'bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent'
-                      : 'bg-gradient-to-t from-white via-white/80 to-transparent'
+                      : 'bg-gradient-to-t from-white via-white/90 to-transparent'
                   }`} />
                   
                   {/* Content */}
@@ -501,12 +501,12 @@ export default function CinematicHero() {
                       {card.category}
                     </span>
                     <h3 className={`text-2xl font-bold mb-2 transition-colors group-hover:text-blue-500 duration-300 ${
-                      theme === 'dark' ? 'text-white' : 'text-slate-900'
+                      theme === 'dark' ? 'text-white' : 'text-indigo-950'
                     }`}>
                       {card.title}
                     </h3>
                     <p className={`text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
-                      theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
+                      theme === 'dark' ? 'text-slate-400' : 'text-slate-700'
                     }`}>
                       {card.description}
                     </p>
