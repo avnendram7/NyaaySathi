@@ -490,17 +490,25 @@ export default function CinematicHero() {
                   />
                   
                   {/* Gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent" />
+                  <div className={`absolute inset-0 transition-colors duration-500 ${
+                    theme === 'dark'
+                      ? 'bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent'
+                      : 'bg-gradient-to-t from-white via-white/80 to-transparent'
+                  }`} />
                   
                   {/* Content */}
                   <div className="relative h-full flex flex-col justify-end p-6">
                     <span className={`text-xs font-semibold tracking-wider ${card.accentColor} mb-2`}>
                       {card.category}
                     </span>
-                    <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-blue-100 transition-colors">
+                    <h3 className={`text-2xl font-bold mb-2 transition-colors group-hover:text-blue-500 duration-300 ${
+                      theme === 'dark' ? 'text-white' : 'text-slate-900'
+                    }`}>
                       {card.title}
                     </h3>
-                    <p className="text-slate-400 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <p className={`text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
+                      theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
+                    }`}>
                       {card.description}
                     </p>
                   </div>
@@ -522,7 +530,11 @@ export default function CinematicHero() {
           >
             <Button
               onClick={() => navigate('/features')}
-              className="bg-transparent border border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white rounded-full px-8 py-3 text-sm font-medium transition-all duration-300"
+              className={`bg-transparent border rounded-full px-8 py-3 text-sm font-medium transition-all duration-300 ${
+                theme === 'dark'
+                  ? 'border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white'
+                  : 'border-slate-300 text-slate-700 hover:bg-slate-100 hover:text-slate-900'
+              }`}
             >
               ALL SERVICES <ArrowRight className="w-4 h-4 ml-2 inline" />
             </Button>
@@ -532,7 +544,9 @@ export default function CinematicHero() {
 
       {/* Selected Case Studies Section */}
       <section className="relative py-24 px-4 sm:px-8 z-10">
-        <div className="absolute inset-0 bg-slate-950/50" />
+        <div className={`absolute inset-0 transition-colors duration-500 ${
+          theme === 'dark' ? 'bg-slate-950/50' : 'bg-slate-50/50'
+        }`} />
         <div className="relative z-10 max-w-7xl mx-auto">
           {/* Section Header */}
           <motion.div
@@ -542,12 +556,16 @@ export default function CinematicHero() {
             transition={{ duration: 0.8 }}
             className="mb-16"
           >
-            <span className="text-purple-400 text-sm font-semibold tracking-wider uppercase mb-4 block">
+            <span className={`text-sm font-semibold tracking-wider uppercase mb-4 block transition-colors duration-500 ${
+              theme === 'dark' ? 'text-purple-400' : 'text-purple-600'
+            }`}>
               02 — Practice Areas
             </span>
             <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
               <div>
-                <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
+                <h2 className={`text-4xl sm:text-5xl font-bold mb-4 transition-colors duration-500 ${
+                  theme === 'dark' ? 'text-white' : 'text-slate-900'
+                }`}>
                   Areas of Expertise
                 </h2>
                 <p className="text-slate-400 max-w-xl">
