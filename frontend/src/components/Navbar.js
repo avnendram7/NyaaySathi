@@ -1,12 +1,14 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from './ui/button';
-import { Scale, Menu, X, Home, Info, Sparkles, HelpCircle } from 'lucide-react';
+import { Scale, Menu, X, Home, Info, Sparkles, HelpCircle, Sun, Moon } from 'lucide-react';
 import { useState } from 'react';
+import { useTheme } from '../contexts/ThemeContext';
 
 export const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user') || 'null');
+  const { theme, toggleTheme } = useTheme();
   
   const handleLogout = () => {
     localStorage.removeItem('token');
