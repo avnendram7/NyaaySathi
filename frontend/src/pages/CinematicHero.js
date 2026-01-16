@@ -399,7 +399,9 @@ export default function CinematicHero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.5, duration: 1 }}
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-slate-500 text-sm flex flex-col items-center"
+            className={`absolute bottom-8 left-1/2 transform -translate-x-1/2 text-sm flex flex-col items-center transition-colors duration-500 ${
+              theme === 'dark' ? 'text-slate-500' : 'text-slate-400'
+            }`}
           >
             <span>Scroll to explore more</span>
             <motion.div
@@ -407,8 +409,12 @@ export default function CinematicHero() {
               transition={{ duration: 1.5, repeat: Infinity }}
               className="mt-2"
             >
-              <div className="w-6 h-10 border-2 border-slate-600 rounded-full flex items-start justify-center p-2">
-                <div className="w-1.5 h-1.5 bg-blue-400 rounded-full" />
+              <div className={`w-6 h-10 border-2 rounded-full flex items-start justify-center p-2 transition-colors duration-500 ${
+                theme === 'dark' ? 'border-slate-600' : 'border-slate-400'
+              }`}>
+                <div className={`w-1.5 h-1.5 rounded-full transition-colors duration-500 ${
+                  theme === 'dark' ? 'bg-blue-400' : 'bg-blue-500'
+                }`} />
               </div>
             </motion.div>
           </motion.div>
@@ -418,7 +424,11 @@ export default function CinematicHero() {
       {/* Core Capabilities / Features Section */}
       <section className="relative py-24 px-4 sm:px-8 z-10">
         {/* Section background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-950/80 to-slate-950/90" />
+        <div className={`absolute inset-0 transition-colors duration-500 ${
+          theme === 'dark'
+            ? 'bg-gradient-to-b from-transparent via-slate-950/80 to-slate-950/90'
+            : 'bg-gradient-to-b from-transparent via-slate-50/80 to-slate-50/90'
+        }`} />
         
         <div className="relative z-10 max-w-7xl mx-auto">
           {/* Section Header */}
@@ -429,14 +439,20 @@ export default function CinematicHero() {
             transition={{ duration: 0.8 }}
             className="mb-16"
           >
-            <span className="text-blue-400 text-sm font-semibold tracking-wider uppercase mb-4 block">
+            <span className={`text-sm font-semibold tracking-wider uppercase mb-4 block transition-colors duration-500 ${
+              theme === 'dark' ? 'text-blue-400' : 'text-blue-600'
+            }`}>
               01 — Core Capabilities
             </span>
             <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white">
+              <h2 className={`text-4xl sm:text-5xl lg:text-6xl font-bold transition-colors duration-500 ${
+                theme === 'dark' ? 'text-white' : 'text-slate-900'
+              }`}>
                 Our Services
               </h2>
-              <p className="text-slate-400 text-lg max-w-md">
+              <p className={`text-lg max-w-md transition-colors duration-500 ${
+                theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
+              }`}>
                 Comprehensive legal solutions powered by technology for modern India
               </p>
             </div>
@@ -460,13 +476,17 @@ export default function CinematicHero() {
                 <motion.div
                   whileHover={{ y: -8, scale: 1.02 }}
                   transition={{ duration: 0.3 }}
-                  className={`relative h-80 rounded-2xl overflow-hidden ${card.borderColor} border bg-slate-900/80 backdrop-blur-xl cursor-pointer`}
+                  className={`relative h-80 rounded-2xl overflow-hidden ${card.borderColor} border backdrop-blur-xl cursor-pointer transition-colors duration-500 ${
+                    theme === 'dark' ? 'bg-slate-900/80' : 'bg-white/90'
+                  }`}
                 >
                   {/* Background Image */}
                   <img 
                     src={card.image}
                     alt={card.title}
-                    className="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-40 group-hover:scale-110 transition-all duration-700"
+                    className={`absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-all duration-700 ${
+                      theme === 'dark' ? 'opacity-30 group-hover:opacity-40' : 'opacity-20 group-hover:opacity-30'
+                    }`}
                   />
                   
                   {/* Gradient overlay */}
