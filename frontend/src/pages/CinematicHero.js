@@ -327,7 +327,7 @@ export default function CinematicHero() {
                 <div className={`w-48 h-48 rounded-full flex items-center justify-center border-4 shadow-2xl transition-all duration-500 ${
                   theme === 'dark'
                     ? 'bg-gradient-to-br from-blue-600 to-blue-900 border-blue-400/30'
-                    : 'bg-gradient-to-br from-blue-500 to-blue-700 border-blue-300/50'
+                    : 'bg-gradient-to-br from-indigo-500 to-indigo-700 border-indigo-300/60'
                 }`}>
                   <Scale className="w-24 h-24 text-white" strokeWidth={1.5} />
                 </div>
