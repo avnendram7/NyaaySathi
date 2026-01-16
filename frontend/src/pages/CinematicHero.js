@@ -426,7 +426,7 @@ export default function CinematicHero() {
         <div className={`absolute inset-0 transition-colors duration-500 ${
           theme === 'dark'
             ? 'bg-gradient-to-b from-transparent via-slate-950/80 to-slate-950/90'
-            : 'bg-gradient-to-b from-transparent via-slate-50/80 to-slate-50/90'
+            : 'bg-gradient-to-b from-transparent via-indigo-50/40 to-indigo-50/60'
         }`} />
         
         <div className="relative z-10 max-w-7xl mx-auto">
