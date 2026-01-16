@@ -185,7 +185,7 @@ export const Navbar = () => {
                     <Button className={`w-full rounded-full ${
                       theme === 'dark'
                         ? 'bg-blue-700 hover:bg-blue-600 text-white'
-                        : 'bg-blue-600 hover:bg-blue-700 text-white'
+                        : 'bg-indigo-600 hover:bg-indigo-700 text-white'
                     }`}>
                       Get Started
                     </Button>
@@ -194,7 +194,7 @@ export const Navbar = () => {
                     <Button variant="outline" className={`w-full rounded-full ${
                       theme === 'dark'
                         ? 'border-slate-700 text-slate-200 hover:bg-slate-800'
-                        : 'border-slate-300 text-slate-700 hover:bg-slate-100'
+                        : 'border-indigo-300 text-indigo-700 hover:bg-indigo-50'
                     }`}>
                       AI Chat
                     </Button>
