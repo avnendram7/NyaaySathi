@@ -231,7 +231,7 @@ export default function CinematicHero() {
             {/* Ambient glow behind shield */}
             <div className="absolute inset-0 blur-3xl opacity-50">
               <div className={`w-full h-full rounded-full animate-pulse transition-colors duration-500 ${
-                theme === 'dark' ? 'bg-blue-500' : 'bg-blue-400'
+                theme === 'dark' ? 'bg-blue-500' : 'bg-indigo-500'
               }`} />
             </div>
             
