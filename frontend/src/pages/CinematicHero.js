@@ -221,7 +221,7 @@ export default function CinematicHero() {
         <div className={`absolute inset-0 z-10 transition-colors duration-500 ${
           theme === 'dark' 
             ? 'bg-gradient-radial from-transparent via-transparent to-black/60'
-            : 'bg-gradient-radial from-transparent via-transparent to-slate-100/40'
+            : 'bg-gradient-radial from-transparent via-transparent to-indigo-100/30'
         }`} />
         
         {/* Central Logo Section */}
