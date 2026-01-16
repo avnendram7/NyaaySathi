@@ -709,10 +709,10 @@ export default function CinematicHero() {
                   </div>
                 </div>
                 <h3 className={`text-xl font-bold mb-3 transition-colors duration-500 ${
-                  theme === 'dark' ? 'text-white' : 'text-slate-900'
+                  theme === 'dark' ? 'text-white' : 'text-indigo-950'
                 }`}>{item.title}</h3>
                 <p className={`text-sm leading-relaxed transition-colors duration-500 ${
-                  theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
+                  theme === 'dark' ? 'text-slate-400' : 'text-slate-700'
                 }`}>
                   {item.description}
                 </p>
