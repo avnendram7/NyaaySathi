@@ -345,12 +345,12 @@ export default function CinematicHero() {
             <h1 className={`text-6xl sm:text-7xl lg:text-8xl font-bold mb-4 bg-clip-text text-transparent transition-all duration-500 ${
               theme === 'dark'
                 ? 'bg-gradient-to-r from-white via-blue-200 to-white'
-                : 'bg-gradient-to-r from-slate-800 via-blue-600 to-slate-800'
+                : 'bg-gradient-to-r from-indigo-900 via-indigo-600 to-indigo-900'
             }`}>
               ⚖️ Nyaay Sathi
             </h1>
             <p className={`text-2xl sm:text-3xl font-light tracking-wide transition-colors duration-500 ${
-              theme === 'dark' ? 'text-blue-200' : 'text-slate-600'
+              theme === 'dark' ? 'text-blue-200' : 'text-slate-700'
             }`}>
               Justice You Understand, Technology You Trust.
             </p>
