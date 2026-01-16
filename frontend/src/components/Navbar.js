@@ -33,19 +33,19 @@ export const Navbar = () => {
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
             <Link to="/" className={`flex items-center space-x-1 transition-colors ${
-              theme === 'dark' ? 'text-slate-300 hover:text-white' : 'text-slate-600 hover:text-slate-900'
+              theme === 'dark' ? 'text-slate-300 hover:text-white' : 'text-slate-700 hover:text-indigo-700'
             }`}>
               <Home className="w-4 h-4" />
               <span>Home</span>
             </Link>
             <Link to="/about" className={`flex items-center space-x-1 transition-colors ${
-              theme === 'dark' ? 'text-slate-300 hover:text-white' : 'text-slate-600 hover:text-slate-900'
+              theme === 'dark' ? 'text-slate-300 hover:text-white' : 'text-slate-700 hover:text-indigo-700'
             }`}>
               <Info className="w-4 h-4" />
               <span>About</span>
             </Link>
             <Link to="/contact" className={`flex items-center space-x-1 transition-colors ${
-              theme === 'dark' ? 'text-slate-300 hover:text-white' : 'text-slate-600 hover:text-slate-900'
+              theme === 'dark' ? 'text-slate-300 hover:text-white' : 'text-slate-700 hover:text-indigo-700'
             }`}>
               <HelpCircle className="w-4 h-4" />
               <span>Help</span>
