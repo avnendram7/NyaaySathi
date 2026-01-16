@@ -75,7 +75,7 @@ export const Navbar = () => {
                   className={`rounded-full px-6 py-2 ${
                     theme === 'dark'
                       ? 'bg-blue-700 hover:bg-blue-600 text-white'
-                      : 'bg-blue-600 hover:bg-blue-700 text-white'
+                      : 'bg-indigo-600 hover:bg-indigo-700 text-white'
                   }`}
                 >
                   Dashboard
