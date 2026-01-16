@@ -400,9 +400,8 @@ export default function CinematicHero() {
             animate={{ opacity: 1 }}
             transition={{ delay: 1.5, duration: 1 }}
             className={`absolute bottom-8 left-1/2 transform -translate-x-1/2 text-sm flex flex-col items-center transition-colors duration-500 ${
-              theme === 'dark' ? 'text-slate-500' : 'text-slate-400'
-            }`}
-          >
+              theme === 'dark' ? 'text-slate-500' : 'text-slate-500'
+            }`}>
             <span>Scroll to explore more</span>
             <motion.div
               animate={{ y: [0, 8, 0] }}
@@ -413,7 +412,7 @@ export default function CinematicHero() {
                 theme === 'dark' ? 'border-slate-600' : 'border-slate-400'
               }`}>
                 <div className={`w-1.5 h-1.5 rounded-full transition-colors duration-500 ${
-                  theme === 'dark' ? 'bg-blue-400' : 'bg-blue-500'
+                  theme === 'dark' ? 'bg-blue-400' : 'bg-indigo-600'
                 }`} />
               </div>
             </motion.div>
