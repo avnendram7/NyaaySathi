@@ -86,7 +86,7 @@ export default function CinematicHero() {
   
   return (
     <div className={`min-h-screen relative overflow-x-hidden transition-colors duration-500 ${
-      theme === 'dark' ? 'bg-slate-950' : 'bg-white'
+      theme === 'dark' ? 'bg-slate-950' : 'bg-gradient-to-br from-slate-50 via-blue-50/30 to-slate-50'
     }`}>
       {/* Animated Water/Wave Background - Full Page */}
       <div className="fixed inset-0 z-0 overflow-hidden">
@@ -94,7 +94,7 @@ export default function CinematicHero() {
         <div className={`absolute inset-0 transition-all duration-500 ${
           theme === 'dark' 
             ? 'bg-gradient-to-br from-slate-950 via-blue-950/50 to-slate-950'
-            : 'bg-gradient-to-br from-blue-50 via-white to-blue-50'
+            : 'bg-gradient-to-br from-blue-100/40 via-indigo-50/20 to-purple-50/30'
         }`} />
         
         {/* Animated wave layers */}
