@@ -201,13 +201,13 @@ export default function CinematicHero() {
         {/* Subtle light rays */}
         <div className="absolute inset-0">
           <div className={`absolute top-0 left-1/4 w-96 h-96 rounded-full blur-3xl transition-colors duration-500 ${
-            theme === 'dark' ? 'bg-blue-500/10' : 'bg-blue-400/20'
+            theme === 'dark' ? 'bg-blue-500/10' : 'bg-indigo-400/30'
           }`} />
           <div className={`absolute top-1/3 right-1/4 w-80 h-80 rounded-full blur-3xl transition-colors duration-500 ${
-            theme === 'dark' ? 'bg-cyan-500/10' : 'bg-cyan-400/20'
+            theme === 'dark' ? 'bg-cyan-500/10' : 'bg-purple-400/25'
           }`} />
           <div className={`absolute bottom-1/4 left-1/3 w-72 h-72 rounded-full blur-3xl transition-colors duration-500 ${
-            theme === 'dark' ? 'bg-indigo-500/10' : 'bg-indigo-400/20'
+            theme === 'dark' ? 'bg-indigo-500/10' : 'bg-blue-400/30'
           }`} />
         </div>
       </div>
