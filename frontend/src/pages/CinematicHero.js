@@ -544,7 +544,7 @@ export default function CinematicHero() {
       {/* Selected Case Studies Section */}
       <section className="relative py-24 px-4 sm:px-8 z-10">
         <div className={`absolute inset-0 transition-colors duration-500 ${
-          theme === 'dark' ? 'bg-slate-950/50' : 'bg-slate-50/50'
+          theme === 'dark' ? 'bg-slate-950/50' : 'bg-purple-50/40'
         }`} />
         <div className="relative z-10 max-w-7xl mx-auto">
           {/* Section Header */}
