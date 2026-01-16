@@ -99,20 +99,20 @@ export default function CinematicHero() {
         
         {/* Animated wave layers */}
         <svg className={`absolute bottom-0 left-0 w-full h-full transition-opacity duration-500 ${
-          theme === 'dark' ? 'opacity-30' : 'opacity-20'
+          theme === 'dark' ? 'opacity-30' : 'opacity-40'
         }`} viewBox="0 0 1440 800" preserveAspectRatio="none">
           <defs>
             <linearGradient id="waveGrad1" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor={theme === 'dark' ? '#3b82f6' : '#60a5fa'} stopOpacity={theme === 'dark' ? '0.4' : '0.3'} />
-              <stop offset="100%" stopColor={theme === 'dark' ? '#1e40af' : '#3b82f6'} stopOpacity={theme === 'dark' ? '0.1' : '0.05'} />
+              <stop offset="0%" stopColor={theme === 'dark' ? '#3b82f6' : '#6366f1'} stopOpacity={theme === 'dark' ? '0.4' : '0.4'} />
+              <stop offset="100%" stopColor={theme === 'dark' ? '#1e40af' : '#4f46e5'} stopOpacity={theme === 'dark' ? '0.1' : '0.15'} />
             </linearGradient>
             <linearGradient id="waveGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor={theme === 'dark' ? '#60a5fa' : '#93c5fd'} stopOpacity={theme === 'dark' ? '0.3' : '0.25'} />
-              <stop offset="100%" stopColor={theme === 'dark' ? '#3b82f6' : '#60a5fa'} stopOpacity={theme === 'dark' ? '0.05' : '0.03'} />
+              <stop offset="0%" stopColor={theme === 'dark' ? '#60a5fa' : '#818cf8'} stopOpacity={theme === 'dark' ? '0.3' : '0.35'} />
+              <stop offset="100%" stopColor={theme === 'dark' ? '#3b82f6' : '#6366f1'} stopOpacity={theme === 'dark' ? '0.05' : '0.1'} />
             </linearGradient>
             <linearGradient id="waveGrad3" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor={theme === 'dark' ? '#93c5fd' : '#bfdbfe'} stopOpacity={theme === 'dark' ? '0.2' : '0.15'} />
-              <stop offset="100%" stopColor={theme === 'dark' ? '#60a5fa' : '#93c5fd'} stopOpacity={theme === 'dark' ? '0.02' : '0.01'} />
+              <stop offset="0%" stopColor={theme === 'dark' ? '#93c5fd' : '#a5b4fc'} stopOpacity={theme === 'dark' ? '0.2' : '0.25'} />
+              <stop offset="100%" stopColor={theme === 'dark' ? '#60a5fa' : '#818cf8'} stopOpacity={theme === 'dark' ? '0.02' : '0.05'} />
             </linearGradient>
           </defs>
           
