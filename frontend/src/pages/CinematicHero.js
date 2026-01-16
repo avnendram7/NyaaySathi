@@ -752,7 +752,7 @@ export default function CinematicHero() {
                 className={`text-lg px-10 py-6 rounded-full font-semibold shadow-xl transition-colors ${
                   theme === 'dark'
                     ? 'bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white'
-                    : 'bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white'
+                    : 'bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white'
                 }`}
               >
                 Start Your Journey <ArrowRight className="w-5 h-5 ml-2 inline" />
@@ -763,7 +763,7 @@ export default function CinematicHero() {
                 className={`text-lg px-10 py-6 rounded-full font-semibold transition-colors duration-500 ${
                   theme === 'dark'
                     ? 'border-slate-700 text-slate-300 hover:bg-slate-800'
-                    : 'border-slate-300 text-slate-700 hover:bg-slate-100'
+                    : 'border-indigo-300 text-indigo-700 hover:bg-indigo-50'
                 }`}
               >
                 Contact Us
