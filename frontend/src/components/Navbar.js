@@ -123,7 +123,7 @@ export const Navbar = () => {
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div data-testid="mobile-menu" className={`md:hidden border-t transition-colors ${
-          theme === 'dark' ? 'glass border-slate-800' : 'bg-white border-slate-200'
+          theme === 'dark' ? 'glass border-slate-800' : 'bg-white border-indigo-200'
         }`}>
           <div className="px-4 py-4 space-y-3">
             <Link to="/" className={`flex items-center space-x-2 py-2 transition-colors ${
