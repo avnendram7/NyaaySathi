@@ -26,8 +26,8 @@ export const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="flex items-center space-x-2">
-            <Scale className={`w-8 h-8 ${theme === 'dark' ? 'text-blue-500' : 'text-blue-600'}`} />
-            <span className={`text-xl font-bold ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>Nyaay Sathi</span>
+            <Scale className={`w-8 h-8 ${theme === 'dark' ? 'text-blue-500' : 'text-indigo-600'}`} />
+            <span className={`text-xl font-bold ${theme === 'dark' ? 'text-white' : 'text-indigo-950'}`}>Nyaay Sathi</span>
           </Link>
           
           {/* Desktop Menu */}
