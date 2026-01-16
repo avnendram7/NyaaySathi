@@ -709,8 +709,14 @@ export default function CinematicHero() {
                     <item.icon className={`w-8 h-8 ${item.color}`} />
                   </div>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3">{item.title}</h3>
-                <p className="text-slate-400">{item.description}</p>
+                <h3 className={`text-xl font-bold mb-3 transition-colors duration-500 ${
+                  theme === 'dark' ? 'text-white' : 'text-slate-900'
+                }`}>{item.title}</h3>
+                <p className={`text-sm leading-relaxed transition-colors duration-500 ${
+                  theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
+                }`}>
+                  {item.description}
+                </p>
               </motion.div>
             ))}
           </div>
@@ -718,7 +724,12 @@ export default function CinematicHero() {
       </section>
 
       {/* Final CTA Section */}
-      <section className="relative py-24 px-4 sm:px-8 z-10">
+      <section className="relative py-32 px-4 sm:px-8 z-10">
+        <div className={`absolute inset-0 transition-colors duration-500 ${
+          theme === 'dark'
+            ? 'bg-gradient-to-b from-slate-950/50 via-blue-950/30 to-slate-950'
+            : 'bg-gradient-to-b from-slate-50/50 via-blue-50/30 to-white'
+        }`} />
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -726,23 +737,35 @@ export default function CinematicHero() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
+            <h2 className={`text-5xl sm:text-6xl font-bold mb-6 transition-colors duration-500 ${
+              theme === 'dark' ? 'text-white' : 'text-slate-900'
+            }`}>
               Ready to Get Started?
             </h2>
-            <p className="text-xl text-slate-400 mb-10">
+            <p className={`text-xl mb-10 transition-colors duration-500 ${
+              theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
+            }`}>
               Join thousands of Indians who have simplified their legal journey with Nyaay Sathi
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
                 onClick={() => navigate('/role-selection')}
-                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-lg px-10 py-6 rounded-full font-semibold shadow-xl"
+                className={`text-lg px-10 py-6 rounded-full font-semibold shadow-xl transition-colors ${
+                  theme === 'dark'
+                    ? 'bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white'
+                    : 'bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white'
+                }`}
               >
                 Start Your Journey <ArrowRight className="w-5 h-5 ml-2 inline" />
               </Button>
               <Button
                 onClick={() => navigate('/contact')}
                 variant="outline"
-                className="border-slate-700 text-slate-300 hover:bg-slate-800 text-lg px-10 py-6 rounded-full font-semibold"
+                className={`text-lg px-10 py-6 rounded-full font-semibold transition-colors duration-500 ${
+                  theme === 'dark'
+                    ? 'border-slate-700 text-slate-300 hover:bg-slate-800'
+                    : 'border-slate-300 text-slate-700 hover:bg-slate-100'
+                }`}
               >
                 Contact Us
               </Button>
@@ -752,11 +775,21 @@ export default function CinematicHero() {
       </section>
 
       {/* Footer */}
-      <footer className="relative z-10 border-t border-slate-800 py-8 px-4 bg-slate-950/80">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between text-slate-500 text-sm">
+      <footer className={`relative z-10 border-t py-8 px-4 transition-colors duration-500 ${
+        theme === 'dark'
+          ? 'border-slate-800 bg-slate-950/80'
+          : 'border-slate-200 bg-white/80'
+      }`}>
+        <div className={`max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between text-sm transition-colors duration-500 ${
+          theme === 'dark' ? 'text-slate-500' : 'text-slate-600'
+        }`}>
           <div className="flex items-center space-x-2 mb-4 md:mb-0">
-            <Scale className="w-5 h-5 text-blue-500" />
-            <span className="font-semibold text-white">Nyaay Sathi</span>
+            <Scale className={`w-5 h-5 transition-colors duration-500 ${
+              theme === 'dark' ? 'text-blue-500' : 'text-blue-600'
+            }`} />
+            <span className={`font-semibold transition-colors duration-500 ${
+              theme === 'dark' ? 'text-white' : 'text-slate-900'
+            }`}>Nyaay Sathi</span>
           </div>
           <p>© 2026 Nyaay Sathi. All rights reserved.</p>
           <div className="flex items-center space-x-4 mt-4 md:mt-0">
