@@ -439,18 +439,18 @@ export default function CinematicHero() {
             className="mb-16"
           >
             <span className={`text-sm font-semibold tracking-wider uppercase mb-4 block transition-colors duration-500 ${
-              theme === 'dark' ? 'text-blue-400' : 'text-blue-600'
+              theme === 'dark' ? 'text-blue-400' : 'text-indigo-600'
             }`}>
               01 — Core Capabilities
             </span>
             <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
               <h2 className={`text-4xl sm:text-5xl lg:text-6xl font-bold transition-colors duration-500 ${
-                theme === 'dark' ? 'text-white' : 'text-slate-900'
+                theme === 'dark' ? 'text-white' : 'text-indigo-950'
               }`}>
                 Our Services
               </h2>
               <p className={`text-lg max-w-md transition-colors duration-500 ${
-                theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
+                theme === 'dark' ? 'text-slate-400' : 'text-slate-700'
               }`}>
                 Comprehensive legal solutions powered by technology for modern India
               </p>
