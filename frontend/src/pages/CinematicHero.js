@@ -176,7 +176,7 @@ export default function CinematicHero() {
           <motion.div
             key={i}
             className={`absolute rounded-full transition-colors duration-500 ${
-              theme === 'dark' ? 'bg-blue-400/20' : 'bg-blue-400/30'
+              theme === 'dark' ? 'bg-blue-400/20' : 'bg-indigo-400/40'
             }`}
             style={{
               width: Math.random() * 8 + 4,
