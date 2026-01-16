@@ -777,17 +777,17 @@ export default function CinematicHero() {
       <footer className={`relative z-10 border-t py-8 px-4 transition-colors duration-500 ${
         theme === 'dark'
           ? 'border-slate-800 bg-slate-950/80'
-          : 'border-slate-200 bg-white/80'
+          : 'border-indigo-200 bg-indigo-50/80'
       }`}>
         <div className={`max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between text-sm transition-colors duration-500 ${
-          theme === 'dark' ? 'text-slate-500' : 'text-slate-600'
+          theme === 'dark' ? 'text-slate-500' : 'text-slate-700'
         }`}>
           <div className="flex items-center space-x-2 mb-4 md:mb-0">
             <Scale className={`w-5 h-5 transition-colors duration-500 ${
-              theme === 'dark' ? 'text-blue-500' : 'text-blue-600'
+              theme === 'dark' ? 'text-blue-500' : 'text-indigo-600'
             }`} />
             <span className={`font-semibold transition-colors duration-500 ${
-              theme === 'dark' ? 'text-white' : 'text-slate-900'
+              theme === 'dark' ? 'text-white' : 'text-indigo-950'
             }`}>Nyaay Sathi</span>
           </div>
           <p>© 2026 Nyaay Sathi. All rights reserved.</p>
