@@ -568,7 +568,9 @@ export default function CinematicHero() {
                 }`}>
                   Areas of Expertise
                 </h2>
-                <p className="text-slate-400 max-w-xl">
+                <p className={`max-w-xl transition-colors duration-500 ${
+                  theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
+                }`}>
                   Our network of experienced lawyers specializes in these key practice areas with proven success rates
                 </p>
               </div>
@@ -593,7 +595,9 @@ export default function CinematicHero() {
                 <motion.div
                   whileHover={{ y: -10 }}
                   transition={{ duration: 0.4 }}
-                  className="relative rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/60 backdrop-blur-xl cursor-pointer"
+                  className={`relative rounded-2xl overflow-hidden border backdrop-blur-xl cursor-pointer transition-colors duration-500 ${
+                    theme === 'dark' ? 'border-slate-800 bg-slate-900/60' : 'border-slate-200 bg-white/80'
+                  }`}
                 >
                   {/* Image */}
                   <div className="relative h-64 overflow-hidden">
@@ -602,25 +606,39 @@ export default function CinematicHero() {
                       alt={study.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent" />
+                    <div className={`absolute inset-0 transition-colors duration-500 ${
+                      theme === 'dark'
+                        ? 'bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent'
+                        : 'bg-gradient-to-t from-white via-white/50 to-transparent'
+                    }`} />
                     
                     {/* Badge */}
-                    <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-medium text-white">
+                    <div className={`absolute top-4 left-4 px-3 py-1 rounded-full backdrop-blur-md border text-xs font-medium transition-colors duration-500 ${
+                      theme === 'dark'
+                        ? 'bg-white/10 border-white/20 text-white'
+                        : 'bg-slate-100/80 border-slate-300 text-slate-900'
+                    }`}>
                       {study.category}
                     </div>
                   </div>
                   
                   {/* Content */}
                   <div className="p-6">
-                    <h3 className="text-xl font-bold text-white mb-4">{study.title}</h3>
+                    <h3 className={`text-xl font-bold mb-4 transition-colors duration-500 ${
+                      theme === 'dark' ? 'text-white' : 'text-slate-900'
+                    }`}>{study.title}</h3>
                     <div className="flex items-center justify-between text-sm">
-                      <div className="flex items-center space-x-2 text-slate-400">
+                      <div className={`flex items-center space-x-2 transition-colors duration-500 ${
+                        theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
+                      }`}>
                         <Clock className="w-4 h-4" />
                         <span>{study.duration}</span>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <span className="text-emerald-400 font-semibold">{study.successRate}</span>
-                        <span className="text-slate-500">Success</span>
+                        <span className="text-emerald-500 font-semibold">{study.successRate}</span>
+                        <span className={`transition-colors duration-500 ${
+                          theme === 'dark' ? 'text-slate-500' : 'text-slate-600'
+                        }`}>Success</span>
                       </div>
                     </div>
                   </div>
@@ -641,10 +659,14 @@ export default function CinematicHero() {
             transition={{ duration: 0.8 }}
             className="text-center mb-16"
           >
-            <span className="text-emerald-400 text-sm font-semibold tracking-wider uppercase mb-4 block">
+            <span className={`text-sm font-semibold tracking-wider uppercase mb-4 block transition-colors duration-500 ${
+              theme === 'dark' ? 'text-emerald-400' : 'text-emerald-600'
+            }`}>
               03 — Why Nyaay Sathi
             </span>
-            <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
+            <h2 className={`text-4xl sm:text-5xl font-bold mb-6 transition-colors duration-500 ${
+              theme === 'dark' ? 'text-white' : 'text-slate-900'
+            }`}>
               Precision in Process
             </h2>
           </motion.div>
@@ -681,7 +703,9 @@ export default function CinematicHero() {
                 <div className="relative inline-block mb-6">
                   {/* Icon glow */}
                   <div className={`absolute inset-0 blur-xl opacity-30 group-hover:opacity-60 transition-opacity ${item.color.replace('text-', 'bg-')}`} />
-                  <div className="relative w-16 h-16 rounded-full border border-slate-700 flex items-center justify-center bg-slate-900/50">
+                  <div className={`relative w-16 h-16 rounded-full border flex items-center justify-center transition-colors duration-500 ${
+                    theme === 'dark' ? 'border-slate-700 bg-slate-900/50' : 'border-slate-300 bg-slate-100/50'
+                  }`}>
                     <item.icon className={`w-8 h-8 ${item.color}`} />
                   </div>
                 </div>
