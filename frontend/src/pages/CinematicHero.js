@@ -476,7 +476,7 @@ export default function CinematicHero() {
                   whileHover={{ y: -8, scale: 1.02 }}
                   transition={{ duration: 0.3 }}
                   className={`relative h-80 rounded-2xl overflow-hidden ${card.borderColor} border backdrop-blur-xl cursor-pointer transition-colors duration-500 ${
-                    theme === 'dark' ? 'bg-slate-900/80' : 'bg-white/90'
+                    theme === 'dark' ? 'bg-slate-900/80' : 'bg-white/95 shadow-lg'
                   }`}
                 >
                   {/* Background Image */}
