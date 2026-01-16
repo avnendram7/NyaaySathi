@@ -556,19 +556,19 @@ export default function CinematicHero() {
             className="mb-16"
           >
             <span className={`text-sm font-semibold tracking-wider uppercase mb-4 block transition-colors duration-500 ${
-              theme === 'dark' ? 'text-purple-400' : 'text-purple-600'
+              theme === 'dark' ? 'text-purple-400' : 'text-purple-700'
             }`}>
               02 — Practice Areas
             </span>
             <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
               <div>
                 <h2 className={`text-4xl sm:text-5xl font-bold mb-4 transition-colors duration-500 ${
-                  theme === 'dark' ? 'text-white' : 'text-slate-900'
+                  theme === 'dark' ? 'text-white' : 'text-indigo-950'
                 }`}>
                   Areas of Expertise
                 </h2>
                 <p className={`max-w-xl transition-colors duration-500 ${
-                  theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
+                  theme === 'dark' ? 'text-slate-400' : 'text-slate-700'
                 }`}>
                   Our network of experienced lawyers specializes in these key practice areas with proven success rates
                 </p>
