@@ -659,12 +659,12 @@ export default function CinematicHero() {
             className="text-center mb-16"
           >
             <span className={`text-sm font-semibold tracking-wider uppercase mb-4 block transition-colors duration-500 ${
-              theme === 'dark' ? 'text-emerald-400' : 'text-emerald-600'
+              theme === 'dark' ? 'text-emerald-400' : 'text-emerald-700'
             }`}>
               03 — Why Nyaay Sathi
             </span>
             <h2 className={`text-4xl sm:text-5xl font-bold mb-6 transition-colors duration-500 ${
-              theme === 'dark' ? 'text-white' : 'text-slate-900'
+              theme === 'dark' ? 'text-white' : 'text-indigo-950'
             }`}>
               Precision in Process
             </h2>
