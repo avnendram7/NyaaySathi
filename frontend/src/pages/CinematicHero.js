@@ -615,7 +615,7 @@ export default function CinematicHero() {
                     <div className={`absolute top-4 left-4 px-3 py-1 rounded-full backdrop-blur-md border text-xs font-medium transition-colors duration-500 ${
                       theme === 'dark'
                         ? 'bg-white/10 border-white/20 text-white'
-                        : 'bg-slate-100/80 border-slate-300 text-slate-900'
+                        : 'bg-indigo-100/90 border-indigo-300 text-indigo-900'
                     }`}>
                       {study.category}
                     </div>
@@ -624,11 +624,11 @@ export default function CinematicHero() {
                   {/* Content */}
                   <div className="p-6">
                     <h3 className={`text-xl font-bold mb-4 transition-colors duration-500 ${
-                      theme === 'dark' ? 'text-white' : 'text-slate-900'
+                      theme === 'dark' ? 'text-white' : 'text-indigo-950'
                     }`}>{study.title}</h3>
                     <div className="flex items-center justify-between text-sm">
                       <div className={`flex items-center space-x-2 transition-colors duration-500 ${
-                        theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
+                        theme === 'dark' ? 'text-slate-400' : 'text-slate-700'
                       }`}>
                         <Clock className="w-4 h-4" />
                         <span>{study.duration}</span>
@@ -636,7 +636,7 @@ export default function CinematicHero() {
                       <div className="flex items-center space-x-2">
                         <span className="text-emerald-500 font-semibold">{study.successRate}</span>
                         <span className={`transition-colors duration-500 ${
-                          theme === 'dark' ? 'text-slate-500' : 'text-slate-600'
+                          theme === 'dark' ? 'text-slate-500' : 'text-slate-700'
                         }`}>Success</span>
                       </div>
                     </div>
