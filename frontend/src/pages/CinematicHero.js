@@ -727,7 +727,7 @@ export default function CinematicHero() {
         <div className={`absolute inset-0 transition-colors duration-500 ${
           theme === 'dark'
             ? 'bg-gradient-to-b from-slate-950/50 via-blue-950/30 to-slate-950'
-            : 'bg-gradient-to-b from-slate-50/50 via-blue-50/30 to-white'
+            : 'bg-gradient-to-b from-indigo-50/40 via-purple-50/30 to-blue-50/40'
         }`} />
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <motion.div
@@ -737,12 +737,12 @@ export default function CinematicHero() {
             transition={{ duration: 0.8 }}
           >
             <h2 className={`text-5xl sm:text-6xl font-bold mb-6 transition-colors duration-500 ${
-              theme === 'dark' ? 'text-white' : 'text-slate-900'
+              theme === 'dark' ? 'text-white' : 'text-indigo-950'
             }`}>
               Ready to Get Started?
             </h2>
             <p className={`text-xl mb-10 transition-colors duration-500 ${
-              theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
+              theme === 'dark' ? 'text-slate-400' : 'text-slate-700'
             }`}>
               Join thousands of Indians who have simplified their legal journey with Nyaay Sathi
             </p>
