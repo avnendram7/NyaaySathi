@@ -85,26 +85,34 @@ export default function CinematicHero() {
   ];
   
   return (
-    <div className="min-h-screen relative overflow-x-hidden bg-slate-950">
+    <div className={`min-h-screen relative overflow-x-hidden transition-colors duration-500 ${
+      theme === 'dark' ? 'bg-slate-950' : 'bg-white'
+    }`}>
       {/* Animated Water/Wave Background - Full Page */}
       <div className="fixed inset-0 z-0 overflow-hidden">
         {/* Base gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-blue-950/50 to-slate-950" />
+        <div className={`absolute inset-0 transition-all duration-500 ${
+          theme === 'dark' 
+            ? 'bg-gradient-to-br from-slate-950 via-blue-950/50 to-slate-950'
+            : 'bg-gradient-to-br from-blue-50 via-white to-blue-50'
+        }`} />
         
         {/* Animated wave layers */}
-        <svg className="absolute bottom-0 left-0 w-full h-full opacity-30" viewBox="0 0 1440 800" preserveAspectRatio="none">
+        <svg className={`absolute bottom-0 left-0 w-full h-full transition-opacity duration-500 ${
+          theme === 'dark' ? 'opacity-30' : 'opacity-20'
+        }`} viewBox="0 0 1440 800" preserveAspectRatio="none">
           <defs>
             <linearGradient id="waveGrad1" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.4" />
-              <stop offset="100%" stopColor="#1e40af" stopOpacity="0.1" />
+              <stop offset="0%" stopColor={theme === 'dark' ? '#3b82f6' : '#60a5fa'} stopOpacity={theme === 'dark' ? '0.4' : '0.3'} />
+              <stop offset="100%" stopColor={theme === 'dark' ? '#1e40af' : '#3b82f6'} stopOpacity={theme === 'dark' ? '0.1' : '0.05'} />
             </linearGradient>
             <linearGradient id="waveGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="#60a5fa" stopOpacity="0.3" />
-              <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.05" />
+              <stop offset="0%" stopColor={theme === 'dark' ? '#60a5fa' : '#93c5fd'} stopOpacity={theme === 'dark' ? '0.3' : '0.25'} />
+              <stop offset="100%" stopColor={theme === 'dark' ? '#3b82f6' : '#60a5fa'} stopOpacity={theme === 'dark' ? '0.05' : '0.03'} />
             </linearGradient>
             <linearGradient id="waveGrad3" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="#93c5fd" stopOpacity="0.2" />
-              <stop offset="100%" stopColor="#60a5fa" stopOpacity="0.02" />
+              <stop offset="0%" stopColor={theme === 'dark' ? '#93c5fd' : '#bfdbfe'} stopOpacity={theme === 'dark' ? '0.2' : '0.15'} />
+              <stop offset="100%" stopColor={theme === 'dark' ? '#60a5fa' : '#93c5fd'} stopOpacity={theme === 'dark' ? '0.02' : '0.01'} />
             </linearGradient>
           </defs>
           
