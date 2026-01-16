@@ -58,53 +58,55 @@ function App() {
   }, []);
   
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
-      <div className="App">
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<CinematicHero />} />
-            <Route path="/quick-chat" element={<QuickChat />} />
-            <Route path="/hero-alt" element={<InitialLanding />} />
-            <Route path="/role-selection" element={<RoleSelection />} />
-            <Route path="/landing" element={<LandingPage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/how-it-works" element={<HowItWorksPage />} />
-            <Route path="/features" element={<FeaturesPage />} />
-            <Route path="/for-clients" element={<ForClientsPage />} />
-            <Route path="/for-lawyers" element={<ForLawyersPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="/user-login" element={<UserLoginPage />} />
-            <Route path="/lawyer-login" element={<LawyerLoginPage />} />
-            <Route path="/lawfirm-login" element={<LawFirmLoginPage />} />
-            <Route 
-              path="/user-dashboard" 
-              element={
-                <ProtectedRoute requiredType="client">
-                  <UserDashboard />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/lawyer-dashboard" 
-              element={
-                <ProtectedRoute requiredType="lawyer">
-                  <LawyerDashboard />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/lawfirm-dashboard" 
-              element={
-                <ProtectedRoute requiredType="law_firm">
-                  <LawFirmDashboard />
-                </ProtectedRoute>
-              } 
-            />
-          </Routes>
-        </BrowserRouter>
-        <Toaster position="top-right" />
-      </div>
-    </AuthContext.Provider>
+    <ThemeProvider>
+      <AuthContext.Provider value={{ user, setUser }}>
+        <div className="App">
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<CinematicHero />} />
+              <Route path="/quick-chat" element={<QuickChat />} />
+              <Route path="/hero-alt" element={<InitialLanding />} />
+              <Route path="/role-selection" element={<RoleSelection />} />
+              <Route path="/landing" element={<LandingPage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/how-it-works" element={<HowItWorksPage />} />
+              <Route path="/features" element={<FeaturesPage />} />
+              <Route path="/for-clients" element={<ForClientsPage />} />
+              <Route path="/for-lawyers" element={<ForLawyersPage />} />
+              <Route path="/contact" element={<ContactPage />} />
+              <Route path="/user-login" element={<UserLoginPage />} />
+              <Route path="/lawyer-login" element={<LawyerLoginPage />} />
+              <Route path="/lawfirm-login" element={<LawFirmLoginPage />} />
+              <Route 
+                path="/user-dashboard" 
+                element={
+                  <ProtectedRoute requiredType="client">
+                    <UserDashboard />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/lawyer-dashboard" 
+                element={
+                  <ProtectedRoute requiredType="lawyer">
+                    <LawyerDashboard />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/lawfirm-dashboard" 
+                element={
+                  <ProtectedRoute requiredType="law_firm">
+                    <LawFirmDashboard />
+                  </ProtectedRoute>
+                } 
+              />
+            </Routes>
+          </BrowserRouter>
+          <Toaster position="top-right" />
+        </div>
+      </AuthContext.Provider>
+    </ThemeProvider>
   );
 }
 
