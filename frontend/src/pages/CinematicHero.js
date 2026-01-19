@@ -366,11 +366,7 @@ export default function CinematicHero() {
                       alt={study.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                     />
-                    <div className={`absolute inset-0 transition-colors duration-500 ${
-                      theme === 'dark'
-                        ? 'bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent'
-                        : 'bg-gradient-to-t from-white via-white/50 to-transparent'
-                    }`} />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent" />
                     
                     {/* Badge */}
                     <div className={`absolute top-4 left-4 px-3 py-1 rounded-full backdrop-blur-md border text-xs font-medium transition-colors duration-500 ${
