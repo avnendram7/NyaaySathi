@@ -85,69 +85,46 @@ export const Navbar = () => {
       
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div data-testid="mobile-menu" className={`md:hidden border-t transition-colors ${
-          theme === 'dark' ? 'glass border-slate-800' : 'bg-white border-indigo-200'
-        }`}>
+        <div data-testid="mobile-menu" className="md:hidden glass border-t border-slate-800">
           <div className="px-4 py-4 space-y-3">
-            <Link to="/" className={`flex items-center space-x-2 py-2 transition-colors ${
-              theme === 'dark' ? 'text-slate-300 hover:text-white' : 'text-slate-700 hover:text-indigo-700'
-            }`}>
+            <Link to="/" className="flex items-center space-x-2 text-slate-300 hover:text-white py-2">
               <Home className="w-4 h-4" />
               <span>Home</span>
             </Link>
-            <Link to="/about" className={`flex items-center space-x-2 py-2 transition-colors ${
-              theme === 'dark' ? 'text-slate-300 hover:text-white' : 'text-slate-700 hover:text-indigo-700'
-            }`}>
+            <Link to="/about" className="flex items-center space-x-2 text-slate-300 hover:text-white py-2">
               <Info className="w-4 h-4" />
               <span>About</span>
             </Link>
-            <Link to="/contact" className={`flex items-center space-x-2 py-2 transition-colors ${
-              theme === 'dark' ? 'text-slate-300 hover:text-white' : 'text-slate-700 hover:text-indigo-700'
-            }`}>
+            <Link to="/contact" className="flex items-center space-x-2 text-slate-300 hover:text-white py-2">
               <HelpCircle className="w-4 h-4" />
               <span>Help</span>
             </Link>
-            
             <div className="pt-4 space-y-2">
               {user ? (
                 <>
                   <Button 
                     onClick={() => navigate(user.user_type === 'lawyer' ? '/lawyer-dashboard' : user.user_type === 'law_firm' ? '/lawfirm-dashboard' : '/user-dashboard')}
-                    className={`w-full rounded-full ${
-                      theme === 'dark'
-                        ? 'bg-blue-700 hover:bg-blue-600 text-white'
-                        : 'bg-indigo-600 hover:bg-indigo-700 text-white'
-                    }`}>
+                    className="w-full bg-blue-700 hover:bg-blue-600 text-white rounded-full"
+                  >
                     Dashboard
                   </Button>
                   <Button 
                     onClick={handleLogout}
                     variant="outline"
-                    className={`w-full rounded-full ${
-                      theme === 'dark'
-                        ? 'border-slate-700 text-slate-200 hover:bg-slate-800'
-                        : 'border-indigo-300 text-indigo-700 hover:bg-indigo-50'
-                    }`}>
+                    className="w-full border-slate-700 text-slate-200 hover:bg-slate-800 rounded-full"
+                  >
                     Logout
                   </Button>
                 </>
               ) : (
                 <>
                   <Link to="/role-selection" className="block">
-                    <Button className={`w-full rounded-full ${
-                      theme === 'dark'
-                        ? 'bg-blue-700 hover:bg-blue-600 text-white'
-                        : 'bg-indigo-600 hover:bg-indigo-700 text-white'
-                    }`}>
+                    <Button className="w-full bg-blue-700 hover:bg-blue-600 text-white rounded-full">
                       Get Started
                     </Button>
                   </Link>
                   <Link to="/quick-chat" className="block">
-                    <Button variant="outline" className={`w-full rounded-full ${
-                      theme === 'dark'
-                        ? 'border-slate-700 text-slate-200 hover:bg-slate-800'
-                        : 'border-indigo-300 text-indigo-700 hover:bg-indigo-50'
-                    }`}>
+                    <Button variant="outline" className="w-full border-slate-700 text-slate-200 hover:bg-slate-800 rounded-full">
                       AI Chat
                     </Button>
                   </Link>
