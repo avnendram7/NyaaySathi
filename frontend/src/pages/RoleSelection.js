@@ -1,9 +1,11 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { User, Scale, Building2, ArrowRight, Sparkles, Zap, Shield } from 'lucide-react';
+import { User, Scale, Building2, ArrowRight, Sparkles, Zap, Shield, LogIn } from 'lucide-react';
 
 export default function RoleSelection() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const isLoginMode = searchParams.get('mode') === 'login';
   
   const roles = [
     {
