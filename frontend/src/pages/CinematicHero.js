@@ -151,10 +151,10 @@ export default function CinematicHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.8 }}
           >
-            <h1 className="text-6xl sm:text-7xl lg:text-8xl font-bold mb-4 bg-gradient-to-r from-white via-blue-200 to-white bg-clip-text text-transparent">
-              ⚖️ Nyaay Sathi
+            <h1 className="text-7xl sm:text-8xl lg:text-9xl font-bold mb-6 bg-gradient-to-r from-white via-blue-200 to-white bg-clip-text text-transparent">
+              Nyaay Sathi
             </h1>
-            <p className="text-2xl sm:text-3xl text-blue-200 font-light tracking-wide">
+            <p className="text-3xl sm:text-4xl text-blue-200 font-light tracking-wide">
               Justice You Understand, Technology You Trust.
             </p>
           </motion.div>
