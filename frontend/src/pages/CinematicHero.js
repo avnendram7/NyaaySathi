@@ -329,9 +329,7 @@ export default function CinematicHero() {
             </span>
             <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
               <div>
-                <h2 className={`text-4xl sm:text-5xl font-bold mb-4 transition-colors duration-500 ${
-                  
-                }`}>
+                <h2 className="text-4xl sm:text-5xl font-bold mb-4 text-white">
                   Areas of Expertise
                 </h2>
                 <p className={`max-w-xl transition-colors duration-500 ${
