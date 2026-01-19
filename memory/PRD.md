@@ -37,11 +37,14 @@ Build a legal-tech startup platform called "Nyaay Sathi" that simplifies the jus
 - **Authentication:** JWT
 - **AI Integration:** Gemini Pro via Emergent LLM Key
 
-## What's Been Implemented (As of Jan 14, 2026)
+## What's Been Implemented (As of Jan 19, 2026)
 
 ### Landing Flow
 - ✅ Cinematic hero page with orbiting logo and floating cards (`CinematicHero.js`)
-- ✅ Role-selection page for User, Lawyer, Law Firm (`RoleSelectionPage.js`)
+- ✅ Role-selection page for User, Lawyer, Law Firm (`RoleSelection.js`)
+  - **Updated (Jan 19):** Changed "GET STARTED" buttons to "LOGIN"
+  - **Updated (Jan 19):** Lawyer section background changed to black with better text contrast
+  - Scan line animation removed (clean UI)
 - ✅ **NEW: Floating Features Section** - "Core Capabilities" with 4 service cards below hero
 - ✅ **NEW: Practice Areas Section** - 3 case study cards with success rates
 - ✅ **NEW: Why Choose Us Section** - 3 key differentiators
