@@ -235,9 +235,7 @@ export default function CinematicHero() {
               01 — Core Capabilities
             </span>
             <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
-              <h2 className={`text-4xl sm:text-5xl lg:text-6xl font-bold transition-colors duration-500 ${
-                
-              }`}>
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white">
                 Our Services
               </h2>
               <p className={`text-lg max-w-md transition-colors duration-500 ${
