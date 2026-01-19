@@ -877,6 +877,323 @@ If you identify lawyers to recommend, end your response with: [RECOMMEND: lawyer
                   <p className="text-slate-400 text-sm">See your complete case journey visually. Track progress from filing to resolution with milestones.</p>
                 </div>
               </motion.div>
+
+              {/* Feature 7 - Document Management */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.7 }}
+                whileHover={{ y: -10, scale: 1.02 }}
+                className="bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden group hover:border-teal-500/50 transition-all duration-300"
+              >
+                <div className="h-40 bg-gradient-to-br from-teal-600/20 to-cyan-600/20 relative overflow-hidden">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="flex gap-3">
+                      <motion.div 
+                        className="w-10 h-14 bg-slate-700 rounded shadow-lg flex items-center justify-center"
+                        animate={{ y: [0, -3, 0] }}
+                        transition={{ duration: 2, repeat: Infinity, delay: 0 }}
+                      >
+                        <FileText className="w-5 h-5 text-teal-400" />
+                      </motion.div>
+                      <motion.div 
+                        className="w-10 h-14 bg-slate-700 rounded shadow-lg flex items-center justify-center"
+                        animate={{ y: [0, -3, 0] }}
+                        transition={{ duration: 2, repeat: Infinity, delay: 0.2 }}
+                      >
+                        <FileText className="w-5 h-5 text-cyan-400" />
+                      </motion.div>
+                      <motion.div 
+                        className="w-10 h-14 bg-slate-700 rounded shadow-lg flex items-center justify-center"
+                        animate={{ y: [0, -3, 0] }}
+                        transition={{ duration: 2, repeat: Infinity, delay: 0.4 }}
+                      >
+                        <FileText className="w-5 h-5 text-teal-400" />
+                      </motion.div>
+                    </div>
+                  </div>
+                  <motion.div className="absolute top-2 right-2 w-8 h-8 bg-teal-500 rounded-full flex items-center justify-center">
+                    <FileText className="w-4 h-4 text-white" />
+                  </motion.div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-white mb-2">Document Management</h3>
+                  <p className="text-slate-400 text-sm">Upload, organize, and share legal documents securely. Auto-categorization and smart search.</p>
+                </div>
+              </motion.div>
+
+              {/* Feature 8 - Payment Integration */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.8 }}
+                whileHover={{ y: -10, scale: 1.02 }}
+                className="bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden group hover:border-green-500/50 transition-all duration-300"
+              >
+                <div className="h-40 bg-gradient-to-br from-green-600/20 to-emerald-600/20 relative overflow-hidden">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-28 h-18 bg-slate-800 rounded-lg shadow-xl border border-slate-600 p-3">
+                      <div className="flex justify-between items-center mb-2">
+                        <div className="w-8 h-5 bg-green-500/40 rounded"></div>
+                        <motion.div 
+                          className="text-green-400 text-xs font-bold"
+                          animate={{ opacity: [0.5, 1, 0.5] }}
+                          transition={{ duration: 1.5, repeat: Infinity }}
+                        >₹</motion.div>
+                      </div>
+                      <div className="h-1.5 w-full bg-green-500/30 rounded"></div>
+                    </div>
+                  </div>
+                  <motion.div className="absolute top-2 right-2 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                    <CreditCard className="w-4 h-4 text-white" />
+                  </motion.div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-white mb-2">Secure Payments</h3>
+                  <p className="text-slate-400 text-sm">Pay consultation fees securely online. Multiple payment options including UPI, cards, and net banking.</p>
+                </div>
+              </motion.div>
+
+              {/* Feature 9 - Push Notifications */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.9 }}
+                whileHover={{ y: -10, scale: 1.02 }}
+                className="bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden group hover:border-orange-500/50 transition-all duration-300"
+              >
+                <div className="h-40 bg-gradient-to-br from-orange-600/20 to-amber-600/20 relative overflow-hidden">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <motion.div
+                      animate={{ y: [0, -5, 0], rotate: [0, 10, -10, 0] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    >
+                      <Bell className="w-12 h-12 text-orange-400" />
+                    </motion.div>
+                    <motion.div
+                      className="absolute top-8 right-12 w-3 h-3 bg-red-500 rounded-full"
+                      animate={{ scale: [1, 1.3, 1] }}
+                      transition={{ duration: 1, repeat: Infinity }}
+                    />
+                  </div>
+                  <motion.div className="absolute top-2 right-2 w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
+                    <Bell className="w-4 h-4 text-white" />
+                  </motion.div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-white mb-2">Smart Notifications</h3>
+                  <p className="text-slate-400 text-sm">Never miss a hearing or deadline. Get timely reminders via push notifications, SMS, and email.</p>
+                </div>
+              </motion.div>
+
+              {/* Feature 10 - Video Consultation */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 1.0 }}
+                whileHover={{ y: -10, scale: 1.02 }}
+                className="bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden group hover:border-sky-500/50 transition-all duration-300"
+              >
+                <div className="h-40 bg-gradient-to-br from-sky-600/20 to-blue-600/20 relative overflow-hidden">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-32 h-20 bg-slate-800 rounded-lg shadow-xl border border-slate-600 overflow-hidden">
+                      <div className="h-14 bg-slate-700 flex items-center justify-center">
+                        <motion.div
+                          animate={{ scale: [1, 1.1, 1] }}
+                          transition={{ duration: 2, repeat: Infinity }}
+                        >
+                          <Video className="w-8 h-8 text-sky-400" />
+                        </motion.div>
+                      </div>
+                      <div className="h-6 bg-slate-900 flex items-center justify-center gap-2">
+                        <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                        <div className="w-3 h-3 bg-slate-600 rounded-full"></div>
+                        <div className="w-3 h-3 bg-slate-600 rounded-full"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <motion.div className="absolute top-2 right-2 w-8 h-8 bg-sky-500 rounded-full flex items-center justify-center">
+                    <Video className="w-4 h-4 text-white" />
+                  </motion.div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-white mb-2">Video Consultations</h3>
+                  <p className="text-slate-400 text-sm">Consult with lawyers from anywhere via HD video calls. Screen sharing and recording available.</p>
+                </div>
+              </motion.div>
+
+              {/* Feature 11 - Multi-language Support */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 1.1 }}
+                whileHover={{ y: -10, scale: 1.02 }}
+                className="bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden group hover:border-violet-500/50 transition-all duration-300"
+              >
+                <div className="h-40 bg-gradient-to-br from-violet-600/20 to-purple-600/20 relative overflow-hidden">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <motion.div
+                      animate={{ rotate: [0, 360] }}
+                      transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                    >
+                      <Globe className="w-16 h-16 text-violet-400" />
+                    </motion.div>
+                  </div>
+                  <motion.div className="absolute top-2 right-2 w-8 h-8 bg-violet-500 rounded-full flex items-center justify-center">
+                    <Globe className="w-4 h-4 text-white" />
+                  </motion.div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-white mb-2">Multi-language Support</h3>
+                  <p className="text-slate-400 text-sm">Platform available in Hindi, English, and regional languages. Find lawyers who speak your language.</p>
+                </div>
+              </motion.div>
+
+              {/* Feature 12 - 24/7 Support */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 1.2 }}
+                whileHover={{ y: -10, scale: 1.02 }}
+                className="bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden group hover:border-pink-500/50 transition-all duration-300"
+              >
+                <div className="h-40 bg-gradient-to-br from-pink-600/20 to-rose-600/20 relative overflow-hidden">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <motion.div
+                      animate={{ scale: [1, 1.05, 1] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    >
+                      <Headphones className="w-14 h-14 text-pink-400" />
+                    </motion.div>
+                    <motion.div
+                      className="absolute top-10 right-16 text-xs text-pink-300 font-bold"
+                      animate={{ opacity: [0.5, 1, 0.5] }}
+                      transition={{ duration: 1.5, repeat: Infinity }}
+                    >24/7</motion.div>
+                  </div>
+                  <motion.div className="absolute top-2 right-2 w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center">
+                    <Headphones className="w-4 h-4 text-white" />
+                  </motion.div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-white mb-2">24/7 Customer Support</h3>
+                  <p className="text-slate-400 text-sm">Round-the-clock assistance via chat, call, or email. We're always here to help you.</p>
+                </div>
+              </motion.div>
+
+              {/* Feature 13 - Data Privacy */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 1.3 }}
+                whileHover={{ y: -10, scale: 1.02 }}
+                className="bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden group hover:border-cyan-500/50 transition-all duration-300"
+              >
+                <div className="h-40 bg-gradient-to-br from-cyan-600/20 to-teal-600/20 relative overflow-hidden">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <motion.div
+                      animate={{ rotateY: [0, 180, 360] }}
+                      transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                      style={{ transformStyle: 'preserve-3d' }}
+                    >
+                      <Lock className="w-14 h-14 text-cyan-400" />
+                    </motion.div>
+                  </div>
+                  <motion.div className="absolute top-2 right-2 w-8 h-8 bg-cyan-500 rounded-full flex items-center justify-center">
+                    <Lock className="w-4 h-4 text-white" />
+                  </motion.div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-white mb-2">Bank-grade Security</h3>
+                  <p className="text-slate-400 text-sm">Your data is protected with 256-bit encryption. GDPR compliant and ISO certified security.</p>
+                </div>
+              </motion.div>
+
+              {/* Feature 14 - Analytics Dashboard */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 1.4 }}
+                whileHover={{ y: -10, scale: 1.02 }}
+                className="bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden group hover:border-lime-500/50 transition-all duration-300"
+              >
+                <div className="h-40 bg-gradient-to-br from-lime-600/20 to-green-600/20 relative overflow-hidden">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="flex items-end gap-2 h-16">
+                      <motion.div 
+                        className="w-4 bg-lime-500 rounded-t"
+                        animate={{ height: ['40%', '70%', '40%'] }}
+                        transition={{ duration: 2, repeat: Infinity, delay: 0 }}
+                        style={{ height: '40%' }}
+                      />
+                      <motion.div 
+                        className="w-4 bg-green-500 rounded-t"
+                        animate={{ height: ['60%', '90%', '60%'] }}
+                        transition={{ duration: 2, repeat: Infinity, delay: 0.2 }}
+                        style={{ height: '60%' }}
+                      />
+                      <motion.div 
+                        className="w-4 bg-lime-500 rounded-t"
+                        animate={{ height: ['50%', '80%', '50%'] }}
+                        transition={{ duration: 2, repeat: Infinity, delay: 0.4 }}
+                        style={{ height: '50%' }}
+                      />
+                      <motion.div 
+                        className="w-4 bg-green-500 rounded-t"
+                        animate={{ height: ['70%', '100%', '70%'] }}
+                        transition={{ duration: 2, repeat: Infinity, delay: 0.6 }}
+                        style={{ height: '70%' }}
+                      />
+                    </div>
+                  </div>
+                  <motion.div className="absolute top-2 right-2 w-8 h-8 bg-lime-500 rounded-full flex items-center justify-center">
+                    <BarChart3 className="w-4 h-4 text-white" />
+                  </motion.div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-white mb-2">Case Analytics</h3>
+                  <p className="text-slate-400 text-sm">Get insights on your case progress, spending, and lawyer performance with detailed analytics.</p>
+                </div>
+              </motion.div>
+
+              {/* Feature 15 - AI Case Summary */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 1.5 }}
+                whileHover={{ y: -10, scale: 1.02 }}
+                className="bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden group hover:border-fuchsia-500/50 transition-all duration-300"
+              >
+                <div className="h-40 bg-gradient-to-br from-fuchsia-600/20 to-pink-600/20 relative overflow-hidden">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <motion.div
+                      animate={{ 
+                        boxShadow: ['0 0 20px rgba(217, 70, 239, 0.3)', '0 0 40px rgba(217, 70, 239, 0.6)', '0 0 20px rgba(217, 70, 239, 0.3)']
+                      }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                      className="p-4 rounded-xl bg-slate-800/50"
+                    >
+                      <Sparkles className="w-10 h-10 text-fuchsia-400" />
+                    </motion.div>
+                  </div>
+                  <motion.div className="absolute top-2 right-2 w-8 h-8 bg-fuchsia-500 rounded-full flex items-center justify-center">
+                    <Sparkles className="w-4 h-4 text-white" />
+                  </motion.div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-white mb-2">AI Case Summary</h3>
+                  <p className="text-slate-400 text-sm">Get instant AI-generated summaries of your case documents. Understand complex legal terms easily.</p>
+                </div>
+              </motion.div>
             </div>
           </div>
         </motion.div>
