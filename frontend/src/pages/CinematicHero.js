@@ -445,9 +445,7 @@ export default function CinematicHero() {
                 <div className="relative inline-block mb-6">
                   {/* Icon glow */}
                   <div className={`absolute inset-0 blur-xl opacity-30 group-hover:opacity-60 transition-opacity ${item.color.replace('text-', 'bg-')}`} />
-                  <div className={`relative w-16 h-16 rounded-full border flex items-center justify-center transition-colors duration-500 ${
-                    
-                  }`}>
+                  <div className="relative w-16 h-16 rounded-full border border-slate-700 bg-slate-900/50 flex items-center justify-center">
                     <item.icon className={`w-8 h-8 ${item.color}`} />
                   </div>
                 </div>
