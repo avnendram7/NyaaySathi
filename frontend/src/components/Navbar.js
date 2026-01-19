@@ -64,15 +64,26 @@ export const Navbar = () => {
               <Link to="/role-selection?mode=login" className="relative group">
                 <Button 
                   data-testid="login-btn"
-                  className="relative bg-slate-900 hover:bg-slate-800 text-white rounded-full px-8 py-2 flex items-center space-x-2 border border-slate-700 overflow-hidden"
+                  className="relative bg-slate-900 hover:bg-slate-800 text-white rounded-full px-8 py-2 flex items-center space-x-2 border border-blue-500/50 overflow-hidden shadow-lg shadow-blue-500/20"
                 >
-                  {/* Floating light orb inside button */}
+                  {/* Glowing light effect */}
                   <motion.div
-                    className="absolute w-8 h-8 bg-blue-400/30 rounded-full blur-md"
+                    className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-blue-500/20"
                     animate={{
-                      x: [-20, 60, -20],
-                      y: [-5, 5, -5],
-                      opacity: [0.3, 0.6, 0.3],
+                      x: ['-100%', '100%'],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  />
+                  {/* Floating light orbs */}
+                  <motion.div
+                    className="absolute w-10 h-10 bg-blue-400/40 rounded-full blur-lg"
+                    animate={{
+                      x: [-30, 70, -30],
+                      opacity: [0.3, 0.7, 0.3],
                     }}
                     transition={{
                       duration: 3,
@@ -81,11 +92,10 @@ export const Navbar = () => {
                     }}
                   />
                   <motion.div
-                    className="absolute w-4 h-4 bg-purple-400/40 rounded-full blur-sm"
+                    className="absolute w-6 h-6 bg-cyan-400/50 rounded-full blur-md"
                     animate={{
-                      x: [50, -10, 50],
-                      y: [3, -3, 3],
-                      opacity: [0.4, 0.7, 0.4],
+                      x: [60, -20, 60],
+                      opacity: [0.4, 0.8, 0.4],
                     }}
                     transition={{
                       duration: 2.5,
@@ -94,7 +104,7 @@ export const Navbar = () => {
                     }}
                   />
                   <LogIn className="w-4 h-4 relative z-10" />
-                  <span className="relative z-10">Login</span>
+                  <span className="relative z-10 font-semibold">Login</span>
                 </Button>
               </Link>
             )}
