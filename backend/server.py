@@ -1,681 +1,66 @@
-from fastapi import FastAPI, APIRouter, HTTPException, Depends, UploadFile, File, status
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from fastapi import FastAPI, APIRouter
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
-from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import logging
 from pathlib import Path
-from pydantic import BaseModel, Field, ConfigDict, EmailStr
-from typing import List, Optional, Literal
-import uuid
-from datetime import datetime, timezone, timedelta
-import bcrypt
-import jwt
-from emergentintegrations.llm.chat import LlmChat, UserMessage
+import sys
 
-
+# Add backend directory to path for imports
 ROOT_DIR = Path(__file__).parent
+sys.path.insert(0, str(ROOT_DIR))
+
 load_dotenv(ROOT_DIR / '.env')
 
-# MongoDB connection
-mongo_url = os.environ['MONGO_URL']
-client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
+# Import routes
+from routes import (
+    auth_router,
+    cases_router,
+    documents_router,
+    chat_router,
+    bookings_router,
+    lawyers_router,
+    waitlist_router,
+    admin_router
+)
+from services.database import close_db
 
-# JWT Configuration
-JWT_SECRET = os.environ.get('JWT_SECRET', 'your-secret-key')
-JWT_ALGORITHM = 'HS256'
-JWT_EXPIRATION_DAYS = 30
-
-# Create the main app without a prefix
-app = FastAPI()
+# Create the main app
+app = FastAPI(title="Nyaay Sathi API")
 
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
 
-security = HTTPBearer()
 
-# ============ MODELS ============
-
-class UserCreate(BaseModel):
-    email: EmailStr
-    password: str
-    full_name: str
-    user_type: Literal['client', 'lawyer', 'law_firm']
-    phone: Optional[str] = None
-    firm_name: Optional[str] = None
-
-class UserLogin(BaseModel):
-    email: EmailStr
-    password: str
-    user_type: Literal['client', 'lawyer', 'law_firm']
-
-class User(BaseModel):
-    model_config = ConfigDict(extra="ignore")
-    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    email: EmailStr
-    full_name: str
-    user_type: Literal['client', 'lawyer', 'law_firm']
-    phone: Optional[str] = None
-    firm_name: Optional[str] = None
-    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-
-class TokenResponse(BaseModel):
-    token: str
-    user: dict
-
-class CaseCreate(BaseModel):
-    title: str
-    case_number: str
-    description: str
-    status: str = 'active'
-
-class Case(BaseModel):
-    model_config = ConfigDict(extra="ignore")
-    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    user_id: str
-    title: str
-    case_number: str
-    description: str
-    status: str
-    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-    updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-
-class DocumentCreate(BaseModel):
-    case_id: str
-    title: str
-    file_url: str
-    file_type: str
-
-class Document(BaseModel):
-    model_config = ConfigDict(extra="ignore")
-    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    case_id: str
-    user_id: str
-    title: str
-    file_url: str
-    file_type: str
-    uploaded_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-
-class ChatMessage(BaseModel):
-    message: str
-    session_id: Optional[str] = None
-    system_prompt: Optional[str] = None
-
-class ChatResponse(BaseModel):
-    response: str
-    session_id: str
-
-class BookingCreate(BaseModel):
-    lawyer_id: str
-    date: str
-    time: str
-    description: str
-
-class Booking(BaseModel):
-    model_config = ConfigDict(extra="ignore")
-    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    client_id: str
-    lawyer_id: str
-    date: str
-    time: str
-    description: str
-    status: str = 'pending'
-    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-
-class WaitlistCreate(BaseModel):
-    email: EmailStr
-    full_name: str
-    message: Optional[str] = None
-
-class Waitlist(BaseModel):
-    model_config = ConfigDict(extra="ignore")
-    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    email: EmailStr
-    full_name: str
-    message: Optional[str] = None
-    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-
-# Lawyer Application Models
-class LawyerApplicationCreate(BaseModel):
-    name: str
-    email: EmailStr
-    phone: str
-    password: str
-    photo: Optional[str] = None
-    bar_council_number: str
-    specialization: str
-    experience: int
-    cases_won: int = 0
-    state: str
-    city: str
-    court: str
-    education: str
-    languages: List[str]
-    fee_range: str
-    bio: str
-
-class LawyerApplication(BaseModel):
-    model_config = ConfigDict(extra="ignore")
-    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    name: str
-    email: EmailStr
-    phone: str
-    password_hash: str
-    photo: Optional[str] = None
-    bar_council_number: str
-    specialization: str
-    experience: int
-    cases_won: int = 0
-    state: str
-    city: str
-    court: str
-    education: str
-    languages: List[str]
-    fee_range: str
-    bio: str
-    status: str = 'pending'  # pending, approved, rejected
-    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-
-class AdminLogin(BaseModel):
-    email: EmailStr
-    password: str
-
-# Admin credentials (in production, use env variables)
-ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL', 'admin@nyaaysathi.com')
-ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'admin123')
-
-# ============ UTILITIES ============
-
-def hash_password(password: str) -> str:
-    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
-
-def verify_password(password: str, hashed: str) -> bool:
-    return bcrypt.checkpw(password.encode('utf-8'), hashed.encode('utf-8'))
-
-def create_token(user_id: str, user_type: str) -> str:
-    payload = {
-        'user_id': user_id,
-        'user_type': user_type,
-        'exp': datetime.now(timezone.utc) + timedelta(days=JWT_EXPIRATION_DAYS)
-    }
-    return jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
-
-def decode_token(token: str) -> dict:
-    try:
-        return jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
-    except jwt.ExpiredSignatureError:
-        raise HTTPException(status_code=401, detail='Token expired')
-    except jwt.InvalidTokenError:
-        raise HTTPException(status_code=401, detail='Invalid token')
-
-async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)):
-    token = credentials.credentials
-    payload = decode_token(token)
-    user = await db.users.find_one({'id': payload['user_id']}, {'_id': 0})
-    if not user:
-        raise HTTPException(status_code=404, detail='User not found')
-    return user
-
-# ============ ROUTES ============
-
+# Root endpoints
 @api_router.get("/")
 async def root():
     return {"message": "Nyaay Sathi API"}
+
 
 @api_router.get("/health")
 async def health_check():
     return {"status": "healthy", "service": "Nyaay Sathi API"}
 
-# Auth Routes
-@api_router.post("/auth/register", response_model=TokenResponse)
-async def register(user_data: UserCreate):
-    existing = await db.users.find_one({'email': user_data.email, 'user_type': user_data.user_type}, {'_id': 0})
-    if existing:
-        raise HTTPException(status_code=400, detail='User already exists')
-    
-    user_dict = user_data.model_dump()
-    hashed_pwd = hash_password(user_dict.pop('password'))
-    user_obj = User(**user_dict)
-    
-    doc = user_obj.model_dump()
-    doc['password'] = hashed_pwd
-    doc['created_at'] = doc['created_at'].isoformat()
-    
-    await db.users.insert_one(doc)
-    
-    token = create_token(user_obj.id, user_obj.user_type)
-    user_response = user_obj.model_dump()
-    
-    return {'token': token, 'user': user_response}
 
-@api_router.post("/auth/login", response_model=TokenResponse)
-async def login(login_data: UserLogin):
-    user = await db.users.find_one({'email': login_data.email, 'user_type': login_data.user_type}, {'_id': 0})
-    if not user:
-        raise HTTPException(status_code=401, detail='Invalid credentials')
-    
-    # Check both password fields (password_hash for lawyers, password for regular users)
-    password_field = user.get('password_hash') or user.get('password')
-    if not password_field or not verify_password(login_data.password, password_field):
-        raise HTTPException(status_code=401, detail='Invalid credentials')
-    
-    token = create_token(user['id'], user['user_type'])
-    user_response = {k: v for k, v in user.items() if k not in ['password', 'password_hash']}
-    
-    return {'token': token, 'user': user_response}
+# Include all route modules
+api_router.include_router(auth_router)
+api_router.include_router(cases_router)
+api_router.include_router(documents_router)
+api_router.include_router(chat_router)
+api_router.include_router(bookings_router)
+api_router.include_router(lawyers_router)
+api_router.include_router(waitlist_router)
+api_router.include_router(admin_router)
 
-@api_router.get("/auth/me")
-async def get_me(current_user: dict = Depends(get_current_user)):
-    return {k: v for k, v in current_user.items() if k != 'password'}
-
-# Case Routes
-@api_router.post("/cases", response_model=Case)
-async def create_case(case_data: CaseCreate, current_user: dict = Depends(get_current_user)):
-    case_dict = case_data.model_dump()
-    case_dict['user_id'] = current_user['id']
-    case_obj = Case(**case_dict)
-    
-    doc = case_obj.model_dump()
-    doc['created_at'] = doc['created_at'].isoformat()
-    doc['updated_at'] = doc['updated_at'].isoformat()
-    
-    await db.cases.insert_one(doc)
-    return case_obj
-
-@api_router.get("/cases", response_model=List[Case])
-async def get_cases(current_user: dict = Depends(get_current_user)):
-    if current_user['user_type'] == 'client':
-        cases = await db.cases.find({'user_id': current_user['id']}, {'_id': 0}).to_list(100)
-    else:
-        cases = await db.cases.find({}, {'_id': 0}).to_list(100)
-    
-    for case in cases:
-        if isinstance(case['created_at'], str):
-            case['created_at'] = datetime.fromisoformat(case['created_at'])
-        if isinstance(case['updated_at'], str):
-            case['updated_at'] = datetime.fromisoformat(case['updated_at'])
-    
-    return cases
-
-@api_router.get("/cases/{case_id}", response_model=Case)
-async def get_case(case_id: str, current_user: dict = Depends(get_current_user)):
-    case = await db.cases.find_one({'id': case_id}, {'_id': 0})
-    if not case:
-        raise HTTPException(status_code=404, detail='Case not found')
-    
-    if isinstance(case['created_at'], str):
-        case['created_at'] = datetime.fromisoformat(case['created_at'])
-    if isinstance(case['updated_at'], str):
-        case['updated_at'] = datetime.fromisoformat(case['updated_at'])
-    
-    return case
-
-# Document Routes
-@api_router.post("/documents", response_model=Document)
-async def create_document(doc_data: DocumentCreate, current_user: dict = Depends(get_current_user)):
-    doc_dict = doc_data.model_dump()
-    doc_dict['user_id'] = current_user['id']
-    doc_obj = Document(**doc_dict)
-    
-    doc = doc_obj.model_dump()
-    doc['uploaded_at'] = doc['uploaded_at'].isoformat()
-    
-    await db.documents.insert_one(doc)
-    return doc_obj
-
-@api_router.get("/documents", response_model=List[Document])
-async def get_documents(case_id: Optional[str] = None, current_user: dict = Depends(get_current_user)):
-    query = {'user_id': current_user['id']}
-    if case_id:
-        query['case_id'] = case_id
-    
-    documents = await db.documents.find(query, {'_id': 0}).to_list(100)
-    
-    for doc in documents:
-        if isinstance(doc['uploaded_at'], str):
-            doc['uploaded_at'] = datetime.fromisoformat(doc['uploaded_at'])
-    
-    return documents
-
-# Chat Routes
-@api_router.post("/chat", response_model=ChatResponse)
-async def chat(chat_msg: ChatMessage, current_user: dict = Depends(get_current_user)):
-    session_id = current_user['id']
-    
-    # Use custom system prompt if provided, otherwise use default
-    if chat_msg.system_prompt:
-        system_prompt = chat_msg.system_prompt
-    else:
-        system_prompt = """You are a helpful legal assistant for Nyaay Sathi, an Indian legal tech platform.
-
-IMPORTANT: Always respond in valid JSON format with this exact structure:
-{
-  "cards": [
-    {"type": "info", "title": "Title Here", "content": "Brief content here in 2-3 lines max"},
-    {"type": "advice", "title": "Another Point", "content": "More content here"}
-  ]
-}
-
-CARD TYPES TO USE:
-- "greeting": For welcome messages (purple color)
-- "question": For asking clarification (blue color)  
-- "info": For key information/facts (gray color)
-- "advice": For legal guidance (green color)
-- "action": For next steps to take (amber color)
-- "warning": For important cautions (red color)
-
-RULES:
-- Use 2-4 cards per response
-- Keep each card content brief (2-3 lines max)
-- Be helpful, empathetic, and use simple language
-- Mix Hindi-English if user writes in Hindi
-- ONLY output valid JSON, no markdown or extra text"""
-    
-    try:
-        chat_client = LlmChat(
-            api_key=os.environ.get('EMERGENT_LLM_KEY'),
-            session_id=session_id,
-            system_message=system_prompt
-        ).with_model('gemini', 'gemini-3-flash-preview')
-        
-        user_message = UserMessage(text=chat_msg.message)
-        response = await chat_client.send_message(user_message)
-        
-        chat_history = {
-            'id': str(uuid.uuid4()),
-            'user_id': current_user['id'],
-            'session_id': session_id,
-            'message': chat_msg.message,
-            'response': response,
-            'timestamp': datetime.now(timezone.utc).isoformat()
-        }
-        await db.chat_history.insert_one(chat_history)
-        
-        return {'response': response, 'session_id': session_id}
-    except Exception as e:
-        logging.error(f'Chat error: {str(e)}')
-        raise HTTPException(status_code=500, detail=f'Chat service error: {str(e)}')
-
-# Guest Chat Route (No authentication required)
-@api_router.post("/chat/guest", response_model=ChatResponse)
-async def guest_chat(chat_msg: ChatMessage):
-    session_id = chat_msg.session_id if hasattr(chat_msg, 'session_id') and chat_msg.session_id else f"guest_{uuid.uuid4()}"
-    
-    # Use custom system prompt if provided
-    if chat_msg.system_prompt:
-        system_prompt = chat_msg.system_prompt
-    else:
-        system_prompt = """You are a helpful legal assistant for Nyaay Sathi, an Indian legal tech platform.
-
-IMPORTANT: Always respond in valid JSON format with this exact structure:
-{
-  "cards": [
-    {"type": "info", "title": "Title Here", "content": "Brief content here in 2-3 lines max"},
-    {"type": "advice", "title": "Another Point", "content": "More content here"}
-  ]
-}
-
-CARD TYPES TO USE:
-- "greeting": For welcome messages (purple color)
-- "question": For asking clarification (blue color)  
-- "info": For key information/facts (gray color)
-- "advice": For legal guidance (green color)
-- "action": For next steps to take (amber color)
-- "warning": For important cautions (red color)
-
-RULES:
-- Use 2-4 cards per response
-- Keep each card content brief (2-3 lines max)
-- Be helpful, empathetic, and use simple language
-- Mix Hindi-English if user writes in Hindi
-- ONLY output valid JSON, no markdown or extra text"""
-    
-    try:
-        chat_client = LlmChat(
-            api_key=os.environ.get('EMERGENT_LLM_KEY'),
-            session_id=session_id,
-            system_message=system_prompt
-        ).with_model('gemini', 'gemini-3-flash-preview')
-        
-        user_message = UserMessage(text=chat_msg.message)
-        response = await chat_client.send_message(user_message)
-        
-        return {'response': response, 'session_id': session_id}
-    except Exception as e:
-        logging.error(f'Guest chat error: {str(e)}')
-        raise HTTPException(status_code=500, detail=f'Chat service error: {str(e)}')
-
-@api_router.get("/chat/history")
-async def get_chat_history(current_user: dict = Depends(get_current_user)):
-    history = await db.chat_history.find(
-        {'user_id': current_user['id']},
-        {'_id': 0}
-    ).sort('timestamp', -1).limit(50).to_list(50)
-    return history
-
-# Booking Routes
-@api_router.post("/bookings", response_model=Booking)
-async def create_booking(booking_data: BookingCreate, current_user: dict = Depends(get_current_user)):
-    if current_user['user_type'] != 'client':
-        raise HTTPException(status_code=403, detail='Only clients can book consultations')
-    
-    booking_dict = booking_data.model_dump()
-    booking_dict['client_id'] = current_user['id']
-    booking_obj = Booking(**booking_dict)
-    
-    doc = booking_obj.model_dump()
-    doc['created_at'] = doc['created_at'].isoformat()
-    
-    await db.bookings.insert_one(doc)
-    return booking_obj
-
-@api_router.get("/bookings", response_model=List[Booking])
-async def get_bookings(current_user: dict = Depends(get_current_user)):
-    if current_user['user_type'] == 'client':
-        bookings = await db.bookings.find({'client_id': current_user['id']}, {'_id': 0}).to_list(100)
-    else:
-        bookings = await db.bookings.find({'lawyer_id': current_user['id']}, {'_id': 0}).to_list(100)
-    
-    for booking in bookings:
-        if isinstance(booking['created_at'], str):
-            booking['created_at'] = datetime.fromisoformat(booking['created_at'])
-    
-    return bookings
-
-@api_router.patch("/bookings/{booking_id}/status")
-async def update_booking_status(booking_id: str, status: str, current_user: dict = Depends(get_current_user)):
-    if current_user['user_type'] != 'lawyer':
-        raise HTTPException(status_code=403, detail='Only lawyers can update booking status')
-    
-    result = await db.bookings.update_one(
-        {'id': booking_id, 'lawyer_id': current_user['id']},
-        {'$set': {'status': status}}
-    )
-    
-    if result.modified_count == 0:
-        raise HTTPException(status_code=404, detail='Booking not found')
-    
-    return {'success': True}
-
-# Lawyer Routes
-@api_router.get("/lawyers", response_model=List[User])
-async def get_lawyers():
-    lawyers = await db.users.find({'user_type': 'lawyer'}, {'_id': 0, 'password': 0}).to_list(100)
-    
-    for lawyer in lawyers:
-        if isinstance(lawyer.get('created_at'), str):
-            lawyer['created_at'] = datetime.fromisoformat(lawyer['created_at'])
-    
-    return lawyers
-
-# Waitlist Routes
-@api_router.post("/waitlist", response_model=Waitlist)
-async def join_waitlist(waitlist_data: WaitlistCreate):
-    existing = await db.waitlist.find_one({'email': waitlist_data.email}, {'_id': 0})
-    if existing:
-        raise HTTPException(status_code=400, detail='Email already registered')
-    
-    waitlist_obj = Waitlist(**waitlist_data.model_dump())
-    
-    doc = waitlist_obj.model_dump()
-    doc['created_at'] = doc['created_at'].isoformat()
-    
-    await db.waitlist.insert_one(doc)
-    return waitlist_obj
-
-# ============ LAWYER APPLICATION ROUTES ============
-
-@api_router.post("/lawyer-applications")
-async def submit_lawyer_application(application: LawyerApplicationCreate):
-    # Check if email already exists
-    existing = await db.lawyer_applications.find_one({'email': application.email})
-    if existing:
-        raise HTTPException(status_code=400, detail='An application with this email already exists')
-    
-    existing_user = await db.users.find_one({'email': application.email})
-    if existing_user:
-        raise HTTPException(status_code=400, detail='A user with this email already exists')
-    
-    # Create application
-    app_data = LawyerApplication(
-        name=application.name,
-        email=application.email,
-        phone=application.phone,
-        password_hash=hash_password(application.password),
-        photo=application.photo,
-        bar_council_number=application.bar_council_number,
-        specialization=application.specialization,
-        experience=application.experience,
-        cases_won=application.cases_won,
-        state=application.state,
-        city=application.city,
-        court=application.court,
-        education=application.education,
-        languages=application.languages,
-        fee_range=application.fee_range,
-        bio=application.bio
-    )
-    
-    await db.lawyer_applications.insert_one(app_data.model_dump())
-    return {'message': 'Application submitted successfully', 'id': app_data.id}
-
-# ============ ADMIN ROUTES ============
-
-def verify_admin_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
-    token = credentials.credentials
-    try:
-        payload = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
-        if payload.get('role') != 'admin':
-            raise HTTPException(status_code=403, detail='Admin access required')
-        return payload
-    except jwt.ExpiredSignatureError:
-        raise HTTPException(status_code=401, detail='Token expired')
-    except jwt.InvalidTokenError:
-        raise HTTPException(status_code=401, detail='Invalid token')
-
-@api_router.post("/admin/login")
-async def admin_login(login: AdminLogin):
-    if login.email != ADMIN_EMAIL or login.password != ADMIN_PASSWORD:
-        raise HTTPException(status_code=401, detail='Invalid credentials')
-    
-    token = jwt.encode({
-        'email': login.email,
-        'role': 'admin',
-        'exp': datetime.now(timezone.utc) + timedelta(days=7)
-    }, JWT_SECRET, algorithm=JWT_ALGORITHM)
-    
-    return {'token': token, 'message': 'Login successful'}
-
-@api_router.get("/admin/lawyer-applications")
-async def get_lawyer_applications(admin: dict = Depends(verify_admin_token)):
-    applications = await db.lawyer_applications.find({}).to_list(1000)
-    
-    # Convert ObjectId to string
-    for app in applications:
-        app['_id'] = str(app['_id'])
-    
-    # Calculate stats
-    stats = {
-        'pending': len([a for a in applications if a.get('status') == 'pending']),
-        'approved': len([a for a in applications if a.get('status') == 'approved']),
-        'rejected': len([a for a in applications if a.get('status') == 'rejected'])
-    }
-    
-    return {'applications': applications, 'stats': stats}
-
-@api_router.put("/admin/lawyer-applications/{app_id}/approve")
-async def approve_lawyer_application(app_id: str, admin: dict = Depends(verify_admin_token)):
-    from bson import ObjectId
-    
-    # Find application
-    application = await db.lawyer_applications.find_one({'_id': ObjectId(app_id)})
-    if not application:
-        raise HTTPException(status_code=404, detail='Application not found')
-    
-    if application.get('status') != 'pending':
-        raise HTTPException(status_code=400, detail='Application already processed')
-    
-    # Update application status
-    await db.lawyer_applications.update_one(
-        {'_id': ObjectId(app_id)},
-        {'$set': {'status': 'approved'}}
-    )
-    
-    # Create lawyer user account
-    user_data = {
-        'id': str(uuid.uuid4()),
-        'email': application['email'],
-        'password_hash': application['password_hash'],
-        'full_name': application['name'],
-        'user_type': 'lawyer',
-        'phone': application['phone'],
-        'created_at': datetime.now(timezone.utc),
-        # Lawyer specific fields
-        'photo': application.get('photo'),
-        'bar_council_number': application['bar_council_number'],
-        'specialization': application['specialization'],
-        'experience': application['experience'],
-        'cases_won': application['cases_won'],
-        'state': application['state'],
-        'city': application['city'],
-        'court': application['court'],
-        'education': application['education'],
-        'languages': application['languages'],
-        'fee_range': application['fee_range'],
-        'bio': application['bio'],
-        'rating': 4.5,
-        'is_verified': True
-    }
-    
-    await db.users.insert_one(user_data)
-    
-    return {'message': 'Application approved successfully'}
-
-@api_router.put("/admin/lawyer-applications/{app_id}/reject")
-async def reject_lawyer_application(app_id: str, admin: dict = Depends(verify_admin_token)):
-    from bson import ObjectId
-    
-    # Find application
-    application = await db.lawyer_applications.find_one({'_id': ObjectId(app_id)})
-    if not application:
-        raise HTTPException(status_code=404, detail='Application not found')
-    
-    if application.get('status') != 'pending':
-        raise HTTPException(status_code=400, detail='Application already processed')
-    
-    # Update application status
-    await db.lawyer_applications.update_one(
-        {'_id': ObjectId(app_id)},
-        {'$set': {'status': 'rejected'}}
-    )
-    
-    return {'message': 'Application rejected'}
+# Legacy endpoint for lawyer applications (for backward compatibility)
+from routes.lawyers import submit_lawyer_application
+api_router.post("/lawyer-applications")(submit_lawyer_application)
 
 # Include the router in the main app
 app.include_router(api_router)
 
+# CORS middleware
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
@@ -691,6 +76,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+
 @app.on_event("shutdown")
 async def shutdown_db_client():
-    client.close()
+    await close_db()
