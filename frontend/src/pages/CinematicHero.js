@@ -83,41 +83,29 @@ export default function CinematicHero() {
   ];
   
   return (
-    <div className={`min-h-screen relative overflow-x-hidden transition-colors duration-500 ${
-      theme === 'dark' ? 'bg-slate-950' : 'bg-gradient-to-br from-slate-50 via-blue-50/30 to-slate-50'
-    }`}>
-      {/* Animated Water/Wave Background - Full Page */}
+    <div className="min-h-screen relative overflow-x-hidden bg-black">
+      {/* Animated Black Wave Background */}
       <div className="fixed inset-0 z-0 overflow-hidden">
         {/* Base gradient */}
-        <div className={`absolute inset-0 transition-all duration-500 ${
-          theme === 'dark' 
-            ? 'bg-gradient-to-br from-slate-950 via-blue-950/50 to-slate-950'
-            : 'bg-gradient-to-br from-blue-100/40 via-indigo-50/20 to-purple-50/30'
-        }`} />
+        <div className="absolute inset-0 bg-gradient-to-br from-black via-slate-950 to-black" />
         
-        {/* Animated wave layers */}
-        <svg className={`absolute bottom-0 left-0 w-full h-full transition-opacity duration-500 ${
-          theme === 'dark' ? 'opacity-30' : 'opacity-40'
-        }`} viewBox="0 0 1440 800" preserveAspectRatio="none">
+        {/* Animated black wave layers - Optimized */}
+        <svg className="absolute bottom-0 left-0 w-full h-full opacity-20" viewBox="0 0 1440 800" preserveAspectRatio="none">
           <defs>
-            <linearGradient id="waveGrad1" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor={theme === 'dark' ? '#3b82f6' : '#6366f1'} stopOpacity={theme === 'dark' ? '0.4' : '0.4'} />
-              <stop offset="100%" stopColor={theme === 'dark' ? '#1e40af' : '#4f46e5'} stopOpacity={theme === 'dark' ? '0.1' : '0.15'} />
+            <linearGradient id="blackWave1" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#1e293b" stopOpacity="0.6" />
+              <stop offset="100%" stopColor="#0f172a" stopOpacity="0.2" />
             </linearGradient>
-            <linearGradient id="waveGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor={theme === 'dark' ? '#60a5fa' : '#818cf8'} stopOpacity={theme === 'dark' ? '0.3' : '0.35'} />
-              <stop offset="100%" stopColor={theme === 'dark' ? '#3b82f6' : '#6366f1'} stopOpacity={theme === 'dark' ? '0.05' : '0.1'} />
-            </linearGradient>
-            <linearGradient id="waveGrad3" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor={theme === 'dark' ? '#93c5fd' : '#a5b4fc'} stopOpacity={theme === 'dark' ? '0.2' : '0.25'} />
-              <stop offset="100%" stopColor={theme === 'dark' ? '#60a5fa' : '#818cf8'} stopOpacity={theme === 'dark' ? '0.02' : '0.05'} />
+            <linearGradient id="blackWave2" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#334155" stopOpacity="0.4" />
+              <stop offset="100%" stopColor="#1e293b" stopOpacity="0.1" />
             </linearGradient>
           </defs>
           
-          {/* Wave 1 - Slowest, deepest */}
+          {/* Wave 1 */}
           <motion.path
             d="M0,400 C150,350 350,450 500,400 C650,350 850,450 1000,400 C1150,350 1350,450 1440,400 L1440,800 L0,800 Z"
-            fill="url(#waveGrad1)"
+            fill="url(#blackWave1)"
             animate={{
               d: [
                 "M0,400 C150,350 350,450 500,400 C650,350 850,450 1000,400 C1150,350 1350,450 1440,400 L1440,800 L0,800 Z",
@@ -126,16 +114,16 @@ export default function CinematicHero() {
               ]
             }}
             transition={{
-              duration: 12,
+              duration: 15,
               repeat: Infinity,
               ease: "easeInOut"
             }}
           />
           
-          {/* Wave 2 - Medium speed */}
+          {/* Wave 2 */}
           <motion.path
             d="M0,500 C200,450 400,550 600,500 C800,450 1000,550 1200,500 C1350,450 1400,550 1440,500 L1440,800 L0,800 Z"
-            fill="url(#waveGrad2)"
+            fill="url(#blackWave2)"
             animate={{
               d: [
                 "M0,500 C200,450 400,550 600,500 C800,450 1000,550 1200,500 C1350,450 1400,550 1440,500 L1440,800 L0,800 Z",
@@ -144,69 +132,17 @@ export default function CinematicHero() {
               ]
             }}
             transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-          
-          {/* Wave 3 - Fastest, lightest */}
-          <motion.path
-            d="M0,600 C250,550 450,650 700,600 C950,550 1150,650 1440,600 L1440,800 L0,800 Z"
-            fill="url(#waveGrad3)"
-            animate={{
-              d: [
-                "M0,600 C250,550 450,650 700,600 C950,550 1150,650 1440,600 L1440,800 L0,800 Z",
-                "M0,580 C250,630 450,530 700,580 C950,630 1150,530 1440,580 L1440,800 L0,800 Z",
-                "M0,600 C250,550 450,650 700,600 C950,550 1150,650 1440,600 L1440,800 L0,800 Z"
-              ]
-            }}
-            transition={{
-              duration: 5,
+              duration: 10,
               repeat: Infinity,
               ease: "easeInOut"
             }}
           />
         </svg>
         
-        {/* Floating bubbles/particles */}
-        {[...Array(30)].map((_, i) => (
-          <motion.div
-            key={i}
-            className={`absolute rounded-full transition-colors duration-500 ${
-              theme === 'dark' ? 'bg-blue-400/20' : 'bg-indigo-400/40'
-            }`}
-            style={{
-              width: Math.random() * 8 + 4,
-              height: Math.random() * 8 + 4,
-              left: `${Math.random() * 100}%`,
-              bottom: `${Math.random() * 50}%`,
-            }}
-            animate={{
-              y: [0, -100 - Math.random() * 200],
-              opacity: [0.3, 0.6, 0],
-              scale: [1, 1.2, 0.8]
-            }}
-            transition={{
-              duration: 6 + Math.random() * 4,
-              repeat: Infinity,
-              delay: Math.random() * 5,
-              ease: "easeOut"
-            }}
-          />
-        ))}
-        
-        {/* Subtle light rays */}
+        {/* Subtle light rays - Reduced for performance */}
         <div className="absolute inset-0">
-          <div className={`absolute top-0 left-1/4 w-96 h-96 rounded-full blur-3xl transition-colors duration-500 ${
-            theme === 'dark' ? 'bg-blue-500/10' : 'bg-indigo-400/30'
-          }`} />
-          <div className={`absolute top-1/3 right-1/4 w-80 h-80 rounded-full blur-3xl transition-colors duration-500 ${
-            theme === 'dark' ? 'bg-cyan-500/10' : 'bg-purple-400/25'
-          }`} />
-          <div className={`absolute bottom-1/4 left-1/3 w-72 h-72 rounded-full blur-3xl transition-colors duration-500 ${
-            theme === 'dark' ? 'bg-indigo-500/10' : 'bg-blue-400/30'
-          }`} />
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-900/10 rounded-full blur-3xl" />
+          <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-blue-800/10 rounded-full blur-3xl" />
         </div>
       </div>
 
