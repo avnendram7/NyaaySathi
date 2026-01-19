@@ -449,9 +449,7 @@ export default function CinematicHero() {
                     <item.icon className={`w-8 h-8 ${item.color}`} />
                   </div>
                 </div>
-                <h3 className={`text-xl font-bold mb-3 transition-colors duration-500 ${
-                  
-                }`}>{item.title}</h3>
+                <h3 className="text-xl font-bold mb-3 text-white">{item.title}</h3>
                 <p className={`text-sm leading-relaxed transition-colors duration-500 ${
                   
                 }`}>
