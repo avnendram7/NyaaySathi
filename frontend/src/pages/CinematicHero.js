@@ -450,9 +450,7 @@ export default function CinematicHero() {
                   </div>
                 </div>
                 <h3 className="text-xl font-bold mb-3 text-white">{item.title}</h3>
-                <p className={`text-sm leading-relaxed transition-colors duration-500 ${
-                  
-                }`}>
+                <p className="text-sm leading-relaxed text-slate-300">
                   {item.description}
                 </p>
               </motion.div>
