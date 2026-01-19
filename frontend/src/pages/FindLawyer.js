@@ -50,6 +50,90 @@ export default function FindLawyer() {
     return courtsByState[selectedState] || [];
   };
 
+  // Helper function to parse AI response into cards
+  const parseResponseToCards = (response) => {
+    // Try JSON parsing first
+    try {
+      const jsonMatch = response.match(/```json?\s*([\s\S]*?)```/) || response.match(/\{[\s\S]*"cards"[\s\S]*\}/);
+      if (jsonMatch) {
+        const jsonStr = jsonMatch[1] || jsonMatch[0];
+        const parsed = JSON.parse(jsonStr);
+        if (parsed.cards && Array.isArray(parsed.cards)) {
+          return parsed.cards;
+        }
+      }
+    } catch (e) {
+      // JSON parsing failed, continue to text parsing
+    }
+
+    // Parse markdown/text response into cards
+    const cards = [];
+    const sections = response.split(/(?=##\s|###\s|\*\*[^*]+\*\*:)/);
+    
+    sections.forEach((section, idx) => {
+      const trimmed = section.trim();
+      if (!trimmed) return;
+
+      let type = 'info';
+      let title = 'Information';
+      let content = trimmed;
+
+      // Extract title from ## or ###
+      const titleMatch = trimmed.match(/^#{1,3}\s*(.+?)[\n\r]/);
+      if (titleMatch) {
+        title = titleMatch[1].replace(/[#*]/g, '').trim();
+        content = trimmed.replace(/^#{1,3}\s*.+?[\n\r]/, '').trim();
+      }
+
+      // Extract title from **bold**:
+      const boldMatch = trimmed.match(/^\*\*(.+?)\*\*:?\s*/);
+      if (boldMatch) {
+        title = boldMatch[1].trim();
+        content = trimmed.replace(/^\*\*(.+?)\*\*:?\s*/, '').trim();
+      }
+
+      // Determine card type
+      const lowerTitle = title.toLowerCase();
+      if (lowerTitle.includes('welcome') || lowerTitle.includes('hello') || idx === 0) {
+        type = 'greeting';
+      } else if (lowerTitle.includes('step') || lowerTitle.includes('action') || lowerTitle.includes('next')) {
+        type = 'action';
+      } else if (lowerTitle.includes('advice') || lowerTitle.includes('suggest') || lowerTitle.includes('recommend')) {
+        type = 'advice';
+      } else if (lowerTitle.includes('warning') || lowerTitle.includes('caution') || lowerTitle.includes('important')) {
+        type = 'warning';
+      } else if (lowerTitle.includes('question') || lowerTitle.includes('clarif')) {
+        type = 'question';
+      } else if (lowerTitle.includes('location') || lowerTitle.includes('area') || lowerTitle.includes('region')) {
+        type = 'location';
+      }
+
+      // Clean up content
+      content = content
+        .replace(/^[-*•]\s*/gm, '• ')
+        .replace(/^\d+\.\s*/gm, '• ')
+        .replace(/\*\*(.+?)\*\*/g, '$1')
+        .replace(/\*(.+?)\*/g, '$1')
+        .replace(/`(.+?)`/g, '$1')
+        .trim();
+
+      if (content && content.length > 5) {
+        cards.push({ type, title, content: content.substring(0, 300) });
+      }
+    });
+
+    if (cards.length === 0) {
+      const cleanContent = response
+        .replace(/#{1,3}\s*/g, '')
+        .replace(/\*\*(.+?)\*\*/g, '$1')
+        .replace(/^[-*•]\s*/gm, '• ')
+        .trim();
+      cards.push({ type: 'info', title: 'Response', content: cleanContent.substring(0, 500) });
+    }
+
+    return cards.slice(0, 6);
+  };
+
   // Manual search function
   const handleManualSearch = () => {
     let results = [...lawyers];
