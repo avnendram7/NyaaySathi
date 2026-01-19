@@ -469,9 +469,7 @@ export default function CinematicHero() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className={`text-5xl sm:text-6xl font-bold mb-6 transition-colors duration-500 ${
-              
-            }`}>
+            <h2 className="text-5xl sm:text-6xl font-bold mb-6 text-white">
               Ready to Get Started?
             </h2>
             <p className={`text-xl mb-10 transition-colors duration-500 ${
