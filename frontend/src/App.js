@@ -106,6 +106,9 @@ function App() {
                   </ProtectedRoute>
                 } 
               />
+              <Route path="/lawyer-application" element={<LawyerApplication />} />
+              <Route path="/admin-login" element={<AdminLogin />} />
+              <Route path="/admin" element={<AdminDashboard />} />
             </Routes>
           </BrowserRouter>
           <Toaster position="top-right" />
