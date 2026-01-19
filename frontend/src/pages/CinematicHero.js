@@ -376,9 +376,7 @@ export default function CinematicHero() {
                   
                   {/* Content */}
                   <div className="p-6">
-                    <h3 className={`text-xl font-bold mb-4 transition-colors duration-500 ${
-                      
-                    }`}>{study.title}</h3>
+                    <h3 className="text-xl font-bold mb-4 text-white">{study.title}</h3>
                     <div className="flex items-center justify-between text-sm">
                       <div className={`flex items-center space-x-2 transition-colors duration-500 ${
                         
