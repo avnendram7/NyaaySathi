@@ -274,11 +274,7 @@ export default function CinematicHero() {
                   />
                   
                   {/* Gradient overlay */}
-                  <div className={`absolute inset-0 transition-colors duration-500 ${
-                    theme === 'dark'
-                      ? 'bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent'
-                      : 'bg-gradient-to-t from-white via-white/90 to-transparent'
-                  }`} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent" />
                   
                   {/* Content */}
                   <div className="relative h-full flex flex-col justify-end p-6">
