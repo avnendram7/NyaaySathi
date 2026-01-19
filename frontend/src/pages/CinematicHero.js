@@ -304,11 +304,7 @@ export default function CinematicHero() {
           >
             <Button
               onClick={() => navigate('/features')}
-              className={`bg-transparent border rounded-full px-8 py-3 text-sm font-medium transition-all duration-300 ${
-                theme === 'dark'
-                  ? 'border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white'
-                  : 'border-slate-300 text-slate-700 hover:bg-slate-100 hover:text-slate-900'
-              }`}
+              className="bg-transparent border border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white rounded-full px-8 py-3 text-sm font-medium transition-all duration-300"
             >
               ALL SERVICES <ArrowRight className="w-4 h-4 ml-2 inline" />
             </Button>
