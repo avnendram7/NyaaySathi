@@ -278,6 +278,13 @@ export default function RoleSelection() {
                     }}
                   />
                   
+                  {/* Icon - Sparkle for Get Started, LogIn for Login */}
+                  {isLoginMode ? (
+                    <LogIn className="w-6 h-6 relative z-10" />
+                  ) : (
+                    <Sparkles className="w-6 h-6 relative z-10" />
+                  )}
+                  
                   {/* Text */}
                   <span className="relative z-10 tracking-wide">{isLoginMode ? 'LOGIN' : 'GET STARTED'}</span>
                   
