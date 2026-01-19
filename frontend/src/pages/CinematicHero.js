@@ -284,9 +284,7 @@ export default function CinematicHero() {
                     <h3 className="text-2xl font-bold mb-2 text-white transition-colors group-hover:text-blue-500 duration-300">
                       {card.title}
                     </h3>
-                    <p className={`text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
-                      
-                    }`}>
+                    <p className="text-sm text-slate-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       {card.description}
                     </p>
                   </div>
