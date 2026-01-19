@@ -295,7 +295,43 @@ If you identify lawyers to recommend, end your response with: [RECOMMEND: lawyer
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 py-12">
+      {/* Top Navigation Bar */}
+      <div className="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-xl border-b border-slate-800/50">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+          <button 
+            onClick={() => navigate('/')}
+            className="text-xl font-bold text-white hover:text-blue-400 transition-colors"
+          >
+            Nyaay Sathi
+          </button>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Button
+              onClick={() => navigate('/user-login')}
+              className="relative bg-slate-800 hover:bg-slate-700 text-white rounded-full px-6 py-2 flex items-center gap-2 border border-blue-500/50 overflow-hidden"
+            >
+              {/* Glowing light effect */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-cyan-500/20 to-blue-500/20"
+                animate={{
+                  x: ['-100%', '100%'],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+              <User className="w-4 h-4 relative z-10" />
+              <span className="relative z-10 font-medium">Login</span>
+            </Button>
+          </motion.div>
+        </div>
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 py-12 pt-24">
         {/* Header */}
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
