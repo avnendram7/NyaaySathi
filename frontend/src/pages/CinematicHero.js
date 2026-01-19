@@ -472,9 +472,7 @@ export default function CinematicHero() {
             <h2 className="text-5xl sm:text-6xl font-bold mb-6 text-white">
               Ready to Get Started?
             </h2>
-            <p className={`text-xl mb-10 transition-colors duration-500 ${
-              
-            }`}>
+            <p className="text-xl mb-10 text-slate-300">
               Join thousands of Indians who have simplified their legal journey with Nyaay Sathi
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
