@@ -135,6 +135,55 @@ class Waitlist(BaseModel):
     message: Optional[str] = None
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
+# Lawyer Application Models
+class LawyerApplicationCreate(BaseModel):
+    name: str
+    email: EmailStr
+    phone: str
+    password: str
+    photo: Optional[str] = None
+    bar_council_number: str
+    specialization: str
+    experience: int
+    cases_won: int = 0
+    state: str
+    city: str
+    court: str
+    education: str
+    languages: List[str]
+    fee_range: str
+    bio: str
+
+class LawyerApplication(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    name: str
+    email: EmailStr
+    phone: str
+    password_hash: str
+    photo: Optional[str] = None
+    bar_council_number: str
+    specialization: str
+    experience: int
+    cases_won: int = 0
+    state: str
+    city: str
+    court: str
+    education: str
+    languages: List[str]
+    fee_range: str
+    bio: str
+    status: str = 'pending'  # pending, approved, rejected
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+class AdminLogin(BaseModel):
+    email: EmailStr
+    password: str
+
+# Admin credentials (in production, use env variables)
+ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL', 'admin@nyaaysathi.com')
+ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'admin123')
+
 # ============ UTILITIES ============
 
 def hash_password(password: str) -> str:
