@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import { Scale } from 'lucide-react';
 
 export const RotatingGlobe = () => {
   // Generate orbiting particles around the globe
@@ -51,11 +50,10 @@ export const RotatingGlobe = () => {
             </linearGradient>
           </defs>
           
-          {/* Latitude lines */}
+          {/* Latitude lines - removed outer circle */}
           <ellipse cx="100" cy="100" rx="85" ry="20" fill="none" stroke="url(#ringGrad)" strokeWidth="1" />
           <ellipse cx="100" cy="100" rx="85" ry="45" fill="none" stroke="url(#ringGrad)" strokeWidth="0.8" />
           <ellipse cx="100" cy="100" rx="85" ry="70" fill="none" stroke="url(#ringGrad)" strokeWidth="0.6" />
-          <circle cx="100" cy="100" r="85" fill="none" stroke="url(#ringGrad)" strokeWidth="1.5" />
         </svg>
       </motion.div>
       
@@ -264,12 +262,12 @@ export const RotatingGlobe = () => {
         </motion.div>
         
         <motion.div 
-          className="w-40 h-40 rounded-full bg-gradient-to-br from-blue-500 via-blue-600 to-blue-900 flex items-center justify-center border-4 border-blue-400/50 shadow-2xl backdrop-blur-sm relative overflow-hidden"
+          className="w-40 h-40 rounded-full bg-gradient-to-br from-blue-500/20 via-blue-600/20 to-blue-900/20 flex items-center justify-center border-4 border-blue-400/50 shadow-2xl backdrop-blur-sm relative overflow-hidden"
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.3 }}
         >
-          {/* Inner network grid pattern */}
-          <div className="absolute inset-0 opacity-10">
+          {/* Inner network grid pattern - subtle */}
+          <div className="absolute inset-0 opacity-5">
             <svg className="w-full h-full" viewBox="0 0 100 100">
               <defs>
                 <pattern id="grid" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
@@ -282,15 +280,44 @@ export const RotatingGlobe = () => {
             </svg>
           </div>
           
-          {/* Logo icon */}
-          <Scale className="w-18 h-18 text-white relative z-10" strokeWidth={1.5} />
+          {/* Logo image with living breathing effect */}
+          <motion.div
+            className="relative z-10 w-full h-full flex items-center justify-center"
+            animate={{
+              scale: [1, 1.05, 1],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          >
+            <motion.img
+              src="https://customer-assets.emergentagent.com/job_color-mode-1/artifacts/7no7ct5w_WhatsApp%20Image%202026-01-13%20at%2010.51.48.jpeg"
+              alt="Nyaay Sathi Logo"
+              className="w-28 h-28 object-contain"
+              animate={{
+                opacity: [0.95, 1, 0.95],
+                filter: [
+                  'brightness(1) contrast(1)',
+                  'brightness(1.1) contrast(1.05)',
+                  'brightness(1) contrast(1)',
+                ]
+              }}
+              transition={{
+                duration: 2.5,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
+          </motion.div>
           
           {/* Subtle pulse overlay */}
           <motion.div
             className="absolute inset-0 bg-blue-300 rounded-full"
             animate={{
               scale: [1, 1.05, 1],
-              opacity: [0, 0.15, 0],
+              opacity: [0, 0.1, 0],
             }}
             transition={{
               duration: 2.5,
