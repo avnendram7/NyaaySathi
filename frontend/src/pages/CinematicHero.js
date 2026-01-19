@@ -238,9 +238,7 @@ export default function CinematicHero() {
               <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white">
                 Our Services
               </h2>
-              <p className={`text-lg max-w-md transition-colors duration-500 ${
-                
-              }`}>
+              <p className="text-lg max-w-md text-slate-300">
                 Comprehensive legal solutions powered by technology for modern India
               </p>
             </div>
