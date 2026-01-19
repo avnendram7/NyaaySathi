@@ -63,42 +63,39 @@ export const Navbar = () => {
               </>
             ) : (
               <Link to="/role-selection?mode=login" className="relative group">
-                {/* Animated ring glow */}
-                <motion.div
-                  className="absolute -inset-1 rounded-full opacity-70"
-                  style={{
-                    background: 'conic-gradient(from 0deg, #f59e0b, #ef4444, #ec4899, #8b5cf6, #3b82f6, #10b981, #f59e0b)',
-                  }}
-                  animate={{
-                    rotate: [0, 360],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "linear"
-                  }}
-                />
-                <motion.div
-                  className="absolute -inset-1 rounded-full blur-sm opacity-50"
-                  style={{
-                    background: 'conic-gradient(from 180deg, #f59e0b, #ef4444, #ec4899, #8b5cf6, #3b82f6, #10b981, #f59e0b)',
-                  }}
-                  animate={{
-                    rotate: [360, 0],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "linear"
-                  }}
-                />
                 <Button 
                   data-testid="login-btn"
-                  className="relative bg-black hover:bg-slate-900 text-white rounded-full px-8 py-2 flex items-center space-x-2 border border-white/20"
+                  className="relative bg-slate-900 hover:bg-slate-800 text-white rounded-full px-8 py-2 flex items-center space-x-2 border border-slate-700 overflow-hidden"
                 >
-                  <LogIn className="w-4 h-4" />
-                  <span>Login</span>
-                  <Sparkles className="w-4 h-4 text-amber-400" />
+                  {/* Floating light orb inside button */}
+                  <motion.div
+                    className="absolute w-8 h-8 bg-blue-400/30 rounded-full blur-md"
+                    animate={{
+                      x: [-20, 60, -20],
+                      y: [-5, 5, -5],
+                      opacity: [0.3, 0.6, 0.3],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  />
+                  <motion.div
+                    className="absolute w-4 h-4 bg-purple-400/40 rounded-full blur-sm"
+                    animate={{
+                      x: [50, -10, 50],
+                      y: [3, -3, 3],
+                      opacity: [0.4, 0.7, 0.4],
+                    }}
+                    transition={{
+                      duration: 2.5,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  />
+                  <LogIn className="w-4 h-4 relative z-10" />
+                  <span className="relative z-10">Login</span>
                 </Button>
               </Link>
             )}
