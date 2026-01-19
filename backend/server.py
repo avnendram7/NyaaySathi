@@ -256,11 +256,13 @@ async def login(login_data: UserLogin):
     if not user:
         raise HTTPException(status_code=401, detail='Invalid credentials')
     
-    if not verify_password(login_data.password, user['password']):
+    # Check both password fields (password_hash for lawyers, password for regular users)
+    password_field = user.get('password_hash') or user.get('password')
+    if not password_field or not verify_password(login_data.password, password_field):
         raise HTTPException(status_code=401, detail='Invalid credentials')
     
     token = create_token(user['id'], user['user_type'])
-    user_response = {k: v for k, v in user.items() if k != 'password'}
+    user_response = {k: v for k, v in user.items() if k not in ['password', 'password_hash']}
     
     return {'token': token, 'user': user_response}
 
