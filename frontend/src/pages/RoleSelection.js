@@ -23,7 +23,7 @@ export default function RoleSelection() {
       btnGlow: 'shadow-cyan-500/50',
       borderColor: 'border-cyan-500/30',
       particleColor: 'bg-cyan-400',
-      route: '/user-login',
+      route: isLoginMode ? '/user-login' : '/find-lawyer',
       testId: 'role-user-card'
     },
     {
