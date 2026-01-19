@@ -86,6 +86,9 @@ export default function CinematicHero() {
   
   return (
     <div className="min-h-screen relative overflow-x-hidden bg-black">
+      {/* Diagonal Wave with Sparkles */}
+      <DiagonalWave />
+      
       {/* Animated Black Wave Background */}
       <div className="fixed inset-0 z-0 overflow-hidden">
         {/* Base gradient */}
