@@ -94,60 +94,38 @@ export default function CinematicHero() {
         {/* Base gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-black via-slate-950 to-black" />
         
-        {/* Animated black wave layers - Optimized */}
-        <svg className="absolute bottom-0 left-0 w-full h-full opacity-20" viewBox="0 0 1440 800" preserveAspectRatio="none">
+        {/* Simplified animated black wave - Single layer for performance */}
+        <svg className="absolute bottom-0 left-0 w-full h-full opacity-15" viewBox="0 0 1440 800" preserveAspectRatio="none">
           <defs>
-            <linearGradient id="blackWave1" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="#1e293b" stopOpacity="0.6" />
-              <stop offset="100%" stopColor="#0f172a" stopOpacity="0.2" />
-            </linearGradient>
-            <linearGradient id="blackWave2" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="#334155" stopOpacity="0.4" />
+            <linearGradient id="blackWave" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#334155" stopOpacity="0.5" />
               <stop offset="100%" stopColor="#1e293b" stopOpacity="0.1" />
             </linearGradient>
           </defs>
           
-          {/* Wave 1 */}
+          {/* Single optimized wave */}
           <motion.path
-            d="M0,400 C150,350 350,450 500,400 C650,350 850,450 1000,400 C1150,350 1350,450 1440,400 L1440,800 L0,800 Z"
-            fill="url(#blackWave1)"
+            d="M0,400 C200,350 400,450 600,400 C800,350 1000,450 1200,400 C1350,350 1400,450 1440,400 L1440,800 L0,800 Z"
+            fill="url(#blackWave)"
             animate={{
               d: [
-                "M0,400 C150,350 350,450 500,400 C650,350 850,450 1000,400 C1150,350 1350,450 1440,400 L1440,800 L0,800 Z",
-                "M0,420 C150,470 350,370 500,420 C650,470 850,370 1000,420 C1150,470 1350,370 1440,420 L1440,800 L0,800 Z",
-                "M0,400 C150,350 350,450 500,400 C650,350 850,450 1000,400 C1150,350 1350,450 1440,400 L1440,800 L0,800 Z"
+                "M0,400 C200,350 400,450 600,400 C800,350 1000,450 1200,400 C1350,350 1400,450 1440,400 L1440,800 L0,800 Z",
+                "M0,420 C200,470 400,370 600,420 C800,470 1000,370 1200,420 C1350,470 1400,370 1440,420 L1440,800 L0,800 Z",
+                "M0,400 C200,350 400,450 600,400 C800,350 1000,450 1200,400 C1350,350 1400,450 1440,400 L1440,800 L0,800 Z"
               ]
             }}
             transition={{
-              duration: 15,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-          
-          {/* Wave 2 */}
-          <motion.path
-            d="M0,500 C200,450 400,550 600,500 C800,450 1000,550 1200,500 C1350,450 1400,550 1440,500 L1440,800 L0,800 Z"
-            fill="url(#blackWave2)"
-            animate={{
-              d: [
-                "M0,500 C200,450 400,550 600,500 C800,450 1000,550 1200,500 C1350,450 1400,550 1440,500 L1440,800 L0,800 Z",
-                "M0,480 C200,530 400,430 600,480 C800,530 1000,430 1200,480 C1350,530 1400,430 1440,480 L1440,800 L0,800 Z",
-                "M0,500 C200,450 400,550 600,500 C800,450 1000,550 1200,500 C1350,450 1400,550 1440,500 L1440,800 L0,800 Z"
-              ]
-            }}
-            transition={{
-              duration: 10,
+              duration: 12,
               repeat: Infinity,
               ease: "easeInOut"
             }}
           />
         </svg>
         
-        {/* Subtle light rays - Reduced for performance */}
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-900/10 rounded-full blur-3xl" />
-          <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-blue-800/10 rounded-full blur-3xl" />
+        {/* Minimal light rays - Reduced for performance */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-900/5 rounded-full blur-3xl" />
+          <div className="absolute top-1/3 right-1/4 w-80 h-80 bg-blue-800/5 rounded-full blur-3xl" />
         </div>
       </div>
 
