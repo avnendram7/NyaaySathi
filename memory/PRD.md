@@ -48,19 +48,27 @@ Build a legal-tech startup platform called "Nyaay Sathi" that simplifies the jus
   - Get Started → shows "GET STARTED" buttons, User goes to Find Lawyer page
   - Login → shows "LOGIN" buttons, User goes to Login page
   - Lawyer section background: black with improved text contrast
-- ✅ **NEW: Find Lawyer Page** (`FindLawyer.js`) - Major feature
+- ✅ **Find Lawyer Page** (`FindLawyer.js`) - Major feature
   - Two big cards: "Find Lawyer Manually" and "Find Lawyer with AI"
   - Manual search with State, City, Court, Case Type dropdowns
+  - **4 states only:** Delhi, Uttar Pradesh, Haryana, Maharashtra
+  - **10 lawyers per state** (40 total) with different specialties
   - AI chat interface powered by Gemini for smart lawyer matching
-  - 15 dummy Indian lawyers with different specialties
   - Lawyer cards with photo, name, specialization, location, experience, rating, fees
   - Full lawyer profile modal with bio, education, bar council registration
   - "Book Consultation" and "Send Message" actions
-  - "Client Login" and "Buy Dashboard" CTA at bottom
-- ✅ **NEW: Floating Features Section** - "Core Capabilities" with 4 service cards below hero
-- ✅ **NEW: Practice Areas Section** - 3 case study cards with success rates
-- ✅ **NEW: Why Choose Us Section** - 3 key differentiators
-- ✅ **NEW: Final CTA Section** - Call to action with footer
+  - **Features We Provide** section with 6 floating animated cards:
+    - Real-time Case Tracking
+    - AI Legal Assistant  
+    - Secure Document Vault
+    - Verified Lawyer Network
+    - Easy Consultation Booking
+    - Visual Case Timeline
+  - "Client Login" CTA at bottom
+- ✅ **Floating Features Section** - "Core Capabilities" with 4 service cards below hero
+- ✅ **Practice Areas Section** - 3 case study cards with success rates
+- ✅ **Why Choose Us Section** - 3 key differentiators
+- ✅ **Final CTA Section** - Call to action with footer
 
 ### Navbar
 - ✅ Login button with floating light orbs animation
