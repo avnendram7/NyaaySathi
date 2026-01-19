@@ -378,9 +378,7 @@ export default function CinematicHero() {
                   <div className="p-6">
                     <h3 className="text-xl font-bold mb-4 text-white">{study.title}</h3>
                     <div className="flex items-center justify-between text-sm">
-                      <div className={`flex items-center space-x-2 transition-colors duration-500 ${
-                        
-                      }`}>
+                      <div className="flex items-center space-x-2 text-slate-300">
                         <Clock className="w-4 h-4" />
                         <span>{study.duration}</span>
                       </div>
