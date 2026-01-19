@@ -592,32 +592,268 @@ If you identify lawyers to recommend, end your response with: [RECOMMEND: lawyer
           </motion.div>
         )}
 
-        {/* Bottom CTA - Login or Dashboard */}
+        {/* Bottom CTA - Login and Features */}
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
-          className="mt-16 text-center"
+          className="mt-16"
         >
-          <div className="bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-8 max-w-2xl mx-auto">
+          {/* Login CTA */}
+          <div className="bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-8 max-w-2xl mx-auto mb-16 text-center">
             <h3 className="text-2xl font-bold text-white mb-3">Ready to Get Started?</h3>
             <p className="text-slate-400 mb-6">Login to book consultations, save favorites, and track your cases</p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                onClick={() => navigate('/user-login')}
-                className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white rounded-full px-8 py-3"
+            <Button
+              onClick={() => navigate('/user-login')}
+              className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white rounded-full px-8 py-3"
+            >
+              <User className="w-4 h-4 mr-2" />
+              Client Login
+            </Button>
+          </div>
+
+          {/* Features Section */}
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Features We Provide</h2>
+              <p className="text-slate-400 text-lg">Everything you need to manage your legal journey</p>
+            </div>
+
+            {/* Floating Feature Cards */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {/* Feature 1 - Case Tracking */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                whileHover={{ y: -10, scale: 1.02 }}
+                className="bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden group hover:border-blue-500/50 transition-all duration-300"
               >
-                <User className="w-4 h-4 mr-2" />
-                Client Login
-              </Button>
-              <Button
-                onClick={() => navigate('/user-login')}
-                variant="outline"
-                className="border-slate-600 text-slate-300 hover:bg-slate-800 rounded-full px-8 py-3"
+                <div className="h-40 bg-gradient-to-br from-blue-600/20 to-cyan-600/20 relative overflow-hidden">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-32 h-24 bg-slate-800 rounded-lg shadow-xl border border-slate-600 p-2">
+                      <div className="h-2 w-16 bg-blue-500 rounded mb-2"></div>
+                      <div className="h-2 w-12 bg-slate-600 rounded mb-2"></div>
+                      <div className="flex gap-2">
+                        <div className="h-8 w-8 bg-green-500/30 rounded"></div>
+                        <div className="h-8 w-8 bg-yellow-500/30 rounded"></div>
+                        <div className="h-8 w-8 bg-blue-500/30 rounded"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <motion.div
+                    className="absolute top-2 right-2 w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center"
+                    animate={{ scale: [1, 1.2, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  >
+                    <Scale className="w-4 h-4 text-white" />
+                  </motion.div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-white mb-2">Real-time Case Tracking</h3>
+                  <p className="text-slate-400 text-sm">Track your case status, upcoming hearings, and important dates. Get instant notifications on case updates.</p>
+                </div>
+              </motion.div>
+
+              {/* Feature 2 - AI Legal Assistant */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                whileHover={{ y: -10, scale: 1.02 }}
+                className="bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden group hover:border-purple-500/50 transition-all duration-300"
               >
-                <Briefcase className="w-4 h-4 mr-2" />
-                Buy Dashboard
-              </Button>
+                <div className="h-40 bg-gradient-to-br from-purple-600/20 to-pink-600/20 relative overflow-hidden">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-32 h-24 bg-slate-800 rounded-lg shadow-xl border border-slate-600 p-2">
+                      <div className="flex gap-1 mb-2">
+                        <div className="h-3 w-3 bg-red-500 rounded-full"></div>
+                        <div className="h-3 w-3 bg-yellow-500 rounded-full"></div>
+                        <div className="h-3 w-3 bg-green-500 rounded-full"></div>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="h-2 w-20 bg-purple-500/50 rounded"></div>
+                        <div className="h-2 w-16 bg-slate-600 rounded ml-auto"></div>
+                        <div className="h-2 w-18 bg-purple-500/50 rounded"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <motion.div
+                    className="absolute top-2 right-2 w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center"
+                    animate={{ rotate: [0, 360] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                  >
+                    <Bot className="w-4 h-4 text-white" />
+                  </motion.div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-white mb-2">AI Legal Assistant</h3>
+                  <p className="text-slate-400 text-sm">Get instant answers to legal queries. Our AI understands your problem and suggests the right course of action.</p>
+                </div>
+              </motion.div>
+
+              {/* Feature 3 - Document Vault */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                whileHover={{ y: -10, scale: 1.02 }}
+                className="bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden group hover:border-emerald-500/50 transition-all duration-300"
+              >
+                <div className="h-40 bg-gradient-to-br from-emerald-600/20 to-green-600/20 relative overflow-hidden">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="flex gap-2">
+                      <motion.div 
+                        className="w-12 h-16 bg-slate-700 rounded shadow-lg border border-slate-600"
+                        animate={{ y: [0, -5, 0] }}
+                        transition={{ duration: 2, repeat: Infinity, delay: 0 }}
+                      />
+                      <motion.div 
+                        className="w-12 h-16 bg-slate-700 rounded shadow-lg border border-slate-600"
+                        animate={{ y: [0, -5, 0] }}
+                        transition={{ duration: 2, repeat: Infinity, delay: 0.3 }}
+                      />
+                      <motion.div 
+                        className="w-12 h-16 bg-slate-700 rounded shadow-lg border border-slate-600"
+                        animate={{ y: [0, -5, 0] }}
+                        transition={{ duration: 2, repeat: Infinity, delay: 0.6 }}
+                      />
+                    </div>
+                  </div>
+                  <motion.div
+                    className="absolute top-2 right-2 w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center"
+                    animate={{ scale: [1, 1.1, 1] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  >
+                    <Shield className="w-4 h-4 text-white" />
+                  </motion.div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-white mb-2">Secure Document Vault</h3>
+                  <p className="text-slate-400 text-sm">Store all your legal documents securely. End-to-end encrypted storage with easy access anytime.</p>
+                </div>
+              </motion.div>
+
+              {/* Feature 4 - Lawyer Network */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4 }}
+                whileHover={{ y: -10, scale: 1.02 }}
+                className="bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden group hover:border-amber-500/50 transition-all duration-300"
+              >
+                <div className="h-40 bg-gradient-to-br from-amber-600/20 to-orange-600/20 relative overflow-hidden">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="relative">
+                      <div className="w-10 h-10 bg-amber-500 rounded-full absolute top-0 left-1/2 -translate-x-1/2"></div>
+                      <div className="w-8 h-8 bg-orange-500 rounded-full absolute top-8 left-0"></div>
+                      <div className="w-8 h-8 bg-yellow-500 rounded-full absolute top-8 right-0"></div>
+                      <motion.div
+                        className="absolute top-4 left-1/2 -translate-x-1/2 w-16 h-8"
+                        animate={{ opacity: [0.3, 0.7, 0.3] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                      >
+                        <div className="w-full h-[1px] bg-amber-400 rotate-45 origin-left"></div>
+                        <div className="w-full h-[1px] bg-amber-400 -rotate-45 origin-right"></div>
+                      </motion.div>
+                    </div>
+                  </div>
+                  <motion.div
+                    className="absolute top-2 right-2 w-8 h-8 bg-amber-500 rounded-full flex items-center justify-center"
+                  >
+                    <Users className="w-4 h-4 text-white" />
+                  </motion.div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-white mb-2">Verified Lawyer Network</h3>
+                  <p className="text-slate-400 text-sm">Access 500+ verified lawyers across India. Filter by specialization, location, and ratings.</p>
+                </div>
+              </motion.div>
+
+              {/* Feature 5 - Consultation Booking */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.5 }}
+                whileHover={{ y: -10, scale: 1.02 }}
+                className="bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden group hover:border-rose-500/50 transition-all duration-300"
+              >
+                <div className="h-40 bg-gradient-to-br from-rose-600/20 to-pink-600/20 relative overflow-hidden">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-32 h-24 bg-slate-800 rounded-lg shadow-xl border border-slate-600 p-2">
+                      <div className="grid grid-cols-7 gap-[2px]">
+                        {[...Array(21)].map((_, i) => (
+                          <motion.div
+                            key={i}
+                            className={`h-2 w-2 rounded-sm ${i === 10 ? 'bg-rose-500' : 'bg-slate-600'}`}
+                            animate={i === 10 ? { scale: [1, 1.3, 1] } : {}}
+                            transition={{ duration: 1, repeat: Infinity }}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  <motion.div
+                    className="absolute top-2 right-2 w-8 h-8 bg-rose-500 rounded-full flex items-center justify-center"
+                  >
+                    <Clock className="w-4 h-4 text-white" />
+                  </motion.div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-white mb-2">Easy Consultation Booking</h3>
+                  <p className="text-slate-400 text-sm">Book video or in-person consultations with lawyers. Flexible scheduling with calendar integration.</p>
+                </div>
+              </motion.div>
+
+              {/* Feature 6 - Case Timeline */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.6 }}
+                whileHover={{ y: -10, scale: 1.02 }}
+                className="bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden group hover:border-indigo-500/50 transition-all duration-300"
+              >
+                <div className="h-40 bg-gradient-to-br from-indigo-600/20 to-violet-600/20 relative overflow-hidden">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="flex items-center gap-2">
+                      <motion.div
+                        className="w-4 h-4 bg-indigo-500 rounded-full"
+                        animate={{ scale: [1, 1.2, 1] }}
+                        transition={{ duration: 1.5, repeat: Infinity, delay: 0 }}
+                      />
+                      <div className="w-8 h-[2px] bg-indigo-400"></div>
+                      <motion.div
+                        className="w-4 h-4 bg-indigo-500 rounded-full"
+                        animate={{ scale: [1, 1.2, 1] }}
+                        transition={{ duration: 1.5, repeat: Infinity, delay: 0.3 }}
+                      />
+                      <div className="w-8 h-[2px] bg-indigo-400"></div>
+                      <motion.div
+                        className="w-4 h-4 bg-indigo-500 rounded-full"
+                        animate={{ scale: [1, 1.2, 1] }}
+                        transition={{ duration: 1.5, repeat: Infinity, delay: 0.6 }}
+                      />
+                      <div className="w-8 h-[2px] bg-slate-600"></div>
+                      <div className="w-4 h-4 bg-slate-600 rounded-full"></div>
+                    </div>
+                  </div>
+                  <motion.div
+                    className="absolute top-2 right-2 w-8 h-8 bg-indigo-500 rounded-full flex items-center justify-center"
+                  >
+                    <ArrowRight className="w-4 h-4 text-white" />
+                  </motion.div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-white mb-2">Visual Case Timeline</h3>
+                  <p className="text-slate-400 text-sm">See your complete case journey visually. Track progress from filing to resolution with milestones.</p>
+                </div>
+              </motion.div>
             </div>
           </div>
         </motion.div>
