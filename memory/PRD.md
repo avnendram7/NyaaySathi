@@ -152,5 +152,7 @@ waitlist: {id, email, full_name, message, created_at}
 ## Key Files
 - `/app/frontend/src/pages/LawyerDashboard.js` - Lawyer interface
 - `/app/frontend/src/pages/UserDashboard.js` - Client interface
+- `/app/frontend/src/pages/FindLawyer.js` - Find lawyer page (manual + AI)
+- `/app/frontend/src/data/lawyers.js` - 15 Indian lawyers dummy data
 - `/app/backend/server.py` - All API endpoints
 - `/app/frontend/src/App.js` - React routing
