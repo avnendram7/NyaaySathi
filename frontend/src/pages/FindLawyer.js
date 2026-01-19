@@ -128,41 +128,32 @@ CARD TYPES:
 - warning: Important cautions
 - location: Asking/confirming location`;
 
-      const response = await axios.post(`${API}/chat`, {
+      const response = await axios.post(`${API}/chat/guest`, {
         message: userMessage,
         system_prompt: systemPrompt,
-        conversation_history: messages.slice(-6).map(m => ({
-          role: m.role,
-          content: typeof m.content === 'string' ? m.content : JSON.stringify(m.content)
-        }))
+        session_id: `lawyer_search_${Date.now()}`
       });
 
       let aiResponse = response.data.response;
       
-      // Try to parse JSON response
-      try {
-        // Extract JSON from response if wrapped in markdown code blocks
-        const jsonMatch = aiResponse.match(/```json?\s*([\s\S]*?)```/) || aiResponse.match(/\{[\s\S]*\}/);
-        if (jsonMatch) {
-          const jsonStr = jsonMatch[1] || jsonMatch[0];
-          const parsed = JSON.parse(jsonStr);
-          setMessages(prev => [...prev, { role: 'assistant', content: parsed }]);
-          
-          // Check for recommended lawyers
-          if (parsed.recommendedLawyers && parsed.recommendedLawyers.length > 0) {
-            const recommended = lawyers.filter(l => parsed.recommendedLawyers.includes(l.id));
+      // Parse response into cards
+      const cards = parseResponseToCards(aiResponse);
+      setMessages(prev => [...prev, { role: 'assistant', content: { cards } }]);
+
+      // Check for lawyer IDs in response to recommend
+      const idMatch = aiResponse.match(/ID:?\s*(\d+)/gi);
+      if (idMatch) {
+        const ids = idMatch.map(m => parseInt(m.replace(/ID:?\s*/i, ''))).filter(id => id >= 1 && id <= 40);
+        if (ids.length > 0) {
+          const recommended = lawyers.filter(l => ids.includes(l.id));
+          if (recommended.length > 0) {
             setAiRecommendedLawyers(recommended);
             setShowAiResults(true);
           }
-        } else {
-          // Fallback to plain text
-          setMessages(prev => [...prev, { role: 'assistant', content: { cards: [{ type: 'info', title: 'Response', content: aiResponse }] } }]);
         }
-      } catch (parseError) {
-        // If JSON parsing fails, show as plain text card
-        setMessages(prev => [...prev, { role: 'assistant', content: { cards: [{ type: 'info', title: 'Response', content: aiResponse }] } }]);
       }
     } catch (error) {
+      console.error('Chat error:', error);
       setMessages(prev => [...prev, { 
         role: 'assistant', 
         content: { cards: [{ type: 'warning', title: 'Connection Error', content: "I'm having trouble connecting. Please try again or use the manual search option." }] }
