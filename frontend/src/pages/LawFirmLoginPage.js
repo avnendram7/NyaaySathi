@@ -154,16 +154,14 @@ export default function LawFirmLoginPage() {
           </form>
           
           <div className="mt-6 text-center">
-            <button
-              data-testid="lawfirm-toggle-mode-btn"
-              onClick={() => setIsLogin(!isLogin)}
-              className="text-slate-400 hover:text-white transition-colors"
+            <span className="text-slate-400">Don't have an account? </span>
+            <Link
+              data-testid="lawfirm-signup-link"
+              to="/role-selection"
+              className="text-blue-500 font-semibold hover:text-blue-400 transition-colors"
             >
-              {isLogin ? "Don't have an account? " : 'Already have an account? '}
-              <span className="text-blue-500 font-semibold">
-                {isLogin ? 'Sign Up' : 'Sign In'}
-              </span>
-            </button>
+              Sign Up
+            </Link>
           </div>
           
           <div className="mt-4 text-center">
