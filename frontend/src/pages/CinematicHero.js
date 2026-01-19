@@ -384,9 +384,7 @@ export default function CinematicHero() {
                       </div>
                       <div className="flex items-center space-x-2">
                         <span className="text-emerald-500 font-semibold">{study.successRate}</span>
-                        <span className={`transition-colors duration-500 ${
-                          
-                        }`}>Success</span>
+                        <span className="text-slate-300">Success</span>
                       </div>
                     </div>
                   </div>
