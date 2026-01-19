@@ -22,7 +22,13 @@ export default function FindLawyer() {
   
   // AI Chat state
   const [messages, setMessages] = useState([
-    { role: 'assistant', content: "Hello! I'm your AI legal assistant. I'll help you find the right lawyer for your case. To get started, could you please tell me:\n\n1. Which state/city are you located in?\n2. What kind of legal issue are you facing?\n\nFeel free to describe your situation in detail." }
+    { role: 'assistant', content: {
+      cards: [
+        { type: 'greeting', title: 'Welcome to Nyaay Sathi', content: "Hello! I'm your AI legal assistant. I'm here to help you find the right lawyer for your case." },
+        { type: 'question', title: 'Tell Me About Your Case', content: "What kind of legal issue are you facing? (Property dispute, Family matter, Criminal case, etc.)" },
+        { type: 'location', title: 'Your Location', content: "Which state/city are you located in? This helps me find lawyers near you." }
+      ]
+    }}
   ]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
