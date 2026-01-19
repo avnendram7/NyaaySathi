@@ -495,11 +495,7 @@ export default function CinematicHero() {
       </section>
 
       {/* Footer */}
-      <footer className={`relative z-10 border-t py-8 px-4 transition-colors duration-500 ${
-        theme === 'dark'
-          ? 'border-slate-800 bg-slate-950/80'
-          : 'border-indigo-200 bg-indigo-50/80'
-      }`}>
+      <footer className="relative z-10 border-t border-slate-800 bg-slate-950/80 py-8 px-4">
         <div className={`max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between text-sm transition-colors duration-500 ${
           
         }`}>
