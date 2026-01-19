@@ -340,22 +340,34 @@ async def get_documents(case_id: Optional[str] = None, current_user: dict = Depe
 async def chat(chat_msg: ChatMessage, current_user: dict = Depends(get_current_user)):
     session_id = current_user['id']
     
-    system_prompt = """You are a helpful legal assistant for Nyaay Sathi platform. 
-    Format your responses in clear, structured sections using markdown:
-    
-    ## Main Point
-    Brief summary here
-    
-    ### Key Details
-    - Point 1
-    - Point 2
-    
-    ### Next Steps
-    1. Action 1
-    2. Action 2
-    
-    Keep responses simple, clear, and organized in boxes/sections for easy readability.
-    Focus on helping users understand their legal situation without complex jargon."""
+    # Use custom system prompt if provided, otherwise use default
+    if chat_msg.system_prompt:
+        system_prompt = chat_msg.system_prompt
+    else:
+        system_prompt = """You are a helpful legal assistant for Nyaay Sathi, an Indian legal tech platform.
+
+IMPORTANT: Always respond in valid JSON format with this exact structure:
+{
+  "cards": [
+    {"type": "info", "title": "Title Here", "content": "Brief content here in 2-3 lines max"},
+    {"type": "advice", "title": "Another Point", "content": "More content here"}
+  ]
+}
+
+CARD TYPES TO USE:
+- "greeting": For welcome messages (purple color)
+- "question": For asking clarification (blue color)  
+- "info": For key information/facts (gray color)
+- "advice": For legal guidance (green color)
+- "action": For next steps to take (amber color)
+- "warning": For important cautions (red color)
+
+RULES:
+- Use 2-4 cards per response
+- Keep each card content brief (2-3 lines max)
+- Be helpful, empathetic, and use simple language
+- Mix Hindi-English if user writes in Hindi
+- ONLY output valid JSON, no markdown or extra text"""
     
     try:
         chat_client = LlmChat(
@@ -385,24 +397,36 @@ async def chat(chat_msg: ChatMessage, current_user: dict = Depends(get_current_u
 # Guest Chat Route (No authentication required)
 @api_router.post("/chat/guest", response_model=ChatResponse)
 async def guest_chat(chat_msg: ChatMessage):
-    session_id = f"guest_{uuid.uuid4()}"
+    session_id = chat_msg.session_id if hasattr(chat_msg, 'session_id') and chat_msg.session_id else f"guest_{uuid.uuid4()}"
     
-    system_prompt = """You are a helpful legal assistant for Nyaay Sathi platform. 
-    Format your responses in clear, structured sections using markdown:
-    
-    ## Main Point
-    Brief summary here
-    
-    ### Key Details
-    - Point 1
-    - Point 2
-    
-    ### Next Steps
-    1. Action 1
-    2. Action 2
-    
-    Keep responses simple, clear, and organized in boxes/sections for easy readability.
-    Focus on helping users understand their legal situation without complex jargon."""
+    # Use custom system prompt if provided
+    if chat_msg.system_prompt:
+        system_prompt = chat_msg.system_prompt
+    else:
+        system_prompt = """You are a helpful legal assistant for Nyaay Sathi, an Indian legal tech platform.
+
+IMPORTANT: Always respond in valid JSON format with this exact structure:
+{
+  "cards": [
+    {"type": "info", "title": "Title Here", "content": "Brief content here in 2-3 lines max"},
+    {"type": "advice", "title": "Another Point", "content": "More content here"}
+  ]
+}
+
+CARD TYPES TO USE:
+- "greeting": For welcome messages (purple color)
+- "question": For asking clarification (blue color)  
+- "info": For key information/facts (gray color)
+- "advice": For legal guidance (green color)
+- "action": For next steps to take (amber color)
+- "warning": For important cautions (red color)
+
+RULES:
+- Use 2-4 cards per response
+- Keep each card content brief (2-3 lines max)
+- Be helpful, empathetic, and use simple language
+- Mix Hindi-English if user writes in Hindi
+- ONLY output valid JSON, no markdown or extra text"""
     
     try:
         chat_client = LlmChat(
