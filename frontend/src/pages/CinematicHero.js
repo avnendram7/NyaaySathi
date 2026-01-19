@@ -390,9 +390,57 @@ export default function CinematicHero() {
             <span className="text-sm font-semibold tracking-wider uppercase mb-4 block text-blue-400">
               03 — Why Nyaay Sathi
             </span>
-            <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-white">
-              Precision in Process
-            </h2>
+            <div className="relative inline-block">
+              {/* Three lights behind "Precision in Process" text */}
+              <motion.div
+                className="absolute -inset-8 -z-10"
+                animate={{ rotate: 360 }}
+                transition={{
+                  duration: 10,
+                  repeat: Infinity,
+                  ease: 'linear'
+                }}
+              >
+                <div 
+                  className="absolute w-24 h-24 bg-blue-500/20 rounded-full blur-2xl"
+                  style={{ top: '-10%', left: '10%' }}
+                />
+              </motion.div>
+              
+              <motion.div
+                className="absolute -inset-8 -z-10"
+                animate={{ rotate: -360 }}
+                transition={{
+                  duration: 15,
+                  repeat: Infinity,
+                  ease: 'linear'
+                }}
+              >
+                <div 
+                  className="absolute w-20 h-20 bg-cyan-500/20 rounded-full blur-2xl"
+                  style={{ bottom: '-10%', right: '10%' }}
+                />
+              </motion.div>
+              
+              <motion.div
+                className="absolute -inset-8 -z-10"
+                animate={{ rotate: 360 }}
+                transition={{
+                  duration: 12,
+                  repeat: Infinity,
+                  ease: 'linear'
+                }}
+              >
+                <div 
+                  className="absolute w-22 h-22 bg-indigo-500/20 rounded-full blur-2xl"
+                  style={{ top: '50%', right: '-20%', transform: 'translateY(-50%)' }}
+                />
+              </motion.div>
+              
+              <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-white relative">
+                Precision in Process
+              </h2>
+            </div>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
