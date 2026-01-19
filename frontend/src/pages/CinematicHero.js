@@ -357,9 +357,7 @@ export default function CinematicHero() {
                 <motion.div
                   whileHover={{ y: -10 }}
                   transition={{ duration: 0.4 }}
-                  className={`relative rounded-2xl overflow-hidden border backdrop-blur-xl cursor-pointer transition-colors duration-500 ${
-                    
-                  }`}
+                  className="relative rounded-2xl overflow-hidden border border-slate-700 backdrop-blur-xl cursor-pointer bg-slate-900/50"
                 >
                   {/* Image */}
                   <div className="relative h-64 overflow-hidden">
