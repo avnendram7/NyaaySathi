@@ -498,9 +498,7 @@ export default function CinematicHero() {
       <footer className="relative z-10 border-t border-slate-800 bg-slate-950/80 py-8 px-4">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between text-sm text-slate-300">
           <div className="flex items-center space-x-2 mb-4 md:mb-0">
-            <Scale className={`w-5 h-5 transition-colors duration-500 ${
-              
-            }`} />
+            <Scale className="w-5 h-5 text-blue-400" />
             <span className={`font-semibold transition-colors duration-500 ${
               
             }`}>Nyaay Sathi</span>
