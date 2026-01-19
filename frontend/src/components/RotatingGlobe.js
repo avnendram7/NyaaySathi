@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Scale } from 'lucide-react';
 
 export const RotatingGlobe = () => {
   // Generate orbiting particles around the globe - increased radius and slower
