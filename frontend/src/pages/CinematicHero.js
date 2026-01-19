@@ -270,9 +270,7 @@ export default function CinematicHero() {
                   <img 
                     src={card.image}
                     alt={card.title}
-                    className={`absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-all duration-700 ${
-                      
-                    }`}
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-all duration-700"
                   />
                   
                   {/* Gradient overlay */}
