@@ -628,26 +628,13 @@ If you identify lawyers to recommend, end your response with: [RECOMMEND: lawyer
           </motion.div>
         )}
 
-        {/* Bottom CTA - Login and Features */}
+        {/* Features Section */}
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
           className="mt-16"
         >
-          {/* Login CTA */}
-          <div className="bg-slate-900/60 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-8 max-w-2xl mx-auto mb-16 text-center">
-            <h3 className="text-2xl font-bold text-white mb-3">Ready to Get Started?</h3>
-            <p className="text-slate-400 mb-6">Login to book consultations, save favorites, and track your cases</p>
-            <Button
-              onClick={() => navigate('/user-login')}
-              className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white rounded-full px-8 py-3"
-            >
-              <User className="w-4 h-4 mr-2" />
-              Client Login
-            </Button>
-          </div>
-
           {/* Features Section */}
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
