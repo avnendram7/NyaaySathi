@@ -332,9 +332,7 @@ export default function CinematicHero() {
                 <h2 className="text-4xl sm:text-5xl font-bold mb-4 text-white">
                   Areas of Expertise
                 </h2>
-                <p className={`max-w-xl transition-colors duration-500 ${
-                  
-                }`}>
+                <p className="max-w-xl text-slate-300">
                   Our network of experienced lawyers specializes in these key practice areas with proven success rates
                 </p>
               </div>
