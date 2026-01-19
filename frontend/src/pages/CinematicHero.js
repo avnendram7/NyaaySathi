@@ -314,9 +314,7 @@ export default function CinematicHero() {
 
       {/* Selected Case Studies Section */}
       <section className="relative py-24 px-4 sm:px-8 z-10">
-        <div className={`absolute inset-0 transition-colors duration-500 ${
-          
-        }`} />
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/50 via-slate-900/60 to-slate-950/80" />
         <div className="relative z-10 max-w-7xl mx-auto">
           {/* Section Header */}
           <motion.div
