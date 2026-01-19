@@ -220,11 +220,7 @@ export default function CinematicHero() {
       {/* Core Capabilities / Features Section */}
       <section className="relative py-24 px-4 sm:px-8 z-10">
         {/* Section background gradient */}
-        <div className={`absolute inset-0 transition-colors duration-500 ${
-          theme === 'dark'
-            ? 'bg-gradient-to-b from-transparent via-slate-950/80 to-slate-950/90'
-            : 'bg-gradient-to-b from-transparent via-indigo-50/40 to-indigo-50/60'
-        }`} />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-950/80 to-slate-950/90" />
         
         <div className="relative z-10 max-w-7xl mx-auto">
           {/* Section Header */}
