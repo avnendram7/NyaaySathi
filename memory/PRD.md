@@ -191,6 +191,9 @@ waitlist: {id, email, full_name, message, created_at}
 - `/app/frontend/src/pages/LawyerDashboard.js` - Lawyer interface
 - `/app/frontend/src/pages/UserDashboard.js` - Client interface
 - `/app/frontend/src/pages/FindLawyer.js` - Find lawyer page (manual + AI) with 15 features
+- `/app/frontend/src/pages/LawyerApplication.js` - Lawyer signup form (4 steps)
+- `/app/frontend/src/pages/AdminDashboard.js` - Admin panel for approving lawyers
+- `/app/frontend/src/pages/AdminLogin.js` - Admin login page
 - `/app/frontend/src/data/lawyers.js` - 40 Indian lawyers dummy data (10 per state)
-- `/app/backend/server.py` - All API endpoints
+- `/app/backend/server.py` - All API endpoints including admin routes
 - `/app/frontend/src/App.js` - React routing
