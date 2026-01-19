@@ -1,7 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from './ui/button';
-import { Scale, Menu, X, Home, Info, Sparkles, HelpCircle } from 'lucide-react';
+import { Scale, Menu, X, Home, Info, Sparkles, HelpCircle, LogIn } from 'lucide-react';
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 export const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
