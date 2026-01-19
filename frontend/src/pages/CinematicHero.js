@@ -4,6 +4,7 @@ import { ArrowRight, MessageSquare, Scale, FileText, Shield, Users, Clock, Spark
 import { Button } from '../components/ui/button';
 import { Navbar } from '../components/Navbar';
 import { RotatingGlobe } from '../components/RotatingGlobe';
+import { DiagonalWave } from '../components/DiagonalWave';
 
 export default function CinematicHero() {
   const navigate = useNavigate();
