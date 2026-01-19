@@ -497,6 +497,154 @@ async def join_waitlist(waitlist_data: WaitlistCreate):
     await db.waitlist.insert_one(doc)
     return waitlist_obj
 
+# ============ LAWYER APPLICATION ROUTES ============
+
+@api_router.post("/lawyer-applications")
+async def submit_lawyer_application(application: LawyerApplicationCreate):
+    # Check if email already exists
+    existing = await db.lawyer_applications.find_one({'email': application.email})
+    if existing:
+        raise HTTPException(status_code=400, detail='An application with this email already exists')
+    
+    existing_user = await db.users.find_one({'email': application.email})
+    if existing_user:
+        raise HTTPException(status_code=400, detail='A user with this email already exists')
+    
+    # Create application
+    app_data = LawyerApplication(
+        name=application.name,
+        email=application.email,
+        phone=application.phone,
+        password_hash=hash_password(application.password),
+        photo=application.photo,
+        bar_council_number=application.bar_council_number,
+        specialization=application.specialization,
+        experience=application.experience,
+        cases_won=application.cases_won,
+        state=application.state,
+        city=application.city,
+        court=application.court,
+        education=application.education,
+        languages=application.languages,
+        fee_range=application.fee_range,
+        bio=application.bio
+    )
+    
+    await db.lawyer_applications.insert_one(app_data.model_dump())
+    return {'message': 'Application submitted successfully', 'id': app_data.id}
+
+# ============ ADMIN ROUTES ============
+
+def verify_admin_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
+    token = credentials.credentials
+    try:
+        payload = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
+        if payload.get('role') != 'admin':
+            raise HTTPException(status_code=403, detail='Admin access required')
+        return payload
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(status_code=401, detail='Token expired')
+    except jwt.InvalidTokenError:
+        raise HTTPException(status_code=401, detail='Invalid token')
+
+@api_router.post("/admin/login")
+async def admin_login(login: AdminLogin):
+    if login.email != ADMIN_EMAIL or login.password != ADMIN_PASSWORD:
+        raise HTTPException(status_code=401, detail='Invalid credentials')
+    
+    token = jwt.encode({
+        'email': login.email,
+        'role': 'admin',
+        'exp': datetime.now(timezone.utc) + timedelta(days=7)
+    }, JWT_SECRET, algorithm=JWT_ALGORITHM)
+    
+    return {'token': token, 'message': 'Login successful'}
+
+@api_router.get("/admin/lawyer-applications")
+async def get_lawyer_applications(admin: dict = Depends(verify_admin_token)):
+    applications = await db.lawyer_applications.find({}).to_list(1000)
+    
+    # Convert ObjectId to string
+    for app in applications:
+        app['_id'] = str(app['_id'])
+    
+    # Calculate stats
+    stats = {
+        'pending': len([a for a in applications if a.get('status') == 'pending']),
+        'approved': len([a for a in applications if a.get('status') == 'approved']),
+        'rejected': len([a for a in applications if a.get('status') == 'rejected'])
+    }
+    
+    return {'applications': applications, 'stats': stats}
+
+@api_router.put("/admin/lawyer-applications/{app_id}/approve")
+async def approve_lawyer_application(app_id: str, admin: dict = Depends(verify_admin_token)):
+    from bson import ObjectId
+    
+    # Find application
+    application = await db.lawyer_applications.find_one({'_id': ObjectId(app_id)})
+    if not application:
+        raise HTTPException(status_code=404, detail='Application not found')
+    
+    if application.get('status') != 'pending':
+        raise HTTPException(status_code=400, detail='Application already processed')
+    
+    # Update application status
+    await db.lawyer_applications.update_one(
+        {'_id': ObjectId(app_id)},
+        {'$set': {'status': 'approved'}}
+    )
+    
+    # Create lawyer user account
+    user_data = {
+        'id': str(uuid.uuid4()),
+        'email': application['email'],
+        'password_hash': application['password_hash'],
+        'full_name': application['name'],
+        'user_type': 'lawyer',
+        'phone': application['phone'],
+        'created_at': datetime.now(timezone.utc),
+        # Lawyer specific fields
+        'photo': application.get('photo'),
+        'bar_council_number': application['bar_council_number'],
+        'specialization': application['specialization'],
+        'experience': application['experience'],
+        'cases_won': application['cases_won'],
+        'state': application['state'],
+        'city': application['city'],
+        'court': application['court'],
+        'education': application['education'],
+        'languages': application['languages'],
+        'fee_range': application['fee_range'],
+        'bio': application['bio'],
+        'rating': 4.5,
+        'is_verified': True
+    }
+    
+    await db.users.insert_one(user_data)
+    
+    return {'message': 'Application approved successfully'}
+
+@api_router.put("/admin/lawyer-applications/{app_id}/reject")
+async def reject_lawyer_application(app_id: str, admin: dict = Depends(verify_admin_token)):
+    from bson import ObjectId
+    
+    # Find application
+    application = await db.lawyer_applications.find_one({'_id': ObjectId(app_id)})
+    if not application:
+        raise HTTPException(status_code=404, detail='Application not found')
+    
+    if application.get('status') != 'pending':
+        raise HTTPException(status_code=400, detail='Application already processed')
+    
+    # Update application status
+    await db.lawyer_applications.update_one(
+        {'_id': ObjectId(app_id)},
+        {'$set': {'status': 'rejected'}}
+    )
+    
+    return {'message': 'Application rejected'}
+
 # Include the router in the main app
 app.include_router(api_router)
 
