@@ -108,17 +108,6 @@ export const Navbar = () => {
               <span>Help</span>
             </Link>
             
-            {/* Theme Toggle in Mobile */}
-            <button
-              onClick={toggleTheme}
-              className={`flex items-center space-x-2 py-2 transition-colors ${
-                theme === 'dark' ? 'text-slate-300 hover:text-white' : 'text-slate-700 hover:text-indigo-700'
-              }`}
-            >
-              {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-              <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
-            </button>
-            
             <div className="pt-4 space-y-2">
               {user ? (
                 <>
