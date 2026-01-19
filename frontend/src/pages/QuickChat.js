@@ -1,29 +1,42 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
-import { MessageSquare, Send, ArrowLeft, Scale } from 'lucide-react';
+import { MessageSquare, Send, ArrowLeft, Scale, Bot, Sparkles, Shield, MapPin, Bell, ArrowRight, Loader2 } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { toast } from 'sonner';
 import axios from 'axios';
 import { API } from '../App';
 
 export default function QuickChat() {
   const navigate = useNavigate();
+  const messagesEndRef = useRef(null);
   const [chatMessages, setChatMessages] = useState([
     {
       role: 'assistant',
-      content: '👋 Welcome to Nyaay Sathi AI Assistant! I can help you understand legal concepts, case procedures, and your rights. How can I assist you today?'
+      content: {
+        cards: [
+          { type: 'greeting', title: 'Welcome to Nyaay Sathi', content: "Hello! I'm your AI legal assistant. I can help you understand legal concepts, procedures, and your rights." },
+          { type: 'info', title: 'How I Can Help', content: "Ask me about legal procedures, documents needed, your rights, or any general legal query." },
+          { type: 'action', title: 'Get Started', content: "Type your legal question below. For example: 'What is bail?' or 'How to file FIR?'" }
+        ]
+      }
     }
   ]);
   const [chatInput, setChatInput] = useState('');
   const [loading, setLoading] = useState(false);
   
   // Guest session ID
-  const guestSessionId = 'guest_' + Math.random().toString(36).substring(7);
+  const [guestSessionId] = useState('guest_' + Math.random().toString(36).substring(7));
+
+  // Scroll to bottom on new messages
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [chatMessages]);
   
   const handleChat = async (e) => {
     e.preventDefault();
-    if (!chatInput.trim()) return;
+    if (!chatInput.trim() || loading) return;
     
     const userMsg = { role: 'user', content: chatInput };
     setChatMessages(prev => [...prev, userMsg]);
@@ -31,25 +44,113 @@ export default function QuickChat() {
     setLoading(true);
     
     try {
-      // Call backend without authentication (guest mode)
+      const systemPrompt = `You are Nyaay Sathi's AI Legal Assistant for Indian users. Help users understand legal concepts, procedures, and their rights.
+
+RESPONSE FORMAT - Always respond with structured JSON cards:
+{
+  "cards": [
+    {"type": "greeting", "title": "Title", "content": "Your message"},
+    {"type": "info", "title": "Key Information", "content": "Main info"},
+    {"type": "advice", "title": "Legal Insight", "content": "Advice"},
+    {"type": "action", "title": "Next Steps", "content": "What to do"}
+  ]
+}
+
+RULES:
+- Be helpful and informative
+- Use simple language, mix Hindi-English if user writes in Hindi
+- Break complex info into multiple cards
+- Keep each card brief (2-3 lines)
+- Use 2-4 cards per response
+- For serious matters, suggest consulting a lawyer
+
+CARD TYPES:
+- greeting: Welcome/acknowledgment
+- question: Asking for clarification
+- info: Key information/facts
+- advice: Legal guidance
+- action: Steps to take
+- warning: Important cautions
+- definition: Legal term explanation`;
+
       const response = await axios.post(`${API}/chat/guest`, { 
         message: chatInput,
-        session_id: guestSessionId
+        session_id: guestSessionId,
+        system_prompt: systemPrompt
       });
-      setChatMessages(prev => [...prev, { role: 'assistant', content: response.data.response }]);
+
+      let aiResponse = response.data.response;
+      
+      // Try to parse JSON response
+      try {
+        const jsonMatch = aiResponse.match(/```json?\s*([\s\S]*?)```/) || aiResponse.match(/\{[\s\S]*\}/);
+        if (jsonMatch) {
+          const jsonStr = jsonMatch[1] || jsonMatch[0];
+          const parsed = JSON.parse(jsonStr);
+          setChatMessages(prev => [...prev, { role: 'assistant', content: parsed }]);
+        } else {
+          setChatMessages(prev => [...prev, { role: 'assistant', content: { cards: [{ type: 'info', title: 'Response', content: aiResponse }] } }]);
+        }
+      } catch (parseError) {
+        setChatMessages(prev => [...prev, { role: 'assistant', content: { cards: [{ type: 'info', title: 'Response', content: aiResponse }] } }]);
+      }
     } catch (error) {
-      toast.error('Chat unavailable. Please try again or sign up for full access.');
-      setChatMessages(prev => prev.slice(0, -1));
+      toast.error('Chat unavailable. Please try again.');
+      setChatMessages(prev => [...prev, { 
+        role: 'assistant', 
+        content: { cards: [{ type: 'warning', title: 'Connection Error', content: 'Unable to connect. Please try again or sign up for full access.' }] }
+      }]);
     } finally {
       setLoading(false);
     }
   };
+
+  // Render card component
+  const renderCard = (card, cardIdx) => (
+    <motion.div
+      key={cardIdx}
+      initial={{ opacity: 0, scale: 0.95, y: 10 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      transition={{ delay: cardIdx * 0.1 }}
+      className={`rounded-xl p-4 border backdrop-blur-sm ${
+        card.type === 'greeting' ? 'bg-gradient-to-br from-purple-900/60 to-purple-800/40 border-purple-500/40' :
+        card.type === 'question' ? 'bg-gradient-to-br from-blue-900/60 to-blue-800/40 border-blue-500/40' :
+        card.type === 'info' ? 'bg-gradient-to-br from-slate-800/60 to-slate-700/40 border-slate-600/40' :
+        card.type === 'advice' ? 'bg-gradient-to-br from-emerald-900/60 to-emerald-800/40 border-emerald-500/40' :
+        card.type === 'action' ? 'bg-gradient-to-br from-amber-900/60 to-amber-800/40 border-amber-500/40' :
+        card.type === 'warning' ? 'bg-gradient-to-br from-red-900/60 to-red-800/40 border-red-500/40' :
+        card.type === 'definition' ? 'bg-gradient-to-br from-cyan-900/60 to-cyan-800/40 border-cyan-500/40' :
+        'bg-slate-800/60 border-slate-700/40'
+      }`}
+    >
+      <div className="flex items-center gap-2 mb-2">
+        {card.type === 'greeting' && <Sparkles className="w-4 h-4 text-purple-400" />}
+        {card.type === 'question' && <MessageSquare className="w-4 h-4 text-blue-400" />}
+        {card.type === 'info' && <Scale className="w-4 h-4 text-slate-400" />}
+        {card.type === 'advice' && <Shield className="w-4 h-4 text-emerald-400" />}
+        {card.type === 'action' && <ArrowRight className="w-4 h-4 text-amber-400" />}
+        {card.type === 'warning' && <Bell className="w-4 h-4 text-red-400" />}
+        {card.type === 'definition' && <Scale className="w-4 h-4 text-cyan-400" />}
+        <span className={`text-sm font-semibold ${
+          card.type === 'greeting' ? 'text-purple-300' :
+          card.type === 'question' ? 'text-blue-300' :
+          card.type === 'info' ? 'text-slate-300' :
+          card.type === 'advice' ? 'text-emerald-300' :
+          card.type === 'action' ? 'text-amber-300' :
+          card.type === 'warning' ? 'text-red-300' :
+          card.type === 'definition' ? 'text-cyan-300' :
+          'text-slate-300'
+        }`}>{card.title}</span>
+      </div>
+      <p className="text-slate-200 text-sm leading-relaxed">{card.content}</p>
+    </motion.div>
+  );
   
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-slate-950 to-blue-950">
+    <div className="min-h-screen bg-gradient-to-br from-black via-slate-950 to-blue-950 flex flex-col">
       {/* Header */}
-      <div className="glass border-b border-slate-800 sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <div className="bg-slate-900/80 backdrop-blur-xl border-b border-slate-800 sticky top-0 z-10">
+        <div className="max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center space-x-3">
             <button
               data-testid="back-to-home"
@@ -58,9 +159,9 @@ export default function QuickChat() {
             >
               <ArrowLeft className="w-6 h-6" />
             </button>
-            <Scale className="w-8 h-8 text-blue-500" />
+            <Bot className="w-8 h-8 text-blue-500" />
             <div>
-              <h1 className="text-xl font-bold">Nyaay Sathi AI Chat</h1>
+              <h1 className="text-xl font-bold text-white">Nyaay Sathi AI Chat</h1>
               <p className="text-sm text-slate-400">Ask any legal question</p>
             </div>
           </div>
@@ -75,92 +176,86 @@ export default function QuickChat() {
         </div>
       </div>
       
-      <div className="max-w-4xl mx-auto px-4 py-8">
-        {/* Chat Container */}
-        <div className="glass rounded-3xl p-6 mb-6">
-          <div className="flex items-center space-x-3 mb-6 pb-4 border-b border-slate-800">
-            <div className="p-3 bg-blue-700/20 rounded-xl">
-              <MessageSquare className="w-8 h-8 text-blue-500" />
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold">AI Legal Assistant</h2>
-              <p className="text-slate-400">Get instant answers to your legal questions</p>
+      {/* Chat Container - Full Height */}
+      <div className="flex-1 flex flex-col max-w-5xl w-full mx-auto px-4 py-4">
+        <div className="flex-1 bg-slate-900/50 backdrop-blur-xl rounded-2xl border border-slate-800/50 flex flex-col overflow-hidden">
+          {/* Chat Header */}
+          <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-4 flex-shrink-0">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-white/20 rounded-lg">
+                <Bot className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h2 className="text-lg font-semibold text-white">AI Legal Assistant</h2>
+                <p className="text-blue-100 text-sm">Get instant answers to your legal questions</p>
+              </div>
             </div>
           </div>
           
-          {/* Chat Messages */}
-          <div className="space-y-4 mb-6 h-[500px] overflow-y-auto pr-2">
+          {/* Chat Messages - Scrollable */}
+          <div className="flex-1 overflow-y-auto p-4 space-y-4">
             {chatMessages.map((msg, idx) => (
-              <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-2xl rounded-2xl p-4 ${
-                  msg.role === 'user' 
-                    ? 'bg-blue-700 text-white' 
-                    : 'bg-slate-900 text-slate-200 chat-response'
-                }`}>
-                  <div dangerouslySetInnerHTML={{ 
-                    __html: msg.content
-                      .replace(/\n/g, '<br>')
-                      .replace(/## /g, '<h2>')
-                      .replace(/### /g, '<h3>')
-                      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                  }} />
-                </div>
-              </div>
+              <motion.div 
+                key={idx} 
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+              >
+                {msg.role === 'user' ? (
+                  <div className="max-w-[70%] bg-blue-600 text-white rounded-2xl px-4 py-3">
+                    <p>{msg.content}</p>
+                  </div>
+                ) : (
+                  <div className="w-full max-w-[95%]">
+                    {msg.content?.cards ? (
+                      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                        {msg.content.cards.map((card, cardIdx) => renderCard(card, cardIdx))}
+                      </div>
+                    ) : (
+                      <div className="bg-slate-800 text-slate-200 rounded-2xl px-4 py-3">
+                        <p className="whitespace-pre-wrap">{typeof msg.content === 'string' ? msg.content : JSON.stringify(msg.content)}</p>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </motion.div>
             ))}
             
             {loading && (
               <div className="flex justify-start">
-                <div className="bg-slate-900 rounded-2xl p-4">
-                  <div className="flex space-x-2">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                    <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                    <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
-                  </div>
+                <div className="bg-slate-800 rounded-2xl px-4 py-3 flex items-center gap-2">
+                  <Loader2 className="w-5 h-5 animate-spin text-blue-400" />
+                  <span className="text-slate-400 text-sm">Thinking...</span>
                 </div>
               </div>
             )}
+            <div ref={messagesEndRef} />
           </div>
           
           {/* Chat Input */}
-          <form onSubmit={handleChat} className="flex gap-3">
-            <Input
-              data-testid="quick-chat-input"
-              value={chatInput}
-              onChange={(e) => setChatInput(e.target.value)}
-              placeholder="Ask a legal question... (e.g., What is bail?)"
-              className="bg-slate-950 border-slate-800 focus:border-blue-500 rounded-xl py-3 text-lg"
-              disabled={loading}
-            />
-            <Button 
-              data-testid="quick-chat-send"
-              type="submit" 
-              disabled={loading}
-              className="bg-blue-700 hover:bg-blue-600 rounded-full px-8"
-            >
-              <Send className="w-5 h-5" />
-            </Button>
-          </form>
-          
-          <div className="mt-4 text-center text-sm text-slate-500">
-            💡 Tip: Sign up for unlimited chats, case tracking, and lawyer consultations
-          </div>
-        </div>
-        
-        {/* Feature Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="glass rounded-2xl p-6 text-center">
-            <h3 className="font-bold mb-2">Free AI Assistance</h3>
-            <p className="text-sm text-slate-400">Get instant legal guidance</p>
-          </div>
-          
-          <div className="glass rounded-2xl p-6 text-center">
-            <h3 className="font-bold mb-2">Expert Lawyers</h3>
-            <p className="text-sm text-slate-400">Connect with verified professionals</p>
-          </div>
-          
-          <div className="glass rounded-2xl p-6 text-center">
-            <h3 className="font-bold mb-2">Case Management</h3>
-            <p className="text-sm text-slate-400">Track your legal journey</p>
+          <div className="border-t border-slate-700 p-4 flex-shrink-0">
+            <form onSubmit={handleChat} className="flex gap-3">
+              <Input
+                data-testid="quick-chat-input"
+                value={chatInput}
+                onChange={(e) => setChatInput(e.target.value)}
+                placeholder="Ask a legal question... (e.g., What is bail?)"
+                className="flex-1 bg-slate-800 border-slate-700 focus:border-blue-500 rounded-full px-6"
+                disabled={loading}
+              />
+              <Button 
+                data-testid="quick-chat-send"
+                type="submit" 
+                disabled={loading || !chatInput.trim()}
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 rounded-full px-8"
+              >
+                <Send className="w-5 h-5" />
+              </Button>
+            </form>
+            
+            <div className="mt-3 text-center text-xs text-slate-500">
+              💡 Sign up for unlimited chats, case tracking, and lawyer consultations
+            </div>
           </div>
         </div>
       </div>
