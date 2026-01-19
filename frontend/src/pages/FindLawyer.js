@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Bot, MapPin, Building2, Gavel, Scale, Star, Briefcase, Phone, ArrowRight, MessageSquare, User, ChevronDown, X, Send, Loader2 } from 'lucide-react';
+import { Search, Bot, MapPin, Building2, Gavel, Scale, Star, Briefcase, Phone, ArrowRight, MessageSquare, User, ChevronDown, X, Send, Loader2, Shield, Users, Clock } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { lawyers, indianLocations, courtsByState, caseTypes } from '../data/lawyers';
