@@ -262,9 +262,7 @@ export default function CinematicHero() {
                 <motion.div
                   whileHover={{ y: -8, scale: 1.02 }}
                   transition={{ duration: 0.3 }}
-                  className={`relative h-80 rounded-2xl overflow-hidden ${card.borderColor} border backdrop-blur-xl cursor-pointer transition-colors duration-500 ${
-                    
-                  }`}
+                  className={`relative h-80 rounded-2xl overflow-hidden ${card.borderColor} border backdrop-blur-xl cursor-pointer bg-slate-900/50`}
                 >
                   {/* Background Image */}
                   <img 
