@@ -41,7 +41,7 @@ export default function RoleSelection() {
       btnGlow: 'shadow-purple-500/50',
       borderColor: 'border-purple-500/30',
       particleColor: 'bg-purple-400',
-      route: '/lawyer-login',
+      route: isLoginMode ? '/lawyer-login' : '/lawyer-application',
       testId: 'role-lawyer-card'
     },
     {
