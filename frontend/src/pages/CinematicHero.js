@@ -473,6 +473,46 @@ export default function CinematicHero() {
                 className="text-center group"
               >
                 <div className="relative inline-block mb-6">
+                  {/* Three rotating lights behind each icon */}
+                  <motion.div
+                    className="absolute inset-0 -z-10"
+                    animate={{ rotate: 360 }}
+                    transition={{
+                      duration: 8 + index * 2,
+                      repeat: Infinity,
+                      ease: 'linear'
+                    }}
+                  >
+                    <div className={`absolute w-16 h-16 ${item.color.replace('text-', 'bg-')}/20 rounded-full blur-xl`}
+                         style={{ top: '-20%', left: '50%', transform: 'translateX(-50%)' }} />
+                  </motion.div>
+                  
+                  <motion.div
+                    className="absolute inset-0 -z-10"
+                    animate={{ rotate: -360 }}
+                    transition={{
+                      duration: 10 + index * 2,
+                      repeat: Infinity,
+                      ease: 'linear'
+                    }}
+                  >
+                    <div className={`absolute w-14 h-14 ${item.color.replace('text-', 'bg-')}/20 rounded-full blur-xl`}
+                         style={{ bottom: '-20%', right: '10%' }} />
+                  </motion.div>
+                  
+                  <motion.div
+                    className="absolute inset-0 -z-10"
+                    animate={{ rotate: 360 }}
+                    transition={{
+                      duration: 12 + index * 2,
+                      repeat: Infinity,
+                      ease: 'linear'
+                    }}
+                  >
+                    <div className={`absolute w-12 h-12 ${item.color.replace('text-', 'bg-')}/20 rounded-full blur-xl`}
+                         style={{ top: '50%', left: '-10%', transform: 'translateY(-50%)' }} />
+                  </motion.div>
+                  
                   {/* Icon glow */}
                   <div className={`absolute inset-0 blur-xl opacity-30 group-hover:opacity-60 transition-opacity ${item.color.replace('text-', 'bg-')}`} />
                   <div className="relative w-16 h-16 rounded-full border border-slate-700 bg-slate-900/50 flex items-center justify-center">
