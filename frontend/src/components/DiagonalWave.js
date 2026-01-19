@@ -9,6 +9,12 @@ export const DiagonalWave = () => {
     delay: i * 0.2,
   }));
 
+  // White sparkles for water flowing effect
+  const waterSparkles = Array.from({ length: 12 }, (_, i) => ({
+    id: i,
+    delay: i * 0.4,
+  }));
+
   return (
     <div className="fixed inset-0 z-5 pointer-events-none overflow-hidden">
       {/* Horizontal Wave - Left to Right */}
@@ -66,7 +72,7 @@ export const DiagonalWave = () => {
         />
       </svg>
 
-      {/* Sparkles following the wave */}
+      {/* Blue sparkles following the wave */}
       {sparkles.map((sparkle) => (
         <motion.div
           key={sparkle.id}
@@ -95,6 +101,34 @@ export const DiagonalWave = () => {
               fill="#93c5fd"
               opacity="0.9"
             />
+          </svg>
+        </motion.div>
+      ))}
+      
+      {/* White sparkles in water - Very subtle */}
+      {waterSparkles.map((sparkle) => (
+        <motion.div
+          key={`white-${sparkle.id}`}
+          className="absolute w-1 h-1"
+          style={{
+            top: `${16 + sparkle.id * 1.5}%`,
+          }}
+          initial={{ left: '-5%', opacity: 0, scale: 0 }}
+          animate={{
+            left: ['0%', '105%'],
+            opacity: [0, 0.6, 0.8, 0.6, 0],
+            scale: [0, 1, 1.2, 1, 0],
+          }}
+          transition={{
+            duration: 5,
+            repeat: Infinity,
+            delay: sparkle.delay,
+            ease: "linear"
+          }}
+        >
+          <svg viewBox="0 0 10 10" className="w-full h-full">
+            <circle cx="5" cy="5" r="4" fill="white" opacity="0.8" />
+            <circle cx="5" cy="5" r="2" fill="white" opacity="1" />
           </svg>
         </motion.div>
       ))}
