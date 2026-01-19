@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, MessageSquare, Scale, FileText, Shield, Users, Clock, Sparkles } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Navbar } from '../components/Navbar';
+import { RotatingGlobe } from '../components/RotatingGlobe';
 
 export default function CinematicHero() {
   const navigate = useNavigate();
