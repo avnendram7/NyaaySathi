@@ -176,7 +176,7 @@ export const RotatingGlobe = () => {
         />
       ))}
       
-      {/* Central logo with smooth entrance */}
+      {/* Central logo with smooth entrance and three lights behind */}
       <motion.div
         className="relative z-10"
         initial={{ scale: 0, opacity: 0 }}
@@ -187,6 +187,82 @@ export const RotatingGlobe = () => {
           delay: 0.3
         }}
       >
+        {/* Three rotating lights behind logo */}
+        <motion.div
+          className="absolute inset-0 -z-10"
+          animate={{ rotate: 360 }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: 'linear'
+          }}
+        >
+          {/* Light 1 - Blue */}
+          <div 
+            className="absolute w-32 h-32 bg-blue-400/40 rounded-full blur-2xl"
+            style={{
+              top: '10%',
+              left: '50%',
+              transform: 'translateX(-50%)',
+            }}
+          />
+        </motion.div>
+        
+        <motion.div
+          className="absolute inset-0 -z-10"
+          animate={{ rotate: -360 }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: 'linear'
+          }}
+        >
+          {/* Light 2 - Cyan */}
+          <div 
+            className="absolute w-28 h-28 bg-cyan-400/40 rounded-full blur-2xl"
+            style={{
+              top: '50%',
+              left: '10%',
+              transform: 'translateY(-50%)',
+            }}
+          />
+        </motion.div>
+        
+        <motion.div
+          className="absolute inset-0 -z-10"
+          animate={{ rotate: 360 }}
+          transition={{
+            duration: 12,
+            repeat: Infinity,
+            ease: 'linear'
+          }}
+        >
+          {/* Light 3 - Sky Blue */}
+          <div 
+            className="absolute w-30 h-30 bg-sky-400/40 rounded-full blur-2xl"
+            style={{
+              bottom: '10%',
+              right: '20%',
+            }}
+          />
+        </motion.div>
+        
+        {/* Central glow pulse */}
+        <motion.div
+          className="absolute inset-0 -z-10"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.5, 0.3],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: 'easeInOut'
+          }}
+        >
+          <div className="w-full h-full bg-blue-500/30 rounded-full blur-2xl" />
+        </motion.div>
+        
         <motion.div 
           className="w-40 h-40 rounded-full bg-gradient-to-br from-blue-500 via-blue-600 to-blue-900 flex items-center justify-center border-4 border-blue-400/50 shadow-2xl backdrop-blur-sm relative overflow-hidden"
           whileHover={{ scale: 1.05 }}
