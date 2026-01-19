@@ -41,14 +41,20 @@ Build a legal-tech startup platform called "Nyaay Sathi" that simplifies the jus
 
 ### Landing Flow
 - ✅ Cinematic hero page with orbiting logo and floating cards (`CinematicHero.js`)
+  - **Updated (Jan 19):** Added separate Login button with animated rainbow ring graphic
+  - Three hero buttons: "Get Started" (blue), "Login" (rainbow border), "AI Chat" (green)
 - ✅ Role-selection page for User, Lawyer, Law Firm (`RoleSelection.js`)
-  - **Updated (Jan 19):** Changed "GET STARTED" buttons to "LOGIN"
-  - **Updated (Jan 19):** Lawyer section background changed to black with better text contrast
-  - Scan line animation removed (clean UI)
+  - **Updated (Jan 19):** Dynamic button text based on URL parameter
+  - Get Started → shows "GET STARTED" buttons with Sparkles icon
+  - Login → shows "LOGIN" buttons with LogIn icon
+  - Lawyer section background: black with improved text contrast
 - ✅ **NEW: Floating Features Section** - "Core Capabilities" with 4 service cards below hero
 - ✅ **NEW: Practice Areas Section** - 3 case study cards with success rates
 - ✅ **NEW: Why Choose Us Section** - 3 key differentiators
 - ✅ **NEW: Final CTA Section** - Call to action with footer
+
+### Navbar
+- ✅ **Updated (Jan 19):** Login button enhanced with animated rainbow rotating ring graphic
 
 ### Authentication & Roles
 - ✅ 3-role authentication system (User, Lawyer, Law Firm)
