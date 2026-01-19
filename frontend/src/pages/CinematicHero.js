@@ -485,11 +485,7 @@ export default function CinematicHero() {
               <Button
                 onClick={() => navigate('/contact')}
                 variant="outline"
-                className={`text-lg px-10 py-6 rounded-full font-semibold transition-colors duration-500 ${
-                  theme === 'dark'
-                    ? 'border-slate-700 text-slate-300 hover:bg-slate-800'
-                    : 'border-indigo-300 text-indigo-700 hover:bg-indigo-50'
-                }`}
+                className="text-lg px-10 py-6 rounded-full font-semibold border-slate-700 text-slate-300 hover:bg-slate-800"
               >
                 Contact Us
               </Button>
