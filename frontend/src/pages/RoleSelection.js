@@ -197,8 +197,6 @@ export default function RoleSelection() {
                   />
                 </motion.button>
               </motion.div>
-                </Button>
-              </motion.div>
             </div>
             
             {/* Decorative gradient overlay */}
