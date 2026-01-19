@@ -151,18 +151,7 @@ export default function RoleSelection() {
               />
             ))}
             
-            {/* Scan line effect */}
-            <motion.div
-              className={`absolute left-0 right-0 h-px ${role.particleColor} opacity-30`}
-              animate={{
-                top: ['0%', '100%'],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "linear"
-              }}
-            />
+            {/* Scan line effect - REMOVED */}
             
             {/* Content */}
             <div className="relative z-10 text-center space-y-8 max-w-md">
