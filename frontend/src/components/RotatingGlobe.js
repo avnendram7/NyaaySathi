@@ -1,20 +1,20 @@
 import { motion } from 'framer-motion';
 
 export const RotatingGlobe = () => {
-  // Generate orbiting particles around the globe
+  // Generate orbiting particles around the globe - increased radius and slower
   const orbitingDots = Array.from({ length: 20 }, (_, i) => {
     const angle = (i * 360) / 20;
     return {
       id: i,
       angle,
-      radius: 100,
-      delay: i * 0.1,
+      radius: 150, // Increased from 100 to 150 for wider orbit
+      delay: i * 0.15,
     };
   });
 
   return (
-    <div className="relative w-64 h-64 flex items-center justify-center">
-      {/* Ambient glow */}
+    <div className="relative w-96 h-96 flex items-center justify-center">
+      {/* Ambient glow - increased size */}
       <div className="absolute inset-0 blur-3xl opacity-50">
         <motion.div 
           className="w-full h-full bg-blue-500 rounded-full"
@@ -30,12 +30,12 @@ export const RotatingGlobe = () => {
         />
       </div>
       
-      {/* Smooth rotating latitude rings */}
+      {/* Smooth rotating latitude rings - increased size */}
       <motion.div
-        className="absolute w-72 h-72"
+        className="absolute w-[450px] h-[450px]"
         animate={{ rotateY: 360 }}
         transition={{
-          duration: 25,
+          duration: 30, // Slowed down from 25
           repeat: Infinity,
           ease: 'linear',
         }}
@@ -57,12 +57,12 @@ export const RotatingGlobe = () => {
         </svg>
       </motion.div>
       
-      {/* Smooth rotating longitude rings */}
+      {/* Smooth rotating longitude rings - increased size */}
       <motion.div
-        className="absolute w-64 h-64"
+        className="absolute w-96 h-96"
         animate={{ rotateX: 360 }}
         transition={{
-          duration: 30,
+          duration: 35, // Slowed down from 30
           repeat: Infinity,
           ease: 'linear',
         }}
@@ -76,7 +76,7 @@ export const RotatingGlobe = () => {
         </svg>
       </motion.div>
       
-      {/* Orbiting dots that travel around globe and converge at center */}
+      {/* Orbiting dots - slower and wider orbit */}
       {orbitingDots.map((dot) => (
         <motion.div
           key={dot.id}
@@ -106,7 +106,7 @@ export const RotatingGlobe = () => {
             opacity: [0.8, 0.9, 1, 0.9, 0.8],
           }}
           transition={{
-            duration: 8,
+            duration: 15, // Increased from 8 to 15 for slower movement
             repeat: Infinity,
             delay: dot.delay,
             ease: "linear"
@@ -197,9 +197,9 @@ export const RotatingGlobe = () => {
         >
           {/* Light 1 - Blue */}
           <div 
-            className="absolute w-32 h-32 bg-blue-400/40 rounded-full blur-2xl"
+            className="absolute w-40 h-40 bg-blue-400/40 rounded-full blur-2xl"
             style={{
-              top: '10%',
+              top: '5%',
               left: '50%',
               transform: 'translateX(-50%)',
             }}
@@ -217,10 +217,10 @@ export const RotatingGlobe = () => {
         >
           {/* Light 2 - Cyan */}
           <div 
-            className="absolute w-28 h-28 bg-cyan-400/40 rounded-full blur-2xl"
+            className="absolute w-36 h-36 bg-cyan-400/40 rounded-full blur-2xl"
             style={{
               top: '50%',
-              left: '10%',
+              left: '5%',
               transform: 'translateY(-50%)',
             }}
           />
@@ -237,10 +237,10 @@ export const RotatingGlobe = () => {
         >
           {/* Light 3 - Sky Blue */}
           <div 
-            className="absolute w-30 h-30 bg-sky-400/40 rounded-full blur-2xl"
+            className="absolute w-38 h-38 bg-sky-400/40 rounded-full blur-2xl"
             style={{
-              bottom: '10%',
-              right: '20%',
+              bottom: '5%',
+              right: '15%',
             }}
           />
         </motion.div>
@@ -262,7 +262,7 @@ export const RotatingGlobe = () => {
         </motion.div>
         
         <motion.div 
-          className="w-40 h-40 rounded-full bg-gradient-to-br from-blue-500/20 via-blue-600/20 to-blue-900/20 flex items-center justify-center border-4 border-blue-400/50 shadow-2xl backdrop-blur-sm relative overflow-hidden"
+          className="w-56 h-56 rounded-full bg-gradient-to-br from-transparent via-blue-950/10 to-transparent flex items-center justify-center border-4 border-blue-400/50 shadow-2xl backdrop-blur-sm relative overflow-hidden"
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.3 }}
         >
@@ -280,7 +280,7 @@ export const RotatingGlobe = () => {
             </svg>
           </div>
           
-          {/* Logo image with living breathing effect */}
+          {/* Logo image with living breathing effect - larger size and transparent background */}
           <motion.div
             className="relative z-10 w-full h-full flex items-center justify-center"
             animate={{
@@ -295,13 +295,17 @@ export const RotatingGlobe = () => {
             <motion.img
               src="https://customer-assets.emergentagent.com/job_color-mode-1/artifacts/7no7ct5w_WhatsApp%20Image%202026-01-13%20at%2010.51.48.jpeg"
               alt="Nyaay Sathi Logo"
-              className="w-28 h-28 object-contain"
+              className="w-44 h-44 object-contain"
+              style={{
+                mixBlendMode: 'lighten', // Remove black background
+                filter: 'brightness(1.2) contrast(1.1)', // Enhance visibility
+              }}
               animate={{
                 opacity: [0.95, 1, 0.95],
                 filter: [
-                  'brightness(1) contrast(1)',
-                  'brightness(1.1) contrast(1.05)',
-                  'brightness(1) contrast(1)',
+                  'brightness(1.2) contrast(1.1)',
+                  'brightness(1.3) contrast(1.15)',
+                  'brightness(1.2) contrast(1.1)',
                 ]
               }}
               transition={{
@@ -317,7 +321,7 @@ export const RotatingGlobe = () => {
             className="absolute inset-0 bg-blue-300 rounded-full"
             animate={{
               scale: [1, 1.05, 1],
-              opacity: [0, 0.1, 0],
+              opacity: [0, 0.08, 0],
             }}
             transition={{
               duration: 2.5,
