@@ -100,6 +100,8 @@ class Document(BaseModel):
 
 class ChatMessage(BaseModel):
     message: str
+    session_id: Optional[str] = None
+    system_prompt: Optional[str] = None
 
 class ChatResponse(BaseModel):
     response: str
