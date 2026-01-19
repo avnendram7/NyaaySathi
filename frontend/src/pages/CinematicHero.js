@@ -405,9 +405,7 @@ export default function CinematicHero() {
             transition={{ duration: 0.8 }}
             className="text-center mb-16"
           >
-            <span className={`text-sm font-semibold tracking-wider uppercase mb-4 block transition-colors duration-500 ${
-              
-            }`}>
+            <span className="text-sm font-semibold tracking-wider uppercase mb-4 block text-blue-400">
               03 — Why Nyaay Sathi
             </span>
             <h2 className={`text-4xl sm:text-5xl font-bold mb-6 transition-colors duration-500 ${
