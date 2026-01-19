@@ -8,13 +8,10 @@ import axios from 'axios';
 import { API } from '../App';
 
 export default function UserLoginPage() {
-  const [isLogin, setIsLogin] = useState(true);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
-    password: '',
-    full_name: '',
-    phone: ''
+    password: ''
   });
   const navigate = useNavigate();
   
@@ -23,17 +20,13 @@ export default function UserLoginPage() {
     setLoading(true);
     
     try {
-      const endpoint = isLogin ? '/auth/login' : '/auth/register';
-      const payload = isLogin 
-        ? { email: formData.email, password: formData.password, user_type: 'client' }
-        : { ...formData, user_type: 'client' };
-      
-      const response = await axios.post(`${API}${endpoint}`, payload);
+      const payload = { email: formData.email, password: formData.password, user_type: 'client' };
+      const response = await axios.post(`${API}/auth/login`, payload);
       
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
       
-      toast.success(isLogin ? 'Welcome back!' : 'Account created successfully!');
+      toast.success('Welcome back!');
       navigate('/user-dashboard');
     } catch (error) {
       toast.error(error.response?.data?.detail || 'An error occurred');
@@ -64,29 +57,10 @@ export default function UserLoginPage() {
         </Link>
         
         <div className="glass rounded-3xl p-8">
-          <h2 className="text-3xl font-bold mb-2 text-center">
-            {isLogin ? 'Client Login' : 'Create Client Account'}
-          </h2>
-          <p className="text-slate-400 text-center mb-6">
-            {isLogin ? 'Welcome back! Sign in to continue' : 'Join Nyaay Sathi today'}
-          </p>
+          <h2 className="text-3xl font-bold mb-2 text-center">Client Login</h2>
+          <p className="text-slate-400 text-center mb-6">Welcome back! Sign in to continue</p>
           
           <form onSubmit={handleSubmit} className="space-y-4">
-            {!isLogin && (
-              <div>
-                <label className="block text-sm font-medium mb-2">Full Name</label>
-                <Input
-                  data-testid="user-fullname-input"
-                  type="text"
-                  value={formData.full_name}
-                  onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
-                  placeholder="Your full name"
-                  required
-                  className="bg-slate-950 border-slate-800 focus:border-blue-500 rounded-xl py-3"
-                />
-              </div>
-            )}
-            
             <div>
               <label className="block text-sm font-medium mb-2">Email</label>
               <Input
@@ -99,20 +73,6 @@ export default function UserLoginPage() {
                 className="bg-slate-950 border-slate-800 focus:border-blue-500 rounded-xl py-3"
               />
             </div>
-            
-            {!isLogin && (
-              <div>
-                <label className="block text-sm font-medium mb-2">Phone (Optional)</label>
-                <Input
-                  data-testid="user-phone-input"
-                  type="tel"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  placeholder="+91 XXXXX XXXXX"
-                  className="bg-slate-950 border-slate-800 focus:border-blue-500 rounded-xl py-3"
-                />
-              </div>
-            )}
             
             <div>
               <label className="block text-sm font-medium mb-2">Password</label>
@@ -133,7 +93,7 @@ export default function UserLoginPage() {
               disabled={loading}
               className="w-full bg-blue-700 hover:bg-blue-600 text-white rounded-full py-3 btn-primary"
             >
-              {loading ? 'Please wait...' : (isLogin ? 'Sign In' : 'Create Account')}
+              {loading ? 'Please wait...' : 'Sign In'}
             </Button>
           </form>
           

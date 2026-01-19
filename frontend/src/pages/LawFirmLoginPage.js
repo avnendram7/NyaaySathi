@@ -8,14 +8,10 @@ import axios from 'axios';
 import { API } from '../App';
 
 export default function LawFirmLoginPage() {
-  const [isLogin, setIsLogin] = useState(true);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
-    password: '',
-    full_name: '',
-    firm_name: '',
-    phone: ''
+    password: ''
   });
   const navigate = useNavigate();
   
@@ -24,17 +20,13 @@ export default function LawFirmLoginPage() {
     setLoading(true);
     
     try {
-      const endpoint = isLogin ? '/auth/login' : '/auth/register';
-      const payload = isLogin 
-        ? { email: formData.email, password: formData.password, user_type: 'law_firm' }
-        : { ...formData, user_type: 'law_firm' };
-      
-      const response = await axios.post(`${API}${endpoint}`, payload);
+      const payload = { email: formData.email, password: formData.password, user_type: 'law_firm' };
+      const response = await axios.post(`${API}/auth/login`, payload);
       
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
       
-      toast.success(isLogin ? 'Welcome back!' : 'Law firm account created successfully!');
+      toast.success('Welcome back!');
       navigate('/lawfirm-dashboard');
     } catch (error) {
       toast.error(error.response?.data?.detail || 'An error occurred');
@@ -65,43 +57,10 @@ export default function LawFirmLoginPage() {
         </Link>
         
         <div className="glass rounded-3xl p-8">
-          <h2 className="text-3xl font-bold mb-2 text-center">
-            {isLogin ? 'Law Firm Login' : 'Register Your Firm'}
-          </h2>
-          <p className="text-slate-400 text-center mb-6">
-            {isLogin ? 'Welcome back! Sign in to continue' : 'Join our network of legal firms'}
-          </p>
+          <h2 className="text-3xl font-bold mb-2 text-center">Law Firm Login</h2>
+          <p className="text-slate-400 text-center mb-6">Welcome back! Sign in to continue</p>
           
           <form onSubmit={handleSubmit} className="space-y-4">
-            {!isLogin && (
-              <>
-                <div>
-                  <label className="block text-sm font-medium mb-2">Firm Name</label>
-                  <Input
-                    data-testid="lawfirm-firmname-input"
-                    type="text"
-                    value={formData.firm_name}
-                    onChange={(e) => setFormData({ ...formData, firm_name: e.target.value })}
-                    placeholder="Your law firm name"
-                    required
-                    className="bg-slate-950 border-slate-800 focus:border-blue-500 rounded-xl py-3"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2">Contact Person Name</label>
-                  <Input
-                    data-testid="lawfirm-fullname-input"
-                    type="text"
-                    value={formData.full_name}
-                    onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
-                    placeholder="Contact person full name"
-                    required
-                    className="bg-slate-950 border-slate-800 focus:border-blue-500 rounded-xl py-3"
-                  />
-                </div>
-              </>
-            )}
-            
             <div>
               <label className="block text-sm font-medium mb-2">Email</label>
               <Input
@@ -114,21 +73,6 @@ export default function LawFirmLoginPage() {
                 className="bg-slate-950 border-slate-800 focus:border-blue-500 rounded-xl py-3"
               />
             </div>
-            
-            {!isLogin && (
-              <div>
-                <label className="block text-sm font-medium mb-2">Phone</label>
-                <Input
-                  data-testid="lawfirm-phone-input"
-                  type="tel"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  placeholder="+91 XXXXX XXXXX"
-                  required={!isLogin}
-                  className="bg-slate-950 border-slate-800 focus:border-blue-500 rounded-xl py-3"
-                />
-              </div>
-            )}
             
             <div>
               <label className="block text-sm font-medium mb-2">Password</label>
@@ -149,7 +93,7 @@ export default function LawFirmLoginPage() {
               disabled={loading}
               className="w-full bg-blue-700 hover:bg-blue-600 text-white rounded-full py-3 btn-primary"
             >
-              {loading ? 'Please wait...' : (isLogin ? 'Sign In' : 'Create Account')}
+              {loading ? 'Please wait...' : 'Sign In'}
             </Button>
           </form>
           
