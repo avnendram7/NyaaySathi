@@ -2,74 +2,39 @@ import { motion } from 'framer-motion';
 import { Scale } from 'lucide-react';
 
 export const RotatingGlobe = () => {
-  // Connection points representing global network (latitude/longitude style positions)
-  const connectionPoints = [
-    { x: 100, y: 40, id: 1 },   // North
-    { x: 140, y: 80, id: 2 },   // East
-    { x: 100, y: 120, id: 3 },  // South
-    { x: 60, y: 80, id: 4 },    // West
-    { x: 120, y: 60, id: 5 },   // NE
-    { x: 120, y: 100, id: 6 },  // SE
-    { x: 80, y: 100, id: 7 },   // SW
-    { x: 80, y: 60, id: 8 },    // NW
-  ];
-
-  // Generate connection lines between points
-  const connections = [
-    { from: 1, to: 2 }, { from: 2, to: 3 }, { from: 3, to: 4 }, { from: 4, to: 1 },
-    { from: 1, to: 5 }, { from: 2, to: 6 }, { from: 3, to: 7 }, { from: 4, to: 8 },
-    { from: 5, to: 6 }, { from: 6, to: 7 }, { from: 7, to: 8 }, { from: 8, to: 5 },
-  ];
+  // Generate orbiting particles around the globe
+  const orbitingDots = Array.from({ length: 20 }, (_, i) => {
+    const angle = (i * 360) / 20;
+    return {
+      id: i,
+      angle,
+      radius: 100,
+      delay: i * 0.1,
+    };
+  });
 
   return (
     <div className="relative w-64 h-64 flex items-center justify-center">
       {/* Ambient glow */}
-      <div className="absolute inset-0 blur-3xl opacity-60">
-        <div className="w-full h-full bg-blue-600 rounded-full animate-pulse" />
+      <div className="absolute inset-0 blur-3xl opacity-50">
+        <motion.div 
+          className="w-full h-full bg-blue-500 rounded-full"
+          animate={{
+            scale: [1, 1.1, 1],
+            opacity: [0.5, 0.7, 0.5],
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
       </div>
       
-      {/* Main rotating globe sphere with latitude lines */}
+      {/* Smooth rotating latitude rings */}
       <motion.div
         className="absolute w-72 h-72"
         animate={{ rotateY: 360 }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          ease: 'linear',
-        }}
-        style={{ transformStyle: 'preserve-3d' }}
-      >
-        <svg className="w-full h-full" viewBox="0 0 200 200">
-          <defs>
-            <linearGradient id="globeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.2" />
-              <stop offset="50%" stopColor="#60a5fa" stopOpacity="0.6" />
-              <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.2" />
-            </linearGradient>
-          </defs>
-          
-          {/* Outer circle */}
-          <circle
-            cx="100"
-            cy="100"
-            r="85"
-            fill="none"
-            stroke="url(#globeGrad)"
-            strokeWidth="1.5"
-            strokeDasharray="5 3"
-          />
-          
-          {/* Latitude lines */}
-          <ellipse cx="100" cy="100" rx="85" ry="20" fill="none" stroke="#60a5fa" strokeWidth="0.5" opacity="0.4" />
-          <ellipse cx="100" cy="100" rx="85" ry="40" fill="none" stroke="#60a5fa" strokeWidth="0.5" opacity="0.4" />
-          <ellipse cx="100" cy="100" rx="85" ry="60" fill="none" stroke="#60a5fa" strokeWidth="0.5" opacity="0.4" />
-        </svg>
-      </motion.div>
-      
-      {/* Longitude lines - vertical rotation */}
-      <motion.div
-        className="absolute w-64 h-64"
-        animate={{ rotateX: 360 }}
         transition={{
           duration: 25,
           repeat: Infinity,
@@ -77,184 +42,200 @@ export const RotatingGlobe = () => {
         }}
         style={{ transformStyle: 'preserve-3d' }}
       >
-        <svg className="w-full h-full opacity-50" viewBox="0 0 200 200">
-          {/* Vertical longitude lines */}
-          <ellipse cx="100" cy="100" rx="30" ry="80" fill="none" stroke="#60a5fa" strokeWidth="0.5" />
-          <ellipse cx="100" cy="100" rx="50" ry="80" fill="none" stroke="#60a5fa" strokeWidth="0.5" />
-          <ellipse cx="100" cy="100" rx="70" ry="80" fill="none" stroke="#60a5fa" strokeWidth="0.5" />
+        <svg className="w-full h-full opacity-30" viewBox="0 0 200 200">
+          <defs>
+            <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#60a5fa" stopOpacity="0.3" />
+              <stop offset="50%" stopColor="#93c5fd" stopOpacity="0.8" />
+              <stop offset="100%" stopColor="#60a5fa" stopOpacity="0.3" />
+            </linearGradient>
+          </defs>
+          
+          {/* Latitude lines */}
+          <ellipse cx="100" cy="100" rx="85" ry="20" fill="none" stroke="url(#ringGrad)" strokeWidth="1" />
+          <ellipse cx="100" cy="100" rx="85" ry="45" fill="none" stroke="url(#ringGrad)" strokeWidth="0.8" />
+          <ellipse cx="100" cy="100" rx="85" ry="70" fill="none" stroke="url(#ringGrad)" strokeWidth="0.6" />
+          <circle cx="100" cy="100" r="85" fill="none" stroke="url(#ringGrad)" strokeWidth="1.5" />
         </svg>
       </motion.div>
       
-      {/* Network connection lines - Global connectivity */}
+      {/* Smooth rotating longitude rings */}
       <motion.div
         className="absolute w-64 h-64"
-        animate={{ rotate: 360 }}
+        animate={{ rotateX: 360 }}
         transition={{
           duration: 30,
           repeat: Infinity,
           ease: 'linear',
         }}
+        style={{ transformStyle: 'preserve-3d' }}
       >
-        <svg className="w-full h-full" viewBox="0 0 200 200">
-          <defs>
-            <linearGradient id="connectionGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.3" />
-              <stop offset="50%" stopColor="#60a5fa" stopOpacity="0.8" />
-              <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.3" />
-            </linearGradient>
-          </defs>
-          
-          {/* Draw connection lines */}
-          {connections.map((conn, index) => {
-            const from = connectionPoints.find(p => p.id === conn.from);
-            const to = connectionPoints.find(p => p.id === conn.to);
-            return (
-              <motion.line
-                key={index}
-                x1={from.x}
-                y1={from.y}
-                x2={to.x}
-                y2={to.y}
-                stroke="url(#connectionGrad)"
-                strokeWidth="0.5"
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ 
-                  pathLength: [0, 1],
-                  opacity: [0.3, 0.7, 0.3]
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  delay: index * 0.2,
-                  ease: "easeInOut"
-                }}
-              />
-            );
-          })}
-          
-          {/* Connection nodes/points */}
-          {connectionPoints.map((point) => (
-            <motion.circle
-              key={point.id}
-              cx={point.x}
-              cy={point.y}
-              r="2"
-              fill="#60a5fa"
-              animate={{
-                scale: [1, 1.5, 1],
-                opacity: [0.5, 1, 0.5],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                delay: point.id * 0.15,
-              }}
-            />
-          ))}
+        <svg className="w-full h-full opacity-30" viewBox="0 0 200 200">
+          {/* Longitude lines */}
+          <ellipse cx="100" cy="100" rx="25" ry="80" fill="none" stroke="#60a5fa" strokeWidth="0.8" />
+          <ellipse cx="100" cy="100" rx="50" ry="80" fill="none" stroke="#60a5fa" strokeWidth="0.8" />
+          <ellipse cx="100" cy="100" rx="75" ry="80" fill="none" stroke="#60a5fa" strokeWidth="0.8" />
         </svg>
       </motion.div>
       
-      {/* Orbiting data packets */}
-      {[...Array(6)].map((_, i) => {
-        const angle = (i * 360) / 6;
-        return (
-          <motion.div
-            key={i}
-            className="absolute w-1.5 h-1.5 bg-blue-400 rounded-full shadow-lg shadow-blue-400/50"
-            animate={{
-              rotate: 360,
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: "linear",
-              delay: i * 0.3,
-            }}
-            style={{
-              transformOrigin: '100px 100px',
-              left: '50%',
-              top: '50%',
-            }}
-          >
-            <div 
-              className="w-1.5 h-1.5 bg-cyan-400 rounded-full"
-              style={{
-                transform: `rotate(${angle}deg) translate(90px)`,
-              }}
-            />
-          </motion.div>
-        );
-      })}
-      
-      {/* Pulsing rings indicating signal/connectivity */}
-      {[0, 1, 2].map((i) => (
+      {/* Orbiting dots that travel around globe and converge at center */}
+      {orbitingDots.map((dot) => (
         <motion.div
-          key={`ring-${i}`}
-          className="absolute inset-0 rounded-full border border-blue-400"
-          initial={{ scale: 0.8, opacity: 0 }}
+          key={dot.id}
+          className="absolute w-2 h-2 bg-cyan-400 rounded-full shadow-lg shadow-cyan-400/50"
+          style={{
+            left: '50%',
+            top: '50%',
+            marginLeft: '-4px',
+            marginTop: '-4px',
+          }}
           animate={{
-            scale: [0.8, 1.4, 1.6],
-            opacity: [0.6, 0.3, 0],
+            x: [
+              `${Math.cos((dot.angle * Math.PI) / 180) * dot.radius}px`,
+              `${Math.cos(((dot.angle + 90) * Math.PI) / 180) * dot.radius}px`,
+              `${Math.cos(((dot.angle + 180) * Math.PI) / 180) * dot.radius}px`,
+              `${Math.cos(((dot.angle + 270) * Math.PI) / 180) * dot.radius}px`,
+              `${Math.cos((dot.angle * Math.PI) / 180) * dot.radius}px`,
+            ],
+            y: [
+              `${Math.sin((dot.angle * Math.PI) / 180) * dot.radius}px`,
+              `${Math.sin(((dot.angle + 90) * Math.PI) / 180) * dot.radius}px`,
+              `${Math.sin(((dot.angle + 180) * Math.PI) / 180) * dot.radius}px`,
+              `${Math.sin(((dot.angle + 270) * Math.PI) / 180) * dot.radius}px`,
+              `${Math.sin((dot.angle * Math.PI) / 180) * dot.radius}px`,
+            ],
+            scale: [1, 0.8, 0.5, 0.8, 1],
+            opacity: [0.8, 0.9, 1, 0.9, 0.8],
           }}
           transition={{
-            duration: 3,
+            duration: 8,
             repeat: Infinity,
-            delay: i * 1,
+            delay: dot.delay,
+            ease: "linear"
+          }}
+        />
+      ))}
+      
+      {/* Connection lines that pulse inward to center */}
+      <svg className="absolute w-full h-full" viewBox="0 0 200 200">
+        <defs>
+          <radialGradient id="connectionGrad">
+            <stop offset="0%" stopColor="#60a5fa" stopOpacity="0" />
+            <stop offset="50%" stopColor="#93c5fd" stopOpacity="0.5" />
+            <stop offset="100%" stopColor="#60a5fa" stopOpacity="0" />
+          </radialGradient>
+        </defs>
+        
+        {/* Radial lines converging to center */}
+        {Array.from({ length: 12 }, (_, i) => {
+          const angle = (i * 360) / 12;
+          const x = 100 + 85 * Math.cos((angle * Math.PI) / 180);
+          const y = 100 + 85 * Math.sin((angle * Math.PI) / 180);
+          
+          return (
+            <motion.line
+              key={i}
+              x1="100"
+              y1="100"
+              x2={x}
+              y2={y}
+              stroke="url(#connectionGrad)"
+              strokeWidth="0.5"
+              initial={{ pathLength: 0 }}
+              animate={{
+                pathLength: [0, 1, 0],
+                opacity: [0.3, 0.7, 0.3],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                delay: i * 0.15,
+                ease: "easeInOut"
+              }}
+            />
+          );
+        })}
+      </svg>
+      
+      {/* Smooth pulsing rings */}
+      {[0, 1, 2].map((i) => (
+        <motion.div
+          key={`pulse-${i}`}
+          className="absolute inset-0 rounded-full border border-blue-400/40"
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{
+            scale: [0.9, 1.3, 1.5],
+            opacity: [0.5, 0.3, 0],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            delay: i * 1.3,
             ease: "easeOut"
           }}
         />
       ))}
       
-      {/* Central logo with connectivity icon */}
+      {/* Central logo with smooth entrance */}
       <motion.div
         className="relative z-10"
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 1, ease: 'easeOut' }}
+        transition={{ 
+          duration: 1.2, 
+          ease: [0.34, 1.56, 0.64, 1],
+          delay: 0.3
+        }}
       >
-        <div className="w-44 h-44 rounded-full bg-gradient-to-br from-blue-600 via-blue-700 to-blue-900 flex items-center justify-center border-4 border-blue-400/40 shadow-2xl backdrop-blur-sm relative overflow-hidden">
-          {/* Inner network pattern */}
-          <div className="absolute inset-0 opacity-20">
+        <motion.div 
+          className="w-40 h-40 rounded-full bg-gradient-to-br from-blue-500 via-blue-600 to-blue-900 flex items-center justify-center border-4 border-blue-400/50 shadow-2xl backdrop-blur-sm relative overflow-hidden"
+          whileHover={{ scale: 1.05 }}
+          transition={{ duration: 0.3 }}
+        >
+          {/* Inner network grid pattern */}
+          <div className="absolute inset-0 opacity-10">
             <svg className="w-full h-full" viewBox="0 0 100 100">
-              <pattern id="network" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-                <circle cx="10" cy="10" r="1" fill="#60a5fa" />
-                <line x1="10" y1="10" x2="20" y2="10" stroke="#60a5fa" strokeWidth="0.5" />
-                <line x1="10" y1="10" x2="10" y2="20" stroke="#60a5fa" strokeWidth="0.5" />
-              </pattern>
-              <rect width="100" height="100" fill="url(#network)" />
+              <defs>
+                <pattern id="grid" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+                  <circle cx="5" cy="5" r="0.5" fill="#60a5fa" />
+                  <line x1="5" y1="5" x2="10" y2="5" stroke="#60a5fa" strokeWidth="0.3" />
+                  <line x1="5" y1="5" x2="5" y2="10" stroke="#60a5fa" strokeWidth="0.3" />
+                </pattern>
+              </defs>
+              <rect width="100" height="100" fill="url(#grid)" />
             </svg>
           </div>
           
-          {/* Scale icon */}
-          <Scale className="w-20 h-20 text-white relative z-10" strokeWidth={1.5} />
+          {/* Logo icon */}
+          <Scale className="w-18 h-18 text-white relative z-10" strokeWidth={1.5} />
           
           {/* Subtle pulse overlay */}
           <motion.div
-            className="absolute inset-0 bg-blue-400 rounded-full"
+            className="absolute inset-0 bg-blue-300 rounded-full"
             animate={{
-              scale: [1, 1.1, 1],
-              opacity: [0, 0.1, 0],
+              scale: [1, 1.05, 1],
+              opacity: [0, 0.15, 0],
             }}
             transition={{
-              duration: 2,
+              duration: 2.5,
               repeat: Infinity,
               ease: "easeInOut"
             }}
           />
-        </div>
+        </motion.div>
       </motion.div>
       
-      {/* Rotating gradient overlay for depth */}
+      {/* Rotating shimmer effect */}
       <motion.div
         className="absolute inset-0 rounded-full pointer-events-none"
-        animate={{ rotate: -360 }}
+        animate={{ rotate: 360 }}
         transition={{
-          duration: 35,
+          duration: 40,
           repeat: Infinity,
           ease: 'linear',
         }}
         style={{
-          background: 'radial-gradient(circle at 30% 30%, rgba(96, 165, 250, 0.2) 0%, transparent 70%)',
+          background: 'conic-gradient(from 0deg, transparent 0%, rgba(96, 165, 250, 0.15) 25%, transparent 50%, rgba(96, 165, 250, 0.15) 75%, transparent 100%)',
         }}
       />
     </div>
