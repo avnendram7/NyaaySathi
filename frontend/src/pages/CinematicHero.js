@@ -478,11 +478,7 @@ export default function CinematicHero() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
                 onClick={() => navigate('/role-selection')}
-                className={`text-lg px-10 py-6 rounded-full font-semibold shadow-xl transition-colors ${
-                  theme === 'dark'
-                    ? 'bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white'
-                    : 'bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white'
-                }`}
+                className="text-lg px-10 py-6 rounded-full font-semibold shadow-xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white"
               >
                 Start Your Journey <ArrowRight className="w-5 h-5 ml-2 inline" />
               </Button>
