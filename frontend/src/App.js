@@ -10,6 +10,7 @@ import CinematicHero from './pages/CinematicHero';
 import QuickChat from './pages/QuickChat';
 import InitialLanding from './pages/InitialLanding';
 import RoleSelection from './pages/RoleSelection';
+import FindLawyer from './pages/FindLawyer';
 import LandingPage from './pages/LandingPage';
 import AboutPage from './pages/AboutPage';
 import HowItWorksPage from './pages/HowItWorksPage';
