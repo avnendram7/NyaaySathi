@@ -156,25 +156,6 @@ export const RotatingGlobe = () => {
         })}
       </svg>
       
-      {/* Smooth pulsing rings */}
-      {[0, 1, 2].map((i) => (
-        <motion.div
-          key={`pulse-${i}`}
-          className="absolute inset-0 rounded-full border border-blue-400/40"
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{
-            scale: [0.9, 1.3, 1.5],
-            opacity: [0.5, 0.3, 0],
-          }}
-          transition={{
-            duration: 4,
-            repeat: Infinity,
-            delay: i * 1.3,
-            ease: "easeOut"
-          }}
-        />
-      ))}
-      
       {/* Central logo with smooth entrance and three lights behind */}
       <motion.div
         className="relative z-10"
