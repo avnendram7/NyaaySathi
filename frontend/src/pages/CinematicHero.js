@@ -165,7 +165,7 @@ export default function CinematicHero() {
             {/* Ambient glow behind shield */}
             <div className="absolute inset-0 blur-3xl opacity-50">
               <div className={`w-full h-full rounded-full animate-pulse transition-colors duration-500 ${
-                theme === 'dark' ? 'bg-blue-500' : 'bg-indigo-500'
+                
               }`} />
             </div>
             
@@ -284,7 +284,7 @@ export default function CinematicHero() {
               ⚖️ Nyaay Sathi
             </h1>
             <p className={`text-2xl sm:text-3xl font-light tracking-wide transition-colors duration-500 ${
-              theme === 'dark' ? 'text-blue-200' : 'text-slate-700'
+              
             }`}>
               Justice You Understand, Technology You Trust.
             </p>
@@ -334,7 +334,7 @@ export default function CinematicHero() {
             animate={{ opacity: 1 }}
             transition={{ delay: 1.5, duration: 1 }}
             className={`absolute bottom-8 left-1/2 transform -translate-x-1/2 text-sm flex flex-col items-center transition-colors duration-500 ${
-              theme === 'dark' ? 'text-slate-500' : 'text-slate-500'
+              
             }`}>
             <span>Scroll to explore more</span>
             <motion.div
@@ -343,10 +343,10 @@ export default function CinematicHero() {
               className="mt-2"
             >
               <div className={`w-6 h-10 border-2 rounded-full flex items-start justify-center p-2 transition-colors duration-500 ${
-                theme === 'dark' ? 'border-slate-600' : 'border-slate-400'
+                
               }`}>
                 <div className={`w-1.5 h-1.5 rounded-full transition-colors duration-500 ${
-                  theme === 'dark' ? 'bg-blue-400' : 'bg-indigo-600'
+                  
                 }`} />
               </div>
             </motion.div>
@@ -373,18 +373,18 @@ export default function CinematicHero() {
             className="mb-16"
           >
             <span className={`text-sm font-semibold tracking-wider uppercase mb-4 block transition-colors duration-500 ${
-              theme === 'dark' ? 'text-blue-400' : 'text-indigo-600'
+              
             }`}>
               01 — Core Capabilities
             </span>
             <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
               <h2 className={`text-4xl sm:text-5xl lg:text-6xl font-bold transition-colors duration-500 ${
-                theme === 'dark' ? 'text-white' : 'text-indigo-950'
+                
               }`}>
                 Our Services
               </h2>
               <p className={`text-lg max-w-md transition-colors duration-500 ${
-                theme === 'dark' ? 'text-slate-400' : 'text-slate-700'
+                
               }`}>
                 Comprehensive legal solutions powered by technology for modern India
               </p>
@@ -410,7 +410,7 @@ export default function CinematicHero() {
                   whileHover={{ y: -8, scale: 1.02 }}
                   transition={{ duration: 0.3 }}
                   className={`relative h-80 rounded-2xl overflow-hidden ${card.borderColor} border backdrop-blur-xl cursor-pointer transition-colors duration-500 ${
-                    theme === 'dark' ? 'bg-slate-900/80' : 'bg-white/95 shadow-lg'
+                    
                   }`}
                 >
                   {/* Background Image */}
@@ -418,7 +418,7 @@ export default function CinematicHero() {
                     src={card.image}
                     alt={card.title}
                     className={`absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-all duration-700 ${
-                      theme === 'dark' ? 'opacity-30 group-hover:opacity-40' : 'opacity-20 group-hover:opacity-30'
+                      
                     }`}
                   />
                   
@@ -435,12 +435,12 @@ export default function CinematicHero() {
                       {card.category}
                     </span>
                     <h3 className={`text-2xl font-bold mb-2 transition-colors group-hover:text-blue-500 duration-300 ${
-                      theme === 'dark' ? 'text-white' : 'text-indigo-950'
+                      
                     }`}>
                       {card.title}
                     </h3>
                     <p className={`text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
-                      theme === 'dark' ? 'text-slate-400' : 'text-slate-700'
+                      
                     }`}>
                       {card.description}
                     </p>
@@ -478,7 +478,7 @@ export default function CinematicHero() {
       {/* Selected Case Studies Section */}
       <section className="relative py-24 px-4 sm:px-8 z-10">
         <div className={`absolute inset-0 transition-colors duration-500 ${
-          theme === 'dark' ? 'bg-slate-950/50' : 'bg-purple-50/40'
+          
         }`} />
         <div className="relative z-10 max-w-7xl mx-auto">
           {/* Section Header */}
@@ -490,19 +490,19 @@ export default function CinematicHero() {
             className="mb-16"
           >
             <span className={`text-sm font-semibold tracking-wider uppercase mb-4 block transition-colors duration-500 ${
-              theme === 'dark' ? 'text-purple-400' : 'text-purple-700'
+              
             }`}>
               02 — Practice Areas
             </span>
             <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
               <div>
                 <h2 className={`text-4xl sm:text-5xl font-bold mb-4 transition-colors duration-500 ${
-                  theme === 'dark' ? 'text-white' : 'text-indigo-950'
+                  
                 }`}>
                   Areas of Expertise
                 </h2>
                 <p className={`max-w-xl transition-colors duration-500 ${
-                  theme === 'dark' ? 'text-slate-400' : 'text-slate-700'
+                  
                 }`}>
                   Our network of experienced lawyers specializes in these key practice areas with proven success rates
                 </p>
@@ -529,7 +529,7 @@ export default function CinematicHero() {
                   whileHover={{ y: -10 }}
                   transition={{ duration: 0.4 }}
                   className={`relative rounded-2xl overflow-hidden border backdrop-blur-xl cursor-pointer transition-colors duration-500 ${
-                    theme === 'dark' ? 'border-slate-800 bg-slate-900/60' : 'border-indigo-200 bg-white/90 shadow-lg'
+                    
                   }`}
                 >
                   {/* Image */}
@@ -558,11 +558,11 @@ export default function CinematicHero() {
                   {/* Content */}
                   <div className="p-6">
                     <h3 className={`text-xl font-bold mb-4 transition-colors duration-500 ${
-                      theme === 'dark' ? 'text-white' : 'text-indigo-950'
+                      
                     }`}>{study.title}</h3>
                     <div className="flex items-center justify-between text-sm">
                       <div className={`flex items-center space-x-2 transition-colors duration-500 ${
-                        theme === 'dark' ? 'text-slate-400' : 'text-slate-700'
+                        
                       }`}>
                         <Clock className="w-4 h-4" />
                         <span>{study.duration}</span>
@@ -570,7 +570,7 @@ export default function CinematicHero() {
                       <div className="flex items-center space-x-2">
                         <span className="text-emerald-500 font-semibold">{study.successRate}</span>
                         <span className={`transition-colors duration-500 ${
-                          theme === 'dark' ? 'text-slate-500' : 'text-slate-700'
+                          
                         }`}>Success</span>
                       </div>
                     </div>
@@ -593,12 +593,12 @@ export default function CinematicHero() {
             className="text-center mb-16"
           >
             <span className={`text-sm font-semibold tracking-wider uppercase mb-4 block transition-colors duration-500 ${
-              theme === 'dark' ? 'text-emerald-400' : 'text-emerald-700'
+              
             }`}>
               03 — Why Nyaay Sathi
             </span>
             <h2 className={`text-4xl sm:text-5xl font-bold mb-6 transition-colors duration-500 ${
-              theme === 'dark' ? 'text-white' : 'text-indigo-950'
+              
             }`}>
               Precision in Process
             </h2>
@@ -637,16 +637,16 @@ export default function CinematicHero() {
                   {/* Icon glow */}
                   <div className={`absolute inset-0 blur-xl opacity-30 group-hover:opacity-60 transition-opacity ${item.color.replace('text-', 'bg-')}`} />
                   <div className={`relative w-16 h-16 rounded-full border flex items-center justify-center transition-colors duration-500 ${
-                    theme === 'dark' ? 'border-slate-700 bg-slate-900/50' : 'border-slate-300 bg-slate-100/50'
+                    
                   }`}>
                     <item.icon className={`w-8 h-8 ${item.color}`} />
                   </div>
                 </div>
                 <h3 className={`text-xl font-bold mb-3 transition-colors duration-500 ${
-                  theme === 'dark' ? 'text-white' : 'text-indigo-950'
+                  
                 }`}>{item.title}</h3>
                 <p className={`text-sm leading-relaxed transition-colors duration-500 ${
-                  theme === 'dark' ? 'text-slate-400' : 'text-slate-700'
+                  
                 }`}>
                   {item.description}
                 </p>
@@ -671,12 +671,12 @@ export default function CinematicHero() {
             transition={{ duration: 0.8 }}
           >
             <h2 className={`text-5xl sm:text-6xl font-bold mb-6 transition-colors duration-500 ${
-              theme === 'dark' ? 'text-white' : 'text-indigo-950'
+              
             }`}>
               Ready to Get Started?
             </h2>
             <p className={`text-xl mb-10 transition-colors duration-500 ${
-              theme === 'dark' ? 'text-slate-400' : 'text-slate-700'
+              
             }`}>
               Join thousands of Indians who have simplified their legal journey with Nyaay Sathi
             </p>
@@ -714,14 +714,14 @@ export default function CinematicHero() {
           : 'border-indigo-200 bg-indigo-50/80'
       }`}>
         <div className={`max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between text-sm transition-colors duration-500 ${
-          theme === 'dark' ? 'text-slate-500' : 'text-slate-700'
+          
         }`}>
           <div className="flex items-center space-x-2 mb-4 md:mb-0">
             <Scale className={`w-5 h-5 transition-colors duration-500 ${
-              theme === 'dark' ? 'text-blue-500' : 'text-indigo-600'
+              
             }`} />
             <span className={`font-semibold transition-colors duration-500 ${
-              theme === 'dark' ? 'text-white' : 'text-indigo-950'
+              
             }`}>Nyaay Sathi</span>
           </div>
           <p>© 2026 Nyaay Sathi. All rights reserved.</p>
