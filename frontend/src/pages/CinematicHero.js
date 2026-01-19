@@ -408,9 +408,7 @@ export default function CinematicHero() {
             <span className="text-sm font-semibold tracking-wider uppercase mb-4 block text-blue-400">
               03 — Why Nyaay Sathi
             </span>
-            <h2 className={`text-4xl sm:text-5xl font-bold mb-6 transition-colors duration-500 ${
-              
-            }`}>
+            <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-white">
               Precision in Process
             </h2>
           </motion.div>
