@@ -231,9 +231,7 @@ export default function CinematicHero() {
             transition={{ duration: 0.8 }}
             className="mb-16"
           >
-            <span className={`text-sm font-semibold tracking-wider uppercase mb-4 block transition-colors duration-500 ${
-              
-            }`}>
+            <span className="text-sm font-semibold tracking-wider uppercase mb-4 block text-blue-400">
               01 — Core Capabilities
             </span>
             <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
