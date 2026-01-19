@@ -276,11 +276,8 @@ export default function RoleSelection() {
                     }}
                   />
                   
-                  {/* Sparkle icon */}
-                  <Sparkles className="w-6 h-6 relative z-10" />
-                  
                   {/* Text */}
-                  <span className="relative z-10 tracking-wide">GET STARTED</span>
+                  <span className="relative z-10 tracking-wide">LOGIN</span>
                   
                   {/* Animated arrow */}
                   <motion.div
