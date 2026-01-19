@@ -581,14 +581,14 @@ CARD TYPES:
             <Button
               variant="ghost"
               onClick={() => { setActiveTab(null); setShowAiResults(false); setMessages([messages[0]]); }}
-              className="text-slate-400 hover:text-white mb-6"
+              className="text-slate-400 hover:text-white mb-4"
             >
               ← Back to options
             </Button>
 
-            <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden">
+            <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden h-[calc(100vh-200px)] flex flex-col">
               {/* Chat Header */}
-              <div className="bg-gradient-to-r from-purple-600 to-pink-600 px-6 py-4">
+              <div className="bg-gradient-to-r from-purple-600 to-pink-600 px-6 py-4 flex-shrink-0">
                 <h2 className="text-xl font-semibold text-white flex items-center gap-2">
                   <Bot className="w-6 h-6" />
                   AI Legal Assistant
@@ -597,7 +597,7 @@ CARD TYPES:
               </div>
 
               {/* Chat Messages */}
-              <div className="h-96 overflow-y-auto p-6 space-y-4">
+              <div className="flex-1 overflow-y-auto p-4 space-y-4">
                 {messages.map((msg, idx) => (
                   <motion.div
                     key={idx}
@@ -605,26 +605,75 @@ CARD TYPES:
                     animate={{ opacity: 1, y: 0 }}
                     className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                   >
-                    <div className={`max-w-[80%] rounded-2xl px-4 py-3 ${
-                      msg.role === 'user' 
-                        ? 'bg-blue-600 text-white' 
-                        : 'bg-slate-800 text-slate-200'
-                    }`}>
-                      <p className="whitespace-pre-wrap">{msg.content.replace(/\[RECOMMEND:.*?\]/g, '')}</p>
-                    </div>
+                    {msg.role === 'user' ? (
+                      <div className="max-w-[70%] bg-blue-600 text-white rounded-2xl px-4 py-3">
+                        <p>{msg.content}</p>
+                      </div>
+                    ) : (
+                      <div className="w-full max-w-[90%]">
+                        {msg.content?.cards ? (
+                          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                            {msg.content.cards.map((card, cardIdx) => (
+                              <motion.div
+                                key={cardIdx}
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: cardIdx * 0.1 }}
+                                className={`rounded-xl p-4 border ${
+                                  card.type === 'greeting' ? 'bg-gradient-to-br from-purple-900/50 to-purple-800/30 border-purple-500/30' :
+                                  card.type === 'question' ? 'bg-gradient-to-br from-blue-900/50 to-blue-800/30 border-blue-500/30' :
+                                  card.type === 'info' ? 'bg-gradient-to-br from-slate-800/50 to-slate-700/30 border-slate-600/30' :
+                                  card.type === 'advice' ? 'bg-gradient-to-br from-emerald-900/50 to-emerald-800/30 border-emerald-500/30' :
+                                  card.type === 'action' ? 'bg-gradient-to-br from-amber-900/50 to-amber-800/30 border-amber-500/30' :
+                                  card.type === 'warning' ? 'bg-gradient-to-br from-red-900/50 to-red-800/30 border-red-500/30' :
+                                  card.type === 'location' ? 'bg-gradient-to-br from-cyan-900/50 to-cyan-800/30 border-cyan-500/30' :
+                                  'bg-slate-800/50 border-slate-700/30'
+                                }`}
+                              >
+                                <div className="flex items-center gap-2 mb-2">
+                                  {card.type === 'greeting' && <Sparkles className="w-4 h-4 text-purple-400" />}
+                                  {card.type === 'question' && <MessageSquare className="w-4 h-4 text-blue-400" />}
+                                  {card.type === 'info' && <Scale className="w-4 h-4 text-slate-400" />}
+                                  {card.type === 'advice' && <Shield className="w-4 h-4 text-emerald-400" />}
+                                  {card.type === 'action' && <ArrowRight className="w-4 h-4 text-amber-400" />}
+                                  {card.type === 'warning' && <Bell className="w-4 h-4 text-red-400" />}
+                                  {card.type === 'location' && <MapPin className="w-4 h-4 text-cyan-400" />}
+                                  <span className={`text-sm font-semibold ${
+                                    card.type === 'greeting' ? 'text-purple-300' :
+                                    card.type === 'question' ? 'text-blue-300' :
+                                    card.type === 'info' ? 'text-slate-300' :
+                                    card.type === 'advice' ? 'text-emerald-300' :
+                                    card.type === 'action' ? 'text-amber-300' :
+                                    card.type === 'warning' ? 'text-red-300' :
+                                    card.type === 'location' ? 'text-cyan-300' :
+                                    'text-slate-300'
+                                  }`}>{card.title}</span>
+                                </div>
+                                <p className="text-slate-200 text-sm leading-relaxed">{card.content}</p>
+                              </motion.div>
+                            ))}
+                          </div>
+                        ) : (
+                          <div className="bg-slate-800 text-slate-200 rounded-2xl px-4 py-3">
+                            <p className="whitespace-pre-wrap">{typeof msg.content === 'string' ? msg.content : JSON.stringify(msg.content)}</p>
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </motion.div>
                 ))}
                 {isLoading && (
                   <div className="flex justify-start">
-                    <div className="bg-slate-800 rounded-2xl px-4 py-3">
+                    <div className="bg-slate-800 rounded-2xl px-4 py-3 flex items-center gap-2">
                       <Loader2 className="w-5 h-5 animate-spin text-purple-400" />
+                      <span className="text-slate-400 text-sm">Analyzing your query...</span>
                     </div>
                   </div>
                 )}
               </div>
 
               {/* Chat Input */}
-              <div className="border-t border-slate-700 p-4">
+              <div className="border-t border-slate-700 p-4 flex-shrink-0">
                 <div className="flex gap-3">
                   <Input
                     value={inputMessage}
