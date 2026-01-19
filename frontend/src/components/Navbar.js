@@ -62,12 +62,43 @@ export const Navbar = () => {
                 </Button>
               </>
             ) : (
-              <Link to="/role-selection">
+              <Link to="/role-selection?mode=login" className="relative group">
+                {/* Animated ring glow */}
+                <motion.div
+                  className="absolute -inset-1 rounded-full opacity-70"
+                  style={{
+                    background: 'conic-gradient(from 0deg, #f59e0b, #ef4444, #ec4899, #8b5cf6, #3b82f6, #10b981, #f59e0b)',
+                  }}
+                  animate={{
+                    rotate: [0, 360],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "linear"
+                  }}
+                />
+                <motion.div
+                  className="absolute -inset-1 rounded-full blur-sm opacity-50"
+                  style={{
+                    background: 'conic-gradient(from 180deg, #f59e0b, #ef4444, #ec4899, #8b5cf6, #3b82f6, #10b981, #f59e0b)',
+                  }}
+                  animate={{
+                    rotate: [360, 0],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "linear"
+                  }}
+                />
                 <Button 
                   data-testid="login-btn"
-                  className="bg-blue-700 hover:bg-blue-600 text-white rounded-full px-8 py-2 btn-primary"
+                  className="relative bg-black hover:bg-slate-900 text-white rounded-full px-8 py-2 flex items-center space-x-2 border border-white/20"
                 >
-                  Login
+                  <LogIn className="w-4 h-4" />
+                  <span>Login</span>
+                  <Sparkles className="w-4 h-4 text-amber-400" />
                 </Button>
               </Link>
             )}
