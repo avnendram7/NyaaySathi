@@ -461,11 +461,7 @@ export default function CinematicHero() {
 
       {/* Final CTA Section */}
       <section className="relative py-32 px-4 sm:px-8 z-10">
-        <div className={`absolute inset-0 transition-colors duration-500 ${
-          theme === 'dark'
-            ? 'bg-gradient-to-b from-slate-950/50 via-blue-950/30 to-slate-950'
-            : 'bg-gradient-to-b from-indigo-50/40 via-purple-50/30 to-blue-50/40'
-        }`} />
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/50 via-blue-950/30 to-slate-950" />
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
