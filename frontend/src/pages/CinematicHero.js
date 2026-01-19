@@ -509,17 +509,6 @@ export default function CinematicHero() {
           </div>
         </div>
       </footer>
-      
-      <style jsx>{`
-        .glass {
-          background: rgba(15, 23, 42, 0.6);
-          backdrop-filter: blur(20px);
-        }
-        
-        .bg-gradient-radial {
-          background: radial-gradient(circle, var(--tw-gradient-stops));
-        }
-      `}</style>
     </div>
   );
 }
