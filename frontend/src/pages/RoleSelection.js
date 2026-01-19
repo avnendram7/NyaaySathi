@@ -279,7 +279,7 @@ export default function RoleSelection() {
                   />
                   
                   {/* Text */}
-                  <span className="relative z-10 tracking-wide">LOGIN</span>
+                  <span className="relative z-10 tracking-wide">{isLoginMode ? 'LOGIN' : 'GET STARTED'}</span>
                   
                   {/* Animated arrow */}
                   <motion.div
