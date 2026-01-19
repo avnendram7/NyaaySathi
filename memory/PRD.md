@@ -42,18 +42,29 @@ Build a legal-tech startup platform called "Nyaay Sathi" that simplifies the jus
 ### Landing Flow
 - ✅ Cinematic hero page with orbiting logo and floating cards (`CinematicHero.js`)
   - Two hero buttons: "Get Started" (blue), "AI Chat" (green)
+  - Text size increased, Scale icon removed from title
 - ✅ Role-selection page for User, Lawyer, Law Firm (`RoleSelection.js`)
   - Dynamic button text based on URL parameter
-  - Get Started → shows "GET STARTED" buttons with Sparkles icon
-  - Login → shows "LOGIN" buttons with LogIn icon
+  - Get Started → shows "GET STARTED" buttons, User goes to Find Lawyer page
+  - Login → shows "LOGIN" buttons, User goes to Login page
   - Lawyer section background: black with improved text contrast
+- ✅ **NEW: Find Lawyer Page** (`FindLawyer.js`) - Major feature
+  - Two big cards: "Find Lawyer Manually" and "Find Lawyer with AI"
+  - Manual search with State, City, Court, Case Type dropdowns
+  - AI chat interface powered by Gemini for smart lawyer matching
+  - 15 dummy Indian lawyers with different specialties
+  - Lawyer cards with photo, name, specialization, location, experience, rating, fees
+  - Full lawyer profile modal with bio, education, bar council registration
+  - "Book Consultation" and "Send Message" actions
+  - "Client Login" and "Buy Dashboard" CTA at bottom
 - ✅ **NEW: Floating Features Section** - "Core Capabilities" with 4 service cards below hero
 - ✅ **NEW: Practice Areas Section** - 3 case study cards with success rates
 - ✅ **NEW: Why Choose Us Section** - 3 key differentiators
 - ✅ **NEW: Final CTA Section** - Call to action with footer
 
 ### Navbar
-- ✅ **Updated (Jan 19):** Login button with subtle floating light orbs animation inside
+- ✅ Login button with floating light orbs animation
+- ✅ Removed Scale icon, just "Nyaay Sathi" text
 
 ### Authentication & Roles
 - ✅ 3-role authentication system (User, Lawyer, Law Firm)
