@@ -1,0 +1,395 @@
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Shield, Scale, Users, CheckCircle, XCircle, Clock, Eye, User, Mail, Phone, MapPin, Briefcase, GraduationCap, Star, ArrowLeft, Loader2, RefreshCw, LogOut } from 'lucide-react';
+import { Button } from '../components/ui/button';
+import { toast } from 'sonner';
+import axios from 'axios';
+import { API } from '../App';
+
+export default function AdminDashboard() {
+  const navigate = useNavigate();
+  const [applications, setApplications] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedApp, setSelectedApp] = useState(null);
+  const [actionLoading, setActionLoading] = useState(null);
+  const [stats, setStats] = useState({ pending: 0, approved: 0, rejected: 0 });
+  const [filter, setFilter] = useState('pending');
+
+  // Check if admin is logged in
+  useEffect(() => {
+    const token = localStorage.getItem('adminToken');
+    if (!token) {
+      navigate('/admin-login');
+    } else {
+      fetchApplications();
+    }
+  }, [navigate]);
+
+  const fetchApplications = async () => {
+    setLoading(true);
+    try {
+      const token = localStorage.getItem('adminToken');
+      const response = await axios.get(`${API}/admin/lawyer-applications`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setApplications(response.data.applications || []);
+      setStats(response.data.stats || { pending: 0, approved: 0, rejected: 0 });
+    } catch (error) {
+      if (error.response?.status === 401 || error.response?.status === 403) {
+        localStorage.removeItem('adminToken');
+        navigate('/admin-login');
+      } else {
+        toast.error('Failed to fetch applications');
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleAction = async (appId, action) => {
+    setActionLoading(appId);
+    try {
+      const token = localStorage.getItem('adminToken');
+      await axios.put(`${API}/admin/lawyer-applications/${appId}/${action}`, {}, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      toast.success(`Application ${action}ed successfully!`);
+      setSelectedApp(null);
+      fetchApplications();
+    } catch (error) {
+      toast.error(`Failed to ${action} application`);
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('adminToken');
+    navigate('/admin-login');
+  };
+
+  const filteredApps = applications.filter(app => {
+    if (filter === 'all') return true;
+    return app.status === filter;
+  });
+
+  const ApplicationCard = ({ app }) => (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      whileHover={{ scale: 1.01 }}
+      className="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-xl p-5 cursor-pointer hover:border-purple-500/50 transition-all"
+      onClick={() => setSelectedApp(app)}
+    >
+      <div className="flex items-start gap-4">
+        <img
+          src={app.photo || `https://randomuser.me/api/portraits/men/${app.id % 90}.jpg`}
+          alt={app.name}
+          className="w-14 h-14 rounded-full object-cover border-2 border-slate-600"
+        />
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center justify-between">
+            <h3 className="font-semibold text-white truncate">{app.name}</h3>
+            <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+              app.status === 'pending' ? 'bg-amber-500/20 text-amber-400' :
+              app.status === 'approved' ? 'bg-green-500/20 text-green-400' :
+              'bg-red-500/20 text-red-400'
+            }`}>
+              {app.status.charAt(0).toUpperCase() + app.status.slice(1)}
+            </span>
+          </div>
+          <p className="text-purple-400 text-sm">{app.specialization}</p>
+          <div className="flex items-center gap-3 mt-2 text-xs text-slate-400">
+            <span className="flex items-center gap-1">
+              <MapPin className="w-3 h-3" />
+              {app.city}, {app.state}
+            </span>
+            <span className="flex items-center gap-1">
+              <Briefcase className="w-3 h-3" />
+              {app.experience} yrs
+            </span>
+          </div>
+        </div>
+      </div>
+      <div className="flex items-center justify-between mt-4 pt-4 border-t border-slate-700/50">
+        <span className="text-xs text-slate-500">
+          Applied: {new Date(app.created_at).toLocaleDateString()}
+        </span>
+        <Button
+          size="sm"
+          variant="ghost"
+          className="text-purple-400 hover:text-purple-300 hover:bg-purple-500/10"
+          onClick={(e) => { e.stopPropagation(); setSelectedApp(app); }}
+        >
+          <Eye className="w-4 h-4 mr-1" />
+          View Details
+        </Button>
+      </div>
+    </motion.div>
+  );
+
+  const ApplicationModal = ({ app, onClose }) => (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+      onClick={onClose}
+    >
+      <motion.div
+        initial={{ scale: 0.95, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.95, opacity: 0 }}
+        onClick={(e) => e.stopPropagation()}
+        className="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+      >
+        {/* Header */}
+        <div className="p-6 border-b border-slate-700 flex items-start gap-4">
+          <img
+            src={app.photo || `https://randomuser.me/api/portraits/men/${app.id % 90}.jpg`}
+            alt={app.name}
+            className="w-20 h-20 rounded-xl object-cover border-2 border-purple-500"
+          />
+          <div className="flex-1">
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl font-bold text-white">{app.name}</h2>
+              <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                app.status === 'pending' ? 'bg-amber-500/20 text-amber-400' :
+                app.status === 'approved' ? 'bg-green-500/20 text-green-400' :
+                'bg-red-500/20 text-red-400'
+              }`}>
+                {app.status.charAt(0).toUpperCase() + app.status.slice(1)}
+              </span>
+            </div>
+            <p className="text-purple-400">{app.specialization}</p>
+            <p className="text-slate-400 text-sm">Bar Council: {app.bar_council_number}</p>
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="p-6 space-y-6">
+          {/* Contact Info */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="bg-slate-800/50 rounded-xl p-4">
+              <div className="flex items-center gap-2 text-slate-400 mb-1">
+                <Mail className="w-4 h-4" />
+                <span className="text-xs">Email</span>
+              </div>
+              <p className="text-white">{app.email}</p>
+            </div>
+            <div className="bg-slate-800/50 rounded-xl p-4">
+              <div className="flex items-center gap-2 text-slate-400 mb-1">
+                <Phone className="w-4 h-4" />
+                <span className="text-xs">Phone</span>
+              </div>
+              <p className="text-white">{app.phone}</p>
+            </div>
+          </div>
+
+          {/* Professional Info */}
+          <div className="grid grid-cols-3 gap-4">
+            <div className="bg-slate-800/50 rounded-xl p-4 text-center">
+              <p className="text-2xl font-bold text-purple-400">{app.experience}</p>
+              <p className="text-slate-400 text-sm">Years Exp</p>
+            </div>
+            <div className="bg-slate-800/50 rounded-xl p-4 text-center">
+              <p className="text-2xl font-bold text-green-400">{app.cases_won || 0}</p>
+              <p className="text-slate-400 text-sm">Cases Won</p>
+            </div>
+            <div className="bg-slate-800/50 rounded-xl p-4 text-center">
+              <p className="text-lg font-bold text-amber-400">{app.fee_range}</p>
+              <p className="text-slate-400 text-sm">Fee Range</p>
+            </div>
+          </div>
+
+          {/* Location */}
+          <div className="bg-slate-800/50 rounded-xl p-4">
+            <h3 className="text-sm font-semibold text-slate-400 mb-2">Location & Court</h3>
+            <p className="text-white">{app.city}, {app.state}</p>
+            <p className="text-slate-400">{app.court}</p>
+          </div>
+
+          {/* Education */}
+          <div className="bg-slate-800/50 rounded-xl p-4">
+            <h3 className="text-sm font-semibold text-slate-400 mb-2">Education</h3>
+            <p className="text-white">{app.education}</p>
+          </div>
+
+          {/* Languages */}
+          <div className="bg-slate-800/50 rounded-xl p-4">
+            <h3 className="text-sm font-semibold text-slate-400 mb-2">Languages</h3>
+            <div className="flex flex-wrap gap-2">
+              {app.languages?.map(lang => (
+                <span key={lang} className="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-sm">
+                  {lang}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Bio */}
+          <div className="bg-slate-800/50 rounded-xl p-4">
+            <h3 className="text-sm font-semibold text-slate-400 mb-2">Professional Bio</h3>
+            <p className="text-slate-300">{app.bio}</p>
+          </div>
+
+          {/* Actions */}
+          {app.status === 'pending' && (
+            <div className="flex gap-4 pt-4">
+              <Button
+                onClick={() => handleAction(app._id, 'approve')}
+                disabled={actionLoading === app._id}
+                className="flex-1 bg-green-600 hover:bg-green-500 rounded-full"
+              >
+                {actionLoading === app._id ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <>
+                    <CheckCircle className="w-4 h-4 mr-2" />
+                    Approve
+                  </>
+                )}
+              </Button>
+              <Button
+                onClick={() => handleAction(app._id, 'reject')}
+                disabled={actionLoading === app._id}
+                variant="outline"
+                className="flex-1 border-red-500 text-red-400 hover:bg-red-500/10 rounded-full"
+              >
+                <XCircle className="w-4 h-4 mr-2" />
+                Reject
+              </Button>
+            </div>
+          )}
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+      {/* Header */}
+      <div className="bg-slate-900/80 backdrop-blur-xl border-b border-slate-800/50 sticky top-0 z-10">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <Shield className="w-8 h-8 text-purple-500" />
+            <div>
+              <h1 className="text-xl font-bold text-white">Admin Dashboard</h1>
+              <p className="text-sm text-slate-400">Manage lawyer applications</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <Button
+              onClick={fetchApplications}
+              variant="outline"
+              className="border-slate-700 text-slate-300 hover:bg-slate-800 rounded-full"
+            >
+              <RefreshCw className="w-4 h-4 mr-2" />
+              Refresh
+            </Button>
+            <Button
+              onClick={handleLogout}
+              variant="ghost"
+              className="text-slate-400 hover:text-white"
+            >
+              <LogOut className="w-4 h-4 mr-2" />
+              Logout
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        {/* Stats Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-gradient-to-br from-amber-900/30 to-amber-800/20 border border-amber-500/30 rounded-xl p-6"
+          >
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-amber-400 text-sm">Pending</p>
+                <p className="text-3xl font-bold text-white">{stats.pending}</p>
+              </div>
+              <Clock className="w-10 h-10 text-amber-500/50" />
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="bg-gradient-to-br from-green-900/30 to-green-800/20 border border-green-500/30 rounded-xl p-6"
+          >
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-green-400 text-sm">Approved</p>
+                <p className="text-3xl font-bold text-white">{stats.approved}</p>
+              </div>
+              <CheckCircle className="w-10 h-10 text-green-500/50" />
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="bg-gradient-to-br from-red-900/30 to-red-800/20 border border-red-500/30 rounded-xl p-6"
+          >
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-red-400 text-sm">Rejected</p>
+                <p className="text-3xl font-bold text-white">{stats.rejected}</p>
+              </div>
+              <XCircle className="w-10 h-10 text-red-500/50" />
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Filter Tabs */}
+        <div className="flex gap-2 mb-6">
+          {['pending', 'approved', 'rejected', 'all'].map(f => (
+            <button
+              key={f}
+              onClick={() => setFilter(f)}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                filter === f
+                  ? 'bg-purple-600 text-white'
+                  : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
+              }`}
+            >
+              {f.charAt(0).toUpperCase() + f.slice(1)}
+            </button>
+          ))}
+        </div>
+
+        {/* Applications Grid */}
+        {loading ? (
+          <div className="flex items-center justify-center py-20">
+            <Loader2 className="w-8 h-8 animate-spin text-purple-500" />
+          </div>
+        ) : filteredApps.length === 0 ? (
+          <div className="text-center py-20">
+            <Users className="w-16 h-16 text-slate-700 mx-auto mb-4" />
+            <p className="text-slate-400">No {filter === 'all' ? '' : filter} applications found</p>
+          </div>
+        ) : (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {filteredApps.map(app => (
+              <ApplicationCard key={app._id} app={app} />
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Application Detail Modal */}
+      <AnimatePresence>
+        {selectedApp && (
+          <ApplicationModal app={selectedApp} onClose={() => setSelectedApp(null)} />
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
