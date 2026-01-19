@@ -79,52 +79,87 @@ export default function FindLawyer() {
     try {
       // Build context for AI
       const lawyerContext = lawyers.map(l => 
-        `${l.name} - ${l.specialization} - ${l.city}, ${l.state} - ${l.experience} years exp - Rating: ${l.rating}`
+        `ID:${l.id} | ${l.name} | ${l.specialization} | ${l.city}, ${l.state} | ${l.experience}yrs | Rating:${l.rating} | Fee:${l.fee}`
       ).join('\n');
 
-      const systemPrompt = `You are a helpful legal assistant for Nyaay Sathi, an Indian legal tech platform. Your job is to:
-1. Understand the user's legal problem
-2. Ask clarifying questions about their location (state/city) and case details
-3. Identify the type of lawyer they need
-4. Once you have enough information, recommend suitable lawyers from our database
+      const systemPrompt = `You are Nyaay Sathi's AI Legal Assistant for Indian users. Your role:
 
-Available lawyers:
+1. UNDERSTAND the user's legal problem through empathetic conversation
+2. ASK about their location (state/city in India) if not mentioned
+3. IDENTIFY the type of lawyer needed (Criminal, Family, Property, Civil, Corporate, Cyber, Tax, Labour, Consumer, etc.)
+4. RECOMMEND suitable lawyers from our database
+
+AVAILABLE LAWYERS:
 ${lawyerContext}
 
-Based on the conversation, when you're ready to recommend lawyers:
-1. Identify the case type (Criminal, Family, Property, Civil, Corporate, etc.)
-2. Consider the user's location
-3. Recommend 2-3 best matching lawyers with brief explanations
+RESPONSE FORMAT - Always respond with structured JSON cards:
+{
+  "cards": [
+    {"type": "greeting", "title": "Title", "content": "Your message"},
+    {"type": "question", "title": "Question", "content": "Your question"},
+    {"type": "info", "title": "Understanding", "content": "What you understood"},
+    {"type": "advice", "title": "Legal Insight", "content": "Brief advice"},
+    {"type": "action", "title": "Next Steps", "content": "What to do"}
+  ],
+  "recommendedLawyers": [1, 2, 3]
+}
 
-Always be empathetic and professional. If the user's issue is urgent, acknowledge that.
-When recommending lawyers, format them clearly with name, specialization, location, and why they're a good match.
+RULES:
+- Be empathetic and professional
+- Use simple Hindi-English mix if user writes in Hindi
+- Ask for location (state) to filter lawyers
+- Identify case type from conversation
+- When ready, include "recommendedLawyers" array with lawyer IDs (1-40)
+- Keep each card content brief (2-3 lines max)
+- Use 2-4 cards per response
 
-If you identify lawyers to recommend, end your response with: [RECOMMEND: lawyer_ids] where lawyer_ids are comma-separated IDs (1-15).`;
+CARD TYPES:
+- greeting: Welcome/acknowledgment
+- question: Asking for more info
+- info: Sharing understanding of their case
+- advice: Legal guidance
+- action: Next steps to take
+- warning: Important cautions
+- location: Asking/confirming location`;
 
       const response = await axios.post(`${API}/chat`, {
         message: userMessage,
         system_prompt: systemPrompt,
-        conversation_history: messages.map(m => ({
+        conversation_history: messages.slice(-6).map(m => ({
           role: m.role,
-          content: m.content
+          content: typeof m.content === 'string' ? m.content : JSON.stringify(m.content)
         }))
       });
 
-      const aiResponse = response.data.response;
-      setMessages(prev => [...prev, { role: 'assistant', content: aiResponse }]);
-
-      // Check if AI recommended lawyers
-      const recommendMatch = aiResponse.match(/\[RECOMMEND:\s*([\d,\s]+)\]/);
-      if (recommendMatch) {
-        const ids = recommendMatch[1].split(',').map(id => parseInt(id.trim()));
-        const recommended = lawyers.filter(l => ids.includes(l.id));
-        setAiRecommendedLawyers(recommended);
-        setShowAiResults(true);
+      let aiResponse = response.data.response;
+      
+      // Try to parse JSON response
+      try {
+        // Extract JSON from response if wrapped in markdown code blocks
+        const jsonMatch = aiResponse.match(/```json?\s*([\s\S]*?)```/) || aiResponse.match(/\{[\s\S]*\}/);
+        if (jsonMatch) {
+          const jsonStr = jsonMatch[1] || jsonMatch[0];
+          const parsed = JSON.parse(jsonStr);
+          setMessages(prev => [...prev, { role: 'assistant', content: parsed }]);
+          
+          // Check for recommended lawyers
+          if (parsed.recommendedLawyers && parsed.recommendedLawyers.length > 0) {
+            const recommended = lawyers.filter(l => parsed.recommendedLawyers.includes(l.id));
+            setAiRecommendedLawyers(recommended);
+            setShowAiResults(true);
+          }
+        } else {
+          // Fallback to plain text
+          setMessages(prev => [...prev, { role: 'assistant', content: { cards: [{ type: 'info', title: 'Response', content: aiResponse }] } }]);
+        }
+      } catch (parseError) {
+        // If JSON parsing fails, show as plain text card
+        setMessages(prev => [...prev, { role: 'assistant', content: { cards: [{ type: 'info', title: 'Response', content: aiResponse }] } }]);
       }
     } catch (error) {
       setMessages(prev => [...prev, { 
         role: 'assistant', 
-        content: "I apologize, but I'm having trouble connecting. Please try again or use the manual search option." 
+        content: { cards: [{ type: 'warning', title: 'Connection Error', content: "I'm having trouble connecting. Please try again or use the manual search option." }] }
       }]);
     } finally {
       setIsLoading(false);
