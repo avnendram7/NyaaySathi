@@ -179,6 +179,9 @@ CARD TYPES:
 
     return cards.slice(0, 6); // Max 6 cards
   };
+
+  // Render card component
+  const renderCard = (card, cardIdx) => (
     <motion.div
       key={cardIdx}
       initial={{ opacity: 0, scale: 0.95, y: 10 }}
