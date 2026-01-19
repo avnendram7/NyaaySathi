@@ -369,11 +369,7 @@ export default function CinematicHero() {
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent" />
                     
                     {/* Badge */}
-                    <div className={`absolute top-4 left-4 px-3 py-1 rounded-full backdrop-blur-md border text-xs font-medium transition-colors duration-500 ${
-                      theme === 'dark'
-                        ? 'bg-white/10 border-white/20 text-white'
-                        : 'bg-indigo-100/90 border-indigo-300 text-indigo-900'
-                    }`}>
+                    <div className="absolute top-4 left-4 px-3 py-1 rounded-full backdrop-blur-md border bg-white/10 border-white/20 text-white text-xs font-medium">
                       {study.category}
                     </div>
                   </div>
