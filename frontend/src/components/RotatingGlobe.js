@@ -263,12 +263,12 @@ export const RotatingGlobe = () => {
         </motion.div>
         
         <motion.div 
-          className="w-56 h-56 rounded-full bg-gradient-to-br from-transparent via-blue-950/10 to-transparent flex items-center justify-center border-4 border-blue-400/50 shadow-2xl backdrop-blur-sm relative overflow-hidden"
+          className="w-56 h-56 rounded-full bg-gradient-to-br from-blue-500 via-blue-600 to-blue-900 flex items-center justify-center border-4 border-blue-400/50 shadow-2xl backdrop-blur-sm relative overflow-hidden"
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.3 }}
         >
           {/* Inner network grid pattern - subtle */}
-          <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0 opacity-10">
             <svg className="w-full h-full" viewBox="0 0 100 100">
               <defs>
                 <pattern id="grid" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
@@ -281,48 +281,15 @@ export const RotatingGlobe = () => {
             </svg>
           </div>
           
-          {/* Logo image with living breathing effect - larger size and transparent background */}
-          <motion.div
-            className="relative z-10 w-full h-full flex items-center justify-center"
-            animate={{
-              scale: [1, 1.05, 1],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          >
-            <motion.img
-              src="https://customer-assets.emergentagent.com/job_color-mode-1/artifacts/7no7ct5w_WhatsApp%20Image%202026-01-13%20at%2010.51.48.jpeg"
-              alt="Nyaay Sathi Logo"
-              className="w-44 h-44 object-contain"
-              style={{
-                mixBlendMode: 'lighten', // Remove black background
-                filter: 'brightness(1.2) contrast(1.1)', // Enhance visibility
-              }}
-              animate={{
-                opacity: [0.95, 1, 0.95],
-                filter: [
-                  'brightness(1.2) contrast(1.1)',
-                  'brightness(1.3) contrast(1.15)',
-                  'brightness(1.2) contrast(1.1)',
-                ]
-              }}
-              transition={{
-                duration: 2.5,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
-          </motion.div>
+          {/* Scale Logo icon - back to original */}
+          <Scale className="w-24 h-24 text-white relative z-10" strokeWidth={1.5} />
           
           {/* Subtle pulse overlay */}
           <motion.div
             className="absolute inset-0 bg-blue-300 rounded-full"
             animate={{
               scale: [1, 1.05, 1],
-              opacity: [0, 0.08, 0],
+              opacity: [0, 0.15, 0],
             }}
             transition={{
               duration: 2.5,
