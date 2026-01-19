@@ -181,6 +181,59 @@ export default function CinematicHero() {
               </Button>
             </div>
             
+            {/* Login Button with special graphics */}
+            <div className="relative group">
+              {/* Animated ring glow */}
+              <motion.div
+                className="absolute -inset-2 rounded-full"
+                style={{
+                  background: 'conic-gradient(from 0deg, #f59e0b, #ef4444, #ec4899, #8b5cf6, #3b82f6, #10b981, #f59e0b)',
+                }}
+                animate={{
+                  rotate: [0, 360],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "linear"
+                }}
+              />
+              <motion.div
+                className="absolute -inset-2 rounded-full blur-md opacity-60"
+                style={{
+                  background: 'conic-gradient(from 0deg, #f59e0b, #ef4444, #ec4899, #8b5cf6, #3b82f6, #10b981, #f59e0b)',
+                }}
+                animate={{
+                  rotate: [360, 0],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "linear"
+                }}
+              />
+              
+              <Button
+                data-testid="cinematic-login-btn"
+                onClick={() => navigate('/role-selection?mode=login')}
+                className="relative bg-black hover:bg-slate-900 text-white text-xl px-12 py-6 rounded-full font-semibold shadow-2xl flex items-center space-x-3 border-2 border-white/20"
+              >
+                <motion.div
+                  animate={{ x: [0, -3, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                >
+                  <Scale className="w-6 h-6" />
+                </motion.div>
+                <span>Login</span>
+                <motion.div
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  <Sparkles className="w-5 h-5 text-amber-400" />
+                </motion.div>
+              </Button>
+            </div>
+            
             {/* AI Chat Button */}
             <div className="relative group">
               {/* Button glow effect */}
