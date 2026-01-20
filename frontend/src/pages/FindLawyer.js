@@ -991,6 +991,8 @@ RULES:
                 )}
               </div>
             )}
+              </div>
+            )}
           </motion.div>
         )}
 
