@@ -22,7 +22,8 @@ from routes import (
     lawyers_router,
     lawfirms_router,
     waitlist_router,
-    admin_router
+    admin_router,
+    firm_lawyers_router
 )
 from services.database import close_db
 
@@ -54,6 +55,7 @@ api_router.include_router(lawyers_router)
 api_router.include_router(lawfirms_router)
 api_router.include_router(waitlist_router)
 api_router.include_router(admin_router)
+api_router.include_router(firm_lawyers_router)
 
 # Legacy endpoint for lawyer applications (for backward compatibility)
 from routes.lawyers import submit_lawyer_application
