@@ -59,6 +59,10 @@ async def login(login_data: UserLogin):
     if not password_field or not verify_password(login_data.password, password_field):
         raise HTTPException(status_code=401, detail='Invalid credentials')
     
+    # Check if firm_lawyer is active
+    if login_data.user_type == 'firm_lawyer' and not user.get('is_active', True):
+        raise HTTPException(status_code=403, detail='Account is deactivated. Contact your firm manager.')
+    
     token = create_token(user['id'], user['user_type'])
     user_response = {k: v for k, v in user.items() if k not in ['password', 'password_hash']}
     
