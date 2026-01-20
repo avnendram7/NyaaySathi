@@ -117,6 +117,7 @@ function App() {
               <Route path="/lawfirm-application" element={<LawFirmApplication />} />
               <Route path="/lawfirm-role" element={<LawFirmRoleSelection />} />
               <Route path="/lawfirm-lawyer-login" element={<LawFirmLawyerLogin />} />
+              <Route path="/firm-lawyer-application" element={<FirmLawyerApplication />} />
               <Route 
                 path="/firm-lawyer-dashboard" 
                 element={
