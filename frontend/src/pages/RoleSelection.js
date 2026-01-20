@@ -59,7 +59,7 @@ export default function RoleSelection() {
       btnGlow: 'shadow-blue-500/50',
       borderColor: 'border-blue-500/30',
       particleColor: 'bg-blue-400',
-      route: '/lawfirm-login',
+      route: isLoginMode ? '/lawfirm-login' : '/lawfirm-application',
       testId: 'role-lawfirm-card'
     }
   ];
