@@ -299,37 +299,37 @@ export default function LawyerDashboard() {
                 </div>
               </div>
               
-              <div className="glass rounded-2xl p-6 border border-amber-500/20 relative overflow-hidden group hover:border-amber-500/40 transition-all duration-300">
+              <div className="bg-zinc-900 rounded-2xl p-6 border border-amber-500/20 relative overflow-hidden group hover:border-amber-500/40 transition-all duration-300">
                 <div className="absolute -right-4 -top-4 w-24 h-24 bg-amber-500/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition-all duration-500"></div>
                 <div className="flex items-center justify-between mb-4 relative z-10">
                   <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg shadow-amber-500/50 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                     <Clock className="w-6 h-6 text-white" />
                   </div>
                   <div className="text-right">
-                    <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">Pending Actions</p>
+                    <p className="text-xs text-zinc-400 uppercase tracking-wider mb-1">Pending Actions</p>
                     <h3 className="text-4xl font-bold text-white">4</h3>
                   </div>
                 </div>
                 <div className="flex items-center text-sm relative z-10">
                   <span className="text-amber-400 font-semibold">Urgent</span>
-                  <span className="ml-2 text-slate-500">→</span>
+                  <span className="ml-2 text-zinc-500">→</span>
                 </div>
               </div>
               
-              <div className="glass rounded-2xl p-6 border border-green-500/20 relative overflow-hidden group hover:border-green-500/40 transition-all duration-300">
+              <div className="bg-zinc-900 rounded-2xl p-6 border border-green-500/20 relative overflow-hidden group hover:border-green-500/40 transition-all duration-300">
                 <div className="absolute -right-4 -top-4 w-24 h-24 bg-green-500/10 rounded-full blur-2xl group-hover:bg-green-500/20 transition-all duration-500"></div>
                 <div className="flex items-center justify-between mb-4 relative z-10">
                   <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg shadow-green-500/50 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                     <span className="text-2xl text-white">₹</span>
                   </div>
                   <div className="text-right">
-                    <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">Total Earnings</p>
+                    <p className="text-xs text-zinc-400 uppercase tracking-wider mb-1">Total Earnings</p>
                     <h3 className="text-4xl font-bold text-white">₹8,500</h3>
                   </div>
                 </div>
                 <div className="flex items-center text-sm relative z-10">
                   <span className="text-green-400 font-semibold">+15% Growth</span>
-                  <span className="ml-2 text-slate-500">→</span>
+                  <span className="ml-2 text-zinc-500">→</span>
                 </div>
               </div>
             </div>
@@ -337,13 +337,13 @@ export default function LawyerDashboard() {
             {/* Schedule and Messages */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* Today's Schedule */}
-              <div className="lg:col-span-2 glass rounded-2xl border border-blue-500/20 p-6">
+              <div className="lg:col-span-2 bg-zinc-900 rounded-2xl border border-zinc-800 p-6">
                 <div className="flex items-center justify-between mb-6">
                   <div>
                     <h2 className="text-xl font-bold text-white mb-1">Today's Schedule</h2>
-                    <p className="text-sm text-slate-400">You have 5 sessions remaining today</p>
+                    <p className="text-sm text-zinc-400">You have 5 sessions remaining today</p>
                   </div>
-                  <button className="text-slate-400 hover:text-white transition-colors">
+                  <button className="text-zinc-400 hover:text-white transition-colors">
                     <MoreVertical className="w-5 h-5" />
                   </button>
                 </div>
@@ -351,8 +351,8 @@ export default function LawyerDashboard() {
                 <div className="space-y-3">
                   {todaySchedule.map((session, idx) => (
                     <div key={idx} className={`flex items-center space-x-4 p-4 rounded-xl transition-all duration-300 ${
-                      idx === 0 ? 'bg-blue-500/10 border border-blue-500/30' : 'bg-slate-900/50 border border-slate-800/50'
-                    } hover:bg-slate-800/70`}>
+                      idx === 0 ? 'bg-blue-500/10 border border-blue-500/30' : 'bg-zinc-900/50 border border-zinc-800/50'
+                    } hover:bg-zinc-800/70`}>
                       <div className="flex-shrink-0">
                         <div className={`w-1 h-12 rounded-full ${idx === 0 ? 'bg-blue-500 shadow-lg shadow-blue-500/50' : 'bg-slate-600'}`} />
                       </div>
@@ -360,23 +360,23 @@ export default function LawyerDashboard() {
                         <div className="flex items-start justify-between">
                           <div>
                             <p className="font-bold text-lg text-white">{session.time}</p>
-                            <p className="text-xs text-slate-400 uppercase tracking-wider">{session.timeLabel}</p>
+                            <p className="text-xs text-zinc-400 uppercase tracking-wider">{session.timeLabel}</p>
                           </div>
                           <div className="text-right flex-1 px-4">
                             <div className="flex items-center justify-end space-x-2 mb-1">
                               {session.type === 'Video' && <Video className="w-4 h-4 text-blue-400" />}
-                              {session.type === 'Call' && <Phone className="w-4 h-4 text-slate-400" />}
+                              {session.type === 'Call' && <Phone className="w-4 h-4 text-zinc-400" />}
                               {session.type === 'In-Person' && <Users className="w-4 h-4 text-purple-400" />}
                               <span className={`text-xs px-2 py-1 rounded-full ${
                                 session.type === 'Video' ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' :
-                                session.type === 'Call' ? 'bg-slate-700/50 text-slate-300 border border-slate-600/30' :
+                                session.type === 'Call' ? 'bg-slate-700/50 text-zinc-300 border border-slate-600/30' :
                                 'bg-purple-500/20 text-purple-400 border border-purple-500/30'
                               }`}>
                                 {session.type}
                               </span>
                             </div>
                             <p className="font-semibold text-white">{session.client}</p>
-                            <p className="text-xs text-slate-400">{session.matter}</p>
+                            <p className="text-xs text-zinc-400">{session.matter}</p>
                           </div>
                           {idx === 2 && (
                             <Button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-lg px-4 py-2 text-sm shadow-lg shadow-blue-500/50">
@@ -391,33 +391,33 @@ export default function LawyerDashboard() {
               </div>
               
               {/* Messages */}
-              <div className="glass rounded-2xl border border-blue-500/20 p-6">
+              <div className="bg-zinc-900 rounded-2xl border border-zinc-800 p-6">
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="text-xl font-bold text-white">Messages</h2>
-                  <button className="text-slate-400 hover:text-white transition-colors">
+                  <button className="text-zinc-400 hover:text-white transition-colors">
                     <Search className="w-5 h-5" />
                   </button>
                 </div>
                 
                 <div className="space-y-4">
                   {messages.map((msg, idx) => (
-                    <div key={idx} className="flex items-start space-x-3 hover:bg-slate-800/30 p-2 rounded-xl transition-all duration-300 cursor-pointer">
+                    <div key={idx} className="flex items-start space-x-3 hover:bg-zinc-800/30 p-2 rounded-xl transition-all duration-300 cursor-pointer">
                       <div className={`w-10 h-10 ${msg.color} rounded-full flex items-center justify-center flex-shrink-0 shadow-lg`}>
                         <span className="text-white font-bold">{msg.initial}</span>
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between mb-1">
                           <p className="font-semibold text-sm text-white">{msg.name}</p>
-                          <span className="text-xs text-slate-500">{msg.time}</span>
+                          <span className="text-xs text-zinc-500">{msg.time}</span>
                         </div>
-                        <p className="text-xs text-slate-400 truncate">{msg.message}</p>
+                        <p className="text-xs text-zinc-400 truncate">{msg.message}</p>
                       </div>
                       <div className="w-2 h-2 bg-green-400 rounded-full flex-shrink-0 mt-2 shadow-lg shadow-green-400/50" />
                     </div>
                   ))}
                 </div>
                 
-                <Button className="w-full mt-6 bg-gradient-to-r from-slate-800 to-slate-900 hover:from-slate-700 hover:to-slate-800 text-white rounded-xl py-3 border border-slate-700/50">
+                <Button className="w-full mt-6 bg-gradient-to-r from-slate-800 to-slate-900 hover:from-slate-700 hover:to-slate-800 text-white rounded-xl py-3 border border-zinc-800/50">
                   View All Messages →
                 </Button>
               </div>
@@ -431,7 +431,7 @@ export default function LawyerDashboard() {
             <div className="flex items-center justify-between mb-8">
               <div>
                 <h1 className="text-3xl font-bold mb-2 text-white">Case Management</h1>
-                <p className="text-slate-400">Track your active cases, clients, and legal proceedings.</p>
+                <p className="text-zinc-400">Track your active cases, clients, and legal proceedings.</p>
               </div>
               <Button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl px-6 shadow-lg shadow-blue-500/50">
                 + New Case
@@ -440,7 +440,7 @@ export default function LawyerDashboard() {
             
             {/* Stats */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-              <div className="glass rounded-2xl border border-blue-500/20 p-6 relative overflow-hidden group">
+              <div className="bg-zinc-900 rounded-2xl border border-zinc-800 p-6 relative overflow-hidden group">
                 <div className="absolute -right-4 -top-4 w-24 h-24 bg-blue-500/10 rounded-full blur-2xl"></div>
                 <div className="flex items-center space-x-3 mb-3 relative z-10">
                   <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center shadow-lg shadow-blue-500/50 transform group-hover:scale-110 transition-all duration-300">
@@ -448,13 +448,13 @@ export default function LawyerDashboard() {
                   </div>
                   <div>
                     <h3 className="text-3xl font-bold text-white">124</h3>
-                    <p className="text-xs text-slate-400 uppercase">Total Cases</p>
+                    <p className="text-xs text-zinc-400 uppercase">Total Cases</p>
                   </div>
                 </div>
                 <p className="text-xs text-blue-400 relative z-10">All Time</p>
               </div>
               
-              <div className="glass rounded-2xl border border-green-500/20 p-6 relative overflow-hidden group">
+              <div className="bg-zinc-900 rounded-2xl border border-green-500/20 p-6 relative overflow-hidden group">
                 <div className="absolute -right-4 -top-4 w-24 h-24 bg-green-500/10 rounded-full blur-2xl"></div>
                 <div className="flex items-center space-x-3 mb-3 relative z-10">
                   <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center shadow-lg shadow-green-500/50 transform group-hover:scale-110 transition-all duration-300">
@@ -462,13 +462,13 @@ export default function LawyerDashboard() {
                   </div>
                   <div>
                     <h3 className="text-3xl font-bold text-white">12</h3>
-                    <p className="text-xs text-slate-400 uppercase">Active</p>
+                    <p className="text-xs text-zinc-400 uppercase">Active</p>
                   </div>
                 </div>
                 <p className="text-xs text-green-400 relative z-10">Current</p>
               </div>
               
-              <div className="glass rounded-2xl border border-amber-500/20 p-6 relative overflow-hidden group">
+              <div className="bg-zinc-900 rounded-2xl border border-amber-500/20 p-6 relative overflow-hidden group">
                 <div className="absolute -right-4 -top-4 w-24 h-24 bg-amber-500/10 rounded-full blur-2xl"></div>
                 <div className="flex items-center space-x-3 mb-3 relative z-10">
                   <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-600 rounded-lg flex items-center justify-center shadow-lg shadow-amber-500/50 transform group-hover:scale-110 transition-all duration-300">
@@ -476,13 +476,13 @@ export default function LawyerDashboard() {
                   </div>
                   <div>
                     <h3 className="text-3xl font-bold text-white">8</h3>
-                    <p className="text-xs text-slate-400 uppercase">Pending</p>
+                    <p className="text-xs text-zinc-400 uppercase">Pending</p>
                   </div>
                 </div>
                 <p className="text-xs text-amber-400 relative z-10">Needs Action</p>
               </div>
               
-              <div className="glass rounded-2xl border border-slate-500/20 p-6 relative overflow-hidden group">
+              <div className="bg-zinc-900 rounded-2xl border border-slate-500/20 p-6 relative overflow-hidden group">
                 <div className="absolute -right-4 -top-4 w-24 h-24 bg-slate-500/10 rounded-full blur-2xl"></div>
                 <div className="flex items-center space-x-3 mb-3 relative z-10">
                   <div className="w-10 h-10 bg-gradient-to-br from-slate-500 to-slate-700 rounded-lg flex items-center justify-center shadow-lg shadow-slate-500/50 transform group-hover:scale-110 transition-all duration-300">
@@ -490,64 +490,64 @@ export default function LawyerDashboard() {
                   </div>
                   <div>
                     <h3 className="text-3xl font-bold text-white">104</h3>
-                    <p className="text-xs text-slate-400 uppercase">Archived</p>
+                    <p className="text-xs text-zinc-400 uppercase">Archived</p>
                   </div>
                 </div>
-                <p className="text-xs text-slate-400 relative z-10">Closed</p>
+                <p className="text-xs text-zinc-400 relative z-10">Closed</p>
               </div>
             </div>
             
             {/* Search and Filter */}
             <div className="flex items-center justify-between mb-6">
               <div className="relative flex-1 max-w-md">
-                <Search className="w-5 h-5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <Search className="w-5 h-5 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2" />
                 <Input
                   placeholder="Search cases, clients..."
-                  className="pl-10 bg-slate-900/50 border-slate-700/50 rounded-xl text-white placeholder-slate-500"
+                  className="pl-10 bg-zinc-900/50 border-zinc-800/50 rounded-xl text-white placeholder-slate-500"
                 />
               </div>
               <div className="flex items-center space-x-3">
-                <Button variant="outline" className="border-slate-700/50 text-slate-300 hover:bg-slate-800 rounded-xl">
+                <Button variant="outline" className="border-zinc-800/50 text-zinc-300 hover:bg-zinc-800 rounded-xl">
                   <span className="mr-2">⚙️</span> Filter
                 </Button>
-                <select className="px-4 py-2 border border-slate-700/50 rounded-xl bg-slate-900/50 text-white">
+                <select className="px-4 py-2 border border-zinc-800/50 rounded-xl bg-zinc-900/50 text-white">
                   <option>Sort by Date</option>
                 </select>
               </div>
             </div>
             
             {/* Cases Table */}
-            <div className="glass rounded-2xl border border-blue-500/20 overflow-hidden">
+            <div className="bg-zinc-900 rounded-2xl border border-zinc-800 overflow-hidden">
               <table className="w-full">
-                <thead className="bg-slate-900/50 border-b border-slate-800/50">
+                <thead className="bg-zinc-900/50 border-b border-zinc-800/50">
                   <tr>
-                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Case Details</th>
-                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Type</th>
-                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Activity</th>
-                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Status</th>
-                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Action</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-zinc-400 uppercase tracking-wider">Case Details</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-zinc-400 uppercase tracking-wider">Type</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-zinc-400 uppercase tracking-wider">Activity</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-zinc-400 uppercase tracking-wider">Status</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-zinc-400 uppercase tracking-wider">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   {dummyCases.map((caseItem) => (
-                    <tr key={caseItem.id} className="border-b border-slate-800/30 hover:bg-slate-900/30 transition-all duration-200">
+                    <tr key={caseItem.id} className="border-b border-zinc-800/30 hover:bg-zinc-900/30 transition-all duration-200">
                       <td className="px-6 py-4">
                         <p className="font-semibold text-white">{caseItem.title}</p>
-                        <p className="text-sm text-slate-400">👤 {caseItem.client}</p>
+                        <p className="text-sm text-zinc-400">👤 {caseItem.client}</p>
                       </td>
-                      <td className="px-6 py-4 text-sm text-slate-300">{caseItem.type}</td>
-                      <td className="px-6 py-4 text-sm text-slate-400">{caseItem.activity}</td>
+                      <td className="px-6 py-4 text-sm text-zinc-300">{caseItem.type}</td>
+                      <td className="px-6 py-4 text-sm text-zinc-400">{caseItem.activity}</td>
                       <td className="px-6 py-4">
                         <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
                           caseItem.status === 'Active' ? 'bg-green-500/20 text-green-400 border border-green-500/30' :
                           caseItem.status === 'Pending' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30' :
-                          'bg-slate-700/50 text-slate-400 border border-slate-600/30'
+                          'bg-slate-700/50 text-zinc-400 border border-slate-600/30'
                         }`}>
                           {caseItem.status}
                         </span>
                       </td>
                       <td className="px-6 py-4">
-                        <button className="text-slate-400 hover:text-white transition-colors">
+                        <button className="text-zinc-400 hover:text-white transition-colors">
                           <MoreVertical className="w-5 h-5" />
                         </button>
                       </td>
@@ -565,7 +565,7 @@ export default function LawyerDashboard() {
             <div className="flex items-center justify-between mb-8">
               <div>
                 <h1 className="text-3xl font-bold text-white mb-2">Calendar</h1>
-                <p className="text-slate-400">Manage your hearings, consultations and appointments</p>
+                <p className="text-zinc-400">Manage your hearings, consultations and appointments</p>
               </div>
               <Button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl px-6 shadow-lg shadow-blue-500/50">
                 + Add Event
@@ -574,23 +574,23 @@ export default function LawyerDashboard() {
             
             {/* Calendar Stats */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-              <div className="glass rounded-2xl p-6 border border-blue-500/20">
-                <p className="text-xs text-slate-400 uppercase mb-2">Today</p>
+              <div className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800">
+                <p className="text-xs text-zinc-400 uppercase mb-2">Today</p>
                 <h3 className="text-3xl font-bold text-white">3</h3>
                 <p className="text-sm text-blue-400">Appointments</p>
               </div>
-              <div className="glass rounded-2xl p-6 border border-amber-500/20">
-                <p className="text-xs text-slate-400 uppercase mb-2">This Week</p>
+              <div className="bg-zinc-900 rounded-2xl p-6 border border-amber-500/20">
+                <p className="text-xs text-zinc-400 uppercase mb-2">This Week</p>
                 <h3 className="text-3xl font-bold text-white">12</h3>
                 <p className="text-sm text-amber-400">Hearings</p>
               </div>
-              <div className="glass rounded-2xl p-6 border border-purple-500/20">
-                <p className="text-xs text-slate-400 uppercase mb-2">Upcoming</p>
+              <div className="bg-zinc-900 rounded-2xl p-6 border border-purple-500/20">
+                <p className="text-xs text-zinc-400 uppercase mb-2">Upcoming</p>
                 <h3 className="text-3xl font-bold text-white">8</h3>
                 <p className="text-sm text-purple-400">Client Meetings</p>
               </div>
-              <div className="glass rounded-2xl p-6 border border-green-500/20">
-                <p className="text-xs text-slate-400 uppercase mb-2">Completed</p>
+              <div className="bg-zinc-900 rounded-2xl p-6 border border-green-500/20">
+                <p className="text-xs text-zinc-400 uppercase mb-2">Completed</p>
                 <h3 className="text-3xl font-bold text-white">156</h3>
                 <p className="text-sm text-green-400">This Month</p>
               </div>
@@ -598,11 +598,11 @@ export default function LawyerDashboard() {
             
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* Mini Calendar */}
-              <div className="glass rounded-2xl border border-blue-500/20 p-6">
+              <div className="bg-zinc-900 rounded-2xl border border-zinc-800 p-6">
                 <h2 className="text-lg font-bold text-white mb-4">January 2026</h2>
                 <div className="grid grid-cols-7 gap-2 text-center mb-4">
                   {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-                    <div key={day} className="text-xs text-slate-500 font-semibold py-2">{day}</div>
+                    <div key={day} className="text-xs text-zinc-500 font-semibold py-2">{day}</div>
                   ))}
                   {[...Array(31)].map((_, i) => {
                     const day = i + 1;
@@ -614,7 +614,7 @@ export default function LawyerDashboard() {
                         className={`py-2 text-sm rounded-lg cursor-pointer transition-all ${
                           isToday ? 'bg-blue-600 text-white font-bold' :
                           hasEvent ? 'bg-blue-500/20 text-blue-400 font-semibold' :
-                          'text-slate-400 hover:bg-slate-800'
+                          'text-zinc-400 hover:bg-zinc-800'
                         }`}
                       >
                         {day}
@@ -626,7 +626,7 @@ export default function LawyerDashboard() {
               </div>
               
               {/* Today's Schedule */}
-              <div className="lg:col-span-2 glass rounded-2xl border border-blue-500/20 p-6">
+              <div className="lg:col-span-2 bg-zinc-900 rounded-2xl border border-zinc-800 p-6">
                 <h2 className="text-lg font-bold text-white mb-4">Today's Schedule - January 20, 2026</h2>
                 <div className="space-y-4">
                   {[
@@ -637,8 +637,8 @@ export default function LawyerDashboard() {
                     { time: '06:00 PM', title: 'Bail Hearing Preparation', client: 'Vikram Singh', location: 'Tis Hazari Court', type: 'preparation', status: 'upcoming' }
                   ].map((event, idx) => (
                     <div key={idx} className={`flex items-center space-x-4 p-4 rounded-xl border ${
-                      idx === 0 ? 'bg-blue-500/10 border-blue-500/30' : 'bg-slate-900/50 border-slate-800/50'
-                    } hover:bg-slate-800/50 transition-all`}>
+                      idx === 0 ? 'bg-blue-500/10 border-blue-500/30' : 'bg-zinc-900/50 border-zinc-800/50'
+                    } hover:bg-zinc-800/50 transition-all`}>
                       <div className="flex-shrink-0 text-center w-20">
                         <p className="text-sm font-bold text-white">{event.time}</p>
                       </div>
@@ -650,7 +650,7 @@ export default function LawyerDashboard() {
                       }`}></div>
                       <div className="flex-1">
                         <p className="font-semibold text-white">{event.title}</p>
-                        <p className="text-sm text-slate-400">👤 {event.client} • 📍 {event.location}</p>
+                        <p className="text-sm text-zinc-400">👤 {event.client} • 📍 {event.location}</p>
                       </div>
                       <div className="flex items-center space-x-2">
                         {event.type === 'video' && (
@@ -658,7 +658,7 @@ export default function LawyerDashboard() {
                             <Video className="w-4 h-4 mr-1" /> Join
                           </Button>
                         )}
-                        <button className="text-slate-400 hover:text-white">
+                        <button className="text-zinc-400 hover:text-white">
                           <MoreVertical className="w-5 h-5" />
                         </button>
                       </div>
@@ -669,7 +669,7 @@ export default function LawyerDashboard() {
             </div>
             
             {/* Upcoming Hearings */}
-            <div className="mt-6 glass rounded-2xl border border-blue-500/20 p-6">
+            <div className="mt-6 bg-zinc-900 rounded-2xl border border-zinc-800 p-6">
               <h2 className="text-lg font-bold text-white mb-4">Upcoming Court Hearings</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {[
@@ -680,7 +680,7 @@ export default function LawyerDashboard() {
                   { date: 'Feb 3', day: 'Mon', case: 'Gupta Bail Application', court: 'Sessions Court', time: '09:30 AM', type: 'Criminal' },
                   { date: 'Feb 5', day: 'Wed', case: 'Mehta Property Suit', court: 'Civil Court, Dwarka', time: '11:30 AM', type: 'Property' }
                 ].map((hearing, idx) => (
-                  <div key={idx} className="p-4 rounded-xl bg-slate-900/50 border border-slate-800/50 hover:bg-slate-800/50 transition-all">
+                  <div key={idx} className="p-4 rounded-xl bg-zinc-900/50 border border-zinc-800/50 hover:bg-zinc-800/50 transition-all">
                     <div className="flex items-start justify-between mb-3">
                       <div className="bg-blue-500/20 text-blue-400 px-3 py-2 rounded-lg text-center">
                         <p className="text-lg font-bold">{hearing.date.split(' ')[1]}</p>
@@ -695,8 +695,8 @@ export default function LawyerDashboard() {
                       }`}>{hearing.type}</span>
                     </div>
                     <h4 className="font-semibold text-white mb-1">{hearing.case}</h4>
-                    <p className="text-xs text-slate-400 mb-2">📍 {hearing.court}</p>
-                    <p className="text-xs text-slate-500">🕐 {hearing.time} • {hearing.day}</p>
+                    <p className="text-xs text-zinc-400 mb-2">📍 {hearing.court}</p>
+                    <p className="text-xs text-zinc-500">🕐 {hearing.time} • {hearing.day}</p>
                   </div>
                 ))}
               </div>
@@ -716,7 +716,7 @@ export default function LawyerDashboard() {
                     End-to-End Encrypted
                   </span>
                 </div>
-                <p className="text-slate-400">Secure communication with your clients</p>
+                <p className="text-zinc-400">Secure communication with your clients</p>
               </div>
               <Button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl px-6 shadow-lg shadow-blue-500/50">
                 + New Message
@@ -725,11 +725,11 @@ export default function LawyerDashboard() {
             
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[calc(100vh-200px)]">
               {/* Conversations List */}
-              <div className="glass rounded-2xl border border-blue-500/20 overflow-hidden flex flex-col">
-                <div className="p-4 border-b border-slate-800/50">
+              <div className="bg-zinc-900 rounded-2xl border border-zinc-800 overflow-hidden flex flex-col">
+                <div className="p-4 border-b border-zinc-800/50">
                   <div className="relative">
-                    <Search className="w-5 h-5 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
-                    <Input placeholder="Search conversations..." className="pl-10 bg-slate-900/50 border-slate-700 rounded-xl text-white" />
+                    <Search className="w-5 h-5 text-zinc-500 absolute left-3 top-1/2 -translate-y-1/2" />
+                    <Input placeholder="Search conversations..." className="pl-10 bg-zinc-900/50 border-zinc-800 rounded-xl text-white" />
                   </div>
                 </div>
                 
@@ -745,7 +745,7 @@ export default function LawyerDashboard() {
                     { name: 'Kavita Sharma', message: 'Child custody papers signed', time: '3 days', unread: 0, online: true, avatar: 'K', color: 'bg-orange-500' }
                   ].map((chat, idx) => (
                     <div key={idx} className={`flex items-center space-x-3 p-4 cursor-pointer transition-all ${
-                      idx === 0 ? 'bg-blue-500/10 border-l-4 border-blue-500' : 'hover:bg-slate-800/50 border-l-4 border-transparent'
+                      idx === 0 ? 'bg-blue-500/10 border-l-4 border-blue-500' : 'hover:bg-zinc-800/50 border-l-4 border-transparent'
                     }`}>
                       <div className="relative flex-shrink-0">
                         <div className={`w-12 h-12 ${chat.color} rounded-full flex items-center justify-center shadow-lg`}>
@@ -758,9 +758,9 @@ export default function LawyerDashboard() {
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between mb-1">
                           <p className="font-semibold text-white truncate">{chat.name}</p>
-                          <span className="text-xs text-slate-500">{chat.time}</span>
+                          <span className="text-xs text-zinc-500">{chat.time}</span>
                         </div>
-                        <p className="text-sm text-slate-400 truncate">{chat.message}</p>
+                        <p className="text-sm text-zinc-400 truncate">{chat.message}</p>
                       </div>
                       {chat.unread > 0 && (
                         <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
@@ -773,9 +773,9 @@ export default function LawyerDashboard() {
               </div>
               
               {/* Chat Window */}
-              <div className="lg:col-span-2 glass rounded-2xl border border-blue-500/20 overflow-hidden flex flex-col">
+              <div className="lg:col-span-2 bg-zinc-900 rounded-2xl border border-zinc-800 overflow-hidden flex flex-col">
                 {/* Chat Header */}
-                <div className="p-4 border-b border-slate-800/50 flex items-center justify-between">
+                <div className="p-4 border-b border-zinc-800/50 flex items-center justify-between">
                   <div className="flex items-center space-x-3">
                     <div className="relative">
                       <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
@@ -789,14 +789,14 @@ export default function LawyerDashboard() {
                     </div>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <button className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-slate-700 transition-colors">
-                      <Phone className="w-5 h-5 text-slate-400" />
+                    <button className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center hover:bg-slate-700 transition-colors">
+                      <Phone className="w-5 h-5 text-zinc-400" />
                     </button>
-                    <button className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-slate-700 transition-colors">
-                      <Video className="w-5 h-5 text-slate-400" />
+                    <button className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center hover:bg-slate-700 transition-colors">
+                      <Video className="w-5 h-5 text-zinc-400" />
                     </button>
-                    <button className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-slate-700 transition-colors">
-                      <MoreVertical className="w-5 h-5 text-slate-400" />
+                    <button className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center hover:bg-slate-700 transition-colors">
+                      <MoreVertical className="w-5 h-5 text-zinc-400" />
                     </button>
                   </div>
                 </div>
@@ -805,7 +805,7 @@ export default function LawyerDashboard() {
                 <div className="flex-1 overflow-y-auto p-4 space-y-4">
                   {/* Date Separator */}
                   <div className="flex items-center justify-center">
-                    <span className="px-3 py-1 bg-slate-800/50 rounded-full text-xs text-slate-500">Today</span>
+                    <span className="px-3 py-1 bg-zinc-800/50 rounded-full text-xs text-zinc-500">Today</span>
                   </div>
                   
                   {/* Received Message */}
@@ -814,10 +814,10 @@ export default function LawyerDashboard() {
                       <span className="text-white text-sm font-bold">R</span>
                     </div>
                     <div className="max-w-[70%]">
-                      <div className="bg-slate-800 rounded-2xl rounded-tl-none p-4">
+                      <div className="bg-zinc-800 rounded-2xl rounded-tl-none p-4">
                         <p className="text-white text-sm">Namaste Sir, I wanted to update you on the property documents.</p>
                       </div>
-                      <p className="text-xs text-slate-500 mt-1">10:30 AM</p>
+                      <p className="text-xs text-zinc-500 mt-1">10:30 AM</p>
                     </div>
                   </div>
                   
@@ -827,22 +827,22 @@ export default function LawyerDashboard() {
                       <span className="text-white text-sm font-bold">R</span>
                     </div>
                     <div className="max-w-[70%]">
-                      <div className="bg-slate-800 rounded-2xl rounded-tl-none p-4">
+                      <div className="bg-zinc-800 rounded-2xl rounded-tl-none p-4">
                         <p className="text-white text-sm mb-3">I have uploaded all the property documents as requested:</p>
                         <div className="space-y-2">
                           <div className="flex items-center space-x-2 bg-slate-700/50 rounded-lg p-2">
                             <FileText className="w-5 h-5 text-red-400" />
-                            <span className="text-sm text-slate-300">Sale_Deed_2020.pdf</span>
-                            <span className="text-xs text-slate-500 ml-auto">2.4 MB</span>
+                            <span className="text-sm text-zinc-300">Sale_Deed_2020.pdf</span>
+                            <span className="text-xs text-zinc-500 ml-auto">2.4 MB</span>
                           </div>
                           <div className="flex items-center space-x-2 bg-slate-700/50 rounded-lg p-2">
                             <FileText className="w-5 h-5 text-red-400" />
-                            <span className="text-sm text-slate-300">Property_Registration.pdf</span>
-                            <span className="text-xs text-slate-500 ml-auto">1.8 MB</span>
+                            <span className="text-sm text-zinc-300">Property_Registration.pdf</span>
+                            <span className="text-xs text-zinc-500 ml-auto">1.8 MB</span>
                           </div>
                         </div>
                       </div>
-                      <p className="text-xs text-slate-500 mt-1">10:32 AM</p>
+                      <p className="text-xs text-zinc-500 mt-1">10:32 AM</p>
                     </div>
                   </div>
                   
@@ -852,7 +852,7 @@ export default function LawyerDashboard() {
                       <div className="bg-blue-600 rounded-2xl rounded-tr-none p-4">
                         <p className="text-white text-sm">धन्यवाद Rajesh ji. I have received the documents. I will review them and get back to you by tomorrow.</p>
                       </div>
-                      <p className="text-xs text-slate-500 mt-1 text-right">10:45 AM ✓✓</p>
+                      <p className="text-xs text-zinc-500 mt-1 text-right">10:45 AM ✓✓</p>
                     </div>
                   </div>
                   
@@ -862,10 +862,10 @@ export default function LawyerDashboard() {
                       <span className="text-white text-sm font-bold">R</span>
                     </div>
                     <div className="max-w-[70%]">
-                      <div className="bg-slate-800 rounded-2xl rounded-tl-none p-4">
+                      <div className="bg-zinc-800 rounded-2xl rounded-tl-none p-4">
                         <p className="text-white text-sm">Sir, what are the chances of winning this case? The builder is very influential.</p>
                       </div>
-                      <p className="text-xs text-slate-500 mt-1">11:00 AM</p>
+                      <p className="text-xs text-zinc-500 mt-1">11:00 AM</p>
                     </div>
                   </div>
                   
@@ -875,7 +875,7 @@ export default function LawyerDashboard() {
                       <div className="bg-blue-600 rounded-2xl rounded-tr-none p-4">
                         <p className="text-white text-sm">Don't worry about that. We have strong documentation. The RERA Act is clearly in our favor. I am confident about a positive outcome. 👍</p>
                       </div>
-                      <p className="text-xs text-slate-500 mt-1 text-right">11:15 AM ✓✓</p>
+                      <p className="text-xs text-zinc-500 mt-1 text-right">11:15 AM ✓✓</p>
                     </div>
                   </div>
                   
@@ -885,23 +885,23 @@ export default function LawyerDashboard() {
                       <span className="text-white text-sm font-bold">R</span>
                     </div>
                     <div className="max-w-[70%]">
-                      <div className="bg-slate-800 rounded-2xl rounded-tl-none p-4">
+                      <div className="bg-zinc-800 rounded-2xl rounded-tl-none p-4">
                         <p className="text-white text-sm">That's a relief Sir. When is our next hearing?</p>
                       </div>
-                      <p className="text-xs text-slate-500 mt-1">Just now</p>
+                      <p className="text-xs text-zinc-500 mt-1">Just now</p>
                     </div>
                   </div>
                 </div>
                 
                 {/* Message Input */}
-                <div className="p-4 border-t border-slate-800/50">
+                <div className="p-4 border-t border-zinc-800/50">
                   <div className="flex items-center space-x-3">
-                    <button className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-slate-700 transition-colors">
+                    <button className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center hover:bg-slate-700 transition-colors">
                       <span className="text-xl">📎</span>
                     </button>
                     <Input
                       placeholder="Type your message..."
-                      className="flex-1 bg-slate-900/50 border-slate-700 rounded-full px-5 text-white"
+                      className="flex-1 bg-zinc-900/50 border-zinc-800 rounded-full px-5 text-white"
                     />
                     <Button className="w-10 h-10 rounded-full bg-blue-600 hover:bg-blue-500 flex items-center justify-center">
                       <span className="text-xl">➤</span>
@@ -926,7 +926,7 @@ export default function LawyerDashboard() {
                   </span>
                 </div>
                 <p className="text-sm text-green-400 flex items-center">
-                  <span className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
+                  <span className="w-2 h-2 bg-green-400 rounded-full mr-2 "></span>
                   Secure encrypted vault
                 </p>
               </div>
@@ -937,41 +937,41 @@ export default function LawyerDashboard() {
             
             {/* Stats */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="glass rounded-2xl border border-blue-500/20 p-6 relative overflow-hidden group">
+              <div className="bg-zinc-900 rounded-2xl border border-zinc-800 p-6 relative overflow-hidden group">
                 <div className="absolute -right-4 -top-4 w-24 h-24 bg-blue-500/10 rounded-full blur-2xl"></div>
                 <div className="flex items-center space-x-3 relative z-10">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/50 transform group-hover:scale-110 transition-all duration-300">
                     <FileText className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <p className="text-xs text-slate-400 uppercase mb-1">Total Documents</p>
+                    <p className="text-xs text-zinc-400 uppercase mb-1">Total Documents</p>
                     <h3 className="text-3xl font-bold text-white">12</h3>
                   </div>
                 </div>
               </div>
               
-              <div className="glass rounded-2xl border border-purple-500/20 p-6 relative overflow-hidden group">
+              <div className="bg-zinc-900 rounded-2xl border border-purple-500/20 p-6 relative overflow-hidden group">
                 <div className="absolute -right-4 -top-4 w-24 h-24 bg-purple-500/10 rounded-full blur-2xl"></div>
                 <div className="flex items-center space-x-3 relative z-10">
                   <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/50 transform group-hover:scale-110 transition-all duration-300">
                     <span className="text-2xl">💾</span>
                   </div>
                   <div>
-                    <p className="text-xs text-slate-400 uppercase mb-1">Storage Used</p>
+                    <p className="text-xs text-zinc-400 uppercase mb-1">Storage Used</p>
                     <h3 className="text-3xl font-bold text-white">15.2 GB</h3>
-                    <p className="text-xs text-slate-500">/ 50 GB</p>
+                    <p className="text-xs text-zinc-500">/ 50 GB</p>
                   </div>
                 </div>
               </div>
               
-              <div className="glass rounded-2xl border border-green-500/20 p-6 relative overflow-hidden group">
+              <div className="bg-zinc-900 rounded-2xl border border-green-500/20 p-6 relative overflow-hidden group">
                 <div className="absolute -right-4 -top-4 w-24 h-24 bg-green-500/10 rounded-full blur-2xl"></div>
                 <div className="flex items-center space-x-3 relative z-10">
                   <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg shadow-green-500/50 transform group-hover:scale-110 transition-all duration-300">
                     <Clock className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <p className="text-xs text-slate-400 uppercase mb-1">Recent Uploads</p>
+                    <p className="text-xs text-zinc-400 uppercase mb-1">Recent Uploads</p>
                     <h3 className="text-3xl font-bold text-white">12</h3>
                   </div>
                 </div>
@@ -979,35 +979,35 @@ export default function LawyerDashboard() {
             </div>
             
             {/* Documents Table */}
-            <div className="glass rounded-2xl border border-blue-500/20 overflow-hidden">
+            <div className="bg-zinc-900 rounded-2xl border border-zinc-800 overflow-hidden">
               <table className="w-full">
-                <thead className="bg-slate-900/50 border-b border-slate-800/50">
+                <thead className="bg-zinc-900/50 border-b border-zinc-800/50">
                   <tr>
-                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Document Name</th>
-                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Associated Case</th>
-                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Type</th>
-                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Date</th>
-                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Size</th>
-                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Actions</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-zinc-400 uppercase tracking-wider">Document Name</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-zinc-400 uppercase tracking-wider">Associated Case</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-zinc-400 uppercase tracking-wider">Type</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-zinc-400 uppercase tracking-wider">Date</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-zinc-400 uppercase tracking-wider">Size</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-zinc-400 uppercase tracking-wider">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {documents.map((doc, idx) => (
-                    <tr key={idx} className="border-b border-slate-800/30 hover:bg-slate-900/30 transition-all duration-200">
+                    <tr key={idx} className="border-b border-zinc-800/30 hover:bg-zinc-900/30 transition-all duration-200">
                       <td className="px-6 py-4 flex items-center space-x-2">
                         <FileText className="w-5 h-5 text-red-400" />
                         <span className="font-medium text-white">{doc.name}</span>
                       </td>
-                      <td className="px-6 py-4 text-sm text-slate-400">{doc.case}</td>
+                      <td className="px-6 py-4 text-sm text-zinc-400">{doc.case}</td>
                       <td className="px-6 py-4">
-                        <span className="px-3 py-1 bg-slate-800/50 text-slate-300 rounded-full text-xs border border-slate-700/50">
+                        <span className="px-3 py-1 bg-zinc-800/50 text-zinc-300 rounded-full text-xs border border-zinc-800/50">
                           {doc.type}
                         </span>
                       </td>
-                      <td className="px-6 py-4 text-sm text-slate-400">{doc.date}</td>
-                      <td className="px-6 py-4 text-sm text-slate-400">{doc.size}</td>
+                      <td className="px-6 py-4 text-sm text-zinc-400">{doc.date}</td>
+                      <td className="px-6 py-4 text-sm text-zinc-400">{doc.size}</td>
                       <td className="px-6 py-4">
-                        <button className="text-slate-400 hover:text-white transition-colors">
+                        <button className="text-zinc-400 hover:text-white transition-colors">
                           <MoreVertical className="w-5 h-5" />
                         </button>
                       </td>
@@ -1031,11 +1031,11 @@ export default function LawyerDashboard() {
                     End-to-End Encrypted
                   </span>
                 </div>
-                <p className="text-slate-400">Connect, collaborate, and learn from fellow legal professionals</p>
+                <p className="text-zinc-400">Connect, collaborate, and learn from fellow legal professionals</p>
               </div>
               <div className="flex items-center space-x-3">
                 <div className="text-right mr-4">
-                  <p className="text-sm text-slate-400">Active Lawyers</p>
+                  <p className="text-sm text-zinc-400">Active Lawyers</p>
                   <p className="text-2xl font-bold text-white">247</p>
                 </div>
                 <Button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl px-6 shadow-lg shadow-blue-500/50">
@@ -1046,50 +1046,50 @@ export default function LawyerDashboard() {
             
             {/* Network Stats */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-              <div className="glass rounded-2xl p-6 border border-blue-500/20 relative overflow-hidden group">
+              <div className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800 relative overflow-hidden group">
                 <div className="absolute -right-4 -top-4 w-24 h-24 bg-blue-500/10 rounded-full blur-2xl"></div>
                 <div className="relative z-10">
                   <Users className="w-8 h-8 text-blue-400 mb-3" />
                   <h3 className="text-3xl font-bold text-white mb-1">247</h3>
-                  <p className="text-xs text-slate-400 uppercase">Active Members</p>
+                  <p className="text-xs text-zinc-400 uppercase">Active Members</p>
                 </div>
               </div>
               
-              <div className="glass rounded-2xl p-6 border border-purple-500/20 relative overflow-hidden group">
+              <div className="bg-zinc-900 rounded-2xl p-6 border border-purple-500/20 relative overflow-hidden group">
                 <div className="absolute -right-4 -top-4 w-24 h-24 bg-purple-500/10 rounded-full blur-2xl"></div>
                 <div className="relative z-10">
                   <MessageSquare className="w-8 h-8 text-purple-400 mb-3" />
                   <h3 className="text-3xl font-bold text-white mb-1">1,423</h3>
-                  <p className="text-xs text-slate-400 uppercase">Discussions</p>
+                  <p className="text-xs text-zinc-400 uppercase">Discussions</p>
                 </div>
               </div>
               
-              <div className="glass rounded-2xl p-6 border border-green-500/20 relative overflow-hidden group">
+              <div className="bg-zinc-900 rounded-2xl p-6 border border-green-500/20 relative overflow-hidden group">
                 <div className="absolute -right-4 -top-4 w-24 h-24 bg-green-500/10 rounded-full blur-2xl"></div>
                 <div className="relative z-10">
                   <CheckCircle className="w-8 h-8 text-green-400 mb-3" />
                   <h3 className="text-3xl font-bold text-white mb-1">892</h3>
-                  <p className="text-xs text-slate-400 uppercase">Resolved</p>
+                  <p className="text-xs text-zinc-400 uppercase">Resolved</p>
                 </div>
               </div>
               
-              <div className="glass rounded-2xl p-6 border border-amber-500/20 relative overflow-hidden group">
+              <div className="bg-zinc-900 rounded-2xl p-6 border border-amber-500/20 relative overflow-hidden group">
                 <div className="absolute -right-4 -top-4 w-24 h-24 bg-amber-500/10 rounded-full blur-2xl"></div>
                 <div className="relative z-10">
                   <FileText className="w-8 h-8 text-amber-400 mb-3" />
                   <h3 className="text-3xl font-bold text-white mb-1">156</h3>
-                  <p className="text-xs text-slate-400 uppercase">Resources Shared</p>
+                  <p className="text-xs text-zinc-400 uppercase">Resources Shared</p>
                 </div>
               </div>
             </div>
             
             {/* Recent Discussions */}
-            <div className="glass rounded-2xl border border-blue-500/20 p-6">
+            <div className="bg-zinc-900 rounded-2xl border border-zinc-800 p-6">
               <h2 className="text-xl font-bold text-white mb-6">Recent Discussions</h2>
               
               <div className="space-y-4">
                 {networkMessages.map((msg) => (
-                  <div key={msg.id} className="p-4 rounded-xl bg-slate-900/50 border border-slate-800/50 hover:bg-slate-800/70 transition-all duration-300 cursor-pointer">
+                  <div key={msg.id} className="p-4 rounded-xl bg-zinc-900/50 border border-zinc-800/50 hover:bg-zinc-800/70 transition-all duration-300 cursor-pointer">
                     <div className="flex items-start space-x-4">
                       <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg relative">
                         <span className="text-white font-bold">{msg.sender.split(' ')[1][0]}</span>
@@ -1108,21 +1108,21 @@ export default function LawyerDashboard() {
                               </span>
                             )}
                           </div>
-                          <span className="text-xs text-slate-500">{msg.time}</span>
+                          <span className="text-xs text-zinc-500">{msg.time}</span>
                         </div>
                         
-                        <p className="text-slate-300 text-sm mb-3">{msg.message}</p>
+                        <p className="text-zinc-300 text-sm mb-3">{msg.message}</p>
                         
                         <div className="flex items-center space-x-4 text-xs">
-                          <button className="flex items-center space-x-1 text-slate-400 hover:text-blue-400 transition-colors">
+                          <button className="flex items-center space-x-1 text-zinc-400 hover:text-blue-400 transition-colors">
                             <MessageSquare className="w-4 h-4" />
                             <span>{msg.replies} Replies</span>
                           </button>
-                          <button className="flex items-center space-x-1 text-slate-400 hover:text-blue-400 transition-colors">
+                          <button className="flex items-center space-x-1 text-zinc-400 hover:text-blue-400 transition-colors">
                             <span>💬</span>
                             <span>Reply</span>
                           </button>
-                          <button className="flex items-center space-x-1 text-slate-400 hover:text-blue-400 transition-colors">
+                          <button className="flex items-center space-x-1 text-zinc-400 hover:text-blue-400 transition-colors">
                             <span>🔖</span>
                             <span>Save</span>
                           </button>
@@ -1133,7 +1133,7 @@ export default function LawyerDashboard() {
                 ))}
               </div>
               
-              <Button className="w-full mt-6 bg-gradient-to-r from-slate-800 to-slate-900 hover:from-slate-700 hover:to-slate-800 text-white rounded-xl py-3 border border-slate-700/50">
+              <Button className="w-full mt-6 bg-gradient-to-r from-slate-800 to-slate-900 hover:from-slate-700 hover:to-slate-800 text-white rounded-xl py-3 border border-zinc-800/50">
                 Load More Discussions →
               </Button>
             </div>
@@ -1146,7 +1146,7 @@ export default function LawyerDashboard() {
             <div className="flex items-center justify-between mb-8">
               <div>
                 <h1 className="text-3xl font-bold text-white mb-2">Earnings & Billing</h1>
-                <p className="text-slate-400">Track your income and manage your finances</p>
+                <p className="text-zinc-400">Track your income and manage your finances</p>
               </div>
               <Button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl px-6 shadow-lg shadow-blue-500/50">
                 Generate Report
@@ -1155,49 +1155,49 @@ export default function LawyerDashboard() {
             
             {/* Revenue Stats */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="glass rounded-2xl border border-blue-500/20 p-6 relative overflow-hidden group">
+              <div className="bg-zinc-900 rounded-2xl border border-zinc-800 p-6 relative overflow-hidden group">
                 <div className="absolute -right-4 -top-4 w-24 h-24 bg-blue-500/10 rounded-full blur-2xl"></div>
-                <p className="text-sm text-slate-400 mb-2 relative z-10">Total Revenue</p>
+                <p className="text-sm text-zinc-400 mb-2 relative z-10">Total Revenue</p>
                 <h3 className="text-4xl font-bold text-white relative z-10">₹2,56,789.50</h3>
               </div>
               
-              <div className="glass rounded-2xl border border-green-500/20 p-6 relative overflow-hidden group">
+              <div className="bg-zinc-900 rounded-2xl border border-green-500/20 p-6 relative overflow-hidden group">
                 <div className="absolute -right-4 -top-4 w-24 h-24 bg-green-500/10 rounded-full blur-2xl"></div>
-                <p className="text-sm text-slate-400 mb-2 relative z-10">This Month</p>
+                <p className="text-sm text-zinc-400 mb-2 relative z-10">This Month</p>
                 <h3 className="text-4xl font-bold text-white relative z-10">₹15,430.00</h3>
               </div>
               
-              <div className="glass rounded-2xl border border-amber-500/20 p-6 relative overflow-hidden group">
+              <div className="bg-zinc-900 rounded-2xl border border-amber-500/20 p-6 relative overflow-hidden group">
                 <div className="absolute -right-4 -top-4 w-24 h-24 bg-amber-500/10 rounded-full blur-2xl"></div>
-                <p className="text-sm text-slate-400 mb-2 relative z-10">Pending Payments</p>
+                <p className="text-sm text-zinc-400 mb-2 relative z-10">Pending Payments</p>
                 <h3 className="text-4xl font-bold text-white relative z-10">₹8,200.00</h3>
               </div>
             </div>
             
             {/* Billing History */}
-            <div className="glass rounded-2xl border border-blue-500/20">
-              <div className="p-6 border-b border-slate-800/50">
+            <div className="bg-zinc-900 rounded-2xl border border-zinc-800">
+              <div className="p-6 border-b border-zinc-800/50">
                 <h2 className="text-xl font-bold text-white">Billing History</h2>
               </div>
               
               <table className="w-full">
-                <thead className="bg-slate-900/50 border-b border-slate-800/50">
+                <thead className="bg-zinc-900/50 border-b border-zinc-800/50">
                   <tr>
-                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Invoice ID</th>
-                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Client Name</th>
-                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Case</th>
-                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Date</th>
-                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Amount</th>
-                    <th className="text-left px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">Status</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-zinc-400 uppercase tracking-wider">Invoice ID</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-zinc-400 uppercase tracking-wider">Client Name</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-zinc-400 uppercase tracking-wider">Case</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-zinc-400 uppercase tracking-wider">Date</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-zinc-400 uppercase tracking-wider">Amount</th>
+                    <th className="text-left px-6 py-4 text-xs font-semibold text-zinc-400 uppercase tracking-wider">Status</th>
                   </tr>
                 </thead>
                 <tbody>
                   {billingHistory.map((bill, idx) => (
-                    <tr key={idx} className="border-b border-slate-800/30 hover:bg-slate-900/30 transition-all duration-200">
+                    <tr key={idx} className="border-b border-zinc-800/30 hover:bg-zinc-900/30 transition-all duration-200">
                       <td className="px-6 py-4 font-medium text-white">{bill.invoice}</td>
                       <td className="px-6 py-4 text-white">{bill.client}</td>
-                      <td className="px-6 py-4 text-sm text-slate-400">{bill.case}</td>
-                      <td className="px-6 py-4 text-sm text-slate-400">{bill.date}</td>
+                      <td className="px-6 py-4 text-sm text-zinc-400">{bill.case}</td>
+                      <td className="px-6 py-4 text-sm text-zinc-400">{bill.date}</td>
                       <td className="px-6 py-4 font-semibold text-white">{bill.amount}</td>
                       <td className="px-6 py-4">
                         <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
