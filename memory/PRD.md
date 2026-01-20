@@ -1,91 +1,88 @@
 # Nyaay Sathi - Legal Tech Platform PRD
 
-## Overview
-A comprehensive legal-tech platform serving Clients, Lawyers, and Law Firms in India.
+## Original Problem Statement
+Build a comprehensive legal-tech platform "Nyaay Sathi" that helps users find lawyers (both independent and from law firms), and enables lawyers and law firms to manage their practice. The platform supports three distinct user flows: Clients, Independent Lawyers, and Law Firms (with sub-roles: Lawyers and Managers).
 
-## Tech Stack
-- **Frontend**: React, TailwindCSS, Framer Motion, lucide-react
-- **Backend**: FastAPI, Python, Pydantic
-- **Database**: MongoDB
-- **AI**: Gemini via emergentintegrations
+## Architecture
+```
+/app
+├── backend/
+│   ├── models/       # Pydantic models
+│   ├── routes/       # FastAPI routers (auth, admin, lawfirms, firm_lawyers, etc.)
+│   ├── services/     # Business logic
+│   └── server.py     # Main FastAPI app
+├── frontend/
+│   ├── src/
+│   │   ├── components/ui/  # Shadcn components
+│   │   ├── pages/          # All page components
+│   │   └── App.js          # Routes
+│   └── package.json
+└── memory/
+    └── PRD.md
+```
 
----
+## Implemented Features (as of Jan 2025)
 
-## All User Flows (Complete)
+### User/Client Features
+- [x] Role selection page (Client / Lawyer / Law Firm)
+- [x] Client signup and login
+- [x] Find Lawyer page with "Independent Lawyer" vs "Law Firm" search split
+- [x] AI-powered lawyer search assistant
+- [x] Manual lawyer search with filters
+- [x] Client dashboard
 
-### 1. Client Flow
-- **Get Started** → `/user-signup` → Create Account → `/user-dashboard`
-- **Login** → `/user-login` → Dashboard
-- **Find Lawyer** → Manual Search or AI Chat → Book Consultation → Signup
+### Independent Lawyer Features
+- [x] Lawyer application form
+- [x] Admin approval workflow
+- [x] Lawyer login
+- [x] Lawyer dashboard with Calendar, Messages, Stats
 
-### 2. Lawyer Flow
-- **Get Started** → `/lawyer-application` → 4-Step Form → Admin Approval → Login
-- **Login** → `/lawyer-login` → `/lawyer-dashboard`
+### Law Firm Features
+- [x] Law Firm Role Selection (Lawyer / Manager)
+- [x] **Firm Lawyer Application Flow (NEW)**
+  - Step 1: Personal information
+  - Step 2: Select law firm to join
+  - Step 3: Professional details
+- [x] Firm Lawyer login (after admin approval)
+- [x] Firm Lawyer dashboard with tasks
+- [x] Manager application form
+- [x] Manager login and dashboard
+- [x] Reports tab in Manager dashboard
 
-### 3. Law Firm Flow
-- **Get Started** → `/lawfirm-application` → 4-Step Form → Admin Approval → Login
-- **Login** → `/lawfirm-login` → `/lawfirm-dashboard`
-
-### 4. Admin Flow
-- **Login** → `/admin-login` → `/admin`
-- Review & Approve/Reject Lawyer Applications
-- Review & Approve/Reject Law Firm Applications
-
----
-
-## Admin Dashboard Features
-
-| Section | Features |
-|---------|----------|
-| **Lawyer Applications** | View all lawyer apps, Filter by status, Approve/Reject, View details modal |
-| **Law Firm Applications** | View all firm apps, Filter by status, Approve/Reject, View details modal |
-| **Stats Cards** | Pending, Approved, Rejected counts for each section |
-| **Tab Navigation** | Switch between Lawyer and Law Firm applications with badge counters |
-
----
-
-## Complete Feature Matrix
-
-| User Type | Dashboard | Cases | Calendar | Messages | Documents | Analytics | Settings |
-|-----------|-----------|-------|----------|----------|-----------|-----------|----------|
-| Client | ✅ | ✅ | ✅ | ✅ | ✅ | - | ✅ |
-| Lawyer | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Law Firm | ✅ | ✅ | ✅ | ✅ | - | ✅ | ✅ |
-| Admin | ✅ Lawyer Apps | ✅ Law Firm Apps | - | - | - | - | - |
-
----
+### Admin Features
+- [x] Admin login (/admin-login)
+- [x] Lawyer applications tab
+- [x] Law Firm applications tab  
+- [x] **Firm Lawyer applications tab (NEW)**
+- [x] Approve/Reject functionality for all application types
 
 ## Test Credentials
+- **Admin:** admin@nyaaysathi.com / admin123
+- **Dummy Firm Lawyers:** lawyer1@firm.com - lawyer5@firm.com / lawyer123
+- **Pending Firm Lawyer Apps:** pending1@firm.com - pending3@firm.com / pending123
 
-| User Type | Email | Password | URL |
-|-----------|-------|----------|-----|
-| Admin | admin@nyaaysathi.com | admin123 | /admin-login |
-| Lawyer | testlawyer@nyaaysathi.com | lawyer123 | /lawyer-login |
-| Client | testclient123@example.com | test123456 | /user-login |
-| Law Firm | testlawfirm@nyaaysathi.com | firm123 | /lawfirm-login |
-
----
+## Database Collections
+- `users` - All user types (client, lawyer, law_firm, firm_lawyer)
+- `lawyer_applications` - Independent lawyer applications
+- `lawfirm_applications` - Law firm (manager) applications
+- `firm_lawyer_applications` - Firm lawyer applications
+- `firm_tasks` - Tasks assigned to firm lawyers
+- `chat_history` - AI chat sessions
 
 ## API Endpoints
+- POST /api/auth/login - User login
+- POST /api/admin/login - Admin login
+- POST /api/lawyer-applications - Submit lawyer application
+- POST /api/lawfirm-applications - Submit law firm application
+- POST /api/firm-lawyer-applications - Submit firm lawyer application
+- GET /api/firm-lawyers/applications - Get all firm lawyer applications
+- PUT /api/firm-lawyers/applications/{id}/status - Approve/Reject firm lawyer
 
-### Admin Endpoints
-- `POST /api/admin/login` - Admin login
-- `GET /api/admin/lawyer-applications` - List lawyer applications
-- `PUT /api/admin/lawyer-applications/{id}/approve` - Approve lawyer
-- `PUT /api/admin/lawyer-applications/{id}/reject` - Reject lawyer
-- `GET /api/admin/lawfirm-applications` - List law firm applications
-- `PUT /api/admin/lawfirm-applications/{id}/approve` - Approve law firm
-- `PUT /api/admin/lawfirm-applications/{id}/reject` - Reject law firm
-
----
-
-## Current Status: FULLY FUNCTIONAL
-
-All features implemented:
-- ✅ Client signup, login, dashboard
-- ✅ Lawyer application, approval, login, dashboard
-- ✅ Law Firm application, approval, login, dashboard
-- ✅ Admin dashboard with dual section (Lawyers + Law Firms)
-- ✅ 1000 dummy lawyers with Indian data
-- ✅ AI chatbot with lawyer recommendations
-- ✅ All dashboard tabs functional with dummy data
+## Next Tasks (Backlog)
+- [ ] Manager can view and manage firm lawyers from their dashboard
+- [ ] Task assignment from Manager to Firm Lawyers
+- [ ] Real-time messaging (WebSockets)
+- [ ] Video conferencing integration
+- [ ] Rating and review system
+- [ ] Lawyer comparison tool
+- [ ] Payment integration
