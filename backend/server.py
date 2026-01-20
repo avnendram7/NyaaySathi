@@ -20,6 +20,7 @@ from routes import (
     chat_router,
     bookings_router,
     lawyers_router,
+    lawfirms_router,
     waitlist_router,
     admin_router
 )
