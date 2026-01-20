@@ -576,61 +576,141 @@ RULES:
         </motion.div>
 
         {/* Selection Cards */}
-        {!activeTab && (
+        {!activeTab && !lawyerTypeSelection && (
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-12">
-            {/* Manual Search Card */}
+            {/* Independent Lawyer Card */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 }}
               whileHover={{ scale: 1.02, y: -5 }}
-              onClick={() => setActiveTab('manual')}
+              onClick={() => setLawyerTypeSelection('independent')}
+              data-testid="select-independent-lawyer"
               className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-8 cursor-pointer hover:border-cyan-500/50 transition-all duration-300 group"
             >
               <div className="w-16 h-16 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <Search className="w-8 h-8 text-white" />
+                <Scale className="w-8 h-8 text-white" />
               </div>
-              <h2 className="text-2xl font-bold text-white mb-3">Find Lawyer Manually</h2>
+              <h2 className="text-2xl font-bold text-white mb-3">Independent Lawyer</h2>
               <p className="text-slate-400 mb-6">
-                Search by name, location, specialization, or browse through our {allLawyers.length}+ verified lawyers.
+                Find individual lawyers who practice independently. Perfect for personal legal matters and one-on-one consultations.
               </p>
               <div className="flex flex-wrap gap-2 mb-6">
-                <span className="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-sm">Search Bar</span>
-                <span className="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-sm">Filter by State</span>
-                <span className="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-sm">Case Type</span>
+                <span className="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-sm">Personal Attention</span>
+                <span className="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-sm">Direct Contact</span>
+                <span className="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-sm">Flexible Fees</span>
               </div>
               <div className="flex items-center text-cyan-400 font-semibold group-hover:gap-3 transition-all">
-                <span>Start Searching</span>
+                <span>Browse Lawyers</span>
                 <ArrowRight className="w-5 h-5 ml-2" />
               </div>
             </motion.div>
 
-            {/* AI Search Card */}
+            {/* Law Firm Card */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3 }}
               whileHover={{ scale: 1.02, y: -5 }}
-              onClick={() => setActiveTab('ai')}
+              onClick={() => setLawyerTypeSelection('firm')}
+              data-testid="select-law-firm"
               className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-8 cursor-pointer hover:border-purple-500/50 transition-all duration-300 group"
             >
               <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <Bot className="w-8 h-8 text-white" />
+                <Building2 className="w-8 h-8 text-white" />
               </div>
-              <h2 className="text-2xl font-bold text-white mb-3">Find Lawyer with AI</h2>
+              <h2 className="text-2xl font-bold text-white mb-3">Law Firm</h2>
               <p className="text-slate-400 mb-6">
-                Describe your legal problem and our AI will understand your needs and recommend the best lawyers for you.
+                Connect with established law firms with teams of specialized lawyers. Ideal for complex cases and corporate matters.
               </p>
               <div className="flex flex-wrap gap-2 mb-6">
-                <span className="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm">AI Powered</span>
-                <span className="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm">Conversational</span>
-                <span className="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm">Personalized</span>
+                <span className="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm">Team Support</span>
+                <span className="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm">Multiple Experts</span>
+                <span className="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm">Full-Service</span>
               </div>
               <div className="flex items-center text-purple-400 font-semibold group-hover:gap-3 transition-all">
-                <span>Start Chat</span>
+                <span>Browse Firms</span>
                 <ArrowRight className="w-5 h-5 ml-2" />
               </div>
             </motion.div>
+          </div>
+        )}
+
+        {/* Search Method Selection - After choosing lawyer type */}
+        {!activeTab && lawyerTypeSelection && (
+          <div>
+            <Button
+              variant="ghost"
+              onClick={() => setLawyerTypeSelection(null)}
+              className="text-slate-400 hover:text-white mb-6"
+            >
+              ← Back to selection
+            </Button>
+            
+            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-12">
+              {/* Manual Search Card */}
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.2 }}
+                whileHover={{ scale: 1.02, y: -5 }}
+                onClick={() => setActiveTab('manual')}
+                className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-8 cursor-pointer hover:border-cyan-500/50 transition-all duration-300 group"
+              >
+                <div className="w-16 h-16 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                  <Search className="w-8 h-8 text-white" />
+                </div>
+                <h2 className="text-2xl font-bold text-white mb-3">
+                  Search {lawyerTypeSelection === 'firm' ? 'Law Firms' : 'Lawyers'} Manually
+                </h2>
+                <p className="text-slate-400 mb-6">
+                  {lawyerTypeSelection === 'firm' 
+                    ? `Browse through ${lawFirms.length || 'our'} registered law firms by location and practice area.`
+                    : `Search by name, location, specialization, or browse through our ${allLawyers.length}+ verified lawyers.`
+                  }
+                </p>
+                <div className="flex flex-wrap gap-2 mb-6">
+                  <span className="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-sm">Search Bar</span>
+                  <span className="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-sm">Filter by State</span>
+                  <span className="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-sm">
+                    {lawyerTypeSelection === 'firm' ? 'Practice Area' : 'Case Type'}
+                  </span>
+                </div>
+                <div className="flex items-center text-cyan-400 font-semibold group-hover:gap-3 transition-all">
+                  <span>Start Searching</span>
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </div>
+              </motion.div>
+
+              {/* AI Search Card */}
+              <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.3 }}
+                whileHover={{ scale: 1.02, y: -5 }}
+                onClick={() => setActiveTab('ai')}
+                className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-8 cursor-pointer hover:border-purple-500/50 transition-all duration-300 group"
+              >
+                <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                  <Bot className="w-8 h-8 text-white" />
+                </div>
+                <h2 className="text-2xl font-bold text-white mb-3">
+                  Find with AI Assistant
+                </h2>
+                <p className="text-slate-400 mb-6">
+                  Describe your legal problem and our AI will understand your needs and recommend the best {lawyerTypeSelection === 'firm' ? 'law firms' : 'lawyers'} for you.
+                </p>
+                <div className="flex flex-wrap gap-2 mb-6">
+                  <span className="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm">AI Powered</span>
+                  <span className="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm">Conversational</span>
+                  <span className="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm">Personalized</span>
+                </div>
+                <div className="flex items-center text-purple-400 font-semibold group-hover:gap-3 transition-all">
+                  <span>Start Chat</span>
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </div>
+              </motion.div>
+            </div>
           </div>
         )}
 
