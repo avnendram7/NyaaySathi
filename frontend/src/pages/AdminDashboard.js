@@ -605,6 +605,134 @@ export default function AdminDashboard() {
     </motion.div>
   );
 
+  // Firm Lawyer Application Modal
+  const FirmLawyerApplicationModal = ({ app, onClose }) => (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+      onClick={onClose}
+    >
+      <motion.div
+        initial={{ scale: 0.95, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.95, opacity: 0 }}
+        onClick={(e) => e.stopPropagation()}
+        className="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+      >
+        {/* Header */}
+        <div className="p-6 border-b border-slate-700 flex items-start gap-4">
+          <div className="w-20 h-20 bg-gradient-to-br from-emerald-600 to-teal-700 rounded-xl flex items-center justify-center">
+            <Users className="w-10 h-10 text-white" />
+          </div>
+          <div className="flex-1">
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl font-bold text-white">{app.full_name}</h2>
+              <button onClick={onClose} className="text-slate-500 hover:text-white">
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+            <p className="text-emerald-400">{app.specialization}</p>
+            <div className="flex items-center gap-4 mt-2 text-sm text-slate-400">
+              <span className="flex items-center gap-1">
+                <Building2 className="w-4 h-4" />
+                {app.firm_name}
+              </span>
+              <span className="flex items-center gap-1">
+                <Briefcase className="w-4 h-4" />
+                {app.experience_years} years
+              </span>
+            </div>
+            <span className={`inline-block mt-3 px-3 py-1 rounded-full text-xs font-medium ${
+              app.status === 'pending' ? 'bg-amber-500/20 text-amber-400' :
+              app.status === 'approved' ? 'bg-green-500/20 text-green-400' :
+              'bg-red-500/20 text-red-400'
+            }`}>
+              {app.status?.charAt(0).toUpperCase() + app.status?.slice(1)}
+            </span>
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="p-6 space-y-4">
+          {/* Contact Info */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="bg-slate-800/50 rounded-xl p-4">
+              <h3 className="text-sm font-semibold text-slate-400 mb-2">Email</h3>
+              <p className="text-white">{app.email}</p>
+            </div>
+            <div className="bg-slate-800/50 rounded-xl p-4">
+              <h3 className="text-sm font-semibold text-slate-400 mb-2">Phone</h3>
+              <p className="text-white">{app.phone}</p>
+            </div>
+          </div>
+
+          {/* Professional Details */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="bg-slate-800/50 rounded-xl p-4">
+              <h3 className="text-sm font-semibold text-slate-400 mb-2">Bar Council Number</h3>
+              <p className="text-white">{app.bar_council_number || 'Not provided'}</p>
+            </div>
+            <div className="bg-slate-800/50 rounded-xl p-4">
+              <h3 className="text-sm font-semibold text-slate-400 mb-2">Education</h3>
+              <p className="text-white">{app.education || 'Not provided'}</p>
+            </div>
+          </div>
+
+          {/* Languages */}
+          <div className="bg-slate-800/50 rounded-xl p-4">
+            <h3 className="text-sm font-semibold text-slate-400 mb-2">Languages</h3>
+            <div className="flex flex-wrap gap-2">
+              {(app.languages || ['Hindi', 'English']).map((lang, idx) => (
+                <span key={idx} className="px-3 py-1 bg-emerald-500/20 text-emerald-400 rounded-full text-sm">
+                  {lang}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Bio */}
+          {app.bio && (
+            <div className="bg-slate-800/50 rounded-xl p-4">
+              <h3 className="text-sm font-semibold text-slate-400 mb-2">About</h3>
+              <p className="text-slate-300">{app.bio}</p>
+            </div>
+          )}
+
+          {/* Actions */}
+          {app.status === 'pending' && (
+            <div className="flex gap-4 pt-4">
+              <Button
+                onClick={() => handleFirmLawyerAction(app.id, 'approve')}
+                disabled={actionLoading === app.id}
+                className="flex-1 bg-green-600 hover:bg-green-500 rounded-full"
+              >
+                {actionLoading === app.id ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <>
+                    <CheckCircle className="w-4 h-4 mr-2" />
+                    Approve
+                  </>
+                )}
+              </Button>
+              <Button
+                onClick={() => handleFirmLawyerAction(app.id, 'reject')}
+                disabled={actionLoading === app.id}
+                variant="outline"
+                className="flex-1 border-red-500 text-red-400 hover:bg-red-500/10 rounded-full"
+              >
+                <XCircle className="w-4 h-4 mr-2" />
+                Reject
+              </Button>
+            </div>
+          )}
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
       {/* Header */}
