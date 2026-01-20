@@ -81,6 +81,7 @@ function App() {
               <Route path="/for-lawyers" element={<ForLawyersPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/user-login" element={<UserLoginPage />} />
+              <Route path="/user-signup" element={<UserSignupPage />} />
               <Route path="/lawyer-login" element={<LawyerLoginPage />} />
               <Route path="/lawfirm-login" element={<LawFirmLoginPage />} />
               <Route 
