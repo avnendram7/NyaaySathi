@@ -563,10 +563,144 @@ export default function LawyerDashboard() {
         {/* Calendar Tab */}
         {activeTab === 'calendar' && (
           <div className="p-8">
-            <h1 className="text-3xl font-bold text-white mb-8">Calendar</h1>
-            <div className="glass rounded-2xl border border-blue-500/20 p-8 text-center">
-              <CalendarIcon className="w-16 h-16 text-slate-600 mx-auto mb-4" />
-              <p className="text-slate-400">Calendar feature coming soon</p>
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <h1 className="text-3xl font-bold text-white mb-2">Calendar</h1>
+                <p className="text-slate-400">Manage your hearings, consultations and appointments</p>
+              </div>
+              <Button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl px-6 shadow-lg shadow-blue-500/50">
+                + Add Event
+              </Button>
+            </div>
+            
+            {/* Calendar Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+              <div className="glass rounded-2xl p-6 border border-blue-500/20">
+                <p className="text-xs text-slate-400 uppercase mb-2">Today</p>
+                <h3 className="text-3xl font-bold text-white">3</h3>
+                <p className="text-sm text-blue-400">Appointments</p>
+              </div>
+              <div className="glass rounded-2xl p-6 border border-amber-500/20">
+                <p className="text-xs text-slate-400 uppercase mb-2">This Week</p>
+                <h3 className="text-3xl font-bold text-white">12</h3>
+                <p className="text-sm text-amber-400">Hearings</p>
+              </div>
+              <div className="glass rounded-2xl p-6 border border-purple-500/20">
+                <p className="text-xs text-slate-400 uppercase mb-2">Upcoming</p>
+                <h3 className="text-3xl font-bold text-white">8</h3>
+                <p className="text-sm text-purple-400">Client Meetings</p>
+              </div>
+              <div className="glass rounded-2xl p-6 border border-green-500/20">
+                <p className="text-xs text-slate-400 uppercase mb-2">Completed</p>
+                <h3 className="text-3xl font-bold text-white">156</h3>
+                <p className="text-sm text-green-400">This Month</p>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Mini Calendar */}
+              <div className="glass rounded-2xl border border-blue-500/20 p-6">
+                <h2 className="text-lg font-bold text-white mb-4">January 2026</h2>
+                <div className="grid grid-cols-7 gap-2 text-center mb-4">
+                  {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
+                    <div key={day} className="text-xs text-slate-500 font-semibold py-2">{day}</div>
+                  ))}
+                  {[...Array(31)].map((_, i) => {
+                    const day = i + 1;
+                    const hasEvent = [5, 12, 14, 18, 20, 25, 28].includes(day);
+                    const isToday = day === 20;
+                    return (
+                      <div
+                        key={day}
+                        className={`py-2 text-sm rounded-lg cursor-pointer transition-all ${
+                          isToday ? 'bg-blue-600 text-white font-bold' :
+                          hasEvent ? 'bg-blue-500/20 text-blue-400 font-semibold' :
+                          'text-slate-400 hover:bg-slate-800'
+                        }`}
+                      >
+                        {day}
+                        {hasEvent && !isToday && <div className="w-1 h-1 bg-blue-400 rounded-full mx-auto mt-1"></div>}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+              
+              {/* Today's Schedule */}
+              <div className="lg:col-span-2 glass rounded-2xl border border-blue-500/20 p-6">
+                <h2 className="text-lg font-bold text-white mb-4">Today's Schedule - January 20, 2026</h2>
+                <div className="space-y-4">
+                  {[
+                    { time: '09:00 AM', title: 'Court Hearing - Property Dispute', client: 'Rajesh Kumar', location: 'Delhi High Court', type: 'hearing', status: 'upcoming' },
+                    { time: '11:30 AM', title: 'Client Consultation', client: 'Priya Sharma', location: 'Video Call', type: 'video', status: 'upcoming' },
+                    { time: '02:00 PM', title: 'Case Discussion', client: 'Amit Patel', location: 'Office', type: 'meeting', status: 'upcoming' },
+                    { time: '04:30 PM', title: 'Document Review Meeting', client: 'Neha Gupta', location: 'Chamber', type: 'meeting', status: 'upcoming' },
+                    { time: '06:00 PM', title: 'Bail Hearing Preparation', client: 'Vikram Singh', location: 'Tis Hazari Court', type: 'preparation', status: 'upcoming' }
+                  ].map((event, idx) => (
+                    <div key={idx} className={`flex items-center space-x-4 p-4 rounded-xl border ${
+                      idx === 0 ? 'bg-blue-500/10 border-blue-500/30' : 'bg-slate-900/50 border-slate-800/50'
+                    } hover:bg-slate-800/50 transition-all`}>
+                      <div className="flex-shrink-0 text-center w-20">
+                        <p className="text-sm font-bold text-white">{event.time}</p>
+                      </div>
+                      <div className={`w-1 h-12 rounded-full ${
+                        event.type === 'hearing' ? 'bg-red-500' :
+                        event.type === 'video' ? 'bg-blue-500' :
+                        event.type === 'meeting' ? 'bg-green-500' :
+                        'bg-amber-500'
+                      }`}></div>
+                      <div className="flex-1">
+                        <p className="font-semibold text-white">{event.title}</p>
+                        <p className="text-sm text-slate-400">👤 {event.client} • 📍 {event.location}</p>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        {event.type === 'video' && (
+                          <Button size="sm" className="bg-blue-600 hover:bg-blue-500 text-white rounded-lg px-4">
+                            <Video className="w-4 h-4 mr-1" /> Join
+                          </Button>
+                        )}
+                        <button className="text-slate-400 hover:text-white">
+                          <MoreVertical className="w-5 h-5" />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            
+            {/* Upcoming Hearings */}
+            <div className="mt-6 glass rounded-2xl border border-blue-500/20 p-6">
+              <h2 className="text-lg font-bold text-white mb-4">Upcoming Court Hearings</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {[
+                  { date: 'Jan 22', day: 'Wed', case: 'Kumar vs Builder Corp', court: 'Delhi High Court', time: '10:30 AM', type: 'Property' },
+                  { date: 'Jan 24', day: 'Fri', case: 'Sharma Divorce Case', court: 'Family Court, Saket', time: '11:00 AM', type: 'Family' },
+                  { date: 'Jan 27', day: 'Mon', case: 'Patel Consumer Rights', court: 'Consumer Forum', time: '02:00 PM', type: 'Consumer' },
+                  { date: 'Jan 29', day: 'Wed', case: 'Singh vs Employer', court: 'Labour Court', time: '10:00 AM', type: 'Employment' },
+                  { date: 'Feb 3', day: 'Mon', case: 'Gupta Bail Application', court: 'Sessions Court', time: '09:30 AM', type: 'Criminal' },
+                  { date: 'Feb 5', day: 'Wed', case: 'Mehta Property Suit', court: 'Civil Court, Dwarka', time: '11:30 AM', type: 'Property' }
+                ].map((hearing, idx) => (
+                  <div key={idx} className="p-4 rounded-xl bg-slate-900/50 border border-slate-800/50 hover:bg-slate-800/50 transition-all">
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="bg-blue-500/20 text-blue-400 px-3 py-2 rounded-lg text-center">
+                        <p className="text-lg font-bold">{hearing.date.split(' ')[1]}</p>
+                        <p className="text-xs">{hearing.date.split(' ')[0]}</p>
+                      </div>
+                      <span className={`text-xs px-2 py-1 rounded-full ${
+                        hearing.type === 'Property' ? 'bg-purple-500/20 text-purple-400' :
+                        hearing.type === 'Family' ? 'bg-pink-500/20 text-pink-400' :
+                        hearing.type === 'Consumer' ? 'bg-green-500/20 text-green-400' :
+                        hearing.type === 'Employment' ? 'bg-amber-500/20 text-amber-400' :
+                        'bg-red-500/20 text-red-400'
+                      }`}>{hearing.type}</span>
+                    </div>
+                    <h4 className="font-semibold text-white mb-1">{hearing.case}</h4>
+                    <p className="text-xs text-slate-400 mb-2">📍 {hearing.court}</p>
+                    <p className="text-xs text-slate-500">🕐 {hearing.time} • {hearing.day}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         )}
