@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Shield, Scale, Users, CheckCircle, XCircle, Clock, Eye, User, Mail, Phone, MapPin, Briefcase, GraduationCap, Star, ArrowLeft, Loader2, RefreshCw, LogOut } from 'lucide-react';
+import { Shield, Scale, Users, CheckCircle, XCircle, Clock, Eye, User, Mail, Phone, MapPin, Briefcase, GraduationCap, Star, ArrowLeft, Loader2, RefreshCw, LogOut, Building2, Globe, FileText } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { toast } from 'sonner';
 import axios from 'axios';
@@ -9,11 +9,19 @@ import { API } from '../App';
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
-  const [applications, setApplications] = useState([]);
+  const [activeSection, setActiveSection] = useState('lawyers'); // 'lawyers' or 'lawfirms'
+  
+  // Lawyer applications state
+  const [lawyerApplications, setLawyerApplications] = useState([]);
+  const [lawyerStats, setLawyerStats] = useState({ pending: 0, approved: 0, rejected: 0 });
+  
+  // Law Firm applications state
+  const [lawfirmApplications, setLawfirmApplications] = useState([]);
+  const [lawfirmStats, setLawfirmStats] = useState({ pending: 0, approved: 0, rejected: 0 });
+  
   const [loading, setLoading] = useState(true);
   const [selectedApp, setSelectedApp] = useState(null);
   const [actionLoading, setActionLoading] = useState(null);
-  const [stats, setStats] = useState({ pending: 0, approved: 0, rejected: 0 });
   const [filter, setFilter] = useState('pending');
 
   // Check if admin is logged in
@@ -22,19 +30,34 @@ export default function AdminDashboard() {
     if (!token) {
       navigate('/admin-login');
     } else {
-      fetchApplications();
+      fetchAllApplications();
     }
   }, [navigate]);
 
-  const fetchApplications = async () => {
+  const fetchAllApplications = async () => {
     setLoading(true);
     try {
       const token = localStorage.getItem('adminToken');
-      const response = await axios.get(`${API}/admin/lawyer-applications`, {
+      
+      // Fetch lawyer applications
+      const lawyerRes = await axios.get(`${API}/admin/lawyer-applications`, {
         headers: { Authorization: `Bearer ${token}` }
       });
-      setApplications(response.data.applications || []);
-      setStats(response.data.stats || { pending: 0, approved: 0, rejected: 0 });
+      setLawyerApplications(lawyerRes.data.applications || []);
+      setLawyerStats(lawyerRes.data.stats || { pending: 0, approved: 0, rejected: 0 });
+      
+      // Fetch law firm applications
+      try {
+        const firmRes = await axios.get(`${API}/admin/lawfirm-applications`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setLawfirmApplications(firmRes.data.applications || []);
+        setLawfirmStats(firmRes.data.stats || { pending: 0, approved: 0, rejected: 0 });
+      } catch (e) {
+        // Law firm endpoint might not exist yet
+        setLawfirmApplications([]);
+        setLawfirmStats({ pending: 0, approved: 0, rejected: 0 });
+      }
     } catch (error) {
       if (error.response?.status === 401 || error.response?.status === 403) {
         localStorage.removeItem('adminToken');
@@ -47,16 +70,33 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleAction = async (appId, action) => {
+  const handleLawyerAction = async (appId, action) => {
     setActionLoading(appId);
     try {
       const token = localStorage.getItem('adminToken');
       await axios.put(`${API}/admin/lawyer-applications/${appId}/${action}`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
-      toast.success(`Application ${action}ed successfully!`);
+      toast.success(`Lawyer application ${action}ed successfully!`);
       setSelectedApp(null);
-      fetchApplications();
+      fetchAllApplications();
+    } catch (error) {
+      toast.error(`Failed to ${action} application`);
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
+  const handleLawfirmAction = async (appId, action) => {
+    setActionLoading(appId);
+    try {
+      const token = localStorage.getItem('adminToken');
+      await axios.put(`${API}/admin/lawfirm-applications/${appId}/${action}`, {}, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      toast.success(`Law firm application ${action}ed successfully!`);
+      setSelectedApp(null);
+      fetchAllApplications();
     } catch (error) {
       toast.error(`Failed to ${action} application`);
     } finally {
@@ -69,22 +109,27 @@ export default function AdminDashboard() {
     navigate('/admin-login');
   };
 
-  const filteredApps = applications.filter(app => {
+  // Get current applications based on active section
+  const currentApplications = activeSection === 'lawyers' ? lawyerApplications : lawfirmApplications;
+  const currentStats = activeSection === 'lawyers' ? lawyerStats : lawfirmStats;
+
+  const filteredApps = currentApplications.filter(app => {
     if (filter === 'all') return true;
     return app.status === filter;
   });
 
-  const ApplicationCard = ({ app }) => (
+  // Lawyer Application Card
+  const LawyerApplicationCard = ({ app }) => (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ scale: 1.01 }}
       className="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-xl p-5 cursor-pointer hover:border-purple-500/50 transition-all"
-      onClick={() => setSelectedApp(app)}
+      onClick={() => setSelectedApp({ ...app, type: 'lawyer' })}
     >
       <div className="flex items-start gap-4">
         <img
-          src={app.photo || `https://randomuser.me/api/portraits/men/${app.id % 90}.jpg`}
+          src={app.photo || `https://randomuser.me/api/portraits/men/${parseInt(app._id?.slice(-2) || '10', 16) % 90}.jpg`}
           alt={app.name}
           className="w-14 h-14 rounded-full object-cover border-2 border-slate-600"
         />
@@ -96,7 +141,7 @@ export default function AdminDashboard() {
               app.status === 'approved' ? 'bg-green-500/20 text-green-400' :
               'bg-red-500/20 text-red-400'
             }`}>
-              {app.status.charAt(0).toUpperCase() + app.status.slice(1)}
+              {app.status?.charAt(0).toUpperCase() + app.status?.slice(1)}
             </span>
           </div>
           <p className="text-purple-400 text-sm">{app.specialization}</p>
@@ -120,7 +165,6 @@ export default function AdminDashboard() {
           size="sm"
           variant="ghost"
           className="text-purple-400 hover:text-purple-300 hover:bg-purple-500/10"
-          onClick={(e) => { e.stopPropagation(); setSelectedApp(app); }}
         >
           <Eye className="w-4 h-4 mr-1" />
           View Details
@@ -129,7 +173,61 @@ export default function AdminDashboard() {
     </motion.div>
   );
 
-  const ApplicationModal = ({ app, onClose }) => (
+  // Law Firm Application Card
+  const LawFirmApplicationCard = ({ app }) => (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      whileHover={{ scale: 1.01 }}
+      className="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-xl p-5 cursor-pointer hover:border-blue-500/50 transition-all"
+      onClick={() => setSelectedApp({ ...app, type: 'lawfirm' })}
+    >
+      <div className="flex items-start gap-4">
+        <div className="w-14 h-14 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-xl flex items-center justify-center">
+          <Building2 className="w-7 h-7 text-white" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center justify-between">
+            <h3 className="font-semibold text-white truncate">{app.firm_name}</h3>
+            <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+              app.status === 'pending' ? 'bg-amber-500/20 text-amber-400' :
+              app.status === 'approved' ? 'bg-green-500/20 text-green-400' :
+              'bg-red-500/20 text-red-400'
+            }`}>
+              {app.status?.charAt(0).toUpperCase() + app.status?.slice(1)}
+            </span>
+          </div>
+          <p className="text-blue-400 text-sm">{app.practice_areas?.slice(0, 2).join(', ')}</p>
+          <div className="flex items-center gap-3 mt-2 text-xs text-slate-400">
+            <span className="flex items-center gap-1">
+              <MapPin className="w-3 h-3" />
+              {app.city}, {app.state}
+            </span>
+            <span className="flex items-center gap-1">
+              <Users className="w-3 h-3" />
+              {app.total_lawyers} lawyers
+            </span>
+          </div>
+        </div>
+      </div>
+      <div className="flex items-center justify-between mt-4 pt-4 border-t border-slate-700/50">
+        <span className="text-xs text-slate-500">
+          Applied: {new Date(app.created_at).toLocaleDateString()}
+        </span>
+        <Button
+          size="sm"
+          variant="ghost"
+          className="text-blue-400 hover:text-blue-300 hover:bg-blue-500/10"
+        >
+          <Eye className="w-4 h-4 mr-1" />
+          View Details
+        </Button>
+      </div>
+    </motion.div>
+  );
+
+  // Lawyer Application Modal
+  const LawyerApplicationModal = ({ app, onClose }) => (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -147,7 +245,7 @@ export default function AdminDashboard() {
         {/* Header */}
         <div className="p-6 border-b border-slate-700 flex items-start gap-4">
           <img
-            src={app.photo || `https://randomuser.me/api/portraits/men/${app.id % 90}.jpg`}
+            src={app.photo || `https://randomuser.me/api/portraits/men/${parseInt(app._id?.slice(-2) || '10', 16) % 90}.jpg`}
             alt={app.name}
             className="w-20 h-20 rounded-xl object-cover border-2 border-purple-500"
           />
@@ -159,7 +257,7 @@ export default function AdminDashboard() {
                 app.status === 'approved' ? 'bg-green-500/20 text-green-400' :
                 'bg-red-500/20 text-red-400'
               }`}>
-                {app.status.charAt(0).toUpperCase() + app.status.slice(1)}
+                {app.status?.charAt(0).toUpperCase() + app.status?.slice(1)}
               </span>
             </div>
             <p className="text-purple-400">{app.specialization}</p>
@@ -238,7 +336,7 @@ export default function AdminDashboard() {
           {app.status === 'pending' && (
             <div className="flex gap-4 pt-4">
               <Button
-                onClick={() => handleAction(app._id, 'approve')}
+                onClick={() => handleLawyerAction(app._id, 'approve')}
                 disabled={actionLoading === app._id}
                 className="flex-1 bg-green-600 hover:bg-green-500 rounded-full"
               >
@@ -252,7 +350,153 @@ export default function AdminDashboard() {
                 )}
               </Button>
               <Button
-                onClick={() => handleAction(app._id, 'reject')}
+                onClick={() => handleLawyerAction(app._id, 'reject')}
+                disabled={actionLoading === app._id}
+                variant="outline"
+                className="flex-1 border-red-500 text-red-400 hover:bg-red-500/10 rounded-full"
+              >
+                <XCircle className="w-4 h-4 mr-2" />
+                Reject
+              </Button>
+            </div>
+          )}
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+
+  // Law Firm Application Modal
+  const LawFirmApplicationModal = ({ app, onClose }) => (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+      onClick={onClose}
+    >
+      <motion.div
+        initial={{ scale: 0.95, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.95, opacity: 0 }}
+        onClick={(e) => e.stopPropagation()}
+        className="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+      >
+        {/* Header */}
+        <div className="p-6 border-b border-slate-700 flex items-start gap-4">
+          <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-xl flex items-center justify-center">
+            <Building2 className="w-10 h-10 text-white" />
+          </div>
+          <div className="flex-1">
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl font-bold text-white">{app.firm_name}</h2>
+              <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                app.status === 'pending' ? 'bg-amber-500/20 text-amber-400' :
+                app.status === 'approved' ? 'bg-green-500/20 text-green-400' :
+                'bg-red-500/20 text-red-400'
+              }`}>
+                {app.status?.charAt(0).toUpperCase() + app.status?.slice(1)}
+              </span>
+            </div>
+            <p className="text-blue-400">Est. {app.established_year}</p>
+            <p className="text-slate-400 text-sm">Reg: {app.registration_number}</p>
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="p-6 space-y-6">
+          {/* Contact Person */}
+          <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-4">
+            <h3 className="text-sm font-semibold text-blue-400 mb-3">Contact Person</h3>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <p className="text-xs text-slate-400">Name</p>
+                <p className="text-white">{app.contact_name}</p>
+                {app.contact_designation && (
+                  <p className="text-slate-400 text-sm">{app.contact_designation}</p>
+                )}
+              </div>
+              <div>
+                <p className="text-xs text-slate-400">Email</p>
+                <p className="text-white">{app.contact_email}</p>
+                <p className="text-slate-400 text-sm">{app.contact_phone}</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Firm Stats */}
+          <div className="grid grid-cols-3 gap-4">
+            <div className="bg-slate-800/50 rounded-xl p-4 text-center">
+              <p className="text-2xl font-bold text-blue-400">{app.total_lawyers}</p>
+              <p className="text-slate-400 text-sm">Lawyers</p>
+            </div>
+            <div className="bg-slate-800/50 rounded-xl p-4 text-center">
+              <p className="text-2xl font-bold text-green-400">{app.total_staff || 0}</p>
+              <p className="text-slate-400 text-sm">Staff</p>
+            </div>
+            <div className="bg-slate-800/50 rounded-xl p-4 text-center">
+              <p className="text-2xl font-bold text-purple-400">{2026 - app.established_year}</p>
+              <p className="text-slate-400 text-sm">Years Old</p>
+            </div>
+          </div>
+
+          {/* Location */}
+          <div className="bg-slate-800/50 rounded-xl p-4">
+            <h3 className="text-sm font-semibold text-slate-400 mb-2">Location</h3>
+            <p className="text-white">{app.address || `${app.city}, ${app.state}`}</p>
+            <p className="text-slate-400">{app.city}, {app.state} {app.pincode && `- ${app.pincode}`}</p>
+            {app.website && (
+              <a href={app.website} target="_blank" rel="noopener noreferrer" className="text-blue-400 text-sm flex items-center gap-1 mt-2 hover:underline">
+                <Globe className="w-4 h-4" />
+                {app.website}
+              </a>
+            )}
+          </div>
+
+          {/* Practice Areas */}
+          <div className="bg-slate-800/50 rounded-xl p-4">
+            <h3 className="text-sm font-semibold text-slate-400 mb-2">Practice Areas</h3>
+            <div className="flex flex-wrap gap-2">
+              {app.practice_areas?.map(area => (
+                <span key={area} className="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm">
+                  {area}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Description */}
+          <div className="bg-slate-800/50 rounded-xl p-4">
+            <h3 className="text-sm font-semibold text-slate-400 mb-2">About the Firm</h3>
+            <p className="text-slate-300">{app.description}</p>
+          </div>
+
+          {/* Achievements */}
+          {app.achievements && (
+            <div className="bg-slate-800/50 rounded-xl p-4">
+              <h3 className="text-sm font-semibold text-slate-400 mb-2">Achievements</h3>
+              <p className="text-slate-300">{app.achievements}</p>
+            </div>
+          )}
+
+          {/* Actions */}
+          {app.status === 'pending' && (
+            <div className="flex gap-4 pt-4">
+              <Button
+                onClick={() => handleLawfirmAction(app._id, 'approve')}
+                disabled={actionLoading === app._id}
+                className="flex-1 bg-green-600 hover:bg-green-500 rounded-full"
+              >
+                {actionLoading === app._id ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <>
+                    <CheckCircle className="w-4 h-4 mr-2" />
+                    Approve
+                  </>
+                )}
+              </Button>
+              <Button
+                onClick={() => handleLawfirmAction(app._id, 'reject')}
                 disabled={actionLoading === app._id}
                 variant="outline"
                 className="flex-1 border-red-500 text-red-400 hover:bg-red-500/10 rounded-full"
@@ -276,12 +520,12 @@ export default function AdminDashboard() {
             <Shield className="w-8 h-8 text-purple-500" />
             <div>
               <h1 className="text-xl font-bold text-white">Admin Dashboard</h1>
-              <p className="text-sm text-slate-400">Manage lawyer applications</p>
+              <p className="text-sm text-slate-400">Manage applications</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
             <Button
-              onClick={fetchApplications}
+              onClick={fetchAllApplications}
               variant="outline"
               className="border-slate-700 text-slate-300 hover:bg-slate-800 rounded-full"
             >
@@ -301,6 +545,42 @@ export default function AdminDashboard() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-8">
+        {/* Section Tabs */}
+        <div className="flex gap-4 mb-8">
+          <button
+            onClick={() => { setActiveSection('lawyers'); setFilter('pending'); }}
+            className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all ${
+              activeSection === 'lawyers'
+                ? 'bg-gradient-to-r from-purple-600 to-purple-700 text-white shadow-lg shadow-purple-500/30'
+                : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
+            }`}
+          >
+            <User className="w-5 h-5" />
+            Lawyer Applications
+            {lawyerStats.pending > 0 && (
+              <span className="bg-amber-500 text-white text-xs px-2 py-0.5 rounded-full ml-2">
+                {lawyerStats.pending}
+              </span>
+            )}
+          </button>
+          <button
+            onClick={() => { setActiveSection('lawfirms'); setFilter('pending'); }}
+            className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all ${
+              activeSection === 'lawfirms'
+                ? 'bg-gradient-to-r from-blue-600 to-indigo-700 text-white shadow-lg shadow-blue-500/30'
+                : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
+            }`}
+          >
+            <Building2 className="w-5 h-5" />
+            Law Firm Applications
+            {lawfirmStats.pending > 0 && (
+              <span className="bg-amber-500 text-white text-xs px-2 py-0.5 rounded-full ml-2">
+                {lawfirmStats.pending}
+              </span>
+            )}
+          </button>
+        </div>
+
         {/* Stats Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
           <motion.div
@@ -311,7 +591,7 @@ export default function AdminDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-amber-400 text-sm">Pending</p>
-                <p className="text-3xl font-bold text-white">{stats.pending}</p>
+                <p className="text-3xl font-bold text-white">{currentStats.pending}</p>
               </div>
               <Clock className="w-10 h-10 text-amber-500/50" />
             </div>
@@ -326,7 +606,7 @@ export default function AdminDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-green-400 text-sm">Approved</p>
-                <p className="text-3xl font-bold text-white">{stats.approved}</p>
+                <p className="text-3xl font-bold text-white">{currentStats.approved}</p>
               </div>
               <CheckCircle className="w-10 h-10 text-green-500/50" />
             </div>
@@ -341,7 +621,7 @@ export default function AdminDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-red-400 text-sm">Rejected</p>
-                <p className="text-3xl font-bold text-white">{stats.rejected}</p>
+                <p className="text-3xl font-bold text-white">{currentStats.rejected}</p>
               </div>
               <XCircle className="w-10 h-10 text-red-500/50" />
             </div>
@@ -356,7 +636,7 @@ export default function AdminDashboard() {
               onClick={() => setFilter(f)}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                 filter === f
-                  ? 'bg-purple-600 text-white'
+                  ? activeSection === 'lawyers' ? 'bg-purple-600 text-white' : 'bg-blue-600 text-white'
                   : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
               }`}
             >
@@ -372,13 +652,21 @@ export default function AdminDashboard() {
           </div>
         ) : filteredApps.length === 0 ? (
           <div className="text-center py-20">
-            <Users className="w-16 h-16 text-slate-700 mx-auto mb-4" />
-            <p className="text-slate-400">No {filter === 'all' ? '' : filter} applications found</p>
+            {activeSection === 'lawyers' ? (
+              <User className="w-16 h-16 text-slate-700 mx-auto mb-4" />
+            ) : (
+              <Building2 className="w-16 h-16 text-slate-700 mx-auto mb-4" />
+            )}
+            <p className="text-slate-400">
+              No {filter === 'all' ? '' : filter} {activeSection === 'lawyers' ? 'lawyer' : 'law firm'} applications found
+            </p>
           </div>
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredApps.map(app => (
-              <ApplicationCard key={app._id} app={app} />
+              activeSection === 'lawyers' 
+                ? <LawyerApplicationCard key={app._id} app={app} />
+                : <LawFirmApplicationCard key={app._id} app={app} />
             ))}
           </div>
         )}
@@ -387,7 +675,9 @@ export default function AdminDashboard() {
       {/* Application Detail Modal */}
       <AnimatePresence>
         {selectedApp && (
-          <ApplicationModal app={selectedApp} onClose={() => setSelectedApp(null)} />
+          selectedApp.type === 'lawyer' 
+            ? <LawyerApplicationModal app={selectedApp} onClose={() => setSelectedApp(null)} />
+            : <LawFirmApplicationModal app={selectedApp} onClose={() => setSelectedApp(null)} />
         )}
       </AnimatePresence>
     </div>
