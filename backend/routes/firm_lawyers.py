@@ -50,6 +50,100 @@ async def firm_lawyer_login(login_data: FirmLawyerLogin):
     return {'token': token, 'user': user_response}
 
 
+# Firm Lawyer Applications endpoints
+@router.post("/applications")
+async def submit_firm_lawyer_application(application: FirmLawyerApplicationCreate):
+    """Submit a firm lawyer application"""
+    # Check if email already exists in users
+    existing_user = await db.users.find_one({'email': application.email})
+    if existing_user:
+        raise HTTPException(status_code=400, detail='A user with this email already exists')
+    
+    # Check if application already exists
+    existing_app = await db.firm_lawyer_applications.find_one({'email': application.email})
+    if existing_app:
+        raise HTTPException(status_code=400, detail='An application with this email already exists')
+    
+    # Create application
+    app_id = str(uuid.uuid4())
+    app_data = {
+        'id': app_id,
+        'full_name': application.full_name,
+        'email': application.email,
+        'phone': application.phone,
+        'password_hash': hash_password(application.password),
+        'firm_id': application.firm_id,
+        'firm_name': application.firm_name,
+        'specialization': application.specialization,
+        'experience_years': application.experience_years,
+        'bar_council_number': application.bar_council_number,
+        'education': application.education,
+        'languages': application.languages,
+        'bio': application.bio,
+        'status': 'pending',
+        'created_at': datetime.now(timezone.utc).isoformat()
+    }
+    
+    await db.firm_lawyer_applications.insert_one(app_data)
+    return {'message': 'Application submitted successfully', 'id': app_id}
+
+
+@router.get("/applications")
+async def get_firm_lawyer_applications():
+    """Get all firm lawyer applications (for admin)"""
+    applications = await db.firm_lawyer_applications.find(
+        {},
+        {'_id': 0, 'password_hash': 0}
+    ).sort('created_at', -1).to_list(100)
+    return applications
+
+
+@router.put("/applications/{app_id}/status")
+async def update_firm_lawyer_application_status(app_id: str, status: str):
+    """Update firm lawyer application status (approve/reject)"""
+    if status not in ['approved', 'rejected', 'pending']:
+        raise HTTPException(status_code=400, detail='Invalid status')
+    
+    application = await db.firm_lawyer_applications.find_one({'id': app_id})
+    if not application:
+        raise HTTPException(status_code=404, detail='Application not found')
+    
+    # Update application status
+    await db.firm_lawyer_applications.update_one(
+        {'id': app_id},
+        {'$set': {'status': status, 'updated_at': datetime.now(timezone.utc).isoformat()}}
+    )
+    
+    # If approved, create the user account
+    if status == 'approved':
+        lawyer_id = str(uuid.uuid4())
+        lawyer_doc = {
+            'id': lawyer_id,
+            'full_name': application['full_name'],
+            'email': application['email'],
+            'password_hash': application['password_hash'],
+            'phone': application['phone'],
+            'firm_id': application['firm_id'],
+            'firm_name': application['firm_name'],
+            'specialization': application['specialization'],
+            'experience_years': application.get('experience_years', 1),
+            'bar_council_number': application.get('bar_council_number'),
+            'education': application.get('education'),
+            'languages': application.get('languages', ['Hindi', 'English']),
+            'bio': application.get('bio'),
+            'user_type': 'firm_lawyer',
+            'is_active': True,
+            'created_at': datetime.now(timezone.utc).isoformat(),
+            'tasks_completed': 0,
+            'cases_assigned': 0,
+            'rating': 4.5
+        }
+        await db.users.insert_one(lawyer_doc)
+        return {'message': 'Application approved and lawyer account created', 'lawyer_id': lawyer_id}
+    
+    return {'message': f'Application {status}'}
+
+
 @router.post("")
 async def create_firm_lawyer(lawyer_data: FirmLawyerCreate, firm_id: str, firm_name: str):
     """Create a new firm lawyer (called by manager)"""
