@@ -42,6 +42,10 @@ export default function FindLawyer() {
   
   // Lawyer profile modal
   const [selectedLawyer, setSelectedLawyer] = useState(null);
+  
+  // Lawyer type selection (independent or firm)
+  const [lawyerTypeSelection, setLawyerTypeSelection] = useState(null); // 'independent' or 'firm'
+  const [lawFirms, setLawFirms] = useState([]);
 
   // Fetch approved lawyers from database on mount
   useEffect(() => {
