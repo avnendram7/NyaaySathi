@@ -65,6 +65,10 @@ api_router.post("/lawyer-applications")(submit_lawyer_application)
 from routes.lawfirms import submit_lawfirm_application
 api_router.post("/lawfirm-applications")(submit_lawfirm_application)
 
+# Legacy endpoint for firm lawyer applications
+from routes.firm_lawyers import submit_firm_lawyer_application
+api_router.post("/firm-lawyer-applications")(submit_firm_lawyer_application)
+
 # Include the router in the main app
 app.include_router(api_router)
 
