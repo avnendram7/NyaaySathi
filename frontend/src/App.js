@@ -12,6 +12,7 @@ import InitialLanding from './pages/InitialLanding';
 import RoleSelection from './pages/RoleSelection';
 import FindLawyer from './pages/FindLawyer';
 import LawyerApplication from './pages/LawyerApplication';
+import LawFirmApplication from './pages/LawFirmApplication';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
 import LandingPage from './pages/LandingPage';
