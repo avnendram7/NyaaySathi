@@ -71,7 +71,8 @@ export default function FindLawyer() {
             education: lawyer.education || 'LLB',
             bar_council: lawyer.bar_council_number || 'N/A',
             isVerified: true,
-            isFromDB: true
+            isFromDB: true,
+            isIndependent: true
           }));
           
           // Combine with dummy lawyers (DB lawyers first)
@@ -83,7 +84,19 @@ export default function FindLawyer() {
       }
     };
     
+    const fetchLawFirms = async () => {
+      try {
+        const response = await axios.get(`${API}/lawfirms`);
+        if (response.data && Array.isArray(response.data)) {
+          setLawFirms(response.data);
+        }
+      } catch (error) {
+        console.log('No law firms found');
+      }
+    };
+    
     fetchApprovedLawyers();
+    fetchLawFirms();
   }, []);
 
   // Get cities based on selected state
