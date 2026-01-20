@@ -693,7 +693,8 @@ export default function AdminDashboard() {
               onClick={() => setFilter(f)}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                 filter === f
-                  ? activeSection === 'lawyers' ? 'bg-purple-600 text-white' : 'bg-blue-600 text-white'
+                  ? activeSection === 'lawyers' ? 'bg-purple-600 text-white' : 
+                    activeSection === 'lawfirms' ? 'bg-blue-600 text-white' : 'bg-emerald-600 text-white'
                   : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
               }`}
             >
