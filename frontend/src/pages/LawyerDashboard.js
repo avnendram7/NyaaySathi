@@ -719,10 +719,197 @@ export default function LawyerDashboard() {
                 </div>
                 <p className="text-slate-400">Secure communication with your clients</p>
               </div>
+              <Button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl px-6 shadow-lg shadow-blue-500/50">
+                + New Message
+              </Button>
             </div>
-            <div className="glass rounded-2xl border border-blue-500/20 p-8 text-center">
-              <MessageSquare className="w-16 h-16 text-slate-600 mx-auto mb-4" />
-              <p className="text-slate-400">Message system coming soon</p>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[calc(100vh-200px)]">
+              {/* Conversations List */}
+              <div className="glass rounded-2xl border border-blue-500/20 overflow-hidden flex flex-col">
+                <div className="p-4 border-b border-slate-800/50">
+                  <div className="relative">
+                    <Search className="w-5 h-5 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
+                    <Input placeholder="Search conversations..." className="pl-10 bg-slate-900/50 border-slate-700 rounded-xl text-white" />
+                  </div>
+                </div>
+                
+                <div className="flex-1 overflow-y-auto">
+                  {[
+                    { name: 'Rajesh Kumar', message: 'Sir, I have uploaded all the property documents...', time: '2 min', unread: 3, online: true, avatar: 'R', color: 'bg-blue-500' },
+                    { name: 'Priya Sharma', message: 'Thank you for the update on my divorce case', time: '15 min', unread: 0, online: true, avatar: 'P', color: 'bg-purple-500' },
+                    { name: 'Amit Patel', message: 'When is the next hearing date?', time: '1 hr', unread: 1, online: false, avatar: 'A', color: 'bg-amber-500' },
+                    { name: 'Neha Gupta', message: 'Can we reschedule to next week?', time: '3 hr', unread: 0, online: true, avatar: 'N', color: 'bg-green-500' },
+                    { name: 'Vikram Singh', message: 'The witness statement is ready', time: 'Yesterday', unread: 0, online: false, avatar: 'V', color: 'bg-red-500' },
+                    { name: 'Sunita Devi', message: 'Please review the settlement amount', time: 'Yesterday', unread: 2, online: false, avatar: 'S', color: 'bg-pink-500' },
+                    { name: 'Mohit Verma', message: 'FIR copy attached for your reference', time: '2 days', unread: 0, online: false, avatar: 'M', color: 'bg-cyan-500' },
+                    { name: 'Kavita Sharma', message: 'Child custody papers signed', time: '3 days', unread: 0, online: true, avatar: 'K', color: 'bg-orange-500' }
+                  ].map((chat, idx) => (
+                    <div key={idx} className={`flex items-center space-x-3 p-4 cursor-pointer transition-all ${
+                      idx === 0 ? 'bg-blue-500/10 border-l-4 border-blue-500' : 'hover:bg-slate-800/50 border-l-4 border-transparent'
+                    }`}>
+                      <div className="relative flex-shrink-0">
+                        <div className={`w-12 h-12 ${chat.color} rounded-full flex items-center justify-center shadow-lg`}>
+                          <span className="text-white font-bold">{chat.avatar}</span>
+                        </div>
+                        {chat.online && (
+                          <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-400 rounded-full border-2 border-slate-900"></span>
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between mb-1">
+                          <p className="font-semibold text-white truncate">{chat.name}</p>
+                          <span className="text-xs text-slate-500">{chat.time}</span>
+                        </div>
+                        <p className="text-sm text-slate-400 truncate">{chat.message}</p>
+                      </div>
+                      {chat.unread > 0 && (
+                        <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+                          <span className="text-xs text-white font-bold">{chat.unread}</span>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              {/* Chat Window */}
+              <div className="lg:col-span-2 glass rounded-2xl border border-blue-500/20 overflow-hidden flex flex-col">
+                {/* Chat Header */}
+                <div className="p-4 border-b border-slate-800/50 flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div className="relative">
+                      <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
+                        <span className="text-white font-bold">R</span>
+                      </div>
+                      <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-400 rounded-full border-2 border-slate-900"></span>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-white">Rajesh Kumar</p>
+                      <p className="text-xs text-green-400">Online • Property Dispute Case</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <button className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-slate-700 transition-colors">
+                      <Phone className="w-5 h-5 text-slate-400" />
+                    </button>
+                    <button className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-slate-700 transition-colors">
+                      <Video className="w-5 h-5 text-slate-400" />
+                    </button>
+                    <button className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-slate-700 transition-colors">
+                      <MoreVertical className="w-5 h-5 text-slate-400" />
+                    </button>
+                  </div>
+                </div>
+                
+                {/* Messages */}
+                <div className="flex-1 overflow-y-auto p-4 space-y-4">
+                  {/* Date Separator */}
+                  <div className="flex items-center justify-center">
+                    <span className="px-3 py-1 bg-slate-800/50 rounded-full text-xs text-slate-500">Today</span>
+                  </div>
+                  
+                  {/* Received Message */}
+                  <div className="flex items-start space-x-3">
+                    <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+                      <span className="text-white text-sm font-bold">R</span>
+                    </div>
+                    <div className="max-w-[70%]">
+                      <div className="bg-slate-800 rounded-2xl rounded-tl-none p-4">
+                        <p className="text-white text-sm">Namaste Sir, I wanted to update you on the property documents.</p>
+                      </div>
+                      <p className="text-xs text-slate-500 mt-1">10:30 AM</p>
+                    </div>
+                  </div>
+                  
+                  {/* Received Message with attachment */}
+                  <div className="flex items-start space-x-3">
+                    <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+                      <span className="text-white text-sm font-bold">R</span>
+                    </div>
+                    <div className="max-w-[70%]">
+                      <div className="bg-slate-800 rounded-2xl rounded-tl-none p-4">
+                        <p className="text-white text-sm mb-3">I have uploaded all the property documents as requested:</p>
+                        <div className="space-y-2">
+                          <div className="flex items-center space-x-2 bg-slate-700/50 rounded-lg p-2">
+                            <FileText className="w-5 h-5 text-red-400" />
+                            <span className="text-sm text-slate-300">Sale_Deed_2020.pdf</span>
+                            <span className="text-xs text-slate-500 ml-auto">2.4 MB</span>
+                          </div>
+                          <div className="flex items-center space-x-2 bg-slate-700/50 rounded-lg p-2">
+                            <FileText className="w-5 h-5 text-red-400" />
+                            <span className="text-sm text-slate-300">Property_Registration.pdf</span>
+                            <span className="text-xs text-slate-500 ml-auto">1.8 MB</span>
+                          </div>
+                        </div>
+                      </div>
+                      <p className="text-xs text-slate-500 mt-1">10:32 AM</p>
+                    </div>
+                  </div>
+                  
+                  {/* Sent Message */}
+                  <div className="flex items-start justify-end space-x-3">
+                    <div className="max-w-[70%]">
+                      <div className="bg-blue-600 rounded-2xl rounded-tr-none p-4">
+                        <p className="text-white text-sm">धन्यवाद Rajesh ji. I have received the documents. I will review them and get back to you by tomorrow.</p>
+                      </div>
+                      <p className="text-xs text-slate-500 mt-1 text-right">10:45 AM ✓✓</p>
+                    </div>
+                  </div>
+                  
+                  {/* Received Message */}
+                  <div className="flex items-start space-x-3">
+                    <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+                      <span className="text-white text-sm font-bold">R</span>
+                    </div>
+                    <div className="max-w-[70%]">
+                      <div className="bg-slate-800 rounded-2xl rounded-tl-none p-4">
+                        <p className="text-white text-sm">Sir, what are the chances of winning this case? The builder is very influential.</p>
+                      </div>
+                      <p className="text-xs text-slate-500 mt-1">11:00 AM</p>
+                    </div>
+                  </div>
+                  
+                  {/* Sent Message */}
+                  <div className="flex items-start justify-end space-x-3">
+                    <div className="max-w-[70%]">
+                      <div className="bg-blue-600 rounded-2xl rounded-tr-none p-4">
+                        <p className="text-white text-sm">Don't worry about that. We have strong documentation. The RERA Act is clearly in our favor. I am confident about a positive outcome. 👍</p>
+                      </div>
+                      <p className="text-xs text-slate-500 mt-1 text-right">11:15 AM ✓✓</p>
+                    </div>
+                  </div>
+                  
+                  {/* Received Message */}
+                  <div className="flex items-start space-x-3">
+                    <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+                      <span className="text-white text-sm font-bold">R</span>
+                    </div>
+                    <div className="max-w-[70%]">
+                      <div className="bg-slate-800 rounded-2xl rounded-tl-none p-4">
+                        <p className="text-white text-sm">That's a relief Sir. When is our next hearing?</p>
+                      </div>
+                      <p className="text-xs text-slate-500 mt-1">Just now</p>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Message Input */}
+                <div className="p-4 border-t border-slate-800/50">
+                  <div className="flex items-center space-x-3">
+                    <button className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-slate-700 transition-colors">
+                      <span className="text-xl">📎</span>
+                    </button>
+                    <Input
+                      placeholder="Type your message..."
+                      className="flex-1 bg-slate-900/50 border-slate-700 rounded-full px-5 text-white"
+                    />
+                    <Button className="w-10 h-10 rounded-full bg-blue-600 hover:bg-blue-500 flex items-center justify-center">
+                      <span className="text-xl">➤</span>
+                    </Button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         )}
