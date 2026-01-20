@@ -712,19 +712,23 @@ export default function AdminDashboard() {
           <div className="text-center py-20">
             {activeSection === 'lawyers' ? (
               <User className="w-16 h-16 text-slate-700 mx-auto mb-4" />
-            ) : (
+            ) : activeSection === 'lawfirms' ? (
               <Building2 className="w-16 h-16 text-slate-700 mx-auto mb-4" />
+            ) : (
+              <Users className="w-16 h-16 text-slate-700 mx-auto mb-4" />
             )}
             <p className="text-slate-400">
-              No {filter === 'all' ? '' : filter} {activeSection === 'lawyers' ? 'lawyer' : 'law firm'} applications found
+              No {filter === 'all' ? '' : filter} {activeSection === 'lawyers' ? 'lawyer' : activeSection === 'lawfirms' ? 'law firm' : 'firm lawyer'} applications found
             </p>
           </div>
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredApps.map(app => (
               activeSection === 'lawyers' 
-                ? <LawyerApplicationCard key={app._id} app={app} />
-                : <LawFirmApplicationCard key={app._id} app={app} />
+                ? <LawyerApplicationCard key={app._id || app.id} app={app} />
+                : activeSection === 'lawfirms'
+                  ? <LawFirmApplicationCard key={app._id || app.id} app={app} />
+                  : <FirmLawyerApplicationCard key={app._id || app.id} app={app} />
             ))}
           </div>
         )}
