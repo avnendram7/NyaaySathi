@@ -101,7 +101,7 @@ export default function UserLoginPage() {
             <span className="text-slate-400">Don't have an account? </span>
             <Link
               data-testid="user-signup-link"
-              to="/role-selection"
+              to="/user-signup"
               className="text-blue-500 font-semibold hover:text-blue-400 transition-colors"
             >
               Sign Up
