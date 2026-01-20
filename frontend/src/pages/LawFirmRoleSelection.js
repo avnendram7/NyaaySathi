@@ -14,7 +14,7 @@ export default function LawFirmRoleSelection() {
       features: ['View assigned tasks', 'Track case progress', 'See performance metrics', 'Communicate with clients'],
       gradient: 'from-purple-600 to-purple-700',
       glowColor: 'purple',
-      route: '/lawfirm-lawyer-login',
+      route: '/firm-lawyer-application',
       testId: 'lawfirm-lawyer-card'
     },
     {
