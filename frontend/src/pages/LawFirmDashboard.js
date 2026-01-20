@@ -636,73 +636,155 @@ export default function LawFirmDashboard() {
           </div>
         )}
 
-        {/* Analytics Tab */}
-        {activeTab === 'analytics' && (
+        {/* Analytics Tab - Now Reports */}
+        {activeTab === 'reports' && (
           <div className="p-8">
             <div className="flex items-center justify-between mb-8">
               <div>
-                <h1 className="text-3xl font-bold text-white mb-2">Firm Analytics</h1>
-                <p className="text-slate-400">Performance insights and revenue tracking</p>
+                <h1 className="text-3xl font-bold text-white mb-2">Firm Reports</h1>
+                <p className="text-slate-400">Comprehensive reports on lawyers, tasks, and performance</p>
               </div>
               <Button variant="outline" className="border-slate-700 text-slate-300">
                 Download Report
               </Button>
             </div>
 
-            {/* Revenue Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="glass rounded-2xl border border-green-500/20 p-6">
-                <p className="text-sm text-slate-400 mb-2">Total Revenue (YTD)</p>
-                <h3 className="text-4xl font-bold text-white">₹58,45,000</h3>
-                <p className="text-sm text-green-400 mt-2">+23% vs last year</p>
-              </div>
+            {/* Summary Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
               <div className="glass rounded-2xl border border-blue-500/20 p-6">
-                <p className="text-sm text-slate-400 mb-2">This Month</p>
-                <h3 className="text-4xl font-bold text-white">₹4,85,000</h3>
-                <p className="text-sm text-blue-400 mt-2">+18% vs last month</p>
+                <p className="text-sm text-slate-400 mb-2">Total Lawyers</p>
+                <h3 className="text-4xl font-bold text-white">{firmLawyers.length}</h3>
+                <p className="text-sm text-green-400 mt-2">{firmLawyers.filter(l => l.status === 'active').length} active</p>
+              </div>
+              <div className="glass rounded-2xl border border-green-500/20 p-6">
+                <p className="text-sm text-slate-400 mb-2">Tasks Completed</p>
+                <h3 className="text-4xl font-bold text-white">156</h3>
+                <p className="text-sm text-green-400 mt-2">+12 this week</p>
+              </div>
+              <div className="glass rounded-2xl border border-amber-500/20 p-6">
+                <p className="text-sm text-slate-400 mb-2">Pending Tasks</p>
+                <h3 className="text-4xl font-bold text-white">23</h3>
+                <p className="text-sm text-amber-400 mt-2">5 urgent</p>
               </div>
               <div className="glass rounded-2xl border border-purple-500/20 p-6">
-                <p className="text-sm text-slate-400 mb-2">Pending Collections</p>
-                <h3 className="text-4xl font-bold text-white">₹2,15,000</h3>
-                <p className="text-sm text-amber-400 mt-2">5 invoices pending</p>
+                <p className="text-sm text-slate-400 mb-2">Completion Rate</p>
+                <h3 className="text-4xl font-bold text-white">87%</h3>
+                <p className="text-sm text-green-400 mt-2">+5% vs last month</p>
               </div>
             </div>
 
-            {/* Performance by Lawyer */}
-            <div className="glass rounded-2xl border border-blue-500/20 p-6">
-              <h2 className="text-xl font-bold text-white mb-6">Lawyer Performance</h2>
+            {/* Lawyer Performance Report */}
+            <div className="glass rounded-2xl border border-blue-500/20 p-6 mb-8">
+              <h2 className="text-xl font-bold text-white mb-6">Lawyer Performance Report</h2>
               <table className="w-full">
                 <thead className="border-b border-slate-800/50">
                   <tr>
                     <th className="text-left py-3 text-xs text-slate-400 uppercase">Lawyer</th>
-                    <th className="text-left py-3 text-xs text-slate-400 uppercase">Cases Won</th>
-                    <th className="text-left py-3 text-xs text-slate-400 uppercase">Win Rate</th>
-                    <th className="text-left py-3 text-xs text-slate-400 uppercase">Revenue</th>
+                    <th className="text-left py-3 text-xs text-slate-400 uppercase">Specialization</th>
+                    <th className="text-left py-3 text-xs text-slate-400 uppercase">Tasks</th>
+                    <th className="text-left py-3 text-xs text-slate-400 uppercase">Completion</th>
+                    <th className="text-left py-3 text-xs text-slate-400 uppercase">Active Cases</th>
                     <th className="text-left py-3 text-xs text-slate-400 uppercase">Rating</th>
+                    <th className="text-left py-3 text-xs text-slate-400 uppercase">Status</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {firmLawyers.slice(0, 5).map((lawyer, idx) => (
-                    <tr key={idx} className="border-b border-slate-800/30">
+                  {firmLawyers.map((lawyer, idx) => (
+                    <tr key={idx} className="border-b border-slate-800/30 hover:bg-slate-900/30">
                       <td className="py-4">
                         <div className="flex items-center space-x-3">
-                          <img src={lawyer.photo} alt="" className="w-8 h-8 rounded-full" />
-                          <span className="text-white">{lawyer.name}</span>
+                          <img src={lawyer.photo} alt="" className="w-10 h-10 rounded-full border-2 border-blue-500/30" />
+                          <span className="text-white font-medium">{lawyer.name}</span>
                         </div>
                       </td>
-                      <td className="py-4 text-slate-300">{20 + idx * 5}</td>
-                      <td className="py-4 text-green-400">{85 + idx}%</td>
-                      <td className="py-4 text-white">₹{(8 + idx * 2)},00,000</td>
+                      <td className="py-4 text-blue-400">{lawyer.specialization}</td>
+                      <td className="py-4 text-slate-300">{15 + idx * 3} / {20 + idx * 3}</td>
+                      <td className="py-4">
+                        <div className="flex items-center space-x-2">
+                          <div className="w-20 h-2 bg-slate-800 rounded-full overflow-hidden">
+                            <div 
+                              className="h-full bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full"
+                              style={{ width: `${75 + idx * 3}%` }}
+                            ></div>
+                          </div>
+                          <span className="text-slate-400 text-sm">{75 + idx * 3}%</span>
+                        </div>
+                      </td>
+                      <td className="py-4 text-white font-semibold">{lawyer.activeCases}</td>
                       <td className="py-4">
                         <div className="flex items-center space-x-1 text-amber-400">
                           <Star className="w-4 h-4 fill-amber-400" />
                           <span>{lawyer.rating}</span>
                         </div>
                       </td>
+                      <td className="py-4">
+                        <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                          lawyer.status === 'active' ? 'bg-green-500/20 text-green-400' : 'bg-amber-500/20 text-amber-400'
+                        }`}>
+                          {lawyer.status === 'active' ? 'Active' : 'On Leave'}
+                        </span>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
+            </div>
+
+            {/* Revenue & Cases Summary */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="glass rounded-2xl border border-blue-500/20 p-6">
+                <h2 className="text-xl font-bold text-white mb-6">Revenue by Practice Area</h2>
+                <div className="space-y-4">
+                  {[
+                    { area: 'Criminal Law', revenue: '₹12,50,000', percent: 25 },
+                    { area: 'Corporate Law', revenue: '₹15,00,000', percent: 30 },
+                    { area: 'Family Law', revenue: '₹8,00,000', percent: 16 },
+                    { area: 'Property Law', revenue: '₹10,50,000', percent: 21 },
+                    { area: 'Tax Law', revenue: '₹4,00,000', percent: 8 }
+                  ].map((item, idx) => (
+                    <div key={idx}>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-white font-medium">{item.area}</span>
+                        <span className="text-slate-400">{item.revenue}</span>
+                      </div>
+                      <div className="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                        <motion.div 
+                          initial={{ width: 0 }}
+                          animate={{ width: `${item.percent}%` }}
+                          transition={{ duration: 1, delay: idx * 0.1 }}
+                          className="h-full bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full"
+                        ></motion.div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="glass rounded-2xl border border-blue-500/20 p-6">
+                <h2 className="text-xl font-bold text-white mb-6">Case Status Overview</h2>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-4 text-center">
+                    <CheckCircle className="w-8 h-8 text-green-400 mx-auto mb-2" />
+                    <h3 className="text-3xl font-bold text-white">156</h3>
+                    <p className="text-sm text-green-400">Cases Won</p>
+                  </div>
+                  <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-4 text-center">
+                    <Clock className="w-8 h-8 text-blue-400 mx-auto mb-2" />
+                    <h3 className="text-3xl font-bold text-white">48</h3>
+                    <p className="text-sm text-blue-400">Active Cases</p>
+                  </div>
+                  <div className="bg-amber-500/10 border border-amber-500/30 rounded-xl p-4 text-center">
+                    <AlertCircle className="w-8 h-8 text-amber-400 mx-auto mb-2" />
+                    <h3 className="text-3xl font-bold text-white">12</h3>
+                    <p className="text-sm text-amber-400">Pending Review</p>
+                  </div>
+                  <div className="bg-slate-700/30 border border-slate-600/30 rounded-xl p-4 text-center">
+                    <FileText className="w-8 h-8 text-slate-400 mx-auto mb-2" />
+                    <h3 className="text-3xl font-bold text-white">216</h3>
+                    <p className="text-sm text-slate-400">Total Cases</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         )}
