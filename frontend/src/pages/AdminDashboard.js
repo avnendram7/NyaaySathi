@@ -9,7 +9,7 @@ import { API } from '../App';
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
-  const [activeSection, setActiveSection] = useState('lawyers'); // 'lawyers' or 'lawfirms'
+  const [activeSection, setActiveSection] = useState('lawyers'); // 'lawyers', 'lawfirms', or 'firmlawyers'
   
   // Lawyer applications state
   const [lawyerApplications, setLawyerApplications] = useState([]);
@@ -18,6 +18,10 @@ export default function AdminDashboard() {
   // Law Firm applications state
   const [lawfirmApplications, setLawfirmApplications] = useState([]);
   const [lawfirmStats, setLawfirmStats] = useState({ pending: 0, approved: 0, rejected: 0 });
+  
+  // Firm Lawyer applications state
+  const [firmLawyerApplications, setFirmLawyerApplications] = useState([]);
+  const [firmLawyerStats, setFirmLawyerStats] = useState({ pending: 0, approved: 0, rejected: 0 });
   
   const [loading, setLoading] = useState(true);
   const [selectedApp, setSelectedApp] = useState(null);
