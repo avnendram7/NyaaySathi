@@ -125,6 +125,24 @@ export default function AdminDashboard() {
     }
   };
 
+  const handleFirmLawyerAction = async (appId, action) => {
+    setActionLoading(appId);
+    try {
+      const token = localStorage.getItem('adminToken');
+      const status = action === 'approve' ? 'approved' : 'rejected';
+      await axios.put(`${API}/firm-lawyers/applications/${appId}/status?status=${status}`, {}, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      toast.success(`Firm lawyer application ${action}d successfully!`);
+      setSelectedApp(null);
+      fetchAllApplications();
+    } catch (error) {
+      toast.error(`Failed to ${action} application`);
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
   const handleLogout = () => {
     localStorage.removeItem('adminToken');
     navigate('/admin-login');
