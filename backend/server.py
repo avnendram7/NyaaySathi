@@ -51,12 +51,17 @@ api_router.include_router(documents_router)
 api_router.include_router(chat_router)
 api_router.include_router(bookings_router)
 api_router.include_router(lawyers_router)
+api_router.include_router(lawfirms_router)
 api_router.include_router(waitlist_router)
 api_router.include_router(admin_router)
 
 # Legacy endpoint for lawyer applications (for backward compatibility)
 from routes.lawyers import submit_lawyer_application
 api_router.post("/lawyer-applications")(submit_lawyer_application)
+
+# Legacy endpoint for lawfirm applications (for backward compatibility)
+from routes.lawfirms import submit_lawfirm_application
+api_router.post("/lawfirm-applications")(submit_lawfirm_application)
 
 # Include the router in the main app
 app.include_router(api_router)
