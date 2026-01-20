@@ -32,19 +32,33 @@ Build a legal-tech platform with the following features:
 
 ## Changelog
 
+### January 20, 2026 (Latest)
+**Major Feature: Enhanced Lawyer Search & AI Recommendations**
+- Expanded dummy lawyer data from 40 to **1000 lawyers**
+  - 12 Indian states with multiple cities each
+  - 20 legal specializations (at least 50 lawyers per type)
+  - Proper distribution across states
+- Added **text search bar** for manual lawyer search
+  - Search by name, specialization, city, state, or bio
+- **Approved lawyers from DB** now appear in search results
+  - Verified lawyers show green shield badge
+  - DB lawyers appear first in results, sorted by rating
+- **AI Chatbot Enhanced**
+  - Conversational flow to understand legal issue
+  - Maintains session for multi-turn conversations
+  - Recommends specific lawyers by ID
+  - Shows lawyer cards when AI recommends them
+- **Book Consultation → Signup**
+  - Non-logged-in users redirected to `/role-selection` when booking
+
 ### January 19, 2026
 **P0 Fix: Sign Up Link Redirection**
-- Updated `UserLoginPage.js`, `LawyerLoginPage.js`, `LawFirmLoginPage.js`
-- "Sign Up" links now redirect to `/role-selection` (Get Started page)
-- Simplified login pages to login-only (removed signup forms)
+- Updated login pages to redirect "Sign Up" to `/role-selection`
+- Simplified login pages to login-only forms
 
 **P1 Task: Backend Refactoring (COMPLETED)**
-- Refactored monolithic `server.py` (695 lines) into modular structure:
-  - `/models/` - Pydantic models (user, case, document, chat, booking, waitlist, lawyer_application)
-  - `/routes/` - API routers (auth, cases, documents, chat, bookings, lawyers, waitlist, admin)
-  - `/services/` - Business logic (auth, database, chat_service)
-- New `server.py` is now ~75 lines (was 695)
-- Improved maintainability and scalability
+- Refactored monolithic `server.py` (695 lines → 75 lines)
+- Created modular structure with models, routes, services
 
 ---
 
@@ -78,6 +92,13 @@ Build a legal-tech platform with the following features:
 │   └── chat_service.py
 ├── server.py
 └── requirements.txt
+
+/app/frontend/src/
+├── data/
+│   └── lawyers.js  # 1000 dummy lawyers
+├── pages/
+│   ├── FindLawyer.js  # Main search + AI chat
+│   └── ...
 ```
 
 ---
@@ -89,19 +110,13 @@ Build a legal-tech platform with the following features:
 - `POST /api/auth/login` - User login
 - `GET /api/auth/me` - Get current user
 
-### Cases
-- `POST /api/cases` - Create case
-- `GET /api/cases` - List cases
-- `GET /api/cases/{id}` - Get case
+### Lawyers
+- `GET /api/lawyers` - List all approved lawyers (from DB)
+- `POST /api/lawyer-applications` - Submit lawyer application
 
 ### Chat
 - `POST /api/chat` - Authenticated chat
-- `POST /api/chat/guest` - Guest chat
-- `GET /api/chat/history` - Chat history
-
-### Lawyers
-- `GET /api/lawyers` - List lawyers
-- `POST /api/lawyer-applications` - Submit application
+- `POST /api/chat/guest` - Guest chat (AI assistant)
 
 ### Admin
 - `POST /api/admin/login` - Admin login
@@ -120,31 +135,45 @@ Build a legal-tech platform with the following features:
 
 ---
 
-## Backlog
+## Current Feature Status
 
-### P0 (Critical) - COMPLETED
-- ✅ Fix Sign Up link redirection
-- ✅ Backend refactoring
+### ✅ Completed
+- Sign Up links redirect to role selection
+- Backend modular refactoring
+- 1000 dummy lawyers with proper distribution
+- Text search bar for lawyer search
+- Approved lawyers appear in search (with verified badge)
+- AI chatbot with conversational flow
+- Book consultation redirects to signup for non-logged users
+
+### 🟡 Data Notes
+- Lawyer data in `/frontend/src/data/lawyers.js` is **MOCKED** (generated dummy data)
+- Approved lawyers from database are **REAL** and marked as verified
+
+---
+
+## Backlog
 
 ### P1 (High Priority)
 - [ ] Break down `FindLawyer.js` into smaller components
-- [ ] Replace dummy lawyer data with database integration
+- [ ] Add lawyer profile edit page for approved lawyers
+- [ ] Implement actual booking system with calendar
 
 ### P2 (Medium Priority)
-- [ ] Lawyer profile management dashboard
-- [ ] Case tracking system
-- [ ] Appointment scheduling with calendar
-- [ ] Email notifications
+- [ ] Case tracking system for clients
+- [ ] Email notifications for bookings
+- [ ] Payment integration for consultations
 
 ### P3 (Low Priority)
 - [ ] Analytics dashboard for admins
-- [ ] Rating and review system
+- [ ] Rating and review system after consultation
 - [ ] Document template library
-- [ ] Multi-language support (Hindi/English)
+- [ ] Multi-language support (Hindi/English toggle)
 
 ---
 
 ## Known Limitations
-- Lawyer data in `/frontend/src/data/lawyers.js` is MOCKED (static dummy data)
+- Lawyer photos use randomuser.me (placeholder images)
+- No real payment integration yet
 - No email verification flow
 - No password reset functionality
