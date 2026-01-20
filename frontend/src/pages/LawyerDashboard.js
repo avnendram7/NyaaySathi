@@ -111,9 +111,9 @@ export default function LawyerDashboard() {
       {/* Sidebar */}
       <div className="w-64 bg-zinc-950 border-r border-zinc-800 flex flex-col">
         {/* Logo */}
-        <div className="p-6 border-b border-blue-500/20">
+        <div className="p-6 border-b border-zinc-800">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full flex items-center justify-center shadow-lg shadow-blue-500/50">
+            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full flex items-center justify-center shadow-lg shadow-blue-500/30">
               <span className="text-white font-bold text-lg">N</span>
             </div>
             <div>
@@ -125,7 +125,7 @@ export default function LawyerDashboard() {
         
         {/* Menu Label */}
         <div className="px-6 py-3">
-          <span className="text-xs text-slate-500 uppercase font-semibold tracking-wider">MENU</span>
+          <span className="text-xs text-zinc-500 uppercase font-semibold tracking-wider">MENU</span>
         </div>
         
         {/* Navigation */}
@@ -133,10 +133,10 @@ export default function LawyerDashboard() {
           <button
             data-testid="lawyer-dashboard-nav"
             onClick={() => setActiveTab('dashboard')}
-            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 ${
+            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${
               activeTab === 'dashboard' 
-                ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-500/50' 
-                : 'text-slate-400 hover:bg-slate-800/50 hover:text-white'
+                ? 'bg-blue-600 text-white' 
+                : 'text-zinc-400 hover:bg-zinc-900 hover:text-white'
             }`}
           >
             <LayoutDashboard className="w-5 h-5" />
@@ -146,10 +146,10 @@ export default function LawyerDashboard() {
           <button
             data-testid="lawyer-cases-nav"
             onClick={() => setActiveTab('cases')}
-            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 ${
+            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${
               activeTab === 'cases' 
-                ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-500/50' 
-                : 'text-slate-400 hover:bg-slate-800/50 hover:text-white'
+                ? 'bg-blue-600 text-white' 
+                : 'text-zinc-400 hover:bg-zinc-900 hover:text-white'
             }`}
           >
             <FileText className="w-5 h-5" />
@@ -159,10 +159,10 @@ export default function LawyerDashboard() {
           <button
             data-testid="lawyer-calendar-nav"
             onClick={() => setActiveTab('calendar')}
-            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 ${
+            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${
               activeTab === 'calendar' 
-                ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-500/50' 
-                : 'text-slate-400 hover:bg-slate-800/50 hover:text-white'
+                ? 'bg-blue-600 text-white' 
+                : 'text-zinc-400 hover:bg-zinc-900 hover:text-white'
             }`}
           >
             <CalendarIcon className="w-5 h-5" />
@@ -172,10 +172,10 @@ export default function LawyerDashboard() {
           <button
             data-testid="lawyer-messages-nav"
             onClick={() => setActiveTab('messages')}
-            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 ${
+            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${
               activeTab === 'messages' 
-                ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-500/50' 
-                : 'text-slate-400 hover:bg-slate-800/50 hover:text-white'
+                ? 'bg-blue-600 text-white' 
+                : 'text-zinc-400 hover:bg-zinc-900 hover:text-white'
             }`}
           >
             <MessageSquare className="w-5 h-5" />
@@ -185,10 +185,10 @@ export default function LawyerDashboard() {
           <button
             data-testid="lawyer-documents-nav"
             onClick={() => setActiveTab('documents')}
-            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 ${
+            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${
               activeTab === 'documents' 
-                ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-500/50' 
-                : 'text-slate-400 hover:bg-slate-800/50 hover:text-white'
+                ? 'bg-blue-600 text-white' 
+                : 'text-zinc-400 hover:bg-zinc-900 hover:text-white'
             }`}
           >
             <FileText className="w-5 h-5" />
