@@ -149,8 +149,10 @@ export default function AdminDashboard() {
   };
 
   // Get current applications based on active section
-  const currentApplications = activeSection === 'lawyers' ? lawyerApplications : lawfirmApplications;
-  const currentStats = activeSection === 'lawyers' ? lawyerStats : lawfirmStats;
+  const currentApplications = activeSection === 'lawyers' ? lawyerApplications : 
+                              activeSection === 'lawfirms' ? lawfirmApplications : firmLawyerApplications;
+  const currentStats = activeSection === 'lawyers' ? lawyerStats : 
+                       activeSection === 'lawfirms' ? lawfirmStats : firmLawyerStats;
 
   const filteredApps = currentApplications.filter(app => {
     if (filter === 'all') return true;
