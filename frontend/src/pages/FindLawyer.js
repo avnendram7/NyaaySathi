@@ -723,11 +723,134 @@ RULES:
           >
             <Button
               variant="ghost"
-              onClick={() => { setActiveTab(null); setShowResults(false); setSearchQuery(''); }}
+              onClick={() => { setActiveTab(null); setShowResults(false); setSearchQuery(''); setLawyerTypeSelection(null); }}
               className="text-slate-400 hover:text-white mb-6"
             >
               ← Back to options
             </Button>
+
+            {/* Law Firm Search Results */}
+            {lawyerTypeSelection === 'firm' ? (
+              <div>
+                <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-6 mb-8">
+                  <h2 className="text-xl font-semibold text-white mb-6 flex items-center gap-2">
+                    <Building2 className="w-5 h-5 text-purple-400" />
+                    Search Law Firms
+                  </h2>
+                  
+                  {/* Search Bar */}
+                  <div className="mb-6">
+                    <label className="block text-sm text-slate-400 mb-2">Search by Firm Name, Practice Area, or Location</label>
+                    <div className="relative">
+                      <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                      <Input
+                        data-testid="firm-search-input"
+                        type="text"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        placeholder="e.g., Corporate Law, Mumbai, Sharma & Associates..."
+                        className="w-full bg-slate-800 border border-slate-700 rounded-xl pl-12 pr-4 py-3 text-white focus:border-purple-500 outline-none"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm text-slate-400 mb-2">State</label>
+                      <select
+                        value={selectedState}
+                        onChange={(e) => setSelectedState(e.target.value)}
+                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white focus:border-purple-500 outline-none"
+                      >
+                        <option value="">All States</option>
+                        {Object.keys(indianLocations).map(state => (
+                          <option key={state} value={state}>{state}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-sm text-slate-400 mb-2">Practice Area</label>
+                      <select
+                        value={selectedCaseType}
+                        onChange={(e) => setSelectedCaseType(e.target.value)}
+                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white focus:border-purple-500 outline-none"
+                      >
+                        <option value="">All Practice Areas</option>
+                        {caseTypes.map(type => (
+                          <option key={type} value={type}>{type}</option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Law Firms Results */}
+                <h3 className="text-xl font-semibold text-white mb-4">
+                  {lawFirms.length > 0 ? `${lawFirms.length} Law Firms Available` : 'No Law Firms Registered Yet'}
+                </h3>
+                
+                {lawFirms.length > 0 ? (
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {lawFirms
+                      .filter(firm => {
+                        const query = searchQuery.toLowerCase();
+                        const matchesSearch = !query || 
+                          firm.firm_name?.toLowerCase().includes(query) ||
+                          firm.practice_areas?.some(p => p.toLowerCase().includes(query)) ||
+                          firm.city?.toLowerCase().includes(query) ||
+                          firm.state?.toLowerCase().includes(query);
+                        const matchesState = !selectedState || firm.state === selectedState;
+                        const matchesPractice = !selectedCaseType || firm.practice_areas?.includes(selectedCaseType);
+                        return matchesSearch && matchesState && matchesPractice;
+                      })
+                      .map((firm, idx) => (
+                        <motion.div
+                          key={firm.id || idx}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          whileHover={{ scale: 1.02, y: -5 }}
+                          className="bg-slate-900/80 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-5 cursor-pointer hover:border-purple-500/50 transition-all duration-300"
+                        >
+                          <div className="flex items-start gap-4">
+                            <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center">
+                              <Building2 className="w-7 h-7 text-white" />
+                            </div>
+                            <div className="flex-1">
+                              <h3 className="font-semibold text-white text-lg">{firm.firm_name}</h3>
+                              <p className="text-purple-400 text-sm">Est. {firm.established_year}</p>
+                              <div className="flex items-center gap-2 mt-1 text-sm text-slate-400">
+                                <MapPin className="w-3 h-3" />
+                                {firm.city}, {firm.state}
+                              </div>
+                            </div>
+                          </div>
+                          <div className="mt-4">
+                            <div className="flex flex-wrap gap-1 mb-3">
+                              {firm.practice_areas?.slice(0, 3).map((area, i) => (
+                                <span key={i} className="px-2 py-0.5 bg-purple-500/20 text-purple-400 rounded text-xs">{area}</span>
+                              ))}
+                            </div>
+                            <p className="text-slate-400 text-sm line-clamp-2">{firm.description}</p>
+                          </div>
+                          <div className="flex items-center justify-between mt-4">
+                            <span className="text-slate-500 text-sm">{firm.total_lawyers} Lawyers</span>
+                            <Button size="sm" className="bg-purple-600 hover:bg-purple-500 text-white rounded-full px-4">
+                              View Firm
+                            </Button>
+                          </div>
+                        </motion.div>
+                      ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-12 text-slate-400">
+                    <Building2 className="w-16 h-16 mx-auto mb-4 opacity-50" />
+                    <p>No law firms have registered yet. Check back later!</p>
+                  </div>
+                )}
+              </div>
+            ) : (
+              /* Independent Lawyer Search - Original */
+              <div>
 
             {/* Search Filters */}
             <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-6 mb-8">
