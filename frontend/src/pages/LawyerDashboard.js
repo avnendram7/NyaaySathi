@@ -198,24 +198,24 @@ export default function LawyerDashboard() {
           <button
             data-testid="lawyer-network-nav"
             onClick={() => setActiveTab('network')}
-            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 ${
+            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${
               activeTab === 'network' 
-                ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-500/50' 
-                : 'text-slate-400 hover:bg-slate-800/50 hover:text-white'
+                ? 'bg-blue-600 text-white' 
+                : 'text-zinc-400 hover:bg-zinc-900 hover:text-white'
             }`}
           >
             <Users className="w-5 h-5" />
             <span className="font-medium">Lawyer Network</span>
-            <span className="ml-auto w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+            <span className="ml-auto w-2 h-2 bg-green-400 rounded-full" />
           </button>
           
           <button
             data-testid="lawyer-earnings-nav"
             onClick={() => setActiveTab('earnings')}
-            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 ${
+            className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${
               activeTab === 'earnings' 
-                ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-500/50' 
-                : 'text-slate-400 hover:bg-slate-800/50 hover:text-white'
+                ? 'bg-blue-600 text-white' 
+                : 'text-zinc-400 hover:bg-zinc-900 hover:text-white'
             }`}
           >
             <TrendingUp className="w-5 h-5" />
@@ -225,25 +225,25 @@ export default function LawyerDashboard() {
         
         {/* New Case Button */}
         <div className="p-4">
-          <Button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl py-6 shadow-lg shadow-blue-500/50 transition-all duration-300 hover:shadow-blue-500/70">
+          <Button className="w-full bg-blue-600 hover:bg-blue-500 text-white rounded-xl py-6">
             <span className="mr-2 text-2xl">+</span> New Case
           </Button>
         </div>
         
         {/* User Profile */}
-        <div className="p-4 border-t border-blue-500/20">
+        <div className="p-4 border-t border-zinc-800">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-600 rounded-full flex items-center justify-center shadow-lg">
+            <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-600 rounded-full flex items-center justify-center">
               <span className="text-white font-bold">L</span>
             </div>
             <div className="flex-1">
               <p className="text-sm font-semibold text-white">{user?.full_name || 'Lawyer'}</p>
-              <p className="text-xs text-blue-400">Criminal Law</p>
+              <p className="text-xs text-zinc-400">Criminal Law</p>
             </div>
             <button
               data-testid="lawyer-logout-btn"
               onClick={handleLogout}
-              className="text-slate-400 hover:text-white transition-colors"
+              className="text-zinc-500 hover:text-white transition-colors"
             >
               <LogOut className="w-5 h-5" />
             </button>
@@ -252,7 +252,7 @@ export default function LawyerDashboard() {
       </div>
       
       {/* Main Content */}
-      <div className="flex-1 overflow-y-auto bg-slate-950">
+      <div className="flex-1 overflow-y-auto bg-black">
         {/* Dashboard Tab */}
         {activeTab === 'dashboard' && (
           <div className="p-8">
@@ -260,7 +260,7 @@ export default function LawyerDashboard() {
             <div className="flex items-center justify-between mb-8">
               <div>
                 <p className="text-sm text-green-400 flex items-center mb-2">
-                  <span className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
+                  <span className="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
                   Wednesday, January 14
                 </p>
                 <h1 className="text-4xl font-bold text-white">
@@ -268,35 +268,34 @@ export default function LawyerDashboard() {
                 </h1>
               </div>
               <div className="flex items-center space-x-3">
-                <button className="w-10 h-10 rounded-full glass border border-blue-500/20 flex items-center justify-center hover:bg-slate-800/50 transition-all">
-                  <Search className="w-5 h-5 text-slate-400" />
+                <button className="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center hover:bg-zinc-800 transition-all">
+                  <Search className="w-5 h-5 text-zinc-400" />
                 </button>
-                <button className="w-10 h-10 rounded-full glass border border-blue-500/20 flex items-center justify-center hover:bg-slate-800/50 transition-all relative">
-                  <span className="w-2 h-2 bg-red-500 rounded-full absolute top-2 right-2 animate-pulse"></span>
+                <button className="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center hover:bg-zinc-800 transition-all relative">
+                  <span className="w-2 h-2 bg-red-500 rounded-full absolute top-2 right-2"></span>
                   <span className="text-xl">🔔</span>
                 </button>
-                <Button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl px-6 shadow-lg shadow-blue-500/50">
+                <Button className="bg-blue-600 hover:bg-blue-500 text-white rounded-xl px-6">
                   + New Case
                 </Button>
               </div>
             </div>
             
-            {/* Stats Cards with Floating Icons */}
+            {/* Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="glass rounded-2xl p-6 border border-blue-500/20 relative overflow-hidden group hover:border-blue-500/40 transition-all duration-300">
-                <div className="absolute -right-4 -top-4 w-24 h-24 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition-all duration-500"></div>
-                <div className="flex items-center justify-between mb-4 relative z-10">
-                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/50 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+              <div className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800 hover:border-zinc-700 transition-colors">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center">
                     <FileText className="w-6 h-6 text-white" />
                   </div>
                   <div className="text-right">
-                    <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">Active Cases</p>
+                    <p className="text-xs text-zinc-500 uppercase tracking-wider mb-1">Active Cases</p>
                     <h3 className="text-4xl font-bold text-white">12</h3>
                   </div>
                 </div>
-                <div className="flex items-center text-sm relative z-10">
+                <div className="flex items-center text-sm">
                   <span className="text-blue-400 font-semibold">+2 New</span>
-                  <span className="ml-2 text-slate-500">→</span>
+                  <span className="ml-2 text-zinc-600">→</span>
                 </div>
               </div>
               
