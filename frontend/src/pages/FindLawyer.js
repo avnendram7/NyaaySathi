@@ -1011,6 +1011,7 @@ RULES:
                 setMessages([messages[0]]); 
                 setSessionId(null);
                 setAiRecommendedLawyers([]);
+                setLawyerTypeSelection(null);
               }}
               className="text-slate-400 hover:text-white mb-4"
             >
