@@ -267,6 +267,59 @@ export default function AdminDashboard() {
     </motion.div>
   );
 
+  // Firm Lawyer Application Card
+  const FirmLawyerApplicationCard = ({ app }) => (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      whileHover={{ scale: 1.01 }}
+      className="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-xl p-5 cursor-pointer hover:border-emerald-500/50 transition-all"
+      onClick={() => setSelectedApp({ ...app, type: 'firmlawyer' })}
+    >
+      <div className="flex items-start gap-4">
+        <div className="w-14 h-14 bg-gradient-to-br from-emerald-600 to-teal-700 rounded-xl flex items-center justify-center">
+          <Users className="w-7 h-7 text-white" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center justify-between">
+            <h3 className="font-semibold text-white truncate">{app.full_name}</h3>
+            <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+              app.status === 'pending' ? 'bg-amber-500/20 text-amber-400' :
+              app.status === 'approved' ? 'bg-green-500/20 text-green-400' :
+              'bg-red-500/20 text-red-400'
+            }`}>
+              {app.status?.charAt(0).toUpperCase() + app.status?.slice(1)}
+            </span>
+          </div>
+          <p className="text-emerald-400 text-sm">{app.specialization}</p>
+          <div className="flex items-center gap-3 mt-2 text-xs text-slate-400">
+            <span className="flex items-center gap-1">
+              <Building2 className="w-3 h-3" />
+              {app.firm_name}
+            </span>
+            <span className="flex items-center gap-1">
+              <Briefcase className="w-3 h-3" />
+              {app.experience_years} yrs
+            </span>
+          </div>
+        </div>
+      </div>
+      <div className="flex items-center justify-between mt-4 pt-4 border-t border-slate-700/50">
+        <span className="text-xs text-slate-500">
+          Applied: {new Date(app.created_at).toLocaleDateString()}
+        </span>
+        <Button
+          size="sm"
+          variant="ghost"
+          className="text-emerald-400 hover:text-emerald-300 hover:bg-emerald-500/10"
+        >
+          <Eye className="w-4 h-4 mr-1" />
+          View Details
+        </Button>
+      </div>
+    </motion.div>
+  );
+
   // Lawyer Application Modal
   const LawyerApplicationModal = ({ app, onClose }) => (
     <motion.div
