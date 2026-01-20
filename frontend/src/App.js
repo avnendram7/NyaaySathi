@@ -110,6 +110,7 @@ function App() {
                 } 
               />
               <Route path="/lawyer-application" element={<LawyerApplication />} />
+              <Route path="/lawfirm-application" element={<LawFirmApplication />} />
               <Route path="/admin-login" element={<AdminLogin />} />
               <Route path="/admin" element={<AdminDashboard />} />
             </Routes>
