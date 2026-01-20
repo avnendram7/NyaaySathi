@@ -101,7 +101,7 @@ export default function LawyerLoginPage() {
             <span className="text-slate-400">Don't have an account? </span>
             <Link
               data-testid="lawyer-signup-link"
-              to="/role-selection"
+              to="/lawyer-application"
               className="text-blue-500 font-semibold hover:text-blue-400 transition-colors"
             >
               Sign Up
