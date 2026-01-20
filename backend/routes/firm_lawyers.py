@@ -1,12 +1,29 @@
 from fastapi import APIRouter, HTTPException, Depends
-from typing import List
+from typing import List, Optional
 from datetime import datetime, timezone
 from services.database import db
 from services.auth import hash_password, verify_password, create_token
 from models.firm_lawyer import FirmLawyerCreate, FirmLawyerLogin, TaskCreate
+from pydantic import BaseModel, EmailStr
 import uuid
 
 router = APIRouter(prefix="/firm-lawyers", tags=["Firm Lawyers"])
+
+
+# Pydantic model for firm lawyer application
+class FirmLawyerApplicationCreate(BaseModel):
+    full_name: str
+    email: EmailStr
+    phone: str
+    password: str
+    firm_id: str
+    firm_name: str
+    specialization: str
+    experience_years: int = 1
+    bar_council_number: Optional[str] = None
+    education: Optional[str] = None
+    languages: Optional[List[str]] = ["Hindi", "English"]
+    bio: Optional[str] = None
 
 
 @router.post("/login")
