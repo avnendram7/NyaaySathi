@@ -1,26 +1,7 @@
 # Nyaay Sathi - Legal Tech Platform PRD
 
 ## Original Problem Statement
-Build a legal-tech platform with the following features:
-- Role-based access (Client, Lawyer, Law Firm)
-- AI-powered legal assistant chatbot
-- Lawyer discovery and booking system
-- Lawyer application and admin approval workflow
-- Case management and document upload
-
-## User Personas
-1. **Clients**: Seeking legal advice and lawyer connections
-2. **Lawyers**: Building practice and reaching clients
-3. **Law Firms**: Managing lawyers and scaling operations
-4. **Admins**: Approving lawyer applications and managing platform
-
-## Core Requirements
-- User authentication (JWT-based)
-- Role selection (User/Lawyer/Law Firm)
-- AI chatbot with card-based responses
-- Lawyer search with filters (state, city, court, case type)
-- Lawyer application workflow with admin approval
-- Protected dashboards for each user type
+Build a legal-tech platform with role-based access, AI-powered legal assistant, lawyer discovery/booking, and admin approval workflow.
 
 ## Tech Stack
 - **Frontend**: React, TailwindCSS, Framer Motion, lucide-react
@@ -32,97 +13,62 @@ Build a legal-tech platform with the following features:
 
 ## Changelog
 
-### January 20, 2026 (Latest)
-**Major Feature: Enhanced Lawyer Search & AI Recommendations**
-- Expanded dummy lawyer data from 40 to **1000 lawyers**
-  - 12 Indian states with multiple cities each
-  - 20 legal specializations (at least 50 lawyers per type)
-  - Proper distribution across states
-- Added **text search bar** for manual lawyer search
-  - Search by name, specialization, city, state, or bio
-- **Approved lawyers from DB** now appear in search results
-  - Verified lawyers show green shield badge
-  - DB lawyers appear first in results, sorted by rating
-- **AI Chatbot Enhanced**
-  - Conversational flow to understand legal issue
-  - Maintains session for multi-turn conversations
-  - Recommends specific lawyers by ID
-  - Shows lawyer cards when AI recommends them
-- **Book Consultation → Signup**
-  - Non-logged-in users redirected to `/role-selection` when booking
+### January 20, 2026 (Latest Update)
+**Client Signup & Booking Flow (COMPLETED)**
+- Created `/user-signup` page for client registration
+- Book Consultation button now redirects to client signup (not role selection)
+- Signup page shows which lawyer the user wants to book
+- After signup, user is automatically logged in and redirected to dashboard
+- User can later login with the same credentials
+- Login page "Sign Up" link now points to `/user-signup`
+
+**Enhanced Lawyer Search (COMPLETED)**
+- Expanded from 40 to **1000 dummy lawyers**
+- Added **text search bar** for name, specialization, location
+- Approved lawyers from DB appear with verified badge
+- AI chatbot understands legal issues and recommends specific lawyers
 
 ### January 19, 2026
-**P0 Fix: Sign Up Link Redirection**
-- Updated login pages to redirect "Sign Up" to `/role-selection`
-- Simplified login pages to login-only forms
-
-**P1 Task: Backend Refactoring (COMPLETED)**
-- Refactored monolithic `server.py` (695 lines → 75 lines)
-- Created modular structure with models, routes, services
+- Fixed Sign Up links on login pages
+- Backend refactored into modular structure (models, routes, services)
 
 ---
 
-## Architecture
+## User Flows
 
-```
-/app/backend/
-├── models/
-│   ├── __init__.py
-│   ├── user.py
-│   ├── case.py
-│   ├── document.py
-│   ├── chat.py
-│   ├── booking.py
-│   ├── waitlist.py
-│   └── lawyer_application.py
-├── routes/
-│   ├── __init__.py
-│   ├── auth.py
-│   ├── cases.py
-│   ├── documents.py
-│   ├── chat.py
-│   ├── bookings.py
-│   ├── lawyers.py
-│   ├── waitlist.py
-│   └── admin.py
-├── services/
-│   ├── __init__.py
-│   ├── auth.py
-│   ├── database.py
-│   └── chat_service.py
-├── server.py
-└── requirements.txt
+### Client Booking Flow
+1. User visits `/find-lawyer`
+2. Searches for lawyers (manual or AI)
+3. Clicks "Book Consultation" on lawyer profile
+4. **If not logged in**: Redirected to `/user-signup`
+   - Signup page shows "Sign up to book consultation with [Lawyer Name]"
+   - User fills form and creates account
+   - Automatically logged in and redirected to dashboard
+5. **If logged in**: Redirected to user dashboard with booking info
 
-/app/frontend/src/
-├── data/
-│   └── lawyers.js  # 1000 dummy lawyers
-├── pages/
-│   ├── FindLawyer.js  # Main search + AI chat
-│   └── ...
-```
+### Lawyer Application Flow
+1. Lawyer visits `/role-selection` → clicks "I am a Lawyer"
+2. Redirected to `/lawyer-application` (multi-step form)
+3. Admin reviews at `/admin` dashboard
+4. If approved → Lawyer account created → Can login at `/lawyer-login`
 
 ---
 
-## API Endpoints
+## Pages & Routes
 
-### Authentication
-- `POST /api/auth/register` - Register new user
-- `POST /api/auth/login` - User login
-- `GET /api/auth/me` - Get current user
-
-### Lawyers
-- `GET /api/lawyers` - List all approved lawyers (from DB)
-- `POST /api/lawyer-applications` - Submit lawyer application
-
-### Chat
-- `POST /api/chat` - Authenticated chat
-- `POST /api/chat/guest` - Guest chat (AI assistant)
-
-### Admin
-- `POST /api/admin/login` - Admin login
-- `GET /api/admin/lawyer-applications` - List applications
-- `PUT /api/admin/lawyer-applications/{id}/approve` - Approve
-- `PUT /api/admin/lawyer-applications/{id}/reject` - Reject
+| Route | Component | Description |
+|-------|-----------|-------------|
+| `/` | CinematicHero | Landing page |
+| `/find-lawyer` | FindLawyer | Lawyer search (manual + AI) |
+| `/user-signup` | UserSignupPage | **NEW** - Client registration |
+| `/user-login` | UserLoginPage | Client login |
+| `/user-dashboard` | UserDashboard | Client dashboard |
+| `/lawyer-login` | LawyerLoginPage | Lawyer login |
+| `/lawyer-dashboard` | LawyerDashboard | Lawyer dashboard |
+| `/lawyer-application` | LawyerApplication | Lawyer signup form |
+| `/admin-login` | AdminLogin | Admin login |
+| `/admin` | AdminDashboard | Admin dashboard |
+| `/role-selection` | RoleSelection | Role picker (User/Lawyer/Law Firm) |
 
 ---
 
@@ -133,21 +79,26 @@ Build a legal-tech platform with the following features:
 - Email: `admin@nyaaysathi.com`
 - Password: `admin123`
 
+### Test Client Account
+- URL: `/user-login`
+- Email: `testclient123@example.com`
+- Password: `test123456`
+
 ---
 
 ## Current Feature Status
 
 ### ✅ Completed
-- Sign Up links redirect to role selection
-- Backend modular refactoring
+- Client signup page with booking context
+- Book Consultation → Signup → Login flow
 - 1000 dummy lawyers with proper distribution
 - Text search bar for lawyer search
-- Approved lawyers appear in search (with verified badge)
-- AI chatbot with conversational flow
-- Book consultation redirects to signup for non-logged users
+- Approved lawyers appear in search with verified badge
+- AI chatbot with lawyer recommendations
+- Backend modular refactoring
 
 ### 🟡 Data Notes
-- Lawyer data in `/frontend/src/data/lawyers.js` is **MOCKED** (generated dummy data)
+- Lawyer data in `/frontend/src/data/lawyers.js` is **MOCKED**
 - Approved lawyers from database are **REAL** and marked as verified
 
 ---
@@ -155,9 +106,9 @@ Build a legal-tech platform with the following features:
 ## Backlog
 
 ### P1 (High Priority)
-- [ ] Break down `FindLawyer.js` into smaller components
-- [ ] Add lawyer profile edit page for approved lawyers
 - [ ] Implement actual booking system with calendar
+- [ ] Add lawyer profile edit page for approved lawyers
+- [ ] Break down large FindLawyer.js into smaller components
 
 ### P2 (Medium Priority)
 - [ ] Case tracking system for clients
@@ -166,14 +117,5 @@ Build a legal-tech platform with the following features:
 
 ### P3 (Low Priority)
 - [ ] Analytics dashboard for admins
-- [ ] Rating and review system after consultation
+- [ ] Rating and review system
 - [ ] Document template library
-- [ ] Multi-language support (Hindi/English toggle)
-
----
-
-## Known Limitations
-- Lawyer photos use randomuser.me (placeholder images)
-- No real payment integration yet
-- No email verification flow
-- No password reset functionality
