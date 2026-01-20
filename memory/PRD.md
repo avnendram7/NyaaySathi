@@ -1,7 +1,7 @@
 # Nyaay Sathi - Legal Tech Platform PRD
 
-## Original Problem Statement
-Build a legal-tech platform with role-based access, AI-powered legal assistant, lawyer discovery/booking, and admin approval workflow.
+## Overview
+A comprehensive legal-tech platform serving Clients, Lawyers, and Law Firms in India.
 
 ## Tech Stack
 - **Frontend**: React, TailwindCSS, Framer Motion, lucide-react
@@ -11,94 +11,102 @@ Build a legal-tech platform with role-based access, AI-powered legal assistant, 
 
 ---
 
-## Changelog
+## User Flows (All Complete)
 
-### January 20, 2026 (Latest)
-**Fully Functional Calendar & Messages Features**
-- **Calendar Tab** - Complete implementation with:
-  - Stats cards (Today's appointments, Weekly hearings, Upcoming meetings, Monthly completions)
-  - Interactive mini calendar with event indicators
-  - Today's schedule with 5 appointments (Indian clients)
-  - Upcoming court hearings list (6 hearings across various courts)
-  - Different event types (hearings, video calls, meetings, preparation)
-  - Color-coded event indicators
+### 1. Client Flow
+- **Get Started** → `/user-signup` → Create Account → `/user-dashboard`
+- **Login** → `/user-login` → Dashboard
+- **Find Lawyer** → `/find-lawyer` → Manual Search or AI Chat → Book Consultation → Signup
 
-- **Messages Tab** - Full chat interface with:
-  - 8 Indian client conversations with preview
-  - Unread message counters
-  - Online/offline status indicators
-  - Active chat window with message history
-  - Bilingual conversations (Hindi-English mix)
-  - Document attachments support
-  - Video/voice call buttons
-  - Real-time typing indicator area
+### 2. Lawyer Flow
+- **Get Started** → `/lawyer-application` → 4-Step Form → Admin Approval → Login
+- **Login** → `/lawyer-login` → `/lawyer-dashboard`
 
-**Client Signup Flow**
-- Created `/user-signup` page for client registration
-- Book Consultation redirects to client signup
-- After signup → auto login → redirect to dashboard
-
-**Enhanced Lawyer Search**
-- 1000 dummy lawyers across 12 Indian states
-- Text search bar for filtering
-- Approved lawyers from DB appear with verified badge
+### 3. Law Firm Flow (NEW)
+- **Get Started** → `/lawfirm-application` → 4-Step Form → Admin Approval → Login
+- **Login** → `/lawfirm-login` → `/lawfirm-dashboard`
 
 ---
 
-## User Flows
-
-### Client Flow
-1. Visit `/find-lawyer` → Search lawyers
-2. Click "Book Consultation" → Redirect to `/user-signup`
-3. Create account → Auto login → Dashboard
-
-### Lawyer Flow
-1. Visit `/role-selection` → Click "I am a Lawyer"
-2. Fill multi-step application form
-3. Wait for admin approval
-4. Login at `/lawyer-login` → Access full dashboard
-
----
-
-## Lawyer Dashboard Features (All Functional)
+## Law Firm Dashboard Features (All Complete)
 
 | Tab | Status | Features |
 |-----|--------|----------|
-| Dashboard | ✅ | Stats, Schedule, Messages preview |
-| Cases | ✅ | Case list, Filters, Stats |
-| Calendar | ✅ | Mini calendar, Daily schedule, Upcoming hearings |
-| Messages | ✅ | Chat list, Active conversation, Attachments |
-| Documents | ✅ | Document list, Storage stats |
-| Lawyer Network | ✅ | Discussions, Active members |
-| Earnings | ✅ | Revenue stats, Billing history |
+| Dashboard | ✅ | Firm stats, Upcoming hearings, Recent activity, Top lawyers, Client messages |
+| Our Lawyers | ✅ | 8 lawyers grid with photos, specializations, ratings, status badges |
+| Cases | ✅ | Case management table with clients, lawyers, status, priority |
+| Calendar | ✅ | Interactive calendar, Weekly events, Firm-wide schedule |
+| Messages | ✅ | Client conversations, Team chat, Real-time messaging |
+| Analytics | ✅ | Revenue tracking, Lawyer performance, YTD stats |
+| Settings | ✅ | Firm profile, Subscription status |
+
+---
+
+## All Dashboard Features (Complete)
+
+### Client Dashboard
+- AI Chat, Find Lawyers, Bookings, Documents, Profile
+
+### Lawyer Dashboard  
+- Dashboard, Cases, Calendar, Messages, Documents, Lawyer Network, Earnings
+
+### Law Firm Dashboard
+- Dashboard, Our Lawyers, Cases, Calendar, Messages, Analytics, Settings
 
 ---
 
 ## Test Credentials
 
-### Admin Dashboard
-- URL: `/admin-login`
-- Email: `admin@nyaaysathi.com`
-- Password: `admin123`
-
-### Test Lawyer Account
-- URL: `/lawyer-login`
-- Email: `testlawyer@nyaaysathi.com`
-- Password: `lawyer123`
-
-### Test Client Account
-- URL: `/user-login`
-- Email: `testclient123@example.com`
-- Password: `test123456`
+| User Type | Email | Password | URL |
+|-----------|-------|----------|-----|
+| Admin | admin@nyaaysathi.com | admin123 | /admin-login |
+| Lawyer | testlawyer@nyaaysathi.com | lawyer123 | /lawyer-login |
+| Client | testclient123@example.com | test123456 | /user-login |
+| Law Firm | testlawfirm@nyaaysathi.com | firm123 | /lawfirm-login |
 
 ---
 
-## Data Notes
-- **Lawyer data**: 1000 dummy lawyers (MOCKED) + approved lawyers from DB (REAL)
-- **Dashboard data**: Indian dummy data with realistic names and scenarios
-- **Messages**: Pre-populated conversation threads for demo
+## API Endpoints
+
+### Law Firm Specific (NEW)
+- `POST /api/lawfirm-applications` - Submit law firm application
+- `GET /api/lawfirms` - Get approved law firms
+- `GET /api/admin/lawfirm-applications` - Admin: List law firm applications
+- `PUT /api/admin/lawfirm-applications/{id}/approve` - Admin: Approve
+- `PUT /api/admin/lawfirm-applications/{id}/reject` - Admin: Reject
+
+---
+
+## Files Structure
+
+```
+/app/frontend/src/pages/
+├── LawFirmApplication.js  # NEW - 4-step registration form
+├── LawFirmDashboard.js    # UPDATED - Full dashboard with all tabs
+├── LawFirmLoginPage.js    # UPDATED - Sign Up → Application
+├── LawyerLoginPage.js     # UPDATED - Sign Up → Application
+├── UserSignupPage.js      # Client signup page
+└── ...
+
+/app/backend/routes/
+├── lawfirms.py            # NEW - Law firm routes
+├── admin.py               # UPDATED - Law firm approval routes
+└── ...
+```
 
 ---
 
 ## Current Status: FULLY FUNCTIONAL
-All features are implemented and working. No "coming soon" placeholders remain.
+
+All three user types (Client, Lawyer, Law Firm) have complete flows:
+- ✅ Registration/Application
+- ✅ Login
+- ✅ Full Featured Dashboard
+- ✅ Admin Approval (for Lawyer & Law Firm)
+
+---
+
+## Data Notes
+- **Lawyers**: 1000 dummy lawyers (MOCKED) + approved from DB (REAL)
+- **Law Firms**: Dummy firm data with 8 lawyers, 6 cases (MOCKED)
+- **All Indian names and realistic scenarios**
