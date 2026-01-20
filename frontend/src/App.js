@@ -22,6 +22,7 @@ import ForClientsPage from './pages/ForClientsPage';
 import ForLawyersPage from './pages/ForLawyersPage';
 import ContactPage from './pages/ContactPage';
 import UserLoginPage from './pages/UserLoginPage';
+import UserSignupPage from './pages/UserSignupPage';
 import LawyerLoginPage from './pages/LawyerLoginPage';
 import LawFirmLoginPage from './pages/LawFirmLoginPage';
 import UserDashboard from './pages/UserDashboard';
