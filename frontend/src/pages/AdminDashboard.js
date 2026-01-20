@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Shield, Scale, Users, CheckCircle, XCircle, Clock, Eye, User, Mail, Phone, MapPin, Briefcase, GraduationCap, Star, ArrowLeft, Loader2, RefreshCw, LogOut, Building2, Globe, FileText } from 'lucide-react';
+import { Shield, Scale, Users, CheckCircle, XCircle, Clock, Eye, User, Mail, Phone, MapPin, Briefcase, GraduationCap, Star, ArrowLeft, Loader2, RefreshCw, LogOut, Building2, Globe, FileText, X } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { toast } from 'sonner';
 import axios from 'axios';
