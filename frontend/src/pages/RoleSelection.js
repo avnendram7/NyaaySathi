@@ -1,6 +1,6 @@
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { User, Scale, Building2, ArrowRight, Sparkles, Zap, Shield, LogIn } from 'lucide-react';
+import { User, Scale, Building2, ArrowRight, LogIn } from 'lucide-react';
 
 export default function RoleSelection() {
   const navigate = useNavigate();
@@ -13,16 +13,10 @@ export default function RoleSelection() {
       title: 'I am a User',
       subtitle: 'Seeking legal advice? Connect with top-tier professionals seamlessly.',
       icon: User,
-      accentIcon: Shield,
-      bg: 'from-slate-900 via-gray-900 to-slate-950',
-      overlayColor: 'from-cyan-500/10 via-blue-500/5 to-transparent',
-      textColor: 'text-white',
-      subtitleColor: 'text-cyan-100',
-      btnGradient: 'from-cyan-500 via-cyan-600 to-cyan-700',
-      btnHoverGradient: 'from-cyan-400 via-cyan-500 to-cyan-600',
-      btnGlow: 'shadow-cyan-500/50',
+      gradient: 'from-cyan-600 to-cyan-700',
+      hoverGradient: 'hover:from-cyan-500 hover:to-cyan-600',
       borderColor: 'border-cyan-500/30',
-      particleColor: 'bg-cyan-400',
+      iconBg: 'bg-cyan-500',
       route: isLoginMode ? '/user-login' : '/find-lawyer',
       testId: 'role-user-card'
     },
@@ -31,16 +25,10 @@ export default function RoleSelection() {
       title: 'I am a Lawyer',
       subtitle: 'Join our network. Build your practice and reach clients effectively.',
       icon: Scale,
-      accentIcon: Sparkles,
-      bg: 'from-black via-gray-950 to-black',
-      overlayColor: 'from-purple-500/10 via-indigo-500/5 to-transparent',
-      textColor: 'text-white',
-      subtitleColor: 'text-gray-200',
-      btnGradient: 'from-purple-500 via-indigo-600 to-purple-700',
-      btnHoverGradient: 'from-purple-400 via-indigo-500 to-purple-600',
-      btnGlow: 'shadow-purple-500/50',
+      gradient: 'from-purple-600 to-purple-700',
+      hoverGradient: 'hover:from-purple-500 hover:to-purple-600',
       borderColor: 'border-purple-500/30',
-      particleColor: 'bg-purple-400',
+      iconBg: 'bg-purple-500',
       route: isLoginMode ? '/lawyer-login' : '/lawyer-application',
       testId: 'role-lawyer-card'
     },
@@ -49,302 +37,130 @@ export default function RoleSelection() {
       title: 'I am a Law Firm',
       subtitle: 'Manage your firm, onboard lawyers, and scale your legal operations.',
       icon: Building2,
-      accentIcon: Zap,
-      bg: 'from-blue-950 via-indigo-950 to-blue-900',
-      overlayColor: 'from-blue-500/10 via-indigo-500/5 to-transparent',
-      textColor: 'text-white',
-      subtitleColor: 'text-blue-100',
-      btnGradient: 'from-blue-500 via-indigo-600 to-blue-700',
-      btnHoverGradient: 'from-blue-400 via-indigo-500 to-blue-600',
-      btnGlow: 'shadow-blue-500/50',
+      gradient: 'from-blue-600 to-indigo-700',
+      hoverGradient: 'hover:from-blue-500 hover:to-indigo-600',
       borderColor: 'border-blue-500/30',
-      particleColor: 'bg-blue-400',
+      iconBg: 'bg-blue-500',
       route: isLoginMode ? '/lawfirm-login' : '/lawfirm-application',
       testId: 'role-lawfirm-card'
     }
   ];
   
   return (
-    <div className="min-h-screen flex relative overflow-hidden bg-black">
-      {/* Animated grid background */}
-      <div className="absolute inset-0 opacity-20">
+    <div className="min-h-screen flex flex-col bg-black">
+      {/* Simple gradient background */}
+      <div className="fixed inset-0 bg-gradient-to-br from-black via-zinc-950 to-black" />
+      
+      {/* Subtle grid */}
+      <div className="fixed inset-0 opacity-5">
         <div className="absolute inset-0" style={{
-          backgroundImage: `
-            linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)
-          `,
-          backgroundSize: '50px 50px',
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+                           linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+          backgroundSize: '60px 60px'
         }} />
       </div>
 
-      {/* Floating orbs in background */}
-      {[...Array(6)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute rounded-full blur-3xl"
-          style={{
-            width: `${100 + i * 50}px`,
-            height: `${100 + i * 50}px`,
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            background: i % 3 === 0 ? 'rgba(6, 182, 212, 0.1)' : i % 3 === 1 ? 'rgba(168, 85, 247, 0.1)' : 'rgba(59, 130, 246, 0.1)',
-          }}
-          animate={{
-            x: [0, Math.random() * 100 - 50, 0],
-            y: [0, Math.random() * 100 - 50, 0],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{
-            duration: 10 + i * 2,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
-      ))}
-      
-      {roles.map((role, index) => {
-        const Icon = role.icon;
-        const AccentIcon = role.accentIcon;
-        
-        return (
-          <motion.div
-            key={role.id}
-            initial={{ opacity: 0, x: index === 0 ? -100 : index === 2 ? 100 : 0 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: index * 0.2 }}
-            data-testid={role.testId}
-            className={`flex-1 relative flex flex-col items-center justify-center p-12 bg-gradient-to-br ${role.bg} group cursor-pointer transition-all duration-500 hover:flex-[1.15] border-r last:border-r-0 ${role.borderColor} overflow-hidden`}
-            onClick={() => navigate(role.route)}
-          >
-            {/* Diagonal animated gradient overlay */}
-            <div className={`absolute inset-0 bg-gradient-to-br ${role.overlayColor} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-            
-            {/* Tech grid lines that appear on hover */}
-            <motion.div
-              className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-500"
-              style={{
-                backgroundImage: `
-                  linear-gradient(${role.particleColor.replace('bg-', 'rgba(')}0.2) 2px, transparent 2px),
-                  linear-gradient(90deg, ${role.particleColor.replace('bg-', 'rgba(')}0.2) 2px, transparent 2px)
-                `,
-                backgroundSize: '30px 30px',
-              }}
-            />
-            
-            {/* Animated particles */}
-            {[...Array(15)].map((_, i) => (
-              <motion.div
-                key={i}
-                className={`absolute w-1 h-1 ${role.particleColor} rounded-full opacity-40`}
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                }}
-                animate={{
-                  y: [0, -200, 0],
-                  opacity: [0.2, 0.6, 0.2],
-                  scale: [0.5, 1.5, 0.5],
-                }}
-                transition={{
-                  duration: 8 + Math.random() * 4,
-                  repeat: Infinity,
-                  delay: i * 0.3,
-                }}
-              />
-            ))}
-            
-            {/* Scan line effect - REMOVED */}
-            
-            {/* Content */}
-            <div className="relative z-10 text-center space-y-8 max-w-md">
-              {/* Icon with tech hexagon frame */}
-              <motion.div
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                transition={{ type: 'spring', stiffness: 300 }}
-                className="relative inline-flex"
-              >
-                {/* Hexagon background */}
-                <div className={`absolute inset-0 flex items-center justify-center`}>
-                  <svg width="120" height="120" viewBox="0 0 100 100" className="animate-spin-slow">
-                    <polygon
-                      points="50,5 90,25 90,75 50,95 10,75 10,25"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="0.5"
-                      className={role.textColor}
-                      opacity="0.3"
-                    />
-                  </svg>
-                </div>
-                
-                {/* Icon container */}
-                <div className={`relative p-8 rounded-2xl bg-gradient-to-br ${role.btnGradient} backdrop-blur-sm border ${role.borderColor} shadow-2xl`}>
-                  <Icon className="w-14 h-14 text-white" />
-                  
-                  {/* Accent icon floating */}
-                  <motion.div
-                    className="absolute -top-2 -right-2"
-                    animate={{
-                      y: [0, -5, 0],
-                      rotate: [0, 10, 0],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                    }}
-                  >
-                    <AccentIcon className={`w-6 h-6 ${role.particleColor.replace('bg-', 'text-')}`} />
-                  </motion.div>
-                </div>
-              </motion.div>
-              
-              {/* Title with glitch effect on hover */}
-              <motion.h1
-                className={`text-4xl sm:text-5xl lg:text-6xl font-bold ${role.textColor} mb-4 tracking-tight`}
-                whileHover={{ scale: 1.02 }}
-              >
-                {role.title}
-              </motion.h1>
-              
-              {/* Subtitle */}
-              <p className={`text-lg sm:text-xl ${role.subtitleColor} leading-relaxed font-light`}>
-                {role.subtitle}
-              </p>
-              
-              {/* Futuristic Floating Button */}
-              <motion.div
-                className="relative"
-                animate={{
-                  y: [0, -10, 0],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              >
-                {/* Multi-layer glow */}
-                <motion.div
-                  className={`absolute inset-0 rounded-full blur-2xl ${role.btnGlow} opacity-60`}
-                  animate={{
-                    scale: [1, 1.2, 1],
-                    opacity: [0.4, 0.7, 0.4],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                  }}
-                />
-                
-                {/* Button */}
-                <motion.button
-                  data-testid={`${role.id}-get-started-btn`}
-                  className={`relative bg-gradient-to-r ${role.btnGradient} text-white rounded-full px-12 py-6 text-lg font-bold shadow-2xl transition-all duration-300 flex items-center space-x-3 mx-auto border-2 ${role.borderColor} overflow-hidden group/btn`}
-                  whileHover={{ scale: 1.08, boxShadow: `0 0 40px ${role.btnGlow}` }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    navigate(role.route);
-                  }}
-                >
-                  {/* Animated background pattern */}
-                  <motion.div
-                    className="absolute inset-0 opacity-20"
-                    style={{
-                      backgroundImage: `
-                        repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.1) 10px, rgba(255,255,255,0.1) 20px)
-                      `,
-                    }}
-                    animate={{
-                      x: [0, 40],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "linear"
-                    }}
-                  />
-                  
-                  {/* Shine sweep */}
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                    animate={{
-                      x: ['-200%', '200%'],
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      repeatDelay: 1,
-                    }}
-                  />
-                  
-                  {/* Icon - Sparkle for Get Started, LogIn for Login */}
-                  {isLoginMode ? (
-                    <LogIn className="w-6 h-6 relative z-10" />
-                  ) : (
-                    <Sparkles className="w-6 h-6 relative z-10" />
-                  )}
-                  
-                  {/* Text */}
-                  <span className="relative z-10 tracking-wide">{isLoginMode ? 'LOGIN' : 'GET STARTED'}</span>
-                  
-                  {/* Animated arrow */}
-                  <motion.div
-                    animate={{
-                      x: [0, 5, 0],
-                    }}
-                    transition={{
-                      duration: 1.5,
-                      repeat: Infinity,
-                    }}
-                    className="relative z-10"
-                  >
-                    <ArrowRight className="w-6 h-6" />
-                  </motion.div>
-                  
-                  {/* Corner accents */}
-                  <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-white/50 rounded-tl" />
-                  <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-white/50 rounded-tr" />
-                  <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-white/50 rounded-bl" />
-                  <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-white/50 rounded-br" />
-                </motion.button>
-              </motion.div>
-            </div>
-            
-            {/* Side accent lines */}
-            <div className="absolute left-0 top-1/4 bottom-1/4 w-px bg-gradient-to-b from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="absolute right-0 top-1/4 bottom-1/4 w-px bg-gradient-to-b from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          </motion.div>
-        );
-      })}
-      
-      {/* Back button (subtle) */}
-      <button
-        data-testid="back-to-home-btn"
-        onClick={() => navigate('/')}
-        className="absolute top-8 left-8 text-white/50 hover:text-white transition-colors duration-300 z-50 flex items-center space-x-2 group"
-      >
-        <motion.div
-          animate={{ x: [0, -5, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
+      {/* Header */}
+      <header className="relative z-10 p-6">
+        <button 
+          onClick={() => navigate('/')}
+          className="flex items-center space-x-2 text-white hover:opacity-80 transition-opacity"
         >
-          ←
-        </motion.div>
-        <span>Back</span>
-      </button>
+          <Scale className="w-8 h-8 text-blue-500" />
+          <span className="text-xl font-bold">Nyaay Sathi</span>
+        </button>
+      </header>
+
+      {/* Main Content */}
+      <main className="flex-1 flex items-center justify-center relative z-10 px-4 py-12">
+        <div className="w-full max-w-5xl">
+          {/* Title */}
+          <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center mb-12"
+          >
+            <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">
+              {isLoginMode ? 'Welcome Back' : 'Get Started'}
+            </h1>
+            <p className="text-zinc-400 text-lg">
+              {isLoginMode ? 'Choose your account type to login' : 'Select how you want to use Nyaay Sathi'}
+            </p>
+          </motion.div>
+
+          {/* Role Cards */}
+          <div className="grid md:grid-cols-3 gap-6">
+            {roles.map((role, index) => {
+              const Icon = role.icon;
+              return (
+                <motion.div
+                  key={role.id}
+                  data-testid={role.testId}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  onClick={() => navigate(role.route)}
+                  className={`relative bg-zinc-900 border ${role.borderColor} rounded-2xl p-8 cursor-pointer group hover:bg-zinc-800 transition-all duration-200`}
+                >
+                  {/* Icon */}
+                  <div className={`w-16 h-16 ${role.iconBg} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-200`}>
+                    <Icon className="w-8 h-8 text-white" />
+                  </div>
+
+                  {/* Content */}
+                  <h2 className="text-2xl font-bold text-white mb-3">{role.title}</h2>
+                  <p className="text-zinc-400 mb-6 leading-relaxed">{role.subtitle}</p>
+
+                  {/* Button */}
+                  <button className={`w-full py-3 px-6 bg-gradient-to-r ${role.gradient} ${role.hoverGradient} text-white font-semibold rounded-xl flex items-center justify-center gap-2 transition-all duration-200`}>
+                    {isLoginMode ? (
+                      <>
+                        <LogIn className="w-5 h-5" />
+                        LOGIN
+                      </>
+                    ) : (
+                      <>
+                        GET STARTED
+                        <ArrowRight className="w-5 h-5" />
+                      </>
+                    )}
+                  </button>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* Toggle Mode Link */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+            className="text-center mt-10"
+          >
+            {isLoginMode ? (
+              <p className="text-zinc-500">
+                Don't have an account?{' '}
+                <button 
+                  onClick={() => navigate('/role-selection')}
+                  className="text-blue-400 hover:text-blue-300 font-semibold"
+                >
+                  Get Started
+                </button>
+              </p>
+            ) : (
+              <p className="text-zinc-500">
+                Already have an account?{' '}
+                <button 
+                  onClick={() => navigate('/role-selection?mode=login')}
+                  className="text-blue-400 hover:text-blue-300 font-semibold"
+                >
+                  Login
+                </button>
+              </p>
+            )}
+          </motion.div>
+        </div>
+      </main>
     </div>
   );
 }
-
-// Add custom animation in global CSS
-const style = document.createElement('style');
-style.textContent = `
-  @keyframes spin-slow {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-  .animate-spin-slow {
-    animation: spin-slow 20s linear infinite;
-  }
-`;
-document.head.appendChild(style);
