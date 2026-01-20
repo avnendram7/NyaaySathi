@@ -1153,7 +1153,7 @@ RULES:
         )}
 
         {/* Features Section - Only show on main screen */}
-        {!activeTab && (
+        {!activeTab && !lawyerTypeSelection && (
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
