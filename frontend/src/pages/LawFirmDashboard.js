@@ -105,11 +105,11 @@ export default function LawFirmDashboard() {
         <nav className="flex-1 px-4 space-y-1">
           {[
             { id: 'dashboard', icon: LayoutDashboard, label: 'Dashboard' },
-            { id: 'lawyers', icon: Users, label: 'Our Lawyers' },
+            { id: 'lawyers', icon: Users, label: 'Manage Lawyers' },
             { id: 'cases', icon: FileText, label: 'Cases' },
             { id: 'calendar', icon: Calendar, label: 'Calendar' },
             { id: 'messages', icon: MessageSquare, label: 'Messages', badge: 2 },
-            { id: 'analytics', icon: TrendingUp, label: 'Analytics' },
+            { id: 'reports', icon: TrendingUp, label: 'Reports' },
             { id: 'settings', icon: Settings, label: 'Settings' }
           ].map(item => (
             <button
