@@ -1,711 +1,39 @@
-// Dummy Indian Lawyers Data - 40 lawyers (10 per state)
-export const lawyers = [
-  // DELHI LAWYERS (10)
-  {
-    id: 1,
-    name: "Adv. Rajesh Kumar Sharma",
-    photo: "https://randomuser.me/api/portraits/men/1.jpg",
-    specialization: "Criminal Law",
-    experience: 15,
-    rating: 4.8,
-    cases_won: 342,
-    state: "Delhi",
-    city: "New Delhi",
-    court: "Delhi High Court",
-    languages: ["Hindi", "English"],
-    fee: "₹5,000 - ₹15,000",
-    bio: "Senior criminal lawyer with expertise in bail matters, murder trials, and white-collar crimes. Former Additional Public Prosecutor.",
-    education: "LLB from Delhi University, LLM from National Law School",
-    bar_council: "D/1234/2009"
-  },
-  {
-    id: 2,
-    name: "Adv. Neha Agarwal",
-    photo: "https://randomuser.me/api/portraits/women/14.jpg",
-    specialization: "Medical Negligence",
-    experience: 10,
-    rating: 4.7,
-    cases_won: 156,
-    state: "Delhi",
-    city: "New Delhi",
-    court: "Delhi High Court",
-    languages: ["Hindi", "English"],
-    fee: "₹6,000 - ₹25,000",
-    bio: "Medical malpractice specialist handling hospital negligence, wrong diagnosis, and surgical errors. MBBS background aids case evaluation.",
-    education: "MBBS + LLB from Delhi University",
-    bar_council: "D/6789/2014"
-  },
-  {
-    id: 3,
-    name: "Adv. Amit Verma",
-    photo: "https://randomuser.me/api/portraits/men/22.jpg",
-    specialization: "Corporate Law",
-    experience: 12,
-    rating: 4.6,
-    cases_won: 198,
-    state: "Delhi",
-    city: "New Delhi",
-    court: "Delhi High Court",
-    languages: ["Hindi", "English"],
-    fee: "₹10,000 - ₹40,000",
-    bio: "Corporate lawyer specializing in mergers, acquisitions, and business contracts. Advisor to several multinational companies.",
-    education: "LLB from Faculty of Law DU, LLM in Corporate Law",
-    bar_council: "D/2345/2012"
-  },
-  {
-    id: 4,
-    name: "Adv. Sunita Kapoor",
-    photo: "https://randomuser.me/api/portraits/women/25.jpg",
-    specialization: "Family Law",
-    experience: 18,
-    rating: 4.9,
-    cases_won: 412,
-    state: "Delhi",
-    city: "New Delhi",
-    court: "Tis Hazari Courts",
-    languages: ["Hindi", "English", "Punjabi"],
-    fee: "₹4,000 - ₹12,000",
-    bio: "Expert in divorce, child custody, and maintenance cases. Known for compassionate handling of sensitive family matters.",
-    education: "LLB from Campus Law Centre, Delhi University",
-    bar_council: "D/1122/2006"
-  },
-  {
-    id: 5,
-    name: "Adv. Rakesh Mehta",
-    photo: "https://randomuser.me/api/portraits/men/32.jpg",
-    specialization: "Property Law",
-    experience: 20,
-    rating: 4.8,
-    cases_won: 367,
-    state: "Delhi",
-    city: "New Delhi",
-    court: "Delhi High Court",
-    languages: ["Hindi", "English"],
-    fee: "₹8,000 - ₹30,000",
-    bio: "Property dispute expert handling land acquisition, title verification, and real estate fraud cases in NCR region.",
-    education: "LLB from Delhi University, Diploma in Property Law",
-    bar_council: "D/0987/2004"
-  },
-  {
-    id: 6,
-    name: "Adv. Priyanka Singh",
-    photo: "https://randomuser.me/api/portraits/women/33.jpg",
-    specialization: "Cyber Law",
-    experience: 8,
-    rating: 4.7,
-    cases_won: 134,
-    state: "Delhi",
-    city: "New Delhi",
-    court: "Patiala House Court",
-    languages: ["Hindi", "English"],
-    fee: "₹7,000 - ₹22,000",
-    bio: "Cyber crime specialist handling online fraud, data theft, and IT Act cases. B.Tech background in Computer Science.",
-    education: "B.Tech + LLB from IP University",
-    bar_council: "D/5678/2016"
-  },
-  {
-    id: 7,
-    name: "Adv. Vikrant Saxena",
-    photo: "https://randomuser.me/api/portraits/men/41.jpg",
-    specialization: "Tax Law",
-    experience: 14,
-    rating: 4.5,
-    cases_won: 245,
-    state: "Delhi",
-    city: "New Delhi",
-    court: "Income Tax Appellate Tribunal",
-    languages: ["Hindi", "English"],
-    fee: "₹6,000 - ₹25,000",
-    bio: "Tax litigation expert specializing in GST, Income Tax disputes, and corporate taxation matters.",
-    education: "LLB from Delhi University, CA",
-    bar_council: "D/3456/2010"
-  },
-  {
-    id: 8,
-    name: "Adv. Meera Joshi",
-    photo: "https://randomuser.me/api/portraits/women/44.jpg",
-    specialization: "Consumer Law",
-    experience: 9,
-    rating: 4.6,
-    cases_won: 178,
-    state: "Delhi",
-    city: "New Delhi",
-    court: "District Consumer Forum",
-    languages: ["Hindi", "English"],
-    fee: "₹3,000 - ₹10,000",
-    bio: "Consumer rights advocate handling defective products, service deficiency, and unfair trade practices.",
-    education: "LLB from Amity Law School",
-    bar_council: "D/7890/2015"
-  },
-  {
-    id: 9,
-    name: "Adv. Sanjay Gupta",
-    photo: "https://randomuser.me/api/portraits/men/45.jpg",
-    specialization: "Labour Law",
-    experience: 16,
-    rating: 4.7,
-    cases_won: 289,
-    state: "Delhi",
-    city: "New Delhi",
-    court: "Central Administrative Tribunal",
-    languages: ["Hindi", "English"],
-    fee: "₹5,000 - ₹18,000",
-    bio: "Employment law specialist handling wrongful termination, workplace harassment, and industrial disputes.",
-    education: "LLB from Faculty of Law DU, LLM in Labour Law",
-    bar_council: "D/4567/2008"
-  },
-  {
-    id: 10,
-    name: "Adv. Anjali Bhardwaj",
-    photo: "https://randomuser.me/api/portraits/women/52.jpg",
-    specialization: "Civil Law",
-    experience: 11,
-    rating: 4.5,
-    cases_won: 201,
-    state: "Delhi",
-    city: "New Delhi",
-    court: "Saket District Court",
-    languages: ["Hindi", "English"],
-    fee: "₹4,000 - ₹15,000",
-    bio: "Civil litigation expert handling contract disputes, recovery suits, and injunction matters.",
-    education: "LLB from Law Centre-II, Delhi University",
-    bar_council: "D/8901/2013"
-  },
+// Expanded Dummy Indian Lawyers Data - 1000 lawyers
+// All major states with proper distribution across specializations
 
-  // UTTAR PRADESH LAWYERS (10)
-  {
-    id: 11,
-    name: "Adv. Mohammed Farooq",
-    photo: "https://randomuser.me/api/portraits/men/5.jpg",
-    specialization: "Civil Law",
-    experience: 18,
-    rating: 4.8,
-    cases_won: 398,
-    state: "Uttar Pradesh",
-    city: "Lucknow",
-    court: "Allahabad High Court",
-    languages: ["Hindi", "Urdu", "English"],
-    fee: "₹3,000 - ₹10,000",
-    bio: "Civil litigation expert handling contract disputes, recovery suits, and injunction matters. Known for meticulous case preparation.",
-    education: "LLB from Lucknow University",
-    bar_council: "U/2345/2006"
-  },
-  {
-    id: 12,
-    name: "Adv. Pradeep Tiwari",
-    photo: "https://randomuser.me/api/portraits/men/55.jpg",
-    specialization: "Criminal Law",
-    experience: 22,
-    rating: 4.9,
-    cases_won: 456,
-    state: "Uttar Pradesh",
-    city: "Lucknow",
-    court: "Allahabad High Court",
-    languages: ["Hindi", "English"],
-    fee: "₹4,000 - ₹15,000",
-    bio: "Senior criminal advocate with expertise in serious offences, bail matters, and appeals. Former Government Advocate.",
-    education: "LLB from Lucknow University, LLM in Criminal Law",
-    bar_council: "U/1234/2002"
-  },
-  {
-    id: 13,
-    name: "Adv. Kavita Mishra",
-    photo: "https://randomuser.me/api/portraits/women/56.jpg",
-    specialization: "Family Law",
-    experience: 14,
-    rating: 4.7,
-    cases_won: 312,
-    state: "Uttar Pradesh",
-    city: "Noida",
-    court: "Gautam Budh Nagar District Court",
-    languages: ["Hindi", "English"],
-    fee: "₹3,500 - ₹12,000",
-    bio: "Family law specialist handling divorce, maintenance, and child custody cases with sensitivity and expertise.",
-    education: "LLB from Amity University Noida",
-    bar_council: "U/5678/2010"
-  },
-  {
-    id: 14,
-    name: "Adv. Rahul Pandey",
-    photo: "https://randomuser.me/api/portraits/men/57.jpg",
-    specialization: "Property Law",
-    experience: 16,
-    rating: 4.6,
-    cases_won: 278,
-    state: "Uttar Pradesh",
-    city: "Varanasi",
-    court: "District Court Varanasi",
-    languages: ["Hindi", "English", "Bhojpuri"],
-    fee: "₹3,000 - ₹10,000",
-    bio: "Property dispute expert specializing in agricultural land matters, succession, and partition cases.",
-    education: "LLB from Banaras Hindu University",
-    bar_council: "U/3456/2008"
-  },
-  {
-    id: 15,
-    name: "Adv. Sarita Yadav",
-    photo: "https://randomuser.me/api/portraits/women/58.jpg",
-    specialization: "Labour Law",
-    experience: 10,
-    rating: 4.5,
-    cases_won: 167,
-    state: "Uttar Pradesh",
-    city: "Lucknow",
-    court: "Labour Court Lucknow",
-    languages: ["Hindi", "English"],
-    fee: "₹2,500 - ₹8,000",
-    bio: "Labour law advocate handling industrial disputes, ESI/PF matters, and wrongful termination cases.",
-    education: "LLB from Lucknow University",
-    bar_council: "U/7890/2014"
-  },
-  {
-    id: 16,
-    name: "Adv. Arun Kumar Singh",
-    photo: "https://randomuser.me/api/portraits/men/59.jpg",
-    specialization: "Constitutional Law",
-    experience: 25,
-    rating: 4.9,
-    cases_won: 534,
-    state: "Uttar Pradesh",
-    city: "Lucknow",
-    court: "Allahabad High Court",
-    languages: ["Hindi", "English"],
-    fee: "₹10,000 - ₹50,000",
-    bio: "Senior advocate specializing in PIL, fundamental rights, and constitutional matters. Argued landmark cases.",
-    education: "LLB & LLM from Lucknow University, PhD in Constitutional Law",
-    bar_council: "U/0001/1999"
-  },
-  {
-    id: 17,
-    name: "Adv. Neelam Srivastava",
-    photo: "https://randomuser.me/api/portraits/women/60.jpg",
-    specialization: "Consumer Law",
-    experience: 8,
-    rating: 4.4,
-    cases_won: 145,
-    state: "Uttar Pradesh",
-    city: "Noida",
-    court: "District Consumer Forum Noida",
-    languages: ["Hindi", "English"],
-    fee: "₹2,000 - ₹7,000",
-    bio: "Consumer rights advocate specializing in real estate complaints, e-commerce disputes, and banking issues.",
-    education: "LLB from Amity University",
-    bar_council: "U/4567/2016"
-  },
-  {
-    id: 18,
-    name: "Adv. Deepak Verma",
-    photo: "https://randomuser.me/api/portraits/men/61.jpg",
-    specialization: "Tax Law",
-    experience: 12,
-    rating: 4.6,
-    cases_won: 198,
-    state: "Uttar Pradesh",
-    city: "Lucknow",
-    court: "Income Tax Appellate Tribunal",
-    languages: ["Hindi", "English"],
-    fee: "₹5,000 - ₹20,000",
-    bio: "Tax litigation expert handling GST disputes, income tax appeals, and corporate taxation matters.",
-    education: "LLB from Lucknow University, CA",
-    bar_council: "U/8901/2012"
-  },
-  {
-    id: 19,
-    name: "Adv. Pooja Awasthi",
-    photo: "https://randomuser.me/api/portraits/women/62.jpg",
-    specialization: "Cyber Law",
-    experience: 6,
-    rating: 4.5,
-    cases_won: 89,
-    state: "Uttar Pradesh",
-    city: "Noida",
-    court: "Gautam Budh Nagar District Court",
-    languages: ["Hindi", "English"],
-    fee: "₹4,000 - ₹15,000",
-    bio: "Cyber crime specialist handling IT Act cases, online harassment, and data protection matters.",
-    education: "B.Tech + LLB from UPES",
-    bar_council: "U/2345/2018"
-  },
-  {
-    id: 20,
-    name: "Adv. Vijay Tripathi",
-    photo: "https://randomuser.me/api/portraits/men/63.jpg",
-    specialization: "Corporate Law",
-    experience: 14,
-    rating: 4.7,
-    cases_won: 234,
-    state: "Uttar Pradesh",
-    city: "Noida",
-    court: "NCLT New Delhi",
-    languages: ["Hindi", "English"],
-    fee: "₹8,000 - ₹35,000",
-    bio: "Corporate lawyer handling company disputes, insolvency proceedings, and business contracts.",
-    education: "LLB from NLIU Bhopal, MBA",
-    bar_council: "U/6789/2010"
-  },
-
-  // HARYANA LAWYERS (10)
-  {
-    id: 21,
-    name: "Adv. Simran Kaur",
-    photo: "https://randomuser.me/api/portraits/women/12.jpg",
-    specialization: "Immigration Law",
-    experience: 9,
-    rating: 4.8,
-    cases_won: 176,
-    state: "Haryana",
-    city: "Gurugram",
-    court: "Punjab & Haryana High Court",
-    languages: ["Punjabi", "Hindi", "English"],
-    fee: "₹5,000 - ₹20,000",
-    bio: "Immigration specialist handling visa issues, deportation cases, and citizenship matters. Expert in Canadian and US immigration.",
-    education: "LLB from Panjab University, LLM in International Law",
-    bar_council: "H/3456/2015"
-  },
-  {
-    id: 22,
-    name: "Adv. Harpreet Singh Brar",
-    photo: "https://randomuser.me/api/portraits/men/64.jpg",
-    specialization: "Criminal Law",
-    experience: 17,
-    rating: 4.7,
-    cases_won: 345,
-    state: "Haryana",
-    city: "Chandigarh",
-    court: "Punjab & Haryana High Court",
-    languages: ["Punjabi", "Hindi", "English"],
-    fee: "₹5,000 - ₹18,000",
-    bio: "Criminal defense lawyer handling serious offences, NDPS cases, and economic offences.",
-    education: "LLB from Panjab University",
-    bar_council: "H/1234/2007"
-  },
-  {
-    id: 23,
-    name: "Adv. Rekha Malik",
-    photo: "https://randomuser.me/api/portraits/women/65.jpg",
-    specialization: "Family Law",
-    experience: 13,
-    rating: 4.8,
-    cases_won: 289,
-    state: "Haryana",
-    city: "Gurugram",
-    court: "Gurugram District Court",
-    languages: ["Hindi", "English"],
-    fee: "₹4,000 - ₹14,000",
-    bio: "Family law expert handling NRI divorce cases, child custody, and domestic violence matters.",
-    education: "LLB from MDU Rohtak",
-    bar_council: "H/5678/2011"
-  },
-  {
-    id: 24,
-    name: "Adv. Surender Hooda",
-    photo: "https://randomuser.me/api/portraits/men/66.jpg",
-    specialization: "Property Law",
-    experience: 20,
-    rating: 4.6,
-    cases_won: 412,
-    state: "Haryana",
-    city: "Faridabad",
-    court: "Faridabad District Court",
-    languages: ["Hindi", "Haryanvi", "English"],
-    fee: "₹4,000 - ₹15,000",
-    bio: "Property dispute specialist handling agricultural land matters, illegal possession, and partition cases.",
-    education: "LLB from MDU Rohtak",
-    bar_council: "H/0987/2004"
-  },
-  {
-    id: 25,
-    name: "Adv. Nisha Rani",
-    photo: "https://randomuser.me/api/portraits/women/67.jpg",
-    specialization: "Labour Law",
-    experience: 11,
-    rating: 4.5,
-    cases_won: 178,
-    state: "Haryana",
-    city: "Gurugram",
-    court: "Labour Court Gurugram",
-    languages: ["Hindi", "English"],
-    fee: "₹3,500 - ₹12,000",
-    bio: "Employment law advocate for IT sector employees handling termination, harassment, and contract disputes.",
-    education: "LLB from GD Goenka University",
-    bar_council: "H/2345/2013"
-  },
-  {
-    id: 26,
-    name: "Adv. Rajbir Tanwar",
-    photo: "https://randomuser.me/api/portraits/men/68.jpg",
-    specialization: "Civil Law",
-    experience: 15,
-    rating: 4.6,
-    cases_won: 267,
-    state: "Haryana",
-    city: "Chandigarh",
-    court: "Punjab & Haryana High Court",
-    languages: ["Hindi", "Punjabi", "English"],
-    fee: "₹4,000 - ₹16,000",
-    bio: "Civil litigation expert handling recovery suits, specific performance, and declaratory matters.",
-    education: "LLB from Panjab University",
-    bar_council: "H/7890/2009"
-  },
-  {
-    id: 27,
-    name: "Adv. Monika Sharma",
-    photo: "https://randomuser.me/api/portraits/women/69.jpg",
-    specialization: "Consumer Law",
-    experience: 7,
-    rating: 4.4,
-    cases_won: 123,
-    state: "Haryana",
-    city: "Gurugram",
-    court: "District Consumer Forum Gurugram",
-    languages: ["Hindi", "English"],
-    fee: "₹2,500 - ₹8,000",
-    bio: "Consumer advocate handling real estate builder complaints, insurance claims, and service deficiency.",
-    education: "LLB from Amity University Gurugram",
-    bar_council: "H/4567/2017"
-  },
-  {
-    id: 28,
-    name: "Adv. Parveen Kumar",
-    photo: "https://randomuser.me/api/portraits/men/70.jpg",
-    specialization: "Corporate Law",
-    experience: 10,
-    rating: 4.7,
-    cases_won: 156,
-    state: "Haryana",
-    city: "Gurugram",
-    court: "NCLT New Delhi",
-    languages: ["Hindi", "English"],
-    fee: "₹10,000 - ₹45,000",
-    bio: "Corporate lawyer advising startups and MNCs in Gurugram on compliance, contracts, and M&A.",
-    education: "LLB from NLU Delhi, CS",
-    bar_council: "H/8901/2014"
-  },
-  {
-    id: 29,
-    name: "Adv. Anita Dahiya",
-    photo: "https://randomuser.me/api/portraits/women/71.jpg",
-    specialization: "Tax Law",
-    experience: 12,
-    rating: 4.5,
-    cases_won: 189,
-    state: "Haryana",
-    city: "Chandigarh",
-    court: "Income Tax Appellate Tribunal",
-    languages: ["Hindi", "English"],
-    fee: "₹5,000 - ₹22,000",
-    bio: "Tax litigation specialist handling GST, income tax, and customs duty matters.",
-    education: "LLB from Panjab University, CA",
-    bar_council: "H/3456/2012"
-  },
-  {
-    id: 30,
-    name: "Adv. Sandeep Malik",
-    photo: "https://randomuser.me/api/portraits/men/72.jpg",
-    specialization: "Cyber Law",
-    experience: 8,
-    rating: 4.6,
-    cases_won: 112,
-    state: "Haryana",
-    city: "Gurugram",
-    court: "Gurugram District Court",
-    languages: ["Hindi", "English"],
-    fee: "₹6,000 - ₹20,000",
-    bio: "Cyber crime expert handling corporate data breaches, online defamation, and IT Act cases.",
-    education: "B.Tech + LLB from Bennett University",
-    bar_council: "H/6789/2016"
-  },
-
-  // MAHARASHTRA LAWYERS (10)
-  {
-    id: 31,
-    name: "Adv. Priya Malhotra",
-    photo: "https://randomuser.me/api/portraits/women/2.jpg",
-    specialization: "Family Law",
-    experience: 12,
-    rating: 4.9,
-    cases_won: 280,
-    state: "Maharashtra",
-    city: "Mumbai",
-    court: "Bombay High Court",
-    languages: ["Hindi", "English", "Marathi"],
-    fee: "₹4,000 - ₹12,000",
-    bio: "Specialist in divorce, child custody, maintenance, and domestic violence cases. Compassionate approach to sensitive family matters.",
-    education: "LLB from Government Law College Mumbai",
-    bar_council: "M/5678/2012"
-  },
-  {
-    id: 32,
-    name: "Adv. Rohit Deshmukh",
-    photo: "https://randomuser.me/api/portraits/men/11.jpg",
-    specialization: "Banking Law",
-    experience: 16,
-    rating: 4.7,
-    cases_won: 334,
-    state: "Maharashtra",
-    city: "Pune",
-    court: "Bombay High Court",
-    languages: ["Marathi", "Hindi", "English"],
-    fee: "₹8,000 - ₹35,000",
-    bio: "Banking and finance law expert handling loan recovery, SARFAESI matters, and banking fraud cases. Former legal head at major bank.",
-    education: "LLB from ILS Law College Pune",
-    bar_council: "M/8901/2008"
-  },
-  {
-    id: 33,
-    name: "Adv. Snehal Patil",
-    photo: "https://randomuser.me/api/portraits/women/73.jpg",
-    specialization: "Criminal Law",
-    experience: 14,
-    rating: 4.8,
-    cases_won: 298,
-    state: "Maharashtra",
-    city: "Mumbai",
-    court: "Bombay High Court",
-    languages: ["Marathi", "Hindi", "English"],
-    fee: "₹6,000 - ₹25,000",
-    bio: "Criminal defense advocate handling PMLA, economic offences, and serious criminal matters.",
-    education: "LLB from Government Law College Mumbai, LLM in Criminal Law",
-    bar_council: "M/1234/2010"
-  },
-  {
-    id: 34,
-    name: "Adv. Ajay Kulkarni",
-    photo: "https://randomuser.me/api/portraits/men/74.jpg",
-    specialization: "Property Law",
-    experience: 19,
-    rating: 4.7,
-    cases_won: 387,
-    state: "Maharashtra",
-    city: "Pune",
-    court: "Pune District Court",
-    languages: ["Marathi", "Hindi", "English"],
-    fee: "₹5,000 - ₹20,000",
-    bio: "Property law expert handling redevelopment disputes, society matters, and land acquisition cases.",
-    education: "LLB from ILS Law College Pune",
-    bar_council: "M/2345/2005"
-  },
-  {
-    id: 35,
-    name: "Adv. Reshma Shah",
-    photo: "https://randomuser.me/api/portraits/women/75.jpg",
-    specialization: "Corporate Law",
-    experience: 11,
-    rating: 4.8,
-    cases_won: 167,
-    state: "Maharashtra",
-    city: "Mumbai",
-    court: "NCLT Mumbai",
-    languages: ["Hindi", "English", "Gujarati"],
-    fee: "₹15,000 - ₹60,000",
-    bio: "Corporate lawyer handling IPOs, M&A, private equity deals, and SEBI compliance matters.",
-    education: "LLB from GLC Mumbai, LLM from Harvard",
-    bar_council: "M/5678/2013"
-  },
-  {
-    id: 36,
-    name: "Adv. Mangesh Sawant",
-    photo: "https://randomuser.me/api/portraits/men/76.jpg",
-    specialization: "Labour Law",
-    experience: 13,
-    rating: 4.6,
-    cases_won: 234,
-    state: "Maharashtra",
-    city: "Mumbai",
-    court: "Industrial Court Mumbai",
-    languages: ["Marathi", "Hindi", "English"],
-    fee: "₹4,000 - ₹15,000",
-    bio: "Labour law specialist handling industrial disputes, workmen compensation, and trade union matters.",
-    education: "LLB from Mumbai University",
-    bar_council: "M/7890/2011"
-  },
-  {
-    id: 37,
-    name: "Adv. Kavita Joshi",
-    photo: "https://randomuser.me/api/portraits/women/77.jpg",
-    specialization: "Consumer Law",
-    experience: 9,
-    rating: 4.5,
-    cases_won: 156,
-    state: "Maharashtra",
-    city: "Mumbai",
-    court: "State Consumer Commission Mumbai",
-    languages: ["Hindi", "English", "Marathi"],
-    fee: "₹3,000 - ₹10,000",
-    bio: "Consumer advocate handling housing society disputes, insurance claims, and e-commerce complaints.",
-    education: "LLB from KC Law College Mumbai",
-    bar_council: "M/4567/2015"
-  },
-  {
-    id: 38,
-    name: "Adv. Sunil Rane",
-    photo: "https://randomuser.me/api/portraits/men/78.jpg",
-    specialization: "Civil Law",
-    experience: 17,
-    rating: 4.6,
-    cases_won: 312,
-    state: "Maharashtra",
-    city: "Nagpur",
-    court: "Nagpur Bench Bombay High Court",
-    languages: ["Marathi", "Hindi", "English"],
-    fee: "₹3,500 - ₹12,000",
-    bio: "Civil litigation expert handling recovery suits, injunctions, and specific performance matters.",
-    education: "LLB from Nagpur University",
-    bar_council: "M/8901/2007"
-  },
-  {
-    id: 39,
-    name: "Adv. Deepali Phadke",
-    photo: "https://randomuser.me/api/portraits/women/79.jpg",
-    specialization: "Tax Law",
-    experience: 10,
-    rating: 4.7,
-    cases_won: 178,
-    state: "Maharashtra",
-    city: "Mumbai",
-    court: "Income Tax Appellate Tribunal",
-    languages: ["Hindi", "English", "Marathi"],
-    fee: "₹7,000 - ₹30,000",
-    bio: "Tax specialist handling international taxation, transfer pricing, and GST litigation.",
-    education: "LLB from GLC Mumbai, CFA",
-    bar_council: "M/2345/2014"
-  },
-  {
-    id: 40,
-    name: "Adv. Rahul Thakur",
-    photo: "https://randomuser.me/api/portraits/men/80.jpg",
-    specialization: "Intellectual Property",
-    experience: 8,
-    rating: 4.8,
-    cases_won: 134,
-    state: "Maharashtra",
-    city: "Mumbai",
-    court: "Bombay High Court",
-    languages: ["Hindi", "English"],
-    fee: "₹10,000 - ₹40,000",
-    bio: "IP lawyer handling trademark, copyright, and patent matters for entertainment and tech industries.",
-    education: "LLB from Symbiosis Pune, LLM in IP Law",
-    bar_council: "M/6789/2016"
-  }
-];
-
-// Indian States and Cities (only 4 states)
+// Indian States and Cities (expanded)
 export const indianLocations = {
-  "Delhi": ["New Delhi"],
-  "Uttar Pradesh": ["Lucknow", "Noida", "Varanasi"],
-  "Haryana": ["Gurugram", "Chandigarh", "Faridabad"],
-  "Maharashtra": ["Mumbai", "Pune", "Nagpur"]
+  "Delhi": ["New Delhi", "Central Delhi", "South Delhi", "North Delhi", "East Delhi", "West Delhi"],
+  "Uttar Pradesh": ["Lucknow", "Noida", "Ghaziabad", "Varanasi", "Kanpur", "Agra", "Prayagraj", "Meerut"],
+  "Haryana": ["Gurugram", "Faridabad", "Chandigarh", "Rohtak", "Karnal", "Panipat", "Hisar"],
+  "Maharashtra": ["Mumbai", "Pune", "Nagpur", "Thane", "Nashik", "Aurangabad", "Navi Mumbai"],
+  "Karnataka": ["Bangalore", "Mysore", "Hubli", "Mangalore", "Belgaum"],
+  "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai", "Salem", "Trichy"],
+  "Gujarat": ["Ahmedabad", "Surat", "Vadodara", "Rajkot", "Gandhinagar"],
+  "Rajasthan": ["Jaipur", "Jodhpur", "Udaipur", "Kota", "Ajmer"],
+  "West Bengal": ["Kolkata", "Howrah", "Siliguri", "Durgapur", "Asansol"],
+  "Telangana": ["Hyderabad", "Secunderabad", "Warangal", "Nizamabad", "Karimnagar"],
+  "Punjab": ["Chandigarh", "Ludhiana", "Amritsar", "Jalandhar", "Patiala"],
+  "Kerala": ["Kochi", "Thiruvananthapuram", "Kozhikode", "Thrissur", "Kannur"]
 };
 
 // Courts by State
 export const courtsByState = {
-  "Delhi": ["Delhi High Court", "Tis Hazari Courts", "Saket District Court", "Patiala House Court"],
-  "Uttar Pradesh": ["Allahabad High Court", "District Court Lucknow", "Gautam Budh Nagar District Court", "District Court Varanasi"],
-  "Haryana": ["Punjab & Haryana High Court", "Gurugram District Court", "Faridabad District Court"],
-  "Maharashtra": ["Bombay High Court", "Pune District Court", "NCLT Mumbai", "Nagpur Bench Bombay High Court"]
+  "Delhi": ["Delhi High Court", "Tis Hazari Courts", "Saket District Court", "Patiala House Court", "Karkardooma Court", "Rohini Court"],
+  "Uttar Pradesh": ["Allahabad High Court", "Lucknow Bench", "District Court Lucknow", "Gautam Budh Nagar District Court", "District Court Varanasi", "District Court Kanpur"],
+  "Haryana": ["Punjab & Haryana High Court", "Gurugram District Court", "Faridabad District Court", "Rohtak District Court"],
+  "Maharashtra": ["Bombay High Court", "Pune District Court", "NCLT Mumbai", "Nagpur Bench", "Aurangabad Bench"],
+  "Karnataka": ["Karnataka High Court", "Bangalore City Civil Court", "Sessions Court Bangalore", "NCLT Bangalore"],
+  "Tamil Nadu": ["Madras High Court", "Chennai City Civil Court", "Coimbatore District Court", "Madurai Bench"],
+  "Gujarat": ["Gujarat High Court", "Ahmedabad City Civil Court", "Surat District Court", "Vadodara District Court"],
+  "Rajasthan": ["Rajasthan High Court", "Jaipur Bench", "Jodhpur Bench", "Udaipur District Court"],
+  "West Bengal": ["Calcutta High Court", "Alipore Court", "City Civil Court Kolkata", "Asansol District Court"],
+  "Telangana": ["Telangana High Court", "Hyderabad City Civil Court", "Ranga Reddy District Court", "NCLT Hyderabad"],
+  "Punjab": ["Punjab & Haryana High Court", "Ludhiana District Court", "Amritsar District Court", "Jalandhar District Court"],
+  "Kerala": ["Kerala High Court", "Ernakulam District Court", "Thiruvananthapuram District Court", "Kozhikode District Court"]
 };
 
-// Case/Crime Types
+// Case/Crime Types (expanded)
 export const caseTypes = [
   "Criminal Law",
   "Family Law",
@@ -720,5 +48,282 @@ export const caseTypes = [
   "Banking Law",
   "Immigration Law",
   "Intellectual Property",
-  "Medical Negligence"
+  "Medical Negligence",
+  "Environmental Law",
+  "Real Estate Law",
+  "Insurance Law",
+  "Arbitration",
+  "Human Rights",
+  "Motor Accident Claims"
 ];
+
+// Helper functions to generate random data
+const firstNames = {
+  male: ["Rajesh", "Amit", "Vikram", "Sanjay", "Arun", "Deepak", "Rahul", "Suresh", "Manoj", "Ajay", "Pradeep", "Rakesh", "Vijay", "Rohit", "Nitin", "Anand", "Mohit", "Sumit", "Vivek", "Ashish", "Gaurav", "Karan", "Arjun", "Ravi", "Naveen", "Sandeep", "Harish", "Dinesh", "Ramesh", "Yogesh", "Pankaj", "Sachin", "Rajiv", "Manish", "Anil", "Sunil", "Mukesh", "Alok", "Abhishek", "Varun"],
+  female: ["Priya", "Neha", "Sunita", "Kavita", "Anjali", "Pooja", "Meera", "Rekha", "Nisha", "Sarita", "Anita", "Deepika", "Swati", "Shweta", "Ritu", "Geeta", "Seema", "Manisha", "Rashmi", "Komal", "Shreya", "Divya", "Preeti", "Shalini", "Archana", "Vandana", "Jyoti", "Pallavi", "Sonam", "Kritika", "Simran", "Aishwarya", "Tanvi", "Ishita", "Aditi", "Sneha", "Nikita", "Monika", "Shilpa", "Radhika"]
+};
+
+const lastNames = ["Sharma", "Kumar", "Singh", "Verma", "Gupta", "Agarwal", "Jain", "Mehta", "Patel", "Shah", "Rao", "Reddy", "Nair", "Menon", "Pillai", "Iyer", "Mukherjee", "Banerjee", "Chatterjee", "Das", "Bose", "Sen", "Ghosh", "Roy", "Deshmukh", "Patil", "Kulkarni", "Joshi", "Sawant", "Pawar", "Thakur", "Chauhan", "Rajput", "Yadav", "Tiwari", "Pandey", "Mishra", "Dubey", "Srivastava", "Awasthi", "Tripathi", "Saxena", "Malhotra", "Kapoor", "Chopra", "Khanna", "Bhatia", "Tandon", "Arora", "Sethi"];
+
+const universities = [
+  "Delhi University", "Mumbai University", "Bangalore University", "National Law School", 
+  "NLSIU Bangalore", "NLU Delhi", "NALSAR Hyderabad", "NUJS Kolkata", "GNLU Gandhinagar",
+  "Symbiosis Law School", "ILS Law College Pune", "Government Law College Mumbai",
+  "Faculty of Law BHU", "Aligarh Muslim University", "Lucknow University",
+  "Panjab University", "Gujarat National Law University", "Christ University",
+  "Amity Law School", "Jindal Global Law School", "KIIT Law School", "Lloyd Law College"
+];
+
+const barCouncilPrefixes = {
+  "Delhi": "D", "Uttar Pradesh": "UP", "Haryana": "HR", "Maharashtra": "MH",
+  "Karnataka": "KA", "Tamil Nadu": "TN", "Gujarat": "GJ", "Rajasthan": "RJ",
+  "West Bengal": "WB", "Telangana": "TS", "Punjab": "PB", "Kerala": "KL"
+};
+
+const languages = {
+  "Delhi": ["Hindi", "English", "Punjabi"],
+  "Uttar Pradesh": ["Hindi", "English", "Urdu"],
+  "Haryana": ["Hindi", "English", "Punjabi", "Haryanvi"],
+  "Maharashtra": ["Marathi", "Hindi", "English", "Gujarati"],
+  "Karnataka": ["Kannada", "Hindi", "English", "Telugu"],
+  "Tamil Nadu": ["Tamil", "English", "Hindi"],
+  "Gujarat": ["Gujarati", "Hindi", "English"],
+  "Rajasthan": ["Hindi", "English", "Rajasthani"],
+  "West Bengal": ["Bengali", "Hindi", "English"],
+  "Telangana": ["Telugu", "Hindi", "English", "Urdu"],
+  "Punjab": ["Punjabi", "Hindi", "English"],
+  "Kerala": ["Malayalam", "English", "Hindi"]
+};
+
+const feeRanges = [
+  "₹2,000 - ₹5,000", "₹3,000 - ₹8,000", "₹4,000 - ₹10,000", "₹5,000 - ₹12,000",
+  "₹5,000 - ₹15,000", "₹6,000 - ₹18,000", "₹7,000 - ₹20,000", "₹8,000 - ₹25,000",
+  "₹10,000 - ₹30,000", "₹10,000 - ₹35,000", "₹12,000 - ₹40,000", "₹15,000 - ₹50,000",
+  "₹20,000 - ₹60,000", "₹25,000 - ₹75,000", "₹30,000 - ₹100,000"
+];
+
+const bios = {
+  "Criminal Law": [
+    "Senior criminal lawyer with expertise in bail matters, murder trials, and white-collar crimes.",
+    "Criminal defense advocate handling serious offences, NDPS cases, and economic crimes.",
+    "Expert in criminal litigation with focus on cybercrime and financial fraud cases.",
+    "Specializes in appeals, revisions, and complex criminal matters at High Court level."
+  ],
+  "Family Law": [
+    "Specialist in divorce, child custody, maintenance, and domestic violence cases.",
+    "Expert in NRI divorce cases, international child custody, and family settlements.",
+    "Compassionate approach to sensitive family matters including adoption and guardianship.",
+    "Handles matrimonial disputes, property division, and maintenance claims efficiently."
+  ],
+  "Property Law": [
+    "Property dispute expert handling land acquisition, title verification, and real estate matters.",
+    "Specializes in partition suits, illegal possession, and redevelopment disputes.",
+    "Expert in agricultural land matters, succession, and property registration.",
+    "Handles real estate transactions, builder-buyer disputes, and RERA matters."
+  ],
+  "Corporate Law": [
+    "Corporate lawyer specializing in mergers, acquisitions, and business contracts.",
+    "Expert in company law, insolvency proceedings, and NCLT matters.",
+    "Handles IPOs, private equity deals, SEBI compliance, and corporate governance.",
+    "Advises startups and MNCs on compliance, contracts, and regulatory matters."
+  ],
+  "Civil Law": [
+    "Civil litigation expert handling contract disputes, recovery suits, and injunction matters.",
+    "Specializes in declaratory suits, specific performance, and civil appeals.",
+    "Expert in tort law, defamation cases, and civil remedies.",
+    "Handles commercial disputes, partnership matters, and civil writs."
+  ],
+  "Cyber Law": [
+    "Cyber crime specialist handling online fraud, data theft, and IT Act cases.",
+    "Expert in data protection, privacy laws, and digital compliance.",
+    "Handles corporate data breaches, online defamation, and cyber stalking cases.",
+    "Specializes in e-commerce disputes, digital contracts, and cyber forensics."
+  ],
+  "Tax Law": [
+    "Tax litigation expert specializing in GST, Income Tax disputes, and corporate taxation.",
+    "Expert in international taxation, transfer pricing, and tax planning.",
+    "Handles tax appeals, assessments, and prosecution matters.",
+    "Specializes in GST litigation, customs duty, and excise matters."
+  ],
+  "Labour Law": [
+    "Employment law specialist handling wrongful termination, workplace harassment, and disputes.",
+    "Expert in industrial disputes, ESI/PF matters, and workmen compensation.",
+    "Handles trade union matters, collective bargaining, and labour compliance.",
+    "Specializes in IT sector employment issues, contracts, and policies."
+  ],
+  "Constitutional Law": [
+    "Senior advocate specializing in PIL, fundamental rights, and constitutional matters.",
+    "Expert in writ petitions, administrative law, and constitutional challenges.",
+    "Handles human rights cases, election matters, and constitutional remedies.",
+    "Specializes in service matters, administrative tribunals, and government litigation."
+  ],
+  "Consumer Law": [
+    "Consumer rights advocate handling defective products and service deficiency cases.",
+    "Expert in real estate complaints, insurance claims, and e-commerce disputes.",
+    "Handles banking complaints, unfair trade practices, and medical negligence.",
+    "Specializes in FEMA violations, consumer finance, and product liability."
+  ],
+  "Banking Law": [
+    "Banking and finance law expert handling loan recovery and SARFAESI matters.",
+    "Expert in banking fraud, DRT proceedings, and financial regulations.",
+    "Handles NBFC matters, securitization, and debt recovery.",
+    "Specializes in banking disputes, cheque bounce, and financial crimes."
+  ],
+  "Immigration Law": [
+    "Immigration specialist handling visa issues, deportation, and citizenship matters.",
+    "Expert in Canadian, US, UK, and Australian immigration laws.",
+    "Handles OCI/PIO matters, passport issues, and FRRO compliance.",
+    "Specializes in work permits, student visas, and immigration appeals."
+  ],
+  "Intellectual Property": [
+    "IP lawyer handling trademark, copyright, and patent matters.",
+    "Expert in IP litigation, licensing, and brand protection.",
+    "Handles entertainment law, media rights, and digital IP.",
+    "Specializes in technology law, software patents, and IP commercialization."
+  ],
+  "Medical Negligence": [
+    "Medical malpractice specialist handling hospital negligence and wrong diagnosis cases.",
+    "Expert in surgical errors, medical compensation, and healthcare litigation.",
+    "Handles medical board proceedings, insurance claims, and patient rights.",
+    "Specializes in pharmaceutical liability and clinical trial matters."
+  ],
+  "Environmental Law": [
+    "Environmental law expert handling pollution control and NGT matters.",
+    "Specializes in forest clearances, wildlife protection, and green compliance.",
+    "Handles industrial pollution cases, EIA clearances, and environmental impact.",
+    "Expert in sustainability law, carbon credits, and environmental permits."
+  ],
+  "Real Estate Law": [
+    "Real estate lawyer handling RERA matters and builder-buyer disputes.",
+    "Expert in property transactions, due diligence, and title verification.",
+    "Handles redevelopment projects, housing society matters, and lease agreements.",
+    "Specializes in commercial real estate, land use, and zoning laws."
+  ],
+  "Insurance Law": [
+    "Insurance law specialist handling claim disputes and policy interpretation.",
+    "Expert in life, health, motor, and general insurance litigation.",
+    "Handles reinsurance matters, regulatory compliance, and IRDAI issues.",
+    "Specializes in marine insurance, liability claims, and insurance fraud."
+  ],
+  "Arbitration": [
+    "Arbitration expert handling domestic and international commercial disputes.",
+    "Specializes in institutional arbitration, ad-hoc proceedings, and enforcement.",
+    "Handles construction disputes, infrastructure arbitration, and investor-state matters.",
+    "Expert in mediation, conciliation, and alternative dispute resolution."
+  ],
+  "Human Rights": [
+    "Human rights advocate handling custodial violence and civil liberties cases.",
+    "Expert in prison reforms, refugee matters, and minority rights.",
+    "Handles discrimination cases, disability rights, and social justice matters.",
+    "Specializes in child rights, women's rights, and LGBTQ+ advocacy."
+  ],
+  "Motor Accident Claims": [
+    "Motor accident claims specialist handling MACT tribunal matters.",
+    "Expert in compensation claims, insurance disputes, and hit-and-run cases.",
+    "Handles road accident cases, third-party claims, and negligence suits.",
+    "Specializes in commercial vehicle accidents and transport litigation."
+  ]
+};
+
+// Generate 1000 lawyers
+const generateLawyers = () => {
+  const lawyers = [];
+  let id = 1;
+  
+  const states = Object.keys(indianLocations);
+  const lawyersPerState = Math.ceil(1000 / states.length); // ~83 per state
+  
+  states.forEach(state => {
+    const cities = indianLocations[state];
+    const courts = courtsByState[state];
+    const stateLanguages = languages[state];
+    const barPrefix = barCouncilPrefixes[state];
+    
+    // Ensure at least 10 lawyers per specialization per state (if possible)
+    // With 12 states and 20 specializations, distribute evenly
+    
+    for (let i = 0; i < lawyersPerState && id <= 1000; i++) {
+      const isFemale = Math.random() > 0.55; // 45% female lawyers
+      const firstName = isFemale 
+        ? firstNames.female[Math.floor(Math.random() * firstNames.female.length)]
+        : firstNames.male[Math.floor(Math.random() * firstNames.male.length)];
+      const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+      
+      // Ensure even distribution of specializations
+      const specialization = caseTypes[i % caseTypes.length];
+      const city = cities[Math.floor(Math.random() * cities.length)];
+      const court = courts[Math.floor(Math.random() * courts.length)];
+      const experience = Math.floor(Math.random() * 25) + 3; // 3-28 years
+      const rating = (Math.random() * 1 + 4).toFixed(1); // 4.0-5.0
+      const casesWon = Math.floor(Math.random() * 400) + 50 + (experience * 15);
+      
+      // Select 2-3 languages
+      const numLanguages = Math.floor(Math.random() * 2) + 2;
+      const selectedLanguages = [...stateLanguages]
+        .sort(() => Math.random() - 0.5)
+        .slice(0, numLanguages);
+      if (!selectedLanguages.includes("English")) selectedLanguages.push("English");
+      
+      const feeRange = feeRanges[Math.min(Math.floor(experience / 2), feeRanges.length - 1)];
+      const bioOptions = bios[specialization] || bios["Civil Law"];
+      const bio = bioOptions[Math.floor(Math.random() * bioOptions.length)];
+      const university = universities[Math.floor(Math.random() * universities.length)];
+      const barYear = 2024 - experience;
+      const barNumber = `${barPrefix}/${String(Math.floor(Math.random() * 9000) + 1000)}/${barYear}`;
+      
+      // Photo URLs (cycling through available portraits)
+      const photoGender = isFemale ? "women" : "men";
+      const photoNum = (id % 99) + 1;
+      
+      lawyers.push({
+        id,
+        name: `Adv. ${firstName} ${lastName}`,
+        photo: `https://randomuser.me/api/portraits/${photoGender}/${photoNum}.jpg`,
+        specialization,
+        experience,
+        rating: parseFloat(rating),
+        cases_won: casesWon,
+        state,
+        city,
+        court,
+        languages: selectedLanguages,
+        fee: feeRange,
+        bio,
+        education: `LLB from ${university}`,
+        bar_council: barNumber
+      });
+      
+      id++;
+    }
+  });
+  
+  return lawyers;
+};
+
+// Generate and export the lawyers array
+export const lawyers = generateLawyers();
+
+// Function to get lawyers by specialization
+export const getLawyersBySpecialization = (specialization) => {
+  return lawyers.filter(l => l.specialization === specialization);
+};
+
+// Function to get lawyers by state
+export const getLawyersByState = (state) => {
+  return lawyers.filter(l => l.state === state);
+};
+
+// Function to search lawyers by name
+export const searchLawyersByName = (query) => {
+  const lowerQuery = query.toLowerCase();
+  return lawyers.filter(l => l.name.toLowerCase().includes(lowerQuery));
+};
+
+// Get count of lawyers by specialization for verification
+export const getSpecializationCounts = () => {
+  const counts = {};
+  caseTypes.forEach(type => {
+    counts[type] = lawyers.filter(l => l.specialization === type).length;
+  });
+  return counts;
+};
