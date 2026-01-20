@@ -316,16 +316,16 @@ RULES:
     }
   };
 
-  // Handle booking consultation - redirect to signup
+  // Handle booking consultation - redirect to signup if not logged in
   const handleBookConsultation = (lawyer) => {
     // Check if user is logged in
     const token = localStorage.getItem('token');
     if (token) {
-      // User is logged in - could navigate to booking page
+      // User is logged in - navigate to dashboard with booking info
       navigate('/user-dashboard', { state: { bookingLawyer: lawyer } });
     } else {
-      // User not logged in - redirect to role selection for signup
-      navigate('/role-selection');
+      // User not logged in - redirect to client signup page with lawyer info
+      navigate('/user-signup', { state: { bookingLawyer: lawyer } });
     }
   };
 
