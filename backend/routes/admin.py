@@ -117,3 +117,92 @@ async def reject_lawyer_application(app_id: str, admin: dict = Depends(get_admin
     )
     
     return {'message': 'Application rejected'}
+
+
+# Law Firm Application endpoints
+@router.get("/lawfirm-applications")
+async def get_lawfirm_applications(admin: dict = Depends(get_admin)):
+    """Get all law firm applications"""
+    applications = await db.lawfirm_applications.find({}).to_list(1000)
+    
+    # Convert ObjectId to string
+    for app in applications:
+        app['_id'] = str(app['_id'])
+    
+    # Calculate stats
+    stats = {
+        'pending': len([a for a in applications if a.get('status') == 'pending']),
+        'approved': len([a for a in applications if a.get('status') == 'approved']),
+        'rejected': len([a for a in applications if a.get('status') == 'rejected'])
+    }
+    
+    return {'applications': applications, 'stats': stats}
+
+
+@router.put("/lawfirm-applications/{app_id}/approve")
+async def approve_lawfirm_application(app_id: str, admin: dict = Depends(get_admin)):
+    """Approve a law firm application"""
+    # Find application
+    application = await db.lawfirm_applications.find_one({'_id': ObjectId(app_id)})
+    if not application:
+        raise HTTPException(status_code=404, detail='Application not found')
+    
+    if application.get('status') != 'pending':
+        raise HTTPException(status_code=400, detail='Application already processed')
+    
+    # Update application status
+    await db.lawfirm_applications.update_one(
+        {'_id': ObjectId(app_id)},
+        {'$set': {'status': 'approved'}}
+    )
+    
+    # Create law firm user account
+    user_data = {
+        'id': str(uuid.uuid4()),
+        'email': application['contact_email'],
+        'password_hash': application['password_hash'],
+        'full_name': application['contact_name'],
+        'firm_name': application['firm_name'],
+        'user_type': 'law_firm',
+        'phone': application['contact_phone'],
+        'created_at': datetime.now(timezone.utc),
+        # Law firm specific fields
+        'registration_number': application['registration_number'],
+        'established_year': application['established_year'],
+        'website': application.get('website'),
+        'contact_designation': application.get('contact_designation'),
+        'address': application.get('address'),
+        'city': application['city'],
+        'state': application['state'],
+        'pincode': application.get('pincode'),
+        'practice_areas': application['practice_areas'],
+        'total_lawyers': application['total_lawyers'],
+        'total_staff': application.get('total_staff', 0),
+        'description': application['description'],
+        'achievements': application.get('achievements'),
+        'is_verified': True
+    }
+    
+    await db.users.insert_one(user_data)
+    
+    return {'message': 'Law firm application approved successfully'}
+
+
+@router.put("/lawfirm-applications/{app_id}/reject")
+async def reject_lawfirm_application(app_id: str, admin: dict = Depends(get_admin)):
+    """Reject a law firm application"""
+    # Find application
+    application = await db.lawfirm_applications.find_one({'_id': ObjectId(app_id)})
+    if not application:
+        raise HTTPException(status_code=404, detail='Application not found')
+    
+    if application.get('status') != 'pending':
+        raise HTTPException(status_code=400, detail='Application already processed')
+    
+    # Update application status
+    await db.lawfirm_applications.update_one(
+        {'_id': ObjectId(app_id)},
+        {'$set': {'status': 'rejected'}}
+    )
+    
+    return {'message': 'Law firm application rejected'}
