@@ -107,9 +107,9 @@ export default function LawyerDashboard() {
   };
   
   return (
-    <div className="min-h-screen bg-slate-950 flex">
+    <div className="min-h-screen bg-black flex">
       {/* Sidebar */}
-      <div className="w-64 bg-slate-900/80 backdrop-blur-xl border-r border-blue-500/20 flex flex-col">
+      <div className="w-64 bg-zinc-950 border-r border-zinc-800 flex flex-col">
         {/* Logo */}
         <div className="p-6 border-b border-blue-500/20">
           <div className="flex items-center space-x-3">
