@@ -82,14 +82,16 @@ class TestFirmLawyerLogin:
         data = response.json()
         assert "detail" in data
     
-    def test_login_via_auth_endpoint(self, api_client):
-        """Test POST /api/auth/login with firm_lawyer type and invalid credentials"""
+    def test_login_via_auth_endpoint_invalid_type(self, api_client):
+        """Test POST /api/auth/login with firm_lawyer type returns 422 (not supported via main auth)"""
+        # Note: firm_lawyer uses separate /api/firm-lawyers/login endpoint
         response = api_client.post(f"{BASE_URL}/api/auth/login", json={
             "email": "nonexistent@example.com",
             "password": "wrongpassword",
             "user_type": "firm_lawyer"
         })
-        assert response.status_code == 401
+        # firm_lawyer is not a valid user_type for main auth endpoint
+        assert response.status_code == 422
 
 
 class TestLawFirmsEndpoint:
