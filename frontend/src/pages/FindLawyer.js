@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Bot, MapPin, Building2, Gavel, Scale, Star, Briefcase, Phone, ArrowRight, MessageSquare, User, ChevronDown, X, Send, Loader2, Shield, Users, Clock, FileText, CreditCard, Bell, Video, Globe, Headphones, Lock, BarChart3, Sparkles } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
-import { lawyers, indianLocations, courtsByState, caseTypes } from '../data/lawyers';
+import { lawyers as dummyLawyers, indianLocations, courtsByState, caseTypes } from '../data/lawyers';
 import axios from 'axios';
 import { API } from '../App';
 
@@ -12,11 +12,15 @@ export default function FindLawyer() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState(null); // 'manual' or 'ai'
   
+  // All lawyers (dummy + approved from DB)
+  const [allLawyers, setAllLawyers] = useState(dummyLawyers);
+  
   // Manual search state
   const [selectedState, setSelectedState] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
   const [selectedCourt, setSelectedCourt] = useState('');
   const [selectedCaseType, setSelectedCaseType] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
   const [filteredLawyers, setFilteredLawyers] = useState([]);
   const [showResults, setShowResults] = useState(false);
   
@@ -32,11 +36,51 @@ export default function FindLawyer() {
   ]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [sessionId, setSessionId] = useState(null);
   const [aiRecommendedLawyers, setAiRecommendedLawyers] = useState([]);
   const [showAiResults, setShowAiResults] = useState(false);
   
   // Lawyer profile modal
   const [selectedLawyer, setSelectedLawyer] = useState(null);
+
+  // Fetch approved lawyers from database on mount
+  useEffect(() => {
+    const fetchApprovedLawyers = async () => {
+      try {
+        const response = await axios.get(`${API}/lawyers`);
+        if (response.data && Array.isArray(response.data)) {
+          // Transform DB lawyers to match dummy lawyer format
+          const dbLawyers = response.data.map((lawyer, idx) => ({
+            id: `db_${lawyer.id || idx}`,
+            name: `Adv. ${lawyer.full_name}`,
+            photo: lawyer.photo || `https://randomuser.me/api/portraits/${Math.random() > 0.5 ? 'men' : 'women'}/${(idx % 99) + 1}.jpg`,
+            specialization: lawyer.specialization || 'Civil Law',
+            experience: lawyer.experience || 5,
+            rating: lawyer.rating || 4.5,
+            cases_won: lawyer.cases_won || 50,
+            state: lawyer.state || 'Delhi',
+            city: lawyer.city || 'New Delhi',
+            court: lawyer.court || 'District Court',
+            languages: lawyer.languages || ['Hindi', 'English'],
+            fee: lawyer.fee_range || '₹5,000 - ₹15,000',
+            bio: lawyer.bio || 'Experienced lawyer ready to help with your legal matters.',
+            education: lawyer.education || 'LLB',
+            bar_council: lawyer.bar_council_number || 'N/A',
+            isVerified: true,
+            isFromDB: true
+          }));
+          
+          // Combine with dummy lawyers (DB lawyers first)
+          setAllLawyers([...dbLawyers, ...dummyLawyers]);
+        }
+      } catch (error) {
+        console.log('Using dummy lawyers only');
+        setAllLawyers(dummyLawyers);
+      }
+    };
+    
+    fetchApprovedLawyers();
+  }, []);
 
   // Get cities based on selected state
   const getCities = () => {
@@ -96,9 +140,9 @@ export default function FindLawyer() {
       const lowerTitle = title.toLowerCase();
       if (lowerTitle.includes('welcome') || lowerTitle.includes('hello') || idx === 0) {
         type = 'greeting';
-      } else if (lowerTitle.includes('step') || lowerTitle.includes('action') || lowerTitle.includes('next')) {
+      } else if (lowerTitle.includes('step') || lowerTitle.includes('action') || lowerTitle.includes('next') || lowerTitle.includes('recommend')) {
         type = 'action';
-      } else if (lowerTitle.includes('advice') || lowerTitle.includes('suggest') || lowerTitle.includes('recommend')) {
+      } else if (lowerTitle.includes('advice') || lowerTitle.includes('suggest')) {
         type = 'advice';
       } else if (lowerTitle.includes('warning') || lowerTitle.includes('caution') || lowerTitle.includes('important')) {
         type = 'warning';
@@ -106,6 +150,8 @@ export default function FindLawyer() {
         type = 'question';
       } else if (lowerTitle.includes('location') || lowerTitle.includes('area') || lowerTitle.includes('region')) {
         type = 'location';
+      } else if (lowerTitle.includes('lawyer') || lowerTitle.includes('match')) {
+        type = 'action';
       }
 
       // Clean up content
@@ -136,7 +182,19 @@ export default function FindLawyer() {
 
   // Manual search function
   const handleManualSearch = () => {
-    let results = [...lawyers];
+    let results = [...allLawyers];
+    
+    // Text search filter
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      results = results.filter(l => 
+        l.name.toLowerCase().includes(query) ||
+        l.specialization.toLowerCase().includes(query) ||
+        l.city.toLowerCase().includes(query) ||
+        l.state.toLowerCase().includes(query) ||
+        l.bio.toLowerCase().includes(query)
+      );
+    }
     
     if (selectedState) {
       results = results.filter(l => l.state === selectedState);
@@ -148,16 +206,18 @@ export default function FindLawyer() {
       results = results.filter(l => l.specialization === selectedCaseType);
     }
     
-    // If no filters, show all
-    if (!selectedState && !selectedCity && !selectedCaseType) {
-      results = lawyers;
-    }
+    // Sort: verified/DB lawyers first, then by rating
+    results.sort((a, b) => {
+      if (a.isFromDB && !b.isFromDB) return -1;
+      if (!a.isFromDB && b.isFromDB) return 1;
+      return b.rating - a.rating;
+    });
     
     setFilteredLawyers(results);
     setShowResults(true);
   };
 
-  // AI Chat function
+  // AI Chat function - uses conversation history via session
   const handleSendMessage = async () => {
     if (!inputMessage.trim() || isLoading) return;
     
@@ -167,55 +227,56 @@ export default function FindLawyer() {
     setIsLoading(true);
 
     try {
-      // Build context for AI
-      const lawyerContext = lawyers.map(l => 
-        `ID:${l.id} | ${l.name} | ${l.specialization} | ${l.city}, ${l.state} | ${l.experience}yrs | Rating:${l.rating} | Fee:${l.fee}`
+      // Use existing session or create new one
+      const currentSession = sessionId || `lawyer_search_${Date.now()}`;
+      if (!sessionId) setSessionId(currentSession);
+      
+      // Build lawyer context (sample for AI - limit to 100 for token efficiency)
+      const sampleLawyers = allLawyers.slice(0, 100);
+      const lawyerContext = sampleLawyers.map(l => 
+        `ID:${l.id} | ${l.name} | ${l.specialization} | ${l.city}, ${l.state} | ${l.experience}yrs | Rating:${l.rating} | Fee:${l.fee}${l.isFromDB ? ' | VERIFIED' : ''}`
       ).join('\n');
 
-      const systemPrompt = `You are Nyaay Sathi's AI Legal Assistant for Indian users. Your role:
+      const systemPrompt = `You are Nyaay Sathi's AI Legal Assistant helping Indian users find the right lawyer.
 
-1. UNDERSTAND the user's legal problem through empathetic conversation
-2. ASK about their location (state/city in India) if not mentioned
-3. IDENTIFY the type of lawyer needed (Criminal, Family, Property, Civil, Corporate, Cyber, Tax, Labour, Consumer, etc.)
-4. RECOMMEND suitable lawyers from our database
+YOUR ROLE:
+1. LISTEN and understand the user's legal problem with empathy
+2. ASK clarifying questions about their case and location
+3. IDENTIFY what type of lawyer they need
+4. RECOMMEND specific lawyers from our database when you have enough info
 
-AVAILABLE LAWYERS:
+CONVERSATION FLOW:
+- First message: Understand their legal issue in detail
+- Second: Confirm location (state/city in India)  
+- Third: Recommend 2-3 suitable lawyers by mentioning their IDs
+
+AVAILABLE LAWYERS (sample):
 ${lawyerContext}
 
-RESPONSE FORMAT - Always respond with structured JSON cards:
+RESPONSE FORMAT - Use JSON with cards:
 {
   "cards": [
-    {"type": "greeting", "title": "Title", "content": "Your message"},
-    {"type": "question", "title": "Question", "content": "Your question"},
-    {"type": "info", "title": "Understanding", "content": "What you understood"},
-    {"type": "advice", "title": "Legal Insight", "content": "Brief advice"},
-    {"type": "action", "title": "Next Steps", "content": "What to do"}
-  ],
-  "recommendedLawyers": [1, 2, 3]
+    {"type": "greeting", "title": "Title", "content": "Message"},
+    {"type": "info", "title": "Understanding", "content": "What you understood about their case"},
+    {"type": "question", "title": "Question", "content": "Clarifying question if needed"},
+    {"type": "action", "title": "Recommended Lawyers", "content": "When ready: I found lawyers for you - ID:5, ID:12, ID:23"}
+  ]
 }
+
+CARD TYPES: greeting, question, info, advice, action, warning, location
 
 RULES:
 - Be empathetic and professional
-- Use simple Hindi-English mix if user writes in Hindi
-- Ask for location (state) to filter lawyers
-- Identify case type from conversation
-- When ready, include "recommendedLawyers" array with lawyer IDs (1-40)
-- Keep each card content brief (2-3 lines max)
-- Use 2-4 cards per response
-
-CARD TYPES:
-- greeting: Welcome/acknowledgment
-- question: Asking for more info
-- info: Sharing understanding of their case
-- advice: Legal guidance
-- action: Next steps to take
-- warning: Important cautions
-- location: Asking/confirming location`;
+- Mix Hindi-English if user writes in Hindi
+- Keep responses conversational, not too formal
+- When recommending, ALWAYS include lawyer IDs like "ID:5" so system can show profiles
+- Recommend 2-4 lawyers max
+- Prioritize VERIFIED lawyers (marked with VERIFIED tag)`;
 
       const response = await axios.post(`${API}/chat/guest`, {
         message: userMessage,
         system_prompt: systemPrompt,
-        session_id: `lawyer_search_${Date.now()}`
+        session_id: currentSession
       });
 
       let aiResponse = response.data.response;
@@ -224,12 +285,20 @@ CARD TYPES:
       const cards = parseResponseToCards(aiResponse);
       setMessages(prev => [...prev, { role: 'assistant', content: { cards } }]);
 
-      // Check for lawyer IDs in response to recommend
-      const idMatch = aiResponse.match(/ID:?\s*(\d+)/gi);
-      if (idMatch) {
-        const ids = idMatch.map(m => parseInt(m.replace(/ID:?\s*/i, ''))).filter(id => id >= 1 && id <= 40);
+      // Extract lawyer IDs from response to show recommendations
+      const idMatches = aiResponse.match(/ID:?\s*(\d+|db_[a-z0-9-]+)/gi);
+      if (idMatches) {
+        const ids = idMatches.map(m => {
+          const match = m.match(/ID:?\s*(.+)/i);
+          return match ? match[1] : null;
+        }).filter(Boolean);
+        
         if (ids.length > 0) {
-          const recommended = lawyers.filter(l => ids.includes(l.id));
+          const recommended = allLawyers.filter(l => {
+            const lawyerId = String(l.id);
+            return ids.some(id => lawyerId === id || lawyerId.includes(id));
+          }).slice(0, 5);
+          
           if (recommended.length > 0) {
             setAiRecommendedLawyers(recommended);
             setShowAiResults(true);
@@ -247,6 +316,19 @@ CARD TYPES:
     }
   };
 
+  // Handle booking consultation - redirect to signup
+  const handleBookConsultation = (lawyer) => {
+    // Check if user is logged in
+    const token = localStorage.getItem('token');
+    if (token) {
+      // User is logged in - could navigate to booking page
+      navigate('/user-dashboard', { state: { bookingLawyer: lawyer } });
+    } else {
+      // User not logged in - redirect to role selection for signup
+      navigate('/role-selection');
+    }
+  };
+
   // Lawyer Card Component
   const LawyerCard = ({ lawyer, onClick }) => (
     <motion.div
@@ -257,11 +339,18 @@ CARD TYPES:
       className="bg-slate-900/80 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-5 cursor-pointer hover:border-blue-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10"
     >
       <div className="flex items-start gap-4">
-        <img 
-          src={lawyer.photo} 
-          alt={lawyer.name}
-          className="w-16 h-16 rounded-full object-cover border-2 border-blue-500/30"
-        />
+        <div className="relative">
+          <img 
+            src={lawyer.photo} 
+            alt={lawyer.name}
+            className="w-16 h-16 rounded-full object-cover border-2 border-blue-500/30"
+          />
+          {lawyer.isFromDB && (
+            <div className="absolute -top-1 -right-1 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
+              <Shield className="w-3 h-3 text-white" />
+            </div>
+          )}
+        </div>
         <div className="flex-1 min-w-0">
           <h3 className="font-semibold text-white text-lg truncate">{lawyer.name}</h3>
           <p className="text-blue-400 text-sm">{lawyer.specialization}</p>
@@ -316,11 +405,19 @@ CARD TYPES:
             <X className="w-6 h-6" />
           </button>
           <div className="flex items-start gap-6">
-            <img 
-              src={lawyer.photo} 
-              alt={lawyer.name}
-              className="w-24 h-24 rounded-2xl object-cover border-2 border-blue-500"
-            />
+            <div className="relative">
+              <img 
+                src={lawyer.photo} 
+                alt={lawyer.name}
+                className="w-24 h-24 rounded-2xl object-cover border-2 border-blue-500"
+              />
+              {lawyer.isFromDB && (
+                <div className="absolute -top-2 -right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1">
+                  <Shield className="w-3 h-3" />
+                  Verified
+                </div>
+              )}
+            </div>
             <div>
               <h2 className="text-2xl font-bold text-white">{lawyer.name}</h2>
               <p className="text-blue-400 text-lg">{lawyer.specialization}</p>
@@ -383,7 +480,8 @@ CARD TYPES:
           {/* Actions */}
           <div className="flex gap-4 pt-4">
             <Button 
-              onClick={() => navigate('/user-login')}
+              data-testid="book-consultation-btn"
+              onClick={() => handleBookConsultation(lawyer)}
               className="flex-1 bg-blue-600 hover:bg-blue-500 text-white rounded-full py-3"
             >
               <Phone className="w-4 h-4 mr-2" />
@@ -391,7 +489,8 @@ CARD TYPES:
             </Button>
             <Button 
               variant="outline"
-              onClick={() => navigate('/user-login')}
+              data-testid="send-message-btn"
+              onClick={() => handleBookConsultation(lawyer)}
               className="flex-1 border-slate-600 text-slate-300 hover:bg-slate-800 rounded-full py-3"
             >
               <MessageSquare className="w-4 h-4 mr-2" />
@@ -425,20 +524,14 @@ CARD TYPES:
             whileTap={{ scale: 0.95 }}
           >
             <Button
-              onClick={() => navigate('/user-login')}
+              data-testid="login-btn"
+              onClick={() => navigate('/role-selection?mode=login')}
               className="relative bg-slate-800 hover:bg-slate-700 text-white rounded-full px-6 py-2 flex items-center gap-2 border border-blue-500/50 overflow-hidden"
             >
-              {/* Glowing light effect */}
               <motion.div
                 className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-cyan-500/20 to-blue-500/20"
-                animate={{
-                  x: ['-100%', '100%'],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
+                animate={{ x: ['-100%', '100%'] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
               />
               <User className="w-4 h-4 relative z-10" />
               <span className="relative z-10 font-medium">Login</span>
@@ -460,6 +553,9 @@ CARD TYPES:
           <p className="text-xl text-slate-400 max-w-2xl mx-auto">
             Choose how you'd like to find legal help - search manually or let our AI assistant guide you
           </p>
+          <p className="text-sm text-slate-500 mt-2">
+            {allLawyers.length} lawyers available • {allLawyers.filter(l => l.isFromDB).length} verified
+          </p>
         </motion.div>
 
         {/* Selection Cards */}
@@ -479,12 +575,11 @@ CARD TYPES:
               </div>
               <h2 className="text-2xl font-bold text-white mb-3">Find Lawyer Manually</h2>
               <p className="text-slate-400 mb-6">
-                Search by selecting your state, city, court, and type of case. Browse through our verified lawyers and choose the best fit.
+                Search by name, location, specialization, or browse through our {allLawyers.length}+ verified lawyers.
               </p>
               <div className="flex flex-wrap gap-2 mb-6">
-                <span className="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-sm">Select State</span>
-                <span className="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-sm">Select City</span>
-                <span className="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-sm">Select Court</span>
+                <span className="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-sm">Search Bar</span>
+                <span className="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-sm">Filter by State</span>
                 <span className="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-sm">Case Type</span>
               </div>
               <div className="flex items-center text-cyan-400 font-semibold group-hover:gap-3 transition-all">
@@ -507,11 +602,11 @@ CARD TYPES:
               </div>
               <h2 className="text-2xl font-bold text-white mb-3">Find Lawyer with AI</h2>
               <p className="text-slate-400 mb-6">
-                Chat with our AI assistant who will understand your problem, identify the type of lawyer you need, and recommend the best matches.
+                Describe your legal problem and our AI will understand your needs and recommend the best lawyers for you.
               </p>
               <div className="flex flex-wrap gap-2 mb-6">
                 <span className="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm">AI Powered</span>
-                <span className="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm">Smart Matching</span>
+                <span className="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm">Conversational</span>
                 <span className="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm">Personalized</span>
               </div>
               <div className="flex items-center text-purple-400 font-semibold group-hover:gap-3 transition-all">
@@ -531,7 +626,7 @@ CARD TYPES:
           >
             <Button
               variant="ghost"
-              onClick={() => { setActiveTab(null); setShowResults(false); }}
+              onClick={() => { setActiveTab(null); setShowResults(false); setSearchQuery(''); }}
               className="text-slate-400 hover:text-white mb-6"
             >
               ← Back to options
@@ -541,13 +636,32 @@ CARD TYPES:
             <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-6 mb-8">
               <h2 className="text-xl font-semibold text-white mb-6 flex items-center gap-2">
                 <Search className="w-5 h-5 text-cyan-400" />
-                Search Filters
+                Search Lawyers
               </h2>
+              
+              {/* Search Bar */}
+              <div className="mb-6">
+                <label className="block text-sm text-slate-400 mb-2">Search by Name, Specialization, or Location</label>
+                <div className="relative">
+                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                  <Input
+                    data-testid="lawyer-search-input"
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onKeyPress={(e) => e.key === 'Enter' && handleManualSearch()}
+                    placeholder="e.g., Criminal Law, Mumbai, Sharma..."
+                    className="w-full bg-slate-800 border border-slate-700 rounded-xl pl-12 pr-4 py-3 text-white focus:border-cyan-500 outline-none"
+                  />
+                </div>
+              </div>
+
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {/* State Select */}
                 <div>
                   <label className="block text-sm text-slate-400 mb-2">State</label>
                   <select
+                    data-testid="state-select"
                     value={selectedState}
                     onChange={(e) => {
                       setSelectedState(e.target.value);
@@ -567,6 +681,7 @@ CARD TYPES:
                 <div>
                   <label className="block text-sm text-slate-400 mb-2">City</label>
                   <select
+                    data-testid="city-select"
                     value={selectedCity}
                     onChange={(e) => setSelectedCity(e.target.value)}
                     className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white focus:border-cyan-500 outline-none"
@@ -583,6 +698,7 @@ CARD TYPES:
                 <div>
                   <label className="block text-sm text-slate-400 mb-2">Court</label>
                   <select
+                    data-testid="court-select"
                     value={selectedCourt}
                     onChange={(e) => setSelectedCourt(e.target.value)}
                     className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white focus:border-cyan-500 outline-none"
@@ -599,6 +715,7 @@ CARD TYPES:
                 <div>
                   <label className="block text-sm text-slate-400 mb-2">Case Type</label>
                   <select
+                    data-testid="case-type-select"
                     value={selectedCaseType}
                     onChange={(e) => setSelectedCaseType(e.target.value)}
                     className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white focus:border-cyan-500 outline-none"
@@ -612,6 +729,7 @@ CARD TYPES:
               </div>
 
               <Button 
+                data-testid="search-lawyers-btn"
                 onClick={handleManualSearch}
                 className="mt-6 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white rounded-full px-8 py-3"
               >
@@ -625,9 +743,14 @@ CARD TYPES:
               <div>
                 <h3 className="text-xl font-semibold text-white mb-4">
                   Found {filteredLawyers.length} Lawyers
+                  {filteredLawyers.filter(l => l.isFromDB).length > 0 && (
+                    <span className="text-sm text-green-400 ml-2">
+                      ({filteredLawyers.filter(l => l.isFromDB).length} verified)
+                    </span>
+                  )}
                 </h3>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {filteredLawyers.map(lawyer => (
+                  {filteredLawyers.slice(0, 50).map(lawyer => (
                     <LawyerCard 
                       key={lawyer.id} 
                       lawyer={lawyer} 
@@ -635,6 +758,11 @@ CARD TYPES:
                     />
                   ))}
                 </div>
+                {filteredLawyers.length > 50 && (
+                  <p className="text-center text-slate-400 mt-6">
+                    Showing 50 of {filteredLawyers.length} results. Use filters to narrow down.
+                  </p>
+                )}
                 {filteredLawyers.length === 0 && (
                   <div className="text-center py-12 text-slate-400">
                     <Scale className="w-16 h-16 mx-auto mb-4 opacity-50" />
@@ -655,7 +783,13 @@ CARD TYPES:
           >
             <Button
               variant="ghost"
-              onClick={() => { setActiveTab(null); setShowAiResults(false); setMessages([messages[0]]); }}
+              onClick={() => { 
+                setActiveTab(null); 
+                setShowAiResults(false); 
+                setMessages([messages[0]]); 
+                setSessionId(null);
+                setAiRecommendedLawyers([]);
+              }}
               className="text-slate-400 hover:text-white mb-4"
             >
               ← Back to options
@@ -687,7 +821,7 @@ CARD TYPES:
                     ) : (
                       <div className="w-full max-w-[90%]">
                         {msg.content?.cards ? (
-                          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                          <div className="grid gap-3 sm:grid-cols-2">
                             {msg.content.cards.map((card, cardIdx) => (
                               <motion.div
                                 key={cardIdx}
@@ -741,7 +875,7 @@ CARD TYPES:
                   <div className="flex justify-start">
                     <div className="bg-slate-800 rounded-2xl px-4 py-3 flex items-center gap-2">
                       <Loader2 className="w-5 h-5 animate-spin text-purple-400" />
-                      <span className="text-slate-400 text-sm">Analyzing your query...</span>
+                      <span className="text-slate-400 text-sm">Understanding your case...</span>
                     </div>
                   </div>
                 )}
@@ -751,6 +885,7 @@ CARD TYPES:
               <div className="border-t border-slate-700 p-4 flex-shrink-0">
                 <div className="flex gap-3">
                   <Input
+                    data-testid="ai-chat-input"
                     value={inputMessage}
                     onChange={(e) => setInputMessage(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
@@ -758,6 +893,7 @@ CARD TYPES:
                     className="flex-1 bg-slate-800 border-slate-700 rounded-full px-6"
                   />
                   <Button
+                    data-testid="ai-send-btn"
                     onClick={handleSendMessage}
                     disabled={isLoading || !inputMessage.trim()}
                     className="bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-400 hover:to-pink-500 rounded-full px-6"
@@ -793,575 +929,50 @@ CARD TYPES:
           </motion.div>
         )}
 
-        {/* Features Section */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          className="mt-16"
-        >
-          {/* Features Section */}
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Features We Provide</h2>
-              <p className="text-slate-400 text-lg">Everything you need to manage your legal journey</p>
+        {/* Features Section - Only show on main screen */}
+        {!activeTab && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="mt-16"
+          >
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Features We Provide</h2>
+                <p className="text-slate-400 text-lg">Everything you need to manage your legal journey</p>
+              </div>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {/* Feature Cards */}
+                {[
+                  { icon: Scale, title: 'Real-time Case Tracking', desc: 'Track case status, hearings, and important dates', color: 'blue' },
+                  { icon: Bot, title: 'AI Legal Assistant', desc: 'Get instant answers to legal queries', color: 'purple' },
+                  { icon: Shield, title: 'Secure Document Vault', desc: 'Store legal documents securely with encryption', color: 'emerald' },
+                  { icon: Users, title: 'Verified Lawyer Network', desc: `Access ${allLawyers.length}+ lawyers across India`, color: 'amber' },
+                  { icon: Clock, title: 'Easy Booking', desc: 'Book video or in-person consultations', color: 'rose' },
+                  { icon: Video, title: 'Video Consultations', desc: 'Consult from anywhere via HD video calls', color: 'sky' }
+                ].map((feature, idx) => (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: idx * 0.1 }}
+                    whileHover={{ y: -10, scale: 1.02 }}
+                    className={`bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-6 hover:border-${feature.color}-500/50 transition-all duration-300`}
+                  >
+                    <div className={`w-12 h-12 bg-${feature.color}-500/20 rounded-xl flex items-center justify-center mb-4`}>
+                      <feature.icon className={`w-6 h-6 text-${feature.color}-400`} />
+                    </div>
+                    <h3 className="text-xl font-bold text-white mb-2">{feature.title}</h3>
+                    <p className="text-slate-400 text-sm">{feature.desc}</p>
+                  </motion.div>
+                ))}
+              </div>
             </div>
-
-            {/* Floating Feature Cards */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {/* Feature 1 - Case Tracking */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
-                whileHover={{ y: -10, scale: 1.02 }}
-                className="bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden group hover:border-blue-500/50 transition-all duration-300"
-              >
-                <div className="h-40 bg-gradient-to-br from-blue-600/20 to-cyan-600/20 relative overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-32 h-24 bg-slate-800 rounded-lg shadow-xl border border-slate-600 p-2">
-                      <div className="h-2 w-16 bg-blue-500 rounded mb-2"></div>
-                      <div className="h-2 w-12 bg-slate-600 rounded mb-2"></div>
-                      <div className="flex gap-2">
-                        <div className="h-8 w-8 bg-green-500/30 rounded"></div>
-                        <div className="h-8 w-8 bg-yellow-500/30 rounded"></div>
-                        <div className="h-8 w-8 bg-blue-500/30 rounded"></div>
-                      </div>
-                    </div>
-                  </div>
-                  <motion.div
-                    className="absolute top-2 right-2 w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center"
-                    animate={{ scale: [1, 1.2, 1] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  >
-                    <Scale className="w-4 h-4 text-white" />
-                  </motion.div>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-white mb-2">Real-time Case Tracking</h3>
-                  <p className="text-slate-400 text-sm">Track your case status, upcoming hearings, and important dates. Get instant notifications on case updates.</p>
-                </div>
-              </motion.div>
-
-              {/* Feature 2 - AI Legal Assistant */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-                whileHover={{ y: -10, scale: 1.02 }}
-                className="bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden group hover:border-purple-500/50 transition-all duration-300"
-              >
-                <div className="h-40 bg-gradient-to-br from-purple-600/20 to-pink-600/20 relative overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-32 h-24 bg-slate-800 rounded-lg shadow-xl border border-slate-600 p-2">
-                      <div className="flex gap-1 mb-2">
-                        <div className="h-3 w-3 bg-red-500 rounded-full"></div>
-                        <div className="h-3 w-3 bg-yellow-500 rounded-full"></div>
-                        <div className="h-3 w-3 bg-green-500 rounded-full"></div>
-                      </div>
-                      <div className="space-y-1">
-                        <div className="h-2 w-20 bg-purple-500/50 rounded"></div>
-                        <div className="h-2 w-16 bg-slate-600 rounded ml-auto"></div>
-                        <div className="h-2 w-18 bg-purple-500/50 rounded"></div>
-                      </div>
-                    </div>
-                  </div>
-                  <motion.div
-                    className="absolute top-2 right-2 w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center"
-                    animate={{ rotate: [0, 360] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                  >
-                    <Bot className="w-4 h-4 text-white" />
-                  </motion.div>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-white mb-2">AI Legal Assistant</h3>
-                  <p className="text-slate-400 text-sm">Get instant answers to legal queries. Our AI understands your problem and suggests the right course of action.</p>
-                </div>
-              </motion.div>
-
-              {/* Feature 3 - Document Vault */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3 }}
-                whileHover={{ y: -10, scale: 1.02 }}
-                className="bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden group hover:border-emerald-500/50 transition-all duration-300"
-              >
-                <div className="h-40 bg-gradient-to-br from-emerald-600/20 to-green-600/20 relative overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="flex gap-2">
-                      <motion.div 
-                        className="w-12 h-16 bg-slate-700 rounded shadow-lg border border-slate-600"
-                        animate={{ y: [0, -5, 0] }}
-                        transition={{ duration: 2, repeat: Infinity, delay: 0 }}
-                      />
-                      <motion.div 
-                        className="w-12 h-16 bg-slate-700 rounded shadow-lg border border-slate-600"
-                        animate={{ y: [0, -5, 0] }}
-                        transition={{ duration: 2, repeat: Infinity, delay: 0.3 }}
-                      />
-                      <motion.div 
-                        className="w-12 h-16 bg-slate-700 rounded shadow-lg border border-slate-600"
-                        animate={{ y: [0, -5, 0] }}
-                        transition={{ duration: 2, repeat: Infinity, delay: 0.6 }}
-                      />
-                    </div>
-                  </div>
-                  <motion.div
-                    className="absolute top-2 right-2 w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center"
-                    animate={{ scale: [1, 1.1, 1] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                  >
-                    <Shield className="w-4 h-4 text-white" />
-                  </motion.div>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-white mb-2">Secure Document Vault</h3>
-                  <p className="text-slate-400 text-sm">Store all your legal documents securely. End-to-end encrypted storage with easy access anytime.</p>
-                </div>
-              </motion.div>
-
-              {/* Feature 4 - Lawyer Network */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.4 }}
-                whileHover={{ y: -10, scale: 1.02 }}
-                className="bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden group hover:border-amber-500/50 transition-all duration-300"
-              >
-                <div className="h-40 bg-gradient-to-br from-amber-600/20 to-orange-600/20 relative overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="relative">
-                      <div className="w-10 h-10 bg-amber-500 rounded-full absolute top-0 left-1/2 -translate-x-1/2"></div>
-                      <div className="w-8 h-8 bg-orange-500 rounded-full absolute top-8 left-0"></div>
-                      <div className="w-8 h-8 bg-yellow-500 rounded-full absolute top-8 right-0"></div>
-                      <motion.div
-                        className="absolute top-4 left-1/2 -translate-x-1/2 w-16 h-8"
-                        animate={{ opacity: [0.3, 0.7, 0.3] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                      >
-                        <div className="w-full h-[1px] bg-amber-400 rotate-45 origin-left"></div>
-                        <div className="w-full h-[1px] bg-amber-400 -rotate-45 origin-right"></div>
-                      </motion.div>
-                    </div>
-                  </div>
-                  <motion.div
-                    className="absolute top-2 right-2 w-8 h-8 bg-amber-500 rounded-full flex items-center justify-center"
-                  >
-                    <Users className="w-4 h-4 text-white" />
-                  </motion.div>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-white mb-2">Verified Lawyer Network</h3>
-                  <p className="text-slate-400 text-sm">Access 500+ verified lawyers across India. Filter by specialization, location, and ratings.</p>
-                </div>
-              </motion.div>
-
-              {/* Feature 5 - Consultation Booking */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.5 }}
-                whileHover={{ y: -10, scale: 1.02 }}
-                className="bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden group hover:border-rose-500/50 transition-all duration-300"
-              >
-                <div className="h-40 bg-gradient-to-br from-rose-600/20 to-pink-600/20 relative overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-32 h-24 bg-slate-800 rounded-lg shadow-xl border border-slate-600 p-2">
-                      <div className="grid grid-cols-7 gap-[2px]">
-                        {[...Array(21)].map((_, i) => (
-                          <motion.div
-                            key={i}
-                            className={`h-2 w-2 rounded-sm ${i === 10 ? 'bg-rose-500' : 'bg-slate-600'}`}
-                            animate={i === 10 ? { scale: [1, 1.3, 1] } : {}}
-                            transition={{ duration: 1, repeat: Infinity }}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                  <motion.div
-                    className="absolute top-2 right-2 w-8 h-8 bg-rose-500 rounded-full flex items-center justify-center"
-                  >
-                    <Clock className="w-4 h-4 text-white" />
-                  </motion.div>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-white mb-2">Easy Consultation Booking</h3>
-                  <p className="text-slate-400 text-sm">Book video or in-person consultations with lawyers. Flexible scheduling with calendar integration.</p>
-                </div>
-              </motion.div>
-
-              {/* Feature 6 - Case Timeline */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.6 }}
-                whileHover={{ y: -10, scale: 1.02 }}
-                className="bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden group hover:border-indigo-500/50 transition-all duration-300"
-              >
-                <div className="h-40 bg-gradient-to-br from-indigo-600/20 to-violet-600/20 relative overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="flex items-center gap-2">
-                      <motion.div
-                        className="w-4 h-4 bg-indigo-500 rounded-full"
-                        animate={{ scale: [1, 1.2, 1] }}
-                        transition={{ duration: 1.5, repeat: Infinity, delay: 0 }}
-                      />
-                      <div className="w-8 h-[2px] bg-indigo-400"></div>
-                      <motion.div
-                        className="w-4 h-4 bg-indigo-500 rounded-full"
-                        animate={{ scale: [1, 1.2, 1] }}
-                        transition={{ duration: 1.5, repeat: Infinity, delay: 0.3 }}
-                      />
-                      <div className="w-8 h-[2px] bg-indigo-400"></div>
-                      <motion.div
-                        className="w-4 h-4 bg-indigo-500 rounded-full"
-                        animate={{ scale: [1, 1.2, 1] }}
-                        transition={{ duration: 1.5, repeat: Infinity, delay: 0.6 }}
-                      />
-                      <div className="w-8 h-[2px] bg-slate-600"></div>
-                      <div className="w-4 h-4 bg-slate-600 rounded-full"></div>
-                    </div>
-                  </div>
-                  <motion.div
-                    className="absolute top-2 right-2 w-8 h-8 bg-indigo-500 rounded-full flex items-center justify-center"
-                  >
-                    <ArrowRight className="w-4 h-4 text-white" />
-                  </motion.div>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-white mb-2">Visual Case Timeline</h3>
-                  <p className="text-slate-400 text-sm">See your complete case journey visually. Track progress from filing to resolution with milestones.</p>
-                </div>
-              </motion.div>
-
-              {/* Feature 7 - Document Management */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.7 }}
-                whileHover={{ y: -10, scale: 1.02 }}
-                className="bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden group hover:border-teal-500/50 transition-all duration-300"
-              >
-                <div className="h-40 bg-gradient-to-br from-teal-600/20 to-cyan-600/20 relative overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="flex gap-3">
-                      <motion.div 
-                        className="w-10 h-14 bg-slate-700 rounded shadow-lg flex items-center justify-center"
-                        animate={{ y: [0, -3, 0] }}
-                        transition={{ duration: 2, repeat: Infinity, delay: 0 }}
-                      >
-                        <FileText className="w-5 h-5 text-teal-400" />
-                      </motion.div>
-                      <motion.div 
-                        className="w-10 h-14 bg-slate-700 rounded shadow-lg flex items-center justify-center"
-                        animate={{ y: [0, -3, 0] }}
-                        transition={{ duration: 2, repeat: Infinity, delay: 0.2 }}
-                      >
-                        <FileText className="w-5 h-5 text-cyan-400" />
-                      </motion.div>
-                      <motion.div 
-                        className="w-10 h-14 bg-slate-700 rounded shadow-lg flex items-center justify-center"
-                        animate={{ y: [0, -3, 0] }}
-                        transition={{ duration: 2, repeat: Infinity, delay: 0.4 }}
-                      >
-                        <FileText className="w-5 h-5 text-teal-400" />
-                      </motion.div>
-                    </div>
-                  </div>
-                  <motion.div className="absolute top-2 right-2 w-8 h-8 bg-teal-500 rounded-full flex items-center justify-center">
-                    <FileText className="w-4 h-4 text-white" />
-                  </motion.div>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-white mb-2">Document Management</h3>
-                  <p className="text-slate-400 text-sm">Upload, organize, and share legal documents securely. Auto-categorization and smart search.</p>
-                </div>
-              </motion.div>
-
-              {/* Feature 8 - Payment Integration */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.8 }}
-                whileHover={{ y: -10, scale: 1.02 }}
-                className="bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden group hover:border-green-500/50 transition-all duration-300"
-              >
-                <div className="h-40 bg-gradient-to-br from-green-600/20 to-emerald-600/20 relative overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-28 h-18 bg-slate-800 rounded-lg shadow-xl border border-slate-600 p-3">
-                      <div className="flex justify-between items-center mb-2">
-                        <div className="w-8 h-5 bg-green-500/40 rounded"></div>
-                        <motion.div 
-                          className="text-green-400 text-xs font-bold"
-                          animate={{ opacity: [0.5, 1, 0.5] }}
-                          transition={{ duration: 1.5, repeat: Infinity }}
-                        >₹</motion.div>
-                      </div>
-                      <div className="h-1.5 w-full bg-green-500/30 rounded"></div>
-                    </div>
-                  </div>
-                  <motion.div className="absolute top-2 right-2 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
-                    <CreditCard className="w-4 h-4 text-white" />
-                  </motion.div>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-white mb-2">Secure Payments</h3>
-                  <p className="text-slate-400 text-sm">Pay consultation fees securely online. Multiple payment options including UPI, cards, and net banking.</p>
-                </div>
-              </motion.div>
-
-              {/* Feature 9 - Push Notifications */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.9 }}
-                whileHover={{ y: -10, scale: 1.02 }}
-                className="bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden group hover:border-orange-500/50 transition-all duration-300"
-              >
-                <div className="h-40 bg-gradient-to-br from-orange-600/20 to-amber-600/20 relative overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <motion.div
-                      animate={{ y: [0, -5, 0], rotate: [0, 10, -10, 0] }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                    >
-                      <Bell className="w-12 h-12 text-orange-400" />
-                    </motion.div>
-                    <motion.div
-                      className="absolute top-8 right-12 w-3 h-3 bg-red-500 rounded-full"
-                      animate={{ scale: [1, 1.3, 1] }}
-                      transition={{ duration: 1, repeat: Infinity }}
-                    />
-                  </div>
-                  <motion.div className="absolute top-2 right-2 w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
-                    <Bell className="w-4 h-4 text-white" />
-                  </motion.div>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-white mb-2">Smart Notifications</h3>
-                  <p className="text-slate-400 text-sm">Never miss a hearing or deadline. Get timely reminders via push notifications, SMS, and email.</p>
-                </div>
-              </motion.div>
-
-              {/* Feature 10 - Video Consultation */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 1.0 }}
-                whileHover={{ y: -10, scale: 1.02 }}
-                className="bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden group hover:border-sky-500/50 transition-all duration-300"
-              >
-                <div className="h-40 bg-gradient-to-br from-sky-600/20 to-blue-600/20 relative overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-32 h-20 bg-slate-800 rounded-lg shadow-xl border border-slate-600 overflow-hidden">
-                      <div className="h-14 bg-slate-700 flex items-center justify-center">
-                        <motion.div
-                          animate={{ scale: [1, 1.1, 1] }}
-                          transition={{ duration: 2, repeat: Infinity }}
-                        >
-                          <Video className="w-8 h-8 text-sky-400" />
-                        </motion.div>
-                      </div>
-                      <div className="h-6 bg-slate-900 flex items-center justify-center gap-2">
-                        <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                        <div className="w-3 h-3 bg-slate-600 rounded-full"></div>
-                        <div className="w-3 h-3 bg-slate-600 rounded-full"></div>
-                      </div>
-                    </div>
-                  </div>
-                  <motion.div className="absolute top-2 right-2 w-8 h-8 bg-sky-500 rounded-full flex items-center justify-center">
-                    <Video className="w-4 h-4 text-white" />
-                  </motion.div>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-white mb-2">Video Consultations</h3>
-                  <p className="text-slate-400 text-sm">Consult with lawyers from anywhere via HD video calls. Screen sharing and recording available.</p>
-                </div>
-              </motion.div>
-
-              {/* Feature 11 - Multi-language Support */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 1.1 }}
-                whileHover={{ y: -10, scale: 1.02 }}
-                className="bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden group hover:border-violet-500/50 transition-all duration-300"
-              >
-                <div className="h-40 bg-gradient-to-br from-violet-600/20 to-purple-600/20 relative overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <motion.div
-                      animate={{ rotate: [0, 360] }}
-                      transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                    >
-                      <Globe className="w-16 h-16 text-violet-400" />
-                    </motion.div>
-                  </div>
-                  <motion.div className="absolute top-2 right-2 w-8 h-8 bg-violet-500 rounded-full flex items-center justify-center">
-                    <Globe className="w-4 h-4 text-white" />
-                  </motion.div>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-white mb-2">Multi-language Support</h3>
-                  <p className="text-slate-400 text-sm">Platform available in Hindi, English, and regional languages. Find lawyers who speak your language.</p>
-                </div>
-              </motion.div>
-
-              {/* Feature 12 - 24/7 Support */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 1.2 }}
-                whileHover={{ y: -10, scale: 1.02 }}
-                className="bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden group hover:border-pink-500/50 transition-all duration-300"
-              >
-                <div className="h-40 bg-gradient-to-br from-pink-600/20 to-rose-600/20 relative overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <motion.div
-                      animate={{ scale: [1, 1.05, 1] }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                    >
-                      <Headphones className="w-14 h-14 text-pink-400" />
-                    </motion.div>
-                    <motion.div
-                      className="absolute top-10 right-16 text-xs text-pink-300 font-bold"
-                      animate={{ opacity: [0.5, 1, 0.5] }}
-                      transition={{ duration: 1.5, repeat: Infinity }}
-                    >24/7</motion.div>
-                  </div>
-                  <motion.div className="absolute top-2 right-2 w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center">
-                    <Headphones className="w-4 h-4 text-white" />
-                  </motion.div>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-white mb-2">24/7 Customer Support</h3>
-                  <p className="text-slate-400 text-sm">Round-the-clock assistance via chat, call, or email. We're always here to help you.</p>
-                </div>
-              </motion.div>
-
-              {/* Feature 13 - Data Privacy */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 1.3 }}
-                whileHover={{ y: -10, scale: 1.02 }}
-                className="bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden group hover:border-cyan-500/50 transition-all duration-300"
-              >
-                <div className="h-40 bg-gradient-to-br from-cyan-600/20 to-teal-600/20 relative overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <motion.div
-                      animate={{ rotateY: [0, 180, 360] }}
-                      transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                      style={{ transformStyle: 'preserve-3d' }}
-                    >
-                      <Lock className="w-14 h-14 text-cyan-400" />
-                    </motion.div>
-                  </div>
-                  <motion.div className="absolute top-2 right-2 w-8 h-8 bg-cyan-500 rounded-full flex items-center justify-center">
-                    <Lock className="w-4 h-4 text-white" />
-                  </motion.div>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-white mb-2">Bank-grade Security</h3>
-                  <p className="text-slate-400 text-sm">Your data is protected with 256-bit encryption. GDPR compliant and ISO certified security.</p>
-                </div>
-              </motion.div>
-
-              {/* Feature 14 - Analytics Dashboard */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 1.4 }}
-                whileHover={{ y: -10, scale: 1.02 }}
-                className="bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden group hover:border-lime-500/50 transition-all duration-300"
-              >
-                <div className="h-40 bg-gradient-to-br from-lime-600/20 to-green-600/20 relative overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="flex items-end gap-2 h-16">
-                      <motion.div 
-                        className="w-4 bg-lime-500 rounded-t"
-                        animate={{ height: ['40%', '70%', '40%'] }}
-                        transition={{ duration: 2, repeat: Infinity, delay: 0 }}
-                        style={{ height: '40%' }}
-                      />
-                      <motion.div 
-                        className="w-4 bg-green-500 rounded-t"
-                        animate={{ height: ['60%', '90%', '60%'] }}
-                        transition={{ duration: 2, repeat: Infinity, delay: 0.2 }}
-                        style={{ height: '60%' }}
-                      />
-                      <motion.div 
-                        className="w-4 bg-lime-500 rounded-t"
-                        animate={{ height: ['50%', '80%', '50%'] }}
-                        transition={{ duration: 2, repeat: Infinity, delay: 0.4 }}
-                        style={{ height: '50%' }}
-                      />
-                      <motion.div 
-                        className="w-4 bg-green-500 rounded-t"
-                        animate={{ height: ['70%', '100%', '70%'] }}
-                        transition={{ duration: 2, repeat: Infinity, delay: 0.6 }}
-                        style={{ height: '70%' }}
-                      />
-                    </div>
-                  </div>
-                  <motion.div className="absolute top-2 right-2 w-8 h-8 bg-lime-500 rounded-full flex items-center justify-center">
-                    <BarChart3 className="w-4 h-4 text-white" />
-                  </motion.div>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-white mb-2">Case Analytics</h3>
-                  <p className="text-slate-400 text-sm">Get insights on your case progress, spending, and lawyer performance with detailed analytics.</p>
-                </div>
-              </motion.div>
-
-              {/* Feature 15 - AI Case Summary */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 1.5 }}
-                whileHover={{ y: -10, scale: 1.02 }}
-                className="bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden group hover:border-fuchsia-500/50 transition-all duration-300"
-              >
-                <div className="h-40 bg-gradient-to-br from-fuchsia-600/20 to-pink-600/20 relative overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <motion.div
-                      animate={{ 
-                        boxShadow: ['0 0 20px rgba(217, 70, 239, 0.3)', '0 0 40px rgba(217, 70, 239, 0.6)', '0 0 20px rgba(217, 70, 239, 0.3)']
-                      }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                      className="p-4 rounded-xl bg-slate-800/50"
-                    >
-                      <Sparkles className="w-10 h-10 text-fuchsia-400" />
-                    </motion.div>
-                  </div>
-                  <motion.div className="absolute top-2 right-2 w-8 h-8 bg-fuchsia-500 rounded-full flex items-center justify-center">
-                    <Sparkles className="w-4 h-4 text-white" />
-                  </motion.div>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-white mb-2">AI Case Summary</h3>
-                  <p className="text-slate-400 text-sm">Get instant AI-generated summaries of your case documents. Understand complex legal terms easily.</p>
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        )}
       </div>
 
       {/* Lawyer Profile Modal */}
