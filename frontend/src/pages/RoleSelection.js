@@ -41,7 +41,7 @@ export default function RoleSelection() {
       hoverGradient: 'hover:from-blue-500 hover:to-indigo-600',
       borderColor: 'border-blue-500/30',
       iconBg: 'bg-blue-500',
-      route: isLoginMode ? '/lawfirm-login' : '/lawfirm-application',
+      route: isLoginMode ? '/lawfirm-role' : '/lawfirm-role',
       testId: 'role-lawfirm-card'
     }
   ];

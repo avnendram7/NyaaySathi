@@ -29,6 +29,9 @@ import LawFirmLoginPage from './pages/LawFirmLoginPage';
 import UserDashboard from './pages/UserDashboard';
 import LawyerDashboard from './pages/LawyerDashboard';
 import LawFirmDashboard from './pages/LawFirmDashboard';
+import LawFirmRoleSelection from './pages/LawFirmRoleSelection';
+import LawFirmLawyerLogin from './pages/LawFirmLawyerLogin';
+import FirmLawyerDashboard from './pages/FirmLawyerDashboard';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 export const API = `${BACKEND_URL}/api`;
@@ -111,6 +114,16 @@ function App() {
               />
               <Route path="/lawyer-application" element={<LawyerApplication />} />
               <Route path="/lawfirm-application" element={<LawFirmApplication />} />
+              <Route path="/lawfirm-role" element={<LawFirmRoleSelection />} />
+              <Route path="/lawfirm-lawyer-login" element={<LawFirmLawyerLogin />} />
+              <Route 
+                path="/firm-lawyer-dashboard" 
+                element={
+                  <ProtectedRoute requiredType="firm_lawyer">
+                    <FirmLawyerDashboard />
+                  </ProtectedRoute>
+                } 
+              />
               <Route path="/admin-login" element={<AdminLogin />} />
               <Route path="/admin" element={<AdminDashboard />} />
             </Routes>
