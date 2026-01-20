@@ -32,6 +32,7 @@ import LawFirmDashboard from './pages/LawFirmDashboard';
 import LawFirmRoleSelection from './pages/LawFirmRoleSelection';
 import LawFirmLawyerLogin from './pages/LawFirmLawyerLogin';
 import FirmLawyerDashboard from './pages/FirmLawyerDashboard';
+import FirmLawyerApplication from './pages/FirmLawyerApplication';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 export const API = `${BACKEND_URL}/api`;
