@@ -28,7 +28,7 @@ export default function RoleSelection() {
       title: 'I am a Law Firm',
       subtitle: 'Manage your firm, onboard lawyers, and scale your legal operations.',
       icon: Building2,
-      route: isLoginMode ? '/lawfirm-role' : '/lawfirm-role',
+      route: isLoginMode ? '/lawfirm-role?mode=login' : '/lawfirm-role',
       testId: 'role-lawfirm-card'
     }
   ];
