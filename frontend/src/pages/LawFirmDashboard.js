@@ -434,6 +434,108 @@ export default function LawFirmDashboard() {
           </div>
         )}
 
+        {/* Client Applications Tab */}
+        {activeTab === 'clients' && (
+          <div>
+            <div className="mb-8">
+              <h2 className="text-3xl font-bold text-white mb-2">Client Applications</h2>
+              <p className="text-slate-400">Review and approve client applications to join your firm</p>
+            </div>
+
+            <div className="space-y-4">
+              {clientApplications.map((application) => (
+                <motion.div
+                  key={application.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-slate-900/50 backdrop-blur-sm border border-blue-500/20 rounded-2xl p-6 hover:bg-slate-900/70 transition-all duration-300"
+                >
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex items-center space-x-4">
+                      <img
+                        src={application.photo}
+                        alt={application.full_name}
+                        className="w-16 h-16 rounded-xl object-cover"
+                      />
+                      <div>
+                        <h3 className="text-xl font-semibold text-white">{application.full_name}</h3>
+                        <p className="text-sm text-slate-400">{application.email}</p>
+                        <p className="text-sm text-slate-400">{application.phone}</p>
+                      </div>
+                    </div>
+                    <span className="px-4 py-2 rounded-full text-xs font-semibold bg-amber-500/20 text-amber-400 border border-amber-500/30">
+                      Pending Review
+                    </span>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                      <p className="text-xs text-slate-500 mb-1">Case Type</p>
+                      <p className="text-white font-medium">{application.case_type}</p>
+                    </div>
+                    {application.company_name && (
+                      <div>
+                        <p className="text-xs text-slate-500 mb-1">Company</p>
+                        <p className="text-white font-medium">{application.company_name}</p>
+                      </div>
+                    )}
+                    <div>
+                      <p className="text-xs text-slate-500 mb-1">Applied On</p>
+                      <p className="text-white font-medium">{new Date(application.applied_date).toLocaleDateString()}</p>
+                    </div>
+                  </div>
+
+                  <div className="mb-4">
+                    <p className="text-xs text-slate-500 mb-2">Case Description</p>
+                    <p className="text-slate-300 text-sm leading-relaxed">{application.case_description}</p>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-3">
+                    <div>
+                      <p className="text-xs text-slate-500 mb-2">Assign Lawyer</p>
+                      <select className="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-blue-500">
+                        <option value="">Select Lawyer</option>
+                        {firmLawyers.filter(l => l.status === 'active').map(lawyer => (
+                          <option key={lawyer.id} value={lawyer.id}>{lawyer.name}</option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="flex space-x-3 mt-4">
+                    <Button 
+                      className="flex-1 bg-green-600 hover:bg-green-500 text-white rounded-lg py-3 font-semibold transition-colors"
+                      onClick={() => {
+                        toast.success(`Application approved! ${application.full_name} can now login.`);
+                      }}
+                    >
+                      <CheckCircle className="w-5 h-5 mr-2" />
+                      Approve Application
+                    </Button>
+                    <Button 
+                      className="flex-1 bg-red-600/20 hover:bg-red-600/30 text-red-400 rounded-lg py-3 font-semibold transition-colors border border-red-500/30"
+                      onClick={() => {
+                        toast.error(`Application rejected for ${application.full_name}`);
+                      }}
+                    >
+                      <AlertCircle className="w-5 h-5 mr-2" />
+                      Reject
+                    </Button>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {clientApplications.length === 0 && (
+              <div className="text-center py-16">
+                <Shield className="w-16 h-16 text-slate-700 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold text-white mb-2">No Pending Applications</h3>
+                <p className="text-slate-400">Client applications will appear here for review</p>
+              </div>
+            )}
+          </div>
+        )}
+
         {/* Cases Tab */}
         {activeTab === 'cases' && (
           <div className="p-8">
