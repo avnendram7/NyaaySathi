@@ -989,11 +989,18 @@ export default function AdminDashboard() {
               <User className="w-16 h-16 text-slate-700 mx-auto mb-4" />
             ) : activeSection === 'lawfirms' ? (
               <Building2 className="w-16 h-16 text-slate-700 mx-auto mb-4" />
+            ) : activeSection === 'firmclients' ? (
+              <User className="w-16 h-16 text-slate-700 mx-auto mb-4" />
             ) : (
               <Users className="w-16 h-16 text-slate-700 mx-auto mb-4" />
             )}
             <p className="text-slate-400">
-              No {filter === 'all' ? '' : filter} {activeSection === 'lawyers' ? 'lawyer' : activeSection === 'lawfirms' ? 'law firm' : 'firm lawyer'} applications found
+              No {filter === 'all' ? '' : filter} {
+                activeSection === 'lawyers' ? 'lawyer' : 
+                activeSection === 'lawfirms' ? 'law firm' : 
+                activeSection === 'firmclients' ? 'firm client' :
+                'firm lawyer'
+              } applications found
             </p>
           </div>
         ) : (
