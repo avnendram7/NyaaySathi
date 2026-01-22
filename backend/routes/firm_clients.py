@@ -129,9 +129,13 @@ async def update_client_application_status(
         
         # If approved, create client account
         if new_status == "approved":
-            # Generate temporary password
-            temp_password = f"Client@{application['email'].split('@')[0][:4]}{application_id[:4]}"
-            hashed_password = pwd_context.hash(temp_password)
+            # Use the password from the application (already hashed)
+            hashed_password = application.get("password")
+            
+            # If password doesn't exist (old applications), generate a temp password
+            if not hashed_password:
+                temp_password = f"Client@{application['email'].split('@')[0][:4]}{application_id[:4]}"
+                hashed_password = pwd_context.hash(temp_password)
             
             client = FirmClient(
                 id=application_id,
@@ -154,7 +158,6 @@ async def update_client_application_status(
             
             return {
                 "message": "Application approved and client account created",
-                "temp_password": temp_password,
                 "client_id": client.id
             }
         
