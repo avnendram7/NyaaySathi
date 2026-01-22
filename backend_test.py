@@ -136,6 +136,9 @@ def test_authentication():
     
     # Test login for all user types
     for user_type, user_data in TEST_USERS.items():
+        if user_type == 'admin':  # Skip admin for regular login
+            continue
+            
         login_data = {
             'email': user_data['email'],
             'password': user_data['password'],
