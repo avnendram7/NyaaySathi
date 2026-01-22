@@ -6,6 +6,7 @@ import axios from 'axios';
 import { API } from '../App';
 import { CorporateInput, CorporateButton } from '../components/CorporateComponents';
 import { dummyLawFirms } from '../data/lawFirmsData';
+import NavigationHeader from '../components/NavigationHeader';
 
 export default function FirmClientApplication() {
   const navigate = useNavigate();
@@ -94,10 +95,13 @@ export default function FirmClientApplication() {
 
   return (
     <div className="min-h-screen bg-black">
-      {/* Header */}
-      <header className="p-6 border-b border-slate-900">
-        <button 
-          onClick={() => navigate('/lawfirm-role')}
+      {/* Navigation Header */}
+      <NavigationHeader 
+        backPath="/lawfirm-role"
+        showBack={true}
+        showHome={true}
+        showLogout={false}
+      />
           className="flex items-center space-x-3 text-white hover:text-blue-500 transition-colors"
         >
           <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
