@@ -435,17 +435,288 @@ export default function FirmLawyerDashboard() {
           </div>
         )}
 
-        {/* Other tabs placeholder */}
-        {['calendar', 'messages', 'performance'].includes(activeTab) && (
-          <div className="flex items-center justify-center h-96">
-            <div className="text-center">
-              <div className="w-20 h-20 bg-zinc-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                {activeTab === 'calendar' && <Calendar className="w-10 h-10 text-zinc-600" />}
-                {activeTab === 'messages' && <MessageSquare className="w-10 h-10 text-zinc-600" />}
-                {activeTab === 'performance' && <TrendingUp className="w-10 h-10 text-zinc-600" />}
+        {/* Calendar Tab */}
+        {activeTab === 'calendar' && (
+          <div>
+            <div className="mb-8">
+              <h1 className="text-3xl font-bold text-white mb-2">Calendar</h1>
+              <p className="text-zinc-400">Your schedule and upcoming events</p>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Today's Schedule */}
+              <div className="lg:col-span-2 space-y-6">
+                <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+                  <h2 className="text-xl font-bold text-white mb-4">Today's Schedule</h2>
+                  <div className="space-y-3">
+                    {calendarEvents
+                      .filter(event => event.date === '2026-01-22')
+                      .map(event => (
+                        <div key={event.id} className={`p-4 rounded-xl border-l-4 ${
+                          event.color === 'red' ? 'bg-red-500/10 border-red-500' :
+                          event.color === 'blue' ? 'bg-blue-500/10 border-blue-500' :
+                          'bg-green-500/10 border-green-500'
+                        }`}>
+                          <div className="flex items-start justify-between">
+                            <div className="flex-1">
+                              <div className="flex items-center gap-2 mb-1">
+                                <span className={`font-semibold ${
+                                  event.color === 'red' ? 'text-red-400' :
+                                  event.color === 'blue' ? 'text-blue-400' :
+                                  'text-green-400'
+                                }`}>{event.time}</span>
+                                <span className={`px-2 py-0.5 text-xs rounded-full ${
+                                  event.type === 'hearing' ? 'bg-red-500/20 text-red-300' :
+                                  event.type === 'meeting' ? 'bg-blue-500/20 text-blue-300' :
+                                  'bg-green-500/20 text-green-300'
+                                }`}>{event.type}</span>
+                              </div>
+                              <p className="font-medium text-white mb-1">{event.title}</p>
+                              <p className="text-sm text-zinc-500">📍 {event.location}</p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                  </div>
+                </div>
+
+                {/* Upcoming Events */}
+                <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+                  <h2 className="text-xl font-bold text-white mb-4">Upcoming This Week</h2>
+                  <div className="space-y-3">
+                    {calendarEvents
+                      .filter(event => event.date !== '2026-01-22')
+                      .map(event => (
+                        <div key={event.id} className="p-4 bg-zinc-800/50 rounded-xl hover:bg-zinc-800 transition-colors">
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-purple-400 font-semibold text-sm">{new Date(event.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+                            <span className="text-zinc-500 text-xs">{event.time}</span>
+                          </div>
+                          <p className="font-medium text-white text-sm mb-1">{event.title}</p>
+                          <p className="text-xs text-zinc-500">{event.location}</p>
+                        </div>
+                      ))}
+                  </div>
+                </div>
               </div>
-              <h2 className="text-xl font-bold text-white mb-2">{activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}</h2>
-              <p className="text-zinc-500">This feature is being set up by your firm manager</p>
+
+              {/* Mini Calendar & Stats */}
+              <div className="space-y-6">
+                <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+                  <h3 className="font-bold text-white mb-4">January 2026</h3>
+                  <div className="grid grid-cols-7 gap-2 mb-4">
+                    {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map(day => (
+                      <div key={day} className="text-center text-xs text-zinc-500 font-semibold">{day}</div>
+                    ))}
+                  </div>
+                  <div className="grid grid-cols-7 gap-2">
+                    {[...Array(31)].map((_, i) => {
+                      const day = i + 1;
+                      const hasEvent = calendarEvents.some(e => parseInt(e.date.split('-')[2]) === day);
+                      const isToday = day === 22;
+                      return (
+                        <div key={i} className={`text-center p-2 text-sm rounded-lg ${
+                          isToday ? 'bg-purple-600 text-white font-bold' :
+                          hasEvent ? 'bg-blue-500/20 text-blue-400' :
+                          'text-zinc-400 hover:bg-zinc-800'
+                        }`}>
+                          {day}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+                  <h3 className="font-bold text-white mb-4">This Week</h3>
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-zinc-400 text-sm">Total Events</span>
+                      <span className="text-white font-bold">{calendarEvents.length}</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-zinc-400 text-sm">Court Hearings</span>
+                      <span className="text-red-400 font-bold">{calendarEvents.filter(e => e.type === 'hearing').length}</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-zinc-400 text-sm">Meetings</span>
+                      <span className="text-blue-400 font-bold">{calendarEvents.filter(e => e.type === 'meeting').length}</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-zinc-400 text-sm">Tasks</span>
+                      <span className="text-green-400 font-bold">{calendarEvents.filter(e => e.type === 'task').length}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Messages Tab */}
+        {activeTab === 'messages' && (
+          <div>
+            <div className="mb-8">
+              <h1 className="text-3xl font-bold text-white mb-2">Messages</h1>
+              <p className="text-zinc-400">Your conversations and notifications</p>
+            </div>
+
+            <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden">
+              <div className="p-4 border-b border-zinc-800 bg-zinc-900/50">
+                <input 
+                  type="text" 
+                  placeholder="Search messages..." 
+                  className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-4 py-2 text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                />
+              </div>
+              
+              <div className="divide-y divide-zinc-800">
+                {messages.map(msg => (
+                  <div key={msg.id} className={`p-6 hover:bg-zinc-800/50 transition-colors cursor-pointer ${msg.unread ? 'bg-purple-500/5' : ''}`}>
+                    <div className="flex items-start gap-4">
+                      <div className={`w-12 h-12 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0 ${
+                        msg.unread ? 'bg-purple-600' : 'bg-zinc-700'
+                      }`}>
+                        {msg.avatar}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between mb-1">
+                          <div className="flex items-center gap-2">
+                            <h3 className="font-semibold text-white">{msg.sender}</h3>
+                            {msg.unread && (
+                              <span className="w-2 h-2 bg-purple-500 rounded-full"></span>
+                            )}
+                          </div>
+                          <span className="text-xs text-zinc-500">{msg.time}</span>
+                        </div>
+                        <p className="text-sm text-zinc-500 mb-1">{msg.role}</p>
+                        <p className={`text-sm ${msg.unread ? 'text-white font-medium' : 'text-zinc-400'} line-clamp-2`}>
+                          {msg.message}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Performance Tab */}
+        {activeTab === 'performance' && (
+          <div>
+            <div className="mb-8">
+              <h1 className="text-3xl font-bold text-white mb-2">Performance Analytics</h1>
+              <p className="text-zinc-400">Your detailed performance metrics and insights</p>
+            </div>
+
+            {/* Monthly Overview */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+              <div className="bg-gradient-to-br from-purple-600 to-purple-700 rounded-xl p-6">
+                <p className="text-purple-200 text-sm mb-2">Cases Handled</p>
+                <p className="text-4xl font-bold text-white mb-1">{monthlyPerformance.casesHandled}</p>
+                <p className="text-purple-200 text-xs">This month</p>
+              </div>
+              <div className="bg-gradient-to-br from-green-600 to-green-700 rounded-xl p-6">
+                <p className="text-green-200 text-sm mb-2">Cases Won</p>
+                <p className="text-4xl font-bold text-white mb-1">{monthlyPerformance.casesWon}</p>
+                <p className="text-green-200 text-xs">92% Success Rate</p>
+              </div>
+              <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl p-6">
+                <p className="text-blue-200 text-sm mb-2">Hours Worked</p>
+                <p className="text-4xl font-bold text-white mb-1">{monthlyPerformance.hoursWorked}</p>
+                <p className="text-blue-200 text-xs">This month</p>
+              </div>
+              <div className="bg-gradient-to-br from-amber-600 to-amber-700 rounded-xl p-6">
+                <p className="text-amber-200 text-sm mb-2">Revenue Generated</p>
+                <p className="text-4xl font-bold text-white mb-1">{monthlyPerformance.revenue}</p>
+                <p className="text-amber-200 text-xs">This month</p>
+              </div>
+            </div>
+
+            {/* Performance Chart */}
+            <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 mb-6">
+              <h2 className="text-xl font-bold text-white mb-6">6-Month Performance Trend</h2>
+              <div className="flex items-end justify-between gap-4 h-64">
+                {performanceChart.map((data, idx) => (
+                  <div key={idx} className="flex-1 flex flex-col items-center gap-2">
+                    <div className="w-full flex gap-1">
+                      <div 
+                        className="flex-1 bg-purple-600 rounded-t transition-all hover:bg-purple-500"
+                        style={{ height: `${(data.cases / 15) * 200}px` }}
+                        title={`${data.cases} cases`}
+                      ></div>
+                      <div 
+                        className="flex-1 bg-green-600 rounded-t transition-all hover:bg-green-500"
+                        style={{ height: `${(data.wins / 15) * 200}px` }}
+                        title={`${data.wins} wins`}
+                      ></div>
+                    </div>
+                    <span className="text-zinc-400 text-sm font-medium">{data.month}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="flex items-center justify-center gap-6 mt-6">
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 bg-purple-600 rounded"></div>
+                  <span className="text-zinc-400 text-sm">Cases Handled</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 bg-green-600 rounded"></div>
+                  <span className="text-zinc-400 text-sm">Cases Won</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Detailed Metrics */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+                <h3 className="text-lg font-bold text-white mb-4">Key Metrics</h3>
+                <div className="space-y-4">
+                  {performanceMetrics.map((metric, idx) => (
+                    <div key={idx} className="flex items-center justify-between p-4 bg-zinc-800/50 rounded-xl">
+                      <div>
+                        <p className="text-zinc-400 text-sm">{metric.label}</p>
+                        <p className="text-2xl font-bold text-white">{metric.value}</p>
+                      </div>
+                      <span className="text-green-400 font-semibold">{metric.trend}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+                <h3 className="text-lg font-bold text-white mb-4">Monthly Breakdown</h3>
+                <div className="space-y-4">
+                  <div className="p-4 bg-zinc-800/50 rounded-xl">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-zinc-400 text-sm">Cases Ongoing</span>
+                      <span className="text-white font-bold">{monthlyPerformance.casesOngoing}</span>
+                    </div>
+                    <div className="w-full bg-zinc-700 rounded-full h-2">
+                      <div className="bg-blue-500 h-2 rounded-full" style={{ width: '67%' }}></div>
+                    </div>
+                  </div>
+                  <div className="p-4 bg-zinc-800/50 rounded-xl">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-zinc-400 text-sm">Clients Met</span>
+                      <span className="text-white font-bold">{monthlyPerformance.clientsMet}</span>
+                    </div>
+                    <div className="w-full bg-zinc-700 rounded-full h-2">
+                      <div className="bg-purple-500 h-2 rounded-full" style={{ width: '80%' }}></div>
+                    </div>
+                  </div>
+                  <div className="p-4 bg-zinc-800/50 rounded-xl">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-zinc-400 text-sm">Target Achievement</span>
+                      <span className="text-white font-bold">{monthlyPerformance.targetAchievement}%</span>
+                    </div>
+                    <div className="w-full bg-zinc-700 rounded-full h-2">
+                      <div className="bg-green-500 h-2 rounded-full" style={{ width: `${monthlyPerformance.targetAchievement}%` }}></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         )}
