@@ -22,7 +22,7 @@ export default function JoinLawFirmWithSignup() {
     case_type: 'civil'
   });
 
-  const [caseDetails, setCase Details] = useState({
+  const [caseDetails, setCaseDetails] = useState({
     description: ''
   });
 
