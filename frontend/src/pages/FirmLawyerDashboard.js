@@ -48,6 +48,151 @@ export default function FirmLawyerDashboard() {
     { label: 'Response Time', value: '2.5 hrs', trend: '-30min' }
   ];
 
+  // Calendar data
+  const calendarEvents = [
+    { 
+      id: 1, 
+      date: '2026-01-22', 
+      time: '10:30 AM', 
+      title: 'Kumar Criminal Defense - Court Hearing', 
+      location: 'Sessions Court, Delhi',
+      type: 'hearing',
+      color: 'red'
+    },
+    { 
+      id: 2, 
+      date: '2026-01-22', 
+      time: '3:00 PM', 
+      title: 'Client Meeting - Sharma Industries', 
+      location: 'Office',
+      type: 'meeting',
+      color: 'blue'
+    },
+    { 
+      id: 3, 
+      date: '2026-01-23', 
+      time: '11:00 AM', 
+      title: 'Document Review - Gupta Divorce Case', 
+      location: 'Office',
+      type: 'task',
+      color: 'green'
+    },
+    { 
+      id: 4, 
+      date: '2026-01-25', 
+      time: '11:00 AM', 
+      title: 'Sharma vs Builder Corp - High Court Hearing', 
+      location: 'Delhi High Court',
+      type: 'hearing',
+      color: 'red'
+    },
+    { 
+      id: 5, 
+      date: '2026-01-26', 
+      time: '2:00 PM', 
+      title: 'Consultation - New Client', 
+      location: 'Office',
+      type: 'meeting',
+      color: 'blue'
+    },
+    { 
+      id: 6, 
+      date: '2026-01-28', 
+      time: '9:30 AM', 
+      title: 'Gupta Divorce Settlement - Family Court', 
+      location: 'Family Court, Delhi',
+      type: 'hearing',
+      color: 'red'
+    },
+    { 
+      id: 7, 
+      date: '2026-01-29', 
+      time: '4:00 PM', 
+      title: 'Team Meeting - Case Strategy Discussion', 
+      location: 'Conference Room',
+      type: 'meeting',
+      color: 'blue'
+    }
+  ];
+
+  // Messages data
+  const messages = [
+    {
+      id: 1,
+      sender: 'Mr. Rajesh Kumar',
+      role: 'Client',
+      message: 'Hello Advocate, I wanted to know the status of my criminal case. When is the next hearing scheduled?',
+      time: '10 mins ago',
+      unread: true,
+      avatar: 'RK'
+    },
+    {
+      id: 2,
+      sender: 'Adv. Priya Sharma',
+      role: 'Senior Partner',
+      message: 'Please review the contract documents for Sharma Industries and send me your feedback by EOD.',
+      time: '1 hour ago',
+      unread: true,
+      avatar: 'PS'
+    },
+    {
+      id: 3,
+      sender: 'Ms. Sunita Gupta',
+      role: 'Client',
+      message: 'Thank you for the update on my divorce case. I have signed the documents and will courier them today.',
+      time: '3 hours ago',
+      unread: false,
+      avatar: 'SG'
+    },
+    {
+      id: 4,
+      sender: 'Court Clerk',
+      role: 'Court Official',
+      message: 'Your hearing for Case No. CR/123/2025 has been scheduled for 22nd January at 10:30 AM.',
+      time: '5 hours ago',
+      unread: false,
+      avatar: 'CC'
+    },
+    {
+      id: 5,
+      sender: 'Mr. Vikram Singh',
+      role: 'Client',
+      message: 'I need to discuss some urgent matters regarding my property case. Can we schedule a call today?',
+      time: 'Yesterday',
+      unread: false,
+      avatar: 'VS'
+    },
+    {
+      id: 6,
+      sender: 'Firm Manager',
+      role: 'Manager',
+      message: 'Please submit your monthly performance report by Friday. Great work on the Kumar case!',
+      time: 'Yesterday',
+      unread: false,
+      avatar: 'FM'
+    }
+  ];
+
+  // Enhanced performance data
+  const monthlyPerformance = {
+    casesHandled: 12,
+    casesWon: 11,
+    casesOngoing: 8,
+    clientsMet: 24,
+    hoursWorked: 186,
+    revenue: '₹8,50,000',
+    targetAchievement: 94
+  };
+
+  const performanceChart = [
+    { month: 'Aug', cases: 8, wins: 7 },
+    { month: 'Sep', cases: 10, wins: 9 },
+    { month: 'Oct', cases: 12, wins: 11 },
+    { month: 'Nov', cases: 11, wins: 10 },
+    { month: 'Dec', cases: 13, wins: 12 },
+    { month: 'Jan', cases: 12, wins: 11 }
+  ];
+
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
