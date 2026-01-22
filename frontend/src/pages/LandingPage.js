@@ -103,7 +103,7 @@ export default function LandingPage() {
               <p className="text-slate-400 mb-6">
                 Schedule appointments with verified lawyers at your convenience. Manage all your consultations in one place.
               </p>
-              <Link to="/user-login">
+              <Link to="/book-consultation">
                 <Button 
                   data-testid="book-consultation-btn"
                   className="bg-blue-700 hover:bg-blue-600 text-white rounded-full px-6 py-2 btn-primary"
