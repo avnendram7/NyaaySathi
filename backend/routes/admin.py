@@ -54,49 +54,53 @@ async def get_lawyer_applications(admin: dict = Depends(get_admin)):
 @router.put("/lawyer-applications/{app_id}/approve")
 async def approve_lawyer_application(app_id: str, admin: dict = Depends(get_admin)):
     """Approve a lawyer application"""
-    # Find application
-    application = await db.lawyer_applications.find_one({'_id': ObjectId(app_id)})
-    if not application:
-        raise HTTPException(status_code=404, detail='Application not found')
-    
-    if application.get('status') != 'pending':
-        raise HTTPException(status_code=400, detail='Application already processed')
-    
-    # Update application status
-    await db.lawyer_applications.update_one(
-        {'_id': ObjectId(app_id)},
-        {'$set': {'status': 'approved'}}
-    )
-    
-    # Create lawyer user account
-    user_data = {
-        'id': str(uuid.uuid4()),
-        'email': application['email'],
-        'password_hash': application['password_hash'],
-        'full_name': application['name'],
-        'user_type': 'lawyer',
-        'phone': application['phone'],
-        'created_at': datetime.now(timezone.utc),
-        # Lawyer specific fields
-        'photo': application.get('photo'),
-        'bar_council_number': application['bar_council_number'],
-        'specialization': application['specialization'],
-        'experience': application['experience'],
-        'cases_won': application['cases_won'],
-        'state': application['state'],
-        'city': application['city'],
-        'court': application['court'],
-        'education': application['education'],
-        'languages': application['languages'],
-        'fee_range': application['fee_range'],
-        'bio': application['bio'],
-        'rating': 4.5,
-        'is_verified': True
-    }
-    
-    await db.users.insert_one(user_data)
-    
-    return {'message': 'Application approved successfully'}
+    try:
+        # Find application
+        application = await db.lawyer_applications.find_one({'_id': ObjectId(app_id)})
+        if not application:
+            raise HTTPException(status_code=404, detail='Application not found')
+        
+        if application.get('status') != 'pending':
+            raise HTTPException(status_code=400, detail='Application already processed')
+        
+        # Update application status
+        await db.lawyer_applications.update_one(
+            {'_id': ObjectId(app_id)},
+            {'$set': {'status': 'approved'}}
+        )
+        
+        # Create lawyer user account
+        user_data = {
+            'id': str(uuid.uuid4()),
+            'email': application['email'],
+            'password': application.get('password_hash') or application.get('password'),
+            'full_name': application.get('full_name') or application.get('name'),
+            'user_type': 'lawyer',
+            'phone': application['phone'],
+            'created_at': datetime.now(timezone.utc).isoformat(),
+            'is_approved': True,
+            # Lawyer specific fields
+            'photo': application.get('photo'),
+            'bar_council_number': application.get('bar_council_number'),
+            'specialization': application.get('specialization'),
+            'experience_years': application.get('experience_years') or application.get('experience'),
+            'cases_won': application.get('cases_won', 0),
+            'state': application.get('state'),
+            'city': application.get('city'),
+            'court': application.get('court', ''),
+            'education': application.get('education'),
+            'languages': application.get('languages', []),
+            'fee_range': application.get('fee_range', '₹5,000 - ₹15,000'),
+            'bio': application.get('bio', 'Experienced lawyer'),
+            'rating': 4.5,
+            'is_verified': True
+        }
+        
+        await db.users.insert_one(user_data)
+        
+        return {'message': 'Application approved successfully'}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f'Failed to approve application: {str(e)}')
 
 
 @router.put("/lawyer-applications/{app_id}/reject")
