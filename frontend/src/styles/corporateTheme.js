@@ -68,25 +68,8 @@ export const corporateClasses = {
   textSecondary: 'text-slate-400',
   heading: 'text-white font-semibold',
   
-  // Container styles
+  // Container
   container: 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8',
-  containerTight: 'max-w-5xl mx-auto px-4 sm:px-6 lg:px-8',
-  containerNarrow: 'max-w-3xl mx-auto px-4 sm:px-6 lg:px-8',
-  
-  // Grid styles
-  grid: 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6',
-  gridWide: 'grid grid-cols-1 lg:grid-cols-2 gap-8',
-  
-  // Badge styles
-  badge: 'inline-flex items-center px-3 py-1 rounded-full text-xs font-medium',
-  badgeSuccess: 'bg-green-500/20 text-green-400 border border-green-500/30',
-  badgeWarning: 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30',
-  badgeError: 'bg-red-500/20 text-red-400 border border-red-500/30',
-  badgeInfo: 'bg-blue-500/20 text-blue-400 border border-blue-500/30',
-  
-  // Icon container
-  iconContainer: 'w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-blue-500 flex items-center justify-center shadow-lg shadow-blue-500/30',
-  iconContainerLarge: 'w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-600 to-blue-500 flex items-center justify-center shadow-xl shadow-blue-500/40',
 };
 
 export default corporateTheme;
