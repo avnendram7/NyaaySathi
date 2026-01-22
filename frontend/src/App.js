@@ -40,6 +40,7 @@ import FirmClientApplication from './pages/FirmClientApplication';
 import FirmClientDashboard from './pages/FirmClientDashboard';
 import FirmClientDashboardDemo from './pages/FirmClientDashboardDemo';
 import BookConsultation from './pages/BookConsultation';
+import BookConsultationWithSignup from './pages/BookConsultationWithSignup';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 export const API = `${BACKEND_URL}/api`;
