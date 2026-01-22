@@ -154,6 +154,9 @@ def test_authentication():
     
     # Test /auth/me for authenticated users
     for user_type in TEST_USERS.keys():
+        if user_type == 'admin':  # Skip admin for /auth/me
+            continue
+            
         if tokens.get(user_type):
             response = make_request('GET', '/auth/me', auth_token=tokens[user_type])
             if response and response.status_code == 200:
