@@ -9,29 +9,33 @@ import json
 import os
 from datetime import datetime
 import uuid
+import time
 
 # Get backend URL from environment
 BACKEND_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://fastread-hub.preview.emergentagent.com')
 API_BASE = f"{BACKEND_URL}/api"
 
-# Test data
+# Generate unique timestamp for this test run
+TEST_RUN_ID = int(time.time())
+
+# Test data with unique emails
 TEST_USERS = {
     'client': {
-        'email': 'rajesh.kumar@example.com',
+        'email': f'rajesh.kumar.{TEST_RUN_ID}@example.com',
         'password': 'SecurePass123!',
         'full_name': 'Rajesh Kumar',
         'user_type': 'client',
         'phone': '+91-9876543210'
     },
     'lawyer': {
-        'email': 'advocate.sharma@lawfirm.com',
+        'email': f'advocate.sharma.{TEST_RUN_ID}@lawfirm.com',
         'password': 'LawyerPass456!',
         'full_name': 'Advocate Priya Sharma',
         'user_type': 'lawyer',
         'phone': '+91-9876543211'
     },
     'law_firm': {
-        'email': 'manager@corporatelaw.com',
+        'email': f'manager.{TEST_RUN_ID}@corporatelaw.com',
         'password': 'FirmPass789!',
         'full_name': 'Amit Gupta',
         'user_type': 'law_firm',
