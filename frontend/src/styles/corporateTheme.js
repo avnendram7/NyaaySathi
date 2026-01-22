@@ -40,16 +40,9 @@ export const corporateTheme = {
     xl: '1rem',
   },
   
-  spacing: {
-    section: '6rem',
-    container: '5rem',
-    card: '2rem',
-  },
-  
   transitions: {
-    fast: '150ms cubic-bezier(0.4, 0, 0.2, 1)',
-    normal: '300ms cubic-bezier(0.4, 0, 0.2, 1)',
-    slow: '500ms cubic-bezier(0.4, 0, 0.2, 1)',
+    fast: '150ms ease',
+    normal: '300ms ease',
   },
   
   typography: {
