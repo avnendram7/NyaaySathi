@@ -99,7 +99,7 @@ export default function JoinLawFirmWithSignup() {
         payment_status: 'paid'
       };
 
-      await axios.post(`${API}/firm-clients/apply`, applicationPayload, {
+      await axios.post(`${API}/firm-clients/applications`, applicationPayload, {
         headers: { Authorization: `Bearer ${signupResponse.data.token}` }
       });
 
