@@ -43,7 +43,22 @@ export default function BookConsultationWithSignup() {
 
   if (!selectedLawyer) return null;
 
-  const consultationFee = 999; // Default fee
+  // Extract fee from lawyer data (e.g., "₹5,000 - ₹15,000" -> 5000)
+  const getFeeAmount = () => {
+    if (selectedLawyer.consultation_fee) {
+      return selectedLawyer.consultation_fee;
+    }
+    if (selectedLawyer.fee) {
+      const feeStr = selectedLawyer.fee.toString();
+      const match = feeStr.match(/₹?([\d,]+)/);
+      if (match) {
+        return parseInt(match[1].replace(/,/g, ''));
+      }
+    }
+    return 999; // Default fallback
+  };
+
+  const consultationFee = getFeeAmount();
 
   const handleSignupSubmit = (e) => {
     e.preventDefault();
