@@ -40,6 +40,7 @@ export default function AdminDashboard() {
     } else {
       fetchAllApplications();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate]);
 
   const fetchAllApplications = async () => {

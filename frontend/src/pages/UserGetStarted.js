@@ -38,7 +38,7 @@ export default function UserGetStarted() {
               </div>
             </div>
             
-            <h2 className="text-2xl font-bold text-white text-center mb-3">Independent Lawyer</h2>
+            <h2 className="text-2xl font-bold text-white text-center mb-3">I Want a Lawyer</h2>
             <p className="text-slate-400 text-center mb-6">Connect with verified independent lawyers across India</p>
             
             <div className="space-y-3 mb-8">
@@ -96,7 +96,7 @@ export default function UserGetStarted() {
               </div>
             </div>
             
-            <h2 className="text-2xl font-bold text-white text-center mb-3">Law Firm</h2>
+            <h2 className="text-2xl font-bold text-white text-center mb-3">I Want a Law Firm</h2>
             <p className="text-slate-400 text-center mb-6">Join established law firms with comprehensive legal services</p>
             
             <div className="space-y-3 mb-8">
