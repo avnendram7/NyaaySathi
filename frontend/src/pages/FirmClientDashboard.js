@@ -143,7 +143,7 @@ export default function FirmClientDashboard() {
         {/* Case Information */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
           {/* Assigned Lawyer */}
-          <GlowCard className="p-6">
+          <SimpleCard className="p-6">
             <div className="flex items-center gap-4 mb-4">
               <div className="w-12 h-12 bg-gradient-to-br from-green-600 to-green-500 rounded-xl flex items-center justify-center">
                 <User className="w-6 h-6 text-white" />
@@ -157,7 +157,7 @@ export default function FirmClientDashboard() {
           </GlowCard>
 
           {/* Contact Info */}
-          <GlowCard className="p-6">
+          <SimpleCard className="p-6">
             <div className="flex items-center gap-4 mb-4">
               <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-500 rounded-xl flex items-center justify-center">
                 <MessageSquare className="w-6 h-6 text-white" />
@@ -174,7 +174,7 @@ export default function FirmClientDashboard() {
           </GlowCard>
 
           {/* Law Firm */}
-          <GlowCard className="p-6">
+          <SimpleCard className="p-6">
             <div className="flex items-center gap-4 mb-4">
               <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-purple-500 rounded-xl flex items-center justify-center">
                 <Scale className="w-6 h-6 text-white" />
