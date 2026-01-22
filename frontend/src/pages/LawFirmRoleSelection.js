@@ -43,152 +43,128 @@ export default function LawFirmRoleSelection() {
   ];
   
   return (
-    <div className="min-h-screen flex flex-col bg-black overflow-hidden">
-      {/* Background with floating lights */}
-      <div className="fixed inset-0">
-        {/* Floating light orbs */}
-        <motion.div
-          animate={{
-            x: [0, 100, 0],
-            y: [0, -50, 0],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-[100px]"
-        />
-        <motion.div
-          animate={{
-            x: [0, -80, 0],
-            y: [0, 60, 0],
-            scale: [1, 1.3, 1],
-          }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-[100px]"
-        />
-        <motion.div
-          animate={{
-            x: [0, 50, 0],
-            y: [0, -30, 0],
-          }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/2 left-1/2 w-64 h-64 bg-cyan-500/10 rounded-full blur-[80px]"
-        />
+    <div className="min-h-screen bg-gradient-to-br from-black via-slate-950 to-black">
+      {/* Animated background */}
+      <div className="fixed inset-0 opacity-10">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `radial-gradient(circle at 2px 2px, rgb(59, 130, 246) 1px, transparent 0)`,
+          backgroundSize: '40px 40px'
+        }} />
       </div>
 
       {/* Header */}
       <header className="relative z-10 p-6">
         <button 
           onClick={() => navigate('/role-selection')}
-          className="flex items-center space-x-2 text-white hover:opacity-80 transition-opacity"
+          className="flex items-center space-x-3 text-white hover:text-blue-400 transition-colors group"
         >
-          <Scale className="w-8 h-8 text-blue-500" />
+          <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-500 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/30 group-hover:shadow-blue-500/50 transition-all">
+            <Building2 className="w-6 h-6 text-white" />
+          </div>
           <span className="text-xl font-bold">Nyaay Sathi</span>
         </button>
       </header>
 
       {/* Main Content */}
       <main className="flex-1 flex items-center justify-center relative z-10 px-4 py-12">
-        <div className="w-full max-w-4xl">
+        <div className="w-full max-w-6xl">
           {/* Title */}
           <motion.div 
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-12"
+            className="text-center mb-16"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full mb-6">
+            <div className="inline-flex items-center gap-3 px-5 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full mb-6">
               <Building2 className="w-5 h-5 text-blue-400" />
-              <span className="text-blue-400 text-sm font-medium">Law Firm Portal</span>
+              <span className="text-blue-400 text-sm font-semibold">Law Firm Portal</span>
             </div>
-            <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">
+            <h1 className="text-5xl sm:text-6xl font-bold text-white mb-6">
               Select Your Role
             </h1>
-            <p className="text-zinc-400 text-lg max-w-xl mx-auto">
-              Are you a lawyer working at a firm or a manager running the firm?
+            <p className="text-slate-400 text-xl max-w-2xl mx-auto">
+              Choose how you want to interact with law firms
             </p>
           </motion.div>
 
           {/* Role Cards */}
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-3 gap-8">
             {roles.map((role, index) => {
               const Icon = role.icon;
               return (
-                <motion.div
-                  key={role.id}
-                  data-testid={role.testId}
-                  initial={{ opacity: 0, y: 40 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.15 }}
-                  onClick={() => navigate(role.route)}
-                  className="relative group cursor-pointer"
-                >
-                  {/* Glow effect on hover */}
-                  <div className={`absolute -inset-1 bg-gradient-to-r ${role.gradient} rounded-3xl opacity-0 group-hover:opacity-30 blur-xl transition-all duration-500`} />
-                  
-                  {/* Card */}
-                  <div className="relative bg-zinc-900/80 backdrop-blur-sm border border-zinc-800 rounded-2xl p-8 group-hover:border-zinc-700 transition-all duration-300">
-                    {/* Floating light inside card */}
-                    <motion.div
-                      animate={{
-                        opacity: [0.3, 0.6, 0.3],
-                        scale: [1, 1.1, 1],
-                      }}
-                      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                      className={`absolute top-0 right-0 w-32 h-32 bg-${role.glowColor}-500/10 rounded-full blur-3xl`}
-                    />
-                    
-                    {/* Icon */}
-                    <div className={`relative w-16 h-16 bg-gradient-to-br ${role.gradient} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                      <Icon className="w-8 h-8 text-white" />
+                <FloatingCard key={role.id} delay={index * 0.1}>
+                  <div
+                    data-testid={role.testId}
+                    onClick={() => navigate(role.route)}
+                    className="relative bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-8 cursor-pointer group hover:bg-slate-900/70 hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-500"
+                  >
+                    {/* Floating Icon */}
+                    <div className="mb-8">
+                      <FloatingIcon icon={Icon} color={role.color} size="lg" />
                     </div>
 
                     {/* Content */}
-                    <h2 className="text-2xl font-bold text-white mb-3">{role.title}</h2>
-                    <p className="text-zinc-400 mb-6 leading-relaxed">{role.subtitle}</p>
+                    <h2 className="text-2xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors">
+                      {role.title}
+                    </h2>
+                    <p className="text-slate-400 mb-6 leading-relaxed min-h-[60px]">
+                      {role.subtitle}
+                    </p>
 
                     {/* Features */}
-                    <div className="space-y-2 mb-6">
+                    <div className="space-y-2 mb-8">
                       {role.features.map((feature, idx) => (
-                        <div key={idx} className="flex items-center gap-2 text-sm text-zinc-500">
-                          <div className={`w-1.5 h-1.5 bg-${role.glowColor}-400 rounded-full`} />
+                        <div key={idx} className="flex items-center gap-2 text-sm text-slate-500">
+                          <div className="w-1.5 h-1.5 bg-blue-400 rounded-full" />
                           {feature}
                         </div>
                       ))}
                     </div>
 
                     {/* Button */}
-                    <button className={`w-full py-3 px-6 bg-gradient-to-r ${role.gradient} text-white font-semibold rounded-xl flex items-center justify-center gap-2 group-hover:shadow-lg group-hover:shadow-${role.glowColor}-500/25 transition-all duration-300`}>
+                    <motion.button 
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="w-full py-4 px-6 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-semibold rounded-xl flex items-center justify-center gap-3 transition-all duration-300 shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50"
+                    >
                       Get Started
                       <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                    </button>
+                    </motion.button>
                   </div>
-                </motion.div>
+                </FloatingCard>
               );
             })}
           </div>
 
-          {/* Already have account */}
+          {/* Login Links */}
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
-            className="text-center mt-10"
+            className="text-center mt-12"
           >
-            <p className="text-zinc-500">
-              Already registered?{' '}
+            <p className="text-slate-400 text-lg mb-4">
+              Already registered?
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-4">
               <button 
                 onClick={() => navigate('/lawfirm-login')}
-                className="text-blue-400 hover:text-blue-300 font-semibold"
+                className="px-6 py-2 bg-slate-800 hover:bg-slate-700 text-blue-400 rounded-lg font-medium transition-all duration-300 border border-slate-700"
               >
                 Manager Login
               </button>
-              {' '} or {' '}
               <button 
                 onClick={() => navigate('/lawfirm-lawyer-login')}
-                className="text-purple-400 hover:text-purple-300 font-semibold"
+                className="px-6 py-2 bg-slate-800 hover:bg-slate-700 text-purple-400 rounded-lg font-medium transition-all duration-300 border border-slate-700"
               >
                 Lawyer Login
               </button>
-            </p>
+              <button 
+                onClick={() => navigate('/firm-client-login')}
+                className="px-6 py-2 bg-slate-800 hover:bg-slate-700 text-cyan-400 rounded-lg font-medium transition-all duration-300 border border-slate-700"
+              >
+                Client Login
+              </button>
+            </div>
           </motion.div>
         </div>
       </main>
