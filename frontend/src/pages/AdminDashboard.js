@@ -423,7 +423,7 @@ export default function AdminDashboard() {
           />
           <div className="flex-1">
             <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-white">{app.name}</h2>
+              <h2 className="text-2xl font-bold text-white">{app.full_name || app.name}</h2>
               <span className={`px-3 py-1 rounded-full text-sm font-medium ${
                 app.status === 'pending' ? 'bg-amber-500/20 text-amber-400' :
                 app.status === 'approved' ? 'bg-green-500/20 text-green-400' :
