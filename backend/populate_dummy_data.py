@@ -23,8 +23,9 @@ from services.auth import hash_password
 
 # Database connection
 MONGO_URL = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
+DB_NAME = os.environ.get('DB_NAME', 'test_database')
 client = AsyncIOMotorClient(MONGO_URL)
-db = client.nyaay_sathi
+db = client[DB_NAME]
 
 
 # Dummy Data
