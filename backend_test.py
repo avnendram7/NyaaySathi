@@ -297,12 +297,12 @@ def test_lawfirm_applications():
     print("\n=== LAW FIRM APPLICATION TESTS ===")
     
     lawfirm_app_data = {
-        'firm_name': 'Delhi Legal Partners',
-        'registration_number': 'REG/2020/DLP001',
+        'firm_name': f'Delhi Legal Partners {TEST_RUN_ID}',
+        'registration_number': f'REG/2020/DLP{TEST_RUN_ID}',
         'established_year': 2015,
-        'website': 'https://delhilegalpartners.com',
+        'website': f'https://delhilegalpartners{TEST_RUN_ID}.com',
         'contact_name': 'Rajesh Khanna',
-        'contact_email': 'rajesh@delhilegal.com',
+        'contact_email': f'rajesh.{TEST_RUN_ID}@delhilegal.com',
         'contact_phone': '+91-9876543240',
         'contact_designation': 'Managing Partner',
         'password': 'FirmRajesh123!',
