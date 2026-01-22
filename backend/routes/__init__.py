@@ -9,6 +9,7 @@ from .lawfirms import router as lawfirms_router
 from .waitlist import router as waitlist_router
 from .admin import router as admin_router
 from .firm_lawyers import router as firm_lawyers_router
+from .firm_clients import router as firm_clients_router
 
 __all__ = [
     'auth_router',
@@ -20,5 +21,6 @@ __all__ = [
     'lawfirms_router',
     'waitlist_router',
     'admin_router',
-    'firm_lawyers_router'
+    'firm_lawyers_router',
+    'firm_clients_router'
 ]
