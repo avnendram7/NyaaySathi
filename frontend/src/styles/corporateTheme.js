@@ -60,9 +60,8 @@ export const corporateClasses = {
   buttonSecondary: 'px-6 py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-lg font-medium transition-colors duration-200',
   buttonOutline: 'px-6 py-3 border border-slate-700 hover:border-blue-600 text-slate-300 hover:text-white rounded-lg font-medium transition-all duration-200',
   
-  // Input styles
-  input: 'w-full px-4 py-3 bg-slate-900/50 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-300',
-  inputError: 'w-full px-4 py-3 bg-slate-900/50 border-2 border-red-500/50 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-500/20',
+  // Inputs
+  input: 'w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-600 transition-colors duration-200',
   
   // Text styles
   textPrimary: 'text-white',
