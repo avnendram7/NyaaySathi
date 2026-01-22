@@ -106,19 +106,24 @@ async def approve_lawyer_application(app_id: str, admin: dict = Depends(get_admi
 @router.put("/lawyer-applications/{app_id}/reject")
 async def reject_lawyer_application(app_id: str, admin: dict = Depends(get_admin)):
     """Reject a lawyer application"""
-    # Find application
-    application = await db.lawyer_applications.find_one({'_id': ObjectId(app_id)})
-    if not application:
-        raise HTTPException(status_code=404, detail='Application not found')
-    
-    if application.get('status') != 'pending':
-        raise HTTPException(status_code=400, detail='Application already processed')
-    
-    # Update application status
-    await db.lawyer_applications.update_one(
-        {'_id': ObjectId(app_id)},
-        {'$set': {'status': 'rejected'}}
-    )
+    try:
+        # Find application
+        application = await db.lawyer_applications.find_one({'_id': ObjectId(app_id)})
+        if not application:
+            raise HTTPException(status_code=404, detail='Application not found')
+        
+        if application.get('status') != 'pending':
+            raise HTTPException(status_code=400, detail='Application already processed')
+        
+        # Update application status
+        await db.lawyer_applications.update_one(
+            {'_id': ObjectId(app_id)},
+            {'$set': {'status': 'rejected'}}
+        )
+        
+        return {'message': 'Application rejected'}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f'Failed to reject application: {str(e)}')
     
     return {'message': 'Application rejected'}
 
