@@ -70,7 +70,7 @@ async def add_pending_lawfirm():
         print("\n📋 APPLICATION DETAILS:")
         print(f"   Firm Name: {lawfirm['firm_name']}")
         print(f"   Email: {lawfirm['email']}")
-        print(f"   Password: LawFirm@123")
+        print("   Password: LawFirm@123")
         print(f"   Location: {lawfirm['city']}, {lawfirm['state']}")
         print(f"   Specialization: {', '.join(lawfirm['specialization'])}")
         print(f"   Established: {lawfirm['established_year']}")
