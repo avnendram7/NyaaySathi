@@ -20,8 +20,12 @@ export default function LawFirmLawyerLogin() {
     setLoading(true);
     
     try {
-      const payload = { email: formData.email, password: formData.password, user_type: 'firm_lawyer' };
-      const response = await axios.post(`${API}/auth/login`, payload);
+      const payload = { 
+        email: formData.email, 
+        password: formData.password, 
+        user_type: 'firm_lawyer' 
+      };
+      const response = await axios.post(`${API}/firm-lawyers/login`, payload);
       
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
