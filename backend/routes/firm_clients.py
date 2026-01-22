@@ -206,7 +206,7 @@ async def register_paid_firm_client(client_data: dict):
             "status": "active",
             "payment_status": "paid",
             "payment_amount": client_data.get("payment_amount"),
-            "created_at": datetime.utcnow(),
+            "created_at": datetime.utcnow().isoformat(),
             "last_login": None
         }
         
@@ -225,8 +225,9 @@ async def register_paid_firm_client(client_data: dict):
             algorithm="HS256"
         )
         
-        # Remove password from response
+        # Remove password and _id from response
         client.pop("password", None)
+        client.pop("_id", None)
         
         return {
             "message": "Registration successful",
