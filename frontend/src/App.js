@@ -41,6 +41,9 @@ import FirmClientDashboard from './pages/FirmClientDashboard';
 import FirmClientDashboardDemo from './pages/FirmClientDashboardDemo';
 import BookConsultation from './pages/BookConsultation';
 import BookConsultationWithSignup from './pages/BookConsultationWithSignup';
+import UserGetStarted from './pages/UserGetStarted';
+import FindLawFirmManual from './pages/FindLawFirmManual';
+import JoinLawFirmWithSignup from './pages/JoinLawFirmWithSignup';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 export const API = `${BACKEND_URL}/api`;
