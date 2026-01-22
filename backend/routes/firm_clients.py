@@ -149,7 +149,7 @@ async def update_client_application_status(
 async def firm_client_login(credentials: FirmClientLogin):
     """Login for firm clients"""
     try:
-        collection = await get_collection("firm_clients")
+        collection = db.firm_clients
         
         # Find client
         client = await collection.find_one({"email": credentials.email})
@@ -209,7 +209,7 @@ async def firm_client_login(credentials: FirmClientLogin):
 async def get_client_details(client_id: str):
     """Get firm client details"""
     try:
-        collection = await get_collection("firm_clients")
+        collection = db.firm_clients
         client = await collection.find_one({"id": client_id})
         
         if not client:
@@ -236,7 +236,7 @@ async def get_client_details(client_id: str):
 async def get_firm_clients(law_firm_id: str):
     """Get all clients for a law firm"""
     try:
-        collection = await get_collection("firm_clients")
+        collection = db.firm_clients
         clients = await collection.find({"law_firm_id": law_firm_id}).to_list(length=100)
         
         for client in clients:
@@ -292,7 +292,7 @@ async def get_client_case_updates(client_id: str):
 async def assign_lawyer_to_client(client_id: str, assignment: dict):
     """Assign or change lawyer for a client"""
     try:
-        collection = await get_collection("firm_clients")
+        collection = db.firm_clients
         
         result = await collection.update_one(
             {"id": client_id},
