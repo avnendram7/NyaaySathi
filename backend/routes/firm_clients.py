@@ -164,6 +164,85 @@ async def update_client_application_status(
             detail=f"Error updating application status: {str(e)}"
         )
 
+# Direct registration for paid clients (auto-approved)
+@router.post("/register-paid")
+async def register_paid_firm_client(client_data: dict):
+    """
+    Register a firm client directly after payment (auto-approved).
+    This bypasses the application process since payment = approval.
+    """
+    try:
+        clients_collection = db.firm_clients
+        
+        # Check if client already exists
+        existing = await clients_collection.find_one({"email": client_data.get("email")})
+        if existing:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Email already registered. Please login instead."
+            )
+        
+        # Hash password
+        hashed_password = pwd_context.hash(client_data.get("password"))
+        
+        # Create client ID
+        import uuid
+        client_id = uuid.uuid4().hex
+        
+        # Create client record
+        client = {
+            "id": client_id,
+            "full_name": client_data.get("full_name"),
+            "email": client_data.get("email"),
+            "password": hashed_password,
+            "phone": client_data.get("phone"),
+            "company_name": client_data.get("company_name"),
+            "case_type": client_data.get("case_type"),
+            "case_description": client_data.get("case_description"),
+            "law_firm_id": client_data.get("law_firm_id"),
+            "law_firm_name": client_data.get("law_firm_name"),
+            "assigned_lawyer_id": None,
+            "assigned_lawyer_name": None,
+            "status": "active",
+            "payment_status": "paid",
+            "payment_amount": client_data.get("payment_amount"),
+            "created_at": datetime.utcnow(),
+            "last_login": None
+        }
+        
+        await clients_collection.insert_one(client)
+        
+        # Generate token
+        token_data = {
+            "email": client["email"],
+            "role": "firm_client",
+            "client_id": client["id"],
+            "law_firm_id": client["law_firm_id"]
+        }
+        token = jwt.encode(
+            token_data,
+            os.environ.get("JWT_SECRET", "secret"),
+            algorithm="HS256"
+        )
+        
+        # Remove password from response
+        client.pop("password", None)
+        
+        return {
+            "message": "Registration successful",
+            "token": token,
+            "user": client,
+            "role": "firm_client"
+        }
+    
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Registration error: {str(e)}"
+        )
+
 # Client login
 @router.post("/login")
 async def firm_client_login(credentials: FirmClientLogin):
