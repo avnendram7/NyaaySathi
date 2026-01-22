@@ -1,6 +1,7 @@
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { User, Scale, Building2, ArrowRight, LogIn } from 'lucide-react';
+import { FloatingCard, FloatingIcon } from '../components/CorporateComponents';
 
 export default function RoleSelection() {
   const navigate = useNavigate();
@@ -13,10 +14,7 @@ export default function RoleSelection() {
       title: 'I am a User',
       subtitle: 'Seeking legal advice? Connect with top-tier professionals seamlessly.',
       icon: User,
-      gradient: 'from-cyan-600 to-cyan-700',
-      hoverGradient: 'hover:from-cyan-500 hover:to-cyan-600',
-      borderColor: 'border-cyan-500/30',
-      iconBg: 'bg-cyan-500',
+      color: 'cyan',
       route: isLoginMode ? '/user-login' : '/find-lawyer',
       testId: 'role-user-card'
     },
@@ -25,10 +23,7 @@ export default function RoleSelection() {
       title: 'I am a Lawyer',
       subtitle: 'Join our network. Build your practice and reach clients effectively.',
       icon: Scale,
-      gradient: 'from-purple-600 to-purple-700',
-      hoverGradient: 'hover:from-purple-500 hover:to-purple-600',
-      borderColor: 'border-purple-500/30',
-      iconBg: 'bg-purple-500',
+      color: 'purple',
       route: isLoginMode ? '/lawyer-login' : '/lawyer-application',
       testId: 'role-lawyer-card'
     },
@@ -37,10 +32,7 @@ export default function RoleSelection() {
       title: 'I am a Law Firm',
       subtitle: 'Manage your firm, onboard lawyers, and scale your legal operations.',
       icon: Building2,
-      gradient: 'from-blue-600 to-indigo-700',
-      hoverGradient: 'hover:from-blue-500 hover:to-indigo-600',
-      borderColor: 'border-blue-500/30',
-      iconBg: 'bg-blue-500',
+      color: 'blue',
       route: isLoginMode ? '/lawfirm-role' : '/lawfirm-role',
       testId: 'role-lawfirm-card'
     }
