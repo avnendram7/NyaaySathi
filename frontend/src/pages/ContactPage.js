@@ -259,7 +259,7 @@ export default function ContactPage() {
               <ContactMethodCard 
                 icon={Mail} 
                 title="Email Us" 
-                value="avnendram.7@gmail.com" 
+                value="support@nyaaysathi.com" 
                 description="We reply within 24 hours"
                 color="blue"
                 delay={0.1}
@@ -268,8 +268,8 @@ export default function ContactPage() {
               <ContactMethodCard 
                 icon={Phone} 
                 title="Call Us" 
-                value="+91 83182 16968" 
-                description="Mon-Sat, 9am-6pm IST"
+                value="+91 1800-XXX-XXXX" 
+                description="Mon-Sat, 9am-6pm IST (Toll Free)"
                 color="green"
                 delay={0.2}
               />
