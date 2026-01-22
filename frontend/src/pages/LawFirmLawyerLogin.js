@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Button } from '../components/ui/button';
-import { Input } from '../components/ui/input';
-import { Scale, Mail, ArrowLeft } from 'lucide-react';
+import { Scale, Mail, Lock, ArrowRight } from 'lucide-react';
 import { toast } from 'sonner';
 import axios from 'axios';
 import { API } from '../App';
+import { motion } from 'framer-motion';
+import { CorporateInput, CorporateButton } from '../components/CorporateComponents';
 
 export default function LawFirmLawyerLogin() {
   const [loading, setLoading] = useState(false);
@@ -20,11 +20,7 @@ export default function LawFirmLawyerLogin() {
     setLoading(true);
     
     try {
-      const payload = { 
-        email: formData.email, 
-        password: formData.password, 
-        user_type: 'firm_lawyer' 
-      };
+      const payload = { email: formData.email, password: formData.password, user_type: 'firm_lawyer' };
       const response = await axios.post(`${API}/auth/login`, payload);
       
       localStorage.setItem('token', response.data.token);
@@ -38,104 +34,89 @@ export default function LawFirmLawyerLogin() {
       setLoading(false);
     }
   };
-
-  const handleGoogleLogin = () => {
-    toast.info('Google login coming soon!');
-    // TODO: Implement Google OAuth
-  };
   
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center px-4">
-      {/* Background */}
-      <div className="fixed inset-0">
-        <div className="absolute top-1/3 left-1/3 w-96 h-96 bg-purple-500/10 rounded-full blur-[100px]" />
-        <div className="absolute bottom-1/3 right-1/3 w-96 h-96 bg-blue-500/10 rounded-full blur-[100px]" />
+    <div className="min-h-screen bg-gradient-to-br from-black via-slate-950 to-black flex items-center justify-center px-4">
+      <div className="fixed inset-0 opacity-10">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `radial-gradient(circle at 2px 2px, rgb(99, 102, 241) 1px, transparent 0)`,
+          backgroundSize: '40px 40px'
+        }} />
       </div>
       
-      {/* Login Form */}
-      <div className="relative z-10 w-full max-w-md">
-        <Link to="/lawfirm-role" className="flex items-center gap-2 text-zinc-400 hover:text-white mb-8 transition-colors">
-          <ArrowLeft className="w-4 h-4" />
-          Back to selection
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="relative z-10 w-full max-w-md"
+      >
+        <Link to="/" className="flex items-center justify-center space-x-3 mb-8 group">
+          <div className="w-12 h-12 bg-gradient-to-br from-indigo-600 to-indigo-500 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/30 group-hover:shadow-indigo-500/50 transition-all">
+            <Scale className="w-7 h-7 text-white" />
+          </div>
+          <span className="text-2xl font-bold text-white">Nyaay Sathi</span>
         </Link>
         
-        <div className="flex items-center justify-center space-x-2 mb-8">
-          <Scale className="w-10 h-10 text-purple-500" />
-          <span className="text-2xl font-bold text-white">Nyaay Sathi</span>
-        </div>
-        
-        <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8">
-          <div className="text-center mb-6">
-            <span className="inline-block px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-xs font-medium mb-4">
-              LAW FIRM LAWYER
-            </span>
-            <h2 className="text-2xl font-bold text-white mb-2">Lawyer Login</h2>
-            <p className="text-zinc-400 text-sm">Access your firm's dashboard</p>
+        <div className="bg-slate-900/50 backdrop-blur-md border border-slate-800 rounded-2xl p-8 shadow-2xl">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-white mb-2">Firm Lawyer Login</h2>
+            <p className="text-slate-400">Access your firm workspace</p>
           </div>
           
-          {/* Google Login Button */}
-          <button
-            onClick={handleGoogleLogin}
-            className="w-full flex items-center justify-center gap-3 bg-white text-gray-800 font-semibold py-3 px-4 rounded-xl mb-6 hover:bg-gray-100 transition-colors"
-          >
-            <svg className="w-5 h-5" viewBox="0 0 24 24">
-              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-            </svg>
-            Continue with Google
-          </button>
-          
-          <div className="flex items-center gap-4 mb-6">
-            <div className="flex-1 h-px bg-zinc-800"></div>
-            <span className="text-zinc-500 text-sm">or</span>
-            <div className="flex-1 h-px bg-zinc-800"></div>
-          </div>
-          
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-zinc-300 mb-2">Email</label>
-              <Input
-                data-testid="firm-lawyer-email-input"
-                type="email"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                placeholder="your@email.com"
-                required
-                className="bg-zinc-800 border-zinc-700 text-white rounded-xl py-3"
-              />
-            </div>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <CorporateInput
+              label="Email Address"
+              type="email"
+              data-testid="firm-lawyer-email-input"
+              value={formData.email}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              placeholder="lawyer@lawfirm.com"
+              icon={Mail}
+              required
+            />
             
-            <div>
-              <label className="block text-sm font-medium text-zinc-300 mb-2">Password</label>
-              <Input
-                data-testid="firm-lawyer-password-input"
-                type="password"
-                value={formData.password}
-                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                placeholder="••••••••"
-                required
-                className="bg-zinc-800 border-zinc-700 text-white rounded-xl py-3"
-              />
-            </div>
+            <CorporateInput
+              label="Password"
+              type="password"
+              data-testid="firm-lawyer-password-input"
+              value={formData.password}
+              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+              placeholder="Enter your password"
+              icon={Lock}
+              required
+            />
             
-            <Button
-              data-testid="firm-lawyer-submit-btn"
+            <CorporateButton
               type="submit"
+              variant="primary"
+              className="w-full flex items-center justify-center gap-2"
               disabled={loading}
-              className="w-full bg-purple-600 hover:bg-purple-500 text-white rounded-xl py-3"
             >
-              {loading ? 'Signing in...' : 'Sign In'}
-            </Button>
+              {loading ? 'Signing in...' : (
+                <>
+                  Sign In
+                  <ArrowRight className="w-5 h-5" />
+                </>
+              )}
+            </CorporateButton>
           </form>
           
           <div className="mt-6 text-center">
-            <span className="text-zinc-500">Not registered yet? </span>
-            <span className="text-zinc-400 text-sm">Contact your firm manager</span>
+            <p className="text-slate-400">
+              Not registered yet?{' '}
+              <Link to="/firm-lawyer-application" className="text-indigo-400 hover:text-indigo-300 font-semibold transition-colors">
+                Apply now
+              </Link>
+            </p>
+          </div>
+          
+          <div className="mt-4 text-center">
+            <Link to="/lawfirm-role" className="text-slate-500 hover:text-slate-400 text-sm transition-colors">
+              Back to role selection
+            </Link>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

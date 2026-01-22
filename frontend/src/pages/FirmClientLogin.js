@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Scale, Mail, Lock, ArrowRight, Building2 } from 'lucide-react';
+import { Scale, Mail, Lock, ArrowRight, UserCircle } from 'lucide-react';
 import { toast } from 'sonner';
 import axios from 'axios';
 import { API } from '../App';
 import { motion } from 'framer-motion';
 import { CorporateInput, CorporateButton } from '../components/CorporateComponents';
 
-export default function LawFirmLoginPage() {
+export default function FirmClientLogin() {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
@@ -20,14 +20,14 @@ export default function LawFirmLoginPage() {
     setLoading(true);
     
     try {
-      const payload = { email: formData.email, password: formData.password, user_type: 'law_firm' };
-      const response = await axios.post(`${API}/auth/login`, payload);
+      const response = await axios.post(`${API}/firm-clients/login`, formData);
       
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
+      localStorage.setItem('userRole', 'firm_client');
       
       toast.success('Welcome back!');
-      navigate('/lawfirm-dashboard');
+      navigate('/firm-client-dashboard');
     } catch (error) {
       toast.error(error.response?.data?.detail || 'Invalid credentials');
     } finally {
@@ -39,7 +39,7 @@ export default function LawFirmLoginPage() {
     <div className="min-h-screen bg-gradient-to-br from-black via-slate-950 to-black flex items-center justify-center px-4">
       <div className="fixed inset-0 opacity-10">
         <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 2px 2px, rgb(59, 130, 246) 1px, transparent 0)`,
+          backgroundImage: `radial-gradient(circle at 2px 2px, rgb(34, 197, 94) 1px, transparent 0)`,
           backgroundSize: '40px 40px'
         }} />
       </div>
@@ -51,26 +51,26 @@ export default function LawFirmLoginPage() {
         className="relative z-10 w-full max-w-md"
       >
         <Link to="/" className="flex items-center justify-center space-x-3 mb-8 group">
-          <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-indigo-500 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/30 group-hover:shadow-blue-500/50 transition-all">
-            <Building2 className="w-7 h-7 text-white" />
+          <div className="w-12 h-12 bg-gradient-to-br from-green-600 to-green-500 rounded-xl flex items-center justify-center shadow-lg shadow-green-500/30 group-hover:shadow-green-500/50 transition-all">
+            <UserCircle className="w-7 h-7 text-white" />
           </div>
           <span className="text-2xl font-bold text-white">Nyaay Sathi</span>
         </Link>
         
         <div className="bg-slate-900/50 backdrop-blur-md border border-slate-800 rounded-2xl p-8 shadow-2xl">
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-white mb-2">Law Firm Login</h2>
-            <p className="text-slate-400">Manage your firm's operations</p>
+            <h2 className="text-3xl font-bold text-white mb-2">Firm Client Login</h2>
+            <p className="text-slate-400">Track your case progress</p>
           </div>
           
           <form onSubmit={handleSubmit} className="space-y-6">
             <CorporateInput
               label="Email Address"
               type="email"
-              data-testid="lawfirm-email-input"
+              data-testid="firm-client-email-input"
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              placeholder="firm@example.com"
+              placeholder="client@example.com"
               icon={Mail}
               required
             />
@@ -78,7 +78,7 @@ export default function LawFirmLoginPage() {
             <CorporateInput
               label="Password"
               type="password"
-              data-testid="lawfirm-password-input"
+              data-testid="firm-client-password-input"
               value={formData.password}
               onChange={(e) => setFormData({ ...formData, password: e.target.value })}
               placeholder="Enter your password"
@@ -89,7 +89,7 @@ export default function LawFirmLoginPage() {
             <CorporateButton
               type="submit"
               variant="primary"
-              className="w-full flex items-center justify-center gap-2"
+              className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400"
               disabled={loading}
             >
               {loading ? 'Signing in...' : (
@@ -103,16 +103,16 @@ export default function LawFirmLoginPage() {
           
           <div className="mt-6 text-center">
             <p className="text-slate-400">
-              Not registered yet?{' '}
-              <Link to="/lawfirm-application" className="text-blue-400 hover:text-blue-300 font-semibold transition-colors">
-                Apply now
+              Don't have access?{' '}
+              <Link to="/lawfirm-role" className="text-green-400 hover:text-green-300 font-semibold transition-colors">
+                Apply to join a firm
               </Link>
             </p>
           </div>
           
           <div className="mt-4 text-center">
-            <Link to="/role-selection?mode=login" className="text-slate-500 hover:text-slate-400 text-sm transition-colors">
-              Login as different role
+            <Link to="/lawfirm-role" className="text-slate-500 hover:text-slate-400 text-sm transition-colors">
+              Back to role selection
             </Link>
           </div>
         </div>
