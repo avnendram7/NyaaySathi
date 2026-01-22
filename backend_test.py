@@ -131,7 +131,7 @@ def test_authentication():
         
         # Test /auth/signup (alias)
         signup_data = user_data.copy()
-        signup_data['email'] = f"signup_{user_data['email']}"
+        signup_data['email'] = f"signup_{TEST_RUN_ID}_{user_data['email']}"
         response = make_request('POST', '/auth/signup', signup_data)
         if response and response.status_code == 200:
             log_test(f"Signup {user_type}", "PASS", f"Status: {response.status_code}")
