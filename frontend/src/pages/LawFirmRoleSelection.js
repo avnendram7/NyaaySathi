@@ -64,10 +64,10 @@ export default function LawFirmRoleSelection() {
               <span className="text-blue-500 text-sm font-medium">Law Firm Portal</span>
             </div>
             <h1 className="text-5xl font-semibold text-white mb-4">
-              Select Your Role
+              {isLoginMode ? 'Welcome Back' : 'Select Your Role'}
             </h1>
             <p className="text-slate-400 text-lg">
-              Choose how you want to interact with law firms
+              {isLoginMode ? 'Choose your account type to login' : 'Choose how you want to interact with law firms'}
             </p>
           </div>
 
@@ -79,7 +79,7 @@ export default function LawFirmRoleSelection() {
                 <div
                   key={role.id}
                   data-testid={role.testId}
-                  onClick={() => navigate(role.route)}
+                  onClick={() => navigate(isLoginMode ? role.loginRoute : role.route)}
                   className="bg-slate-900 border border-slate-800 rounded-lg p-8 cursor-pointer hover:border-slate-700 hover:-translate-y-1 transition-all duration-300"
                 >
                   {/* Icon */}
@@ -92,50 +92,61 @@ export default function LawFirmRoleSelection() {
                   <p className="text-slate-400 mb-6 text-sm leading-relaxed">{role.subtitle}</p>
 
                   {/* Features */}
-                  <div className="space-y-2 mb-6">
-                    {role.features.map((feature, idx) => (
-                      <div key={idx} className="flex items-center gap-2 text-sm text-slate-500">
-                        <div className="w-1 h-1 bg-blue-500 rounded-full" />
-                        {feature}
-                      </div>
-                    ))}
-                  </div>
+                  {!isLoginMode && (
+                    <div className="space-y-2 mb-6">
+                      {role.features.map((feature, idx) => (
+                        <div key={idx} className="flex items-center gap-2 text-sm text-slate-500">
+                          <div className="w-1 h-1 bg-blue-500 rounded-full" />
+                          {feature}
+                        </div>
+                      ))}
+                    </div>
+                  )}
 
                   {/* Button */}
                   <button className="w-full py-3 px-6 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-lg flex items-center justify-center gap-2 transition-colors duration-200">
-                    Get Started
-                    <ArrowRight className="w-5 h-5" />
+                    {isLoginMode ? (
+                      <>
+                        <LogIn className="w-5 h-5" />
+                        LOGIN
+                      </>
+                    ) : (
+                      <>
+                        GET STARTED
+                        <ArrowRight className="w-5 h-5" />
+                      </>
+                    )}
                   </button>
                 </div>
               );
             })}
           </div>
 
-          {/* Login Links */}
+          {/* Toggle Links */}
           <div className="text-center mt-12">
-            <p className="text-slate-400 mb-4">
-              Already registered?
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              <button 
-                onClick={() => navigate('/lawfirm-login')}
-                className="px-6 py-2 bg-slate-900 hover:bg-slate-800 text-white border border-slate-800 rounded-lg font-medium transition-colors duration-200"
-              >
-                Manager Login
-              </button>
-              <button 
-                onClick={() => navigate('/lawfirm-lawyer-login')}
-                className="px-6 py-2 bg-slate-900 hover:bg-slate-800 text-white border border-slate-800 rounded-lg font-medium transition-colors duration-200"
-              >
-                Lawyer Login
-              </button>
-              <button 
-                onClick={() => navigate('/firm-client-login')}
-                className="px-6 py-2 bg-slate-900 hover:bg-slate-800 text-white border border-slate-800 rounded-lg font-medium transition-colors duration-200"
-              >
-                Client Login
-              </button>
-            </div>
+            {isLoginMode ? (
+              <p className="text-slate-400">
+                Don't have an account?{' '}
+                <button 
+                  onClick={() => navigate('/lawfirm-role')}
+                  className="text-blue-500 hover:text-blue-400 font-medium transition-colors"
+                >
+                  Get Started
+                </button>
+              </p>
+            ) : (
+              <>
+                <p className="text-slate-400 mb-4">
+                  Already registered?
+                </p>
+                <button 
+                  onClick={() => navigate('/lawfirm-role?mode=login')}
+                  className="text-blue-500 hover:text-blue-400 font-medium transition-colors"
+                >
+                  Login to existing account
+                </button>
+              </>
+            )}
           </div>
         </div>
       </main>
