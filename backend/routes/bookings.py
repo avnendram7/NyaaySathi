@@ -1,11 +1,39 @@
 from fastapi import APIRouter, HTTPException, Depends
 from typing import List
 from datetime import datetime
+import uuid
 from models.booking import Booking, BookingCreate
 from services.database import db
 from routes.auth import get_current_user
 
 router = APIRouter(prefix="/bookings", tags=["Bookings"])
+
+
+@router.post("/guest", response_model=dict)
+async def create_guest_booking(booking_data: dict):
+    """Create a booking without authentication (for first-time users)"""
+    booking_id = str(uuid.uuid4())
+    
+    booking_doc = {
+        'id': booking_id,
+        'fullName': booking_data.get('fullName'),
+        'email': booking_data.get('email'),
+        'phone': booking_data.get('phone'),
+        'consultationType': booking_data.get('consultationType'),
+        'date': booking_data.get('date'),
+        'time': booking_data.get('time'),
+        'description': booking_data.get('description', ''),
+        'amount': booking_data.get('amount'),
+        'status': booking_data.get('status', 'confirmed'),
+        'payment_status': booking_data.get('payment_status', 'paid'),
+        'payment_method': booking_data.get('payment_method', 'card'),
+        'card_last_four': booking_data.get('card_last_four', ''),
+        'created_at': datetime.utcnow().isoformat(),
+        'client_id': None  # Will be linked when user signs up
+    }
+    
+    await db.bookings.insert_one(booking_doc)
+    return {'id': booking_id, 'message': 'Booking created successfully'}
 
 
 @router.post("", response_model=Booking)
