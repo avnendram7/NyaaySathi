@@ -274,12 +274,12 @@ async def firm_client_login(credentials: FirmClientLogin):
                 else:
                     raise HTTPException(
                         status_code=status.HTTP_401_UNAUTHORIZED,
-                        detail="Please sign up again through the law firm selection flow"
+                        detail="Your account was created before the new system. Please sign up again through 'I Want a Law Firm' option to set your password."
                     )
             else:
                 raise HTTPException(
                     status_code=status.HTTP_401_UNAUTHORIZED,
-                    detail="Invalid credentials. Please check your email or sign up first."
+                    detail="No account found with this email. Please sign up first by selecting a law firm."
                 )
         else:
             # Verify password
