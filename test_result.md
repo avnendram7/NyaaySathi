@@ -211,12 +211,18 @@ metadata:
 
 test_plan:
   current_focus:
+    - "User Authentication - Signup/Register endpoint"
     - "Backend API testing for firm clients"
-    - "Frontend redesign of all pages"
+    - "All authentication endpoints"
+    - "Firm lawyer routes"
+    - "Admin routes"
+    - "Chat and booking routes"
   stuck_tasks: []
-  test_all: false
+  test_all: true
   test_priority: "high_first"
 
 agent_communication:
   - agent: "main"
     message: "Phase 1 Complete: Backend infrastructure for client management created. Corporate design system ready. Starting frontend redesign next."
+  - agent: "main"
+    message: "Fixed user signup endpoint. Added /auth/signup alias. Updated dashboard with vibrant colors. Starting comprehensive backend testing for all routes."
