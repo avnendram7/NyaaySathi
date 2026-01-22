@@ -38,7 +38,6 @@ import FirmLawyerApplication from './pages/FirmLawyerApplication';
 import FirmClientLogin from './pages/FirmClientLogin';
 import FirmClientApplication from './pages/FirmClientApplication';
 import FirmClientDashboard from './pages/FirmClientDashboard';
-import FirmClientDashboard from './pages/FirmClientDashboard';
 import BookConsultation from './pages/BookConsultation';
 import BookConsultationWithSignup from './pages/BookConsultationWithSignup';
 import UserGetStarted from './pages/UserGetStarted';
