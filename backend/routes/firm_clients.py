@@ -3,7 +3,7 @@ from typing import List
 from models.firm_client import (
     FirmClientApplication, FirmClient, FirmClientLogin, ClientCaseUpdate
 )
-from services.database import get_collection
+from services.database import db
 from passlib.context import CryptContext
 from datetime import datetime
 import os
