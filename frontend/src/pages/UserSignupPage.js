@@ -143,66 +143,6 @@ export default function UserSignupPage() {
               </Link>
             </p>
           </div>
-              icon={User}
-              required
-            />
-            
-            <CorporateInput
-              label="Email Address"
-              type="email"
-              data-testid="user-email-input"
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              placeholder="your@email.com"
-              icon={Mail}
-              required
-            />
-            
-            <CorporateInput
-              label="Phone Number"
-              type="tel"
-              data-testid="user-phone-input"
-              value={formData.phone}
-              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              placeholder="+91 9876543210"
-              icon={Phone}
-              required
-            />
-            
-            <CorporateInput
-              label="Password"
-              type="password"
-              data-testid="user-password-input"
-              value={formData.password}
-              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-              placeholder="Create a strong password"
-              icon={Lock}
-              required
-            />
-            
-            <CorporateButton
-              type="submit"
-              variant="primary"
-              className="w-full flex items-center justify-center gap-2"
-              disabled={loading}
-            >
-              {loading ? 'Creating Account...' : (
-                <>
-                  Create Account
-                  <ArrowRight className="w-5 h-5" />
-                </>
-              )}
-            </CorporateButton>
-          </form>
-          
-          <div className="mt-6 text-center">
-            <p className="text-slate-400">
-              Already have an account?{' '}
-              <Link to="/user-login" className="text-blue-400 hover:text-blue-300 font-semibold transition-colors">
-                Sign in
-              </Link>
-            </p>
-          </div>
         </div>
       </motion.div>
     </div>
