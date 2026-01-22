@@ -1,37 +1,30 @@
-// Corporate Design System for Nyaay Sathi
-// Inspired by Harvey.ai - Professional Legal Tech Aesthetic
+// Harvey.ai Inspired Design System
+// Dark, Professional, Minimal
 
 export const corporateTheme = {
   colors: {
-    // Primary blacks and dark tones
+    // Backgrounds
     primaryBlack: '#000000',
-    deepBlack: '#0a0a0a',
+    darkSlate: '#0f172a',
+    cardDark: '#1e293b',
     
-    // Midnight blues
-    midnightBlue: '#0f172a',
-    darkBlue: '#1e293b',
-    slateBlue: '#334155',
+    // Single accent color
+    accentBlue: '#3b82f6',
+    accentBlueHover: '#2563eb',
     
-    // Accent blues
-    brightBlue: '#3b82f6',
-    electricBlue: '#2563eb',
-    lightBlue: '#60a5fa',
-    
-    // Whites and lights
-    pureWhite: '#ffffff',
-    offWhite: '#f8fafc',
-    lightGray: '#f1f5f9',
-    
-    // Grays for text
+    // Text colors
     textPrimary: '#ffffff',
     textSecondary: '#94a3b8',
-    textTertiary: '#64748b',
+    textMuted: '#64748b',
     
-    // Status colors
+    // Borders
+    borderSubtle: '#334155',
+    borderLight: '#475569',
+    
+    // Status (minimal use)
     success: '#10b981',
     warning: '#f59e0b',
     error: '#ef4444',
-    info: '#3b82f6',
   },
   
   shadows: {
