@@ -47,7 +47,7 @@ async def submit_firm_client_application(application: FirmClientApplication):
 async def get_firm_client_applications(law_firm_id: str, status: str = None):
     """Get all client applications for a specific law firm"""
     try:
-        collection = await get_collection("firm_client_applications")
+        collection = db.firm_client_applications
         query = {"law_firm_id": law_firm_id}
         
         if status:
@@ -75,7 +75,7 @@ async def update_client_application_status(
 ):
     """Approve or reject a client application"""
     try:
-        collection = await get_collection("firm_client_applications")
+        collection = db.firm_client_applications
         
         # Get application
         application = await collection.find_one({"id": application_id})
