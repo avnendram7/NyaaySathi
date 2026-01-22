@@ -125,7 +125,7 @@ async def update_client_application_status(
                 status="active"
             )
             
-            clients_collection = await get_collection("firm_clients")
+            clients_collection = db.firm_clients
             await clients_collection.insert_one(client.model_dump())
             
             return {
