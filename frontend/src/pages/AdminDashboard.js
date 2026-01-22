@@ -1025,7 +1025,9 @@ export default function AdminDashboard() {
             ? <LawyerApplicationModal app={selectedApp} onClose={() => setSelectedApp(null)} />
             : selectedApp.type === 'lawfirm'
               ? <LawFirmApplicationModal app={selectedApp} onClose={() => setSelectedApp(null)} />
-              : <FirmLawyerApplicationModal app={selectedApp} onClose={() => setSelectedApp(null)} />
+              : selectedApp.type === 'firmclient'
+                ? <FirmClientApplicationModal app={selectedApp} onClose={() => setSelectedApp(null)} />
+                : <FirmLawyerApplicationModal app={selectedApp} onClose={() => setSelectedApp(null)} />
         )}
       </AnimatePresence>
     </div>
