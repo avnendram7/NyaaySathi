@@ -29,30 +29,16 @@ class FirmLawyerApplicationCreate(BaseModel):
 @router.post("/login")
 async def firm_lawyer_login(login_data: FirmLawyerLogin):
     """Login for firm lawyers"""
-    print(f"[DEBUG] Firm lawyer login attempt: {login_data.email}")
-    
     user = await db.users.find_one(
         {'email': login_data.email, 'user_type': 'firm_lawyer'},
         {'_id': 0}
     )
     
     if not user:
-        print(f"[DEBUG] User not found: {login_data.email}")
         raise HTTPException(status_code=401, detail='Invalid credentials')
-    
-    print(f"[DEBUG] User found: {user.get('full_name')}")
     
     password_field = user.get('password_hash') or user.get('password')
-    print(f"[DEBUG] Password field: {'password_hash' if user.get('password_hash') else 'password'}")
-    
-    if not password_field:
-        print("[DEBUG] No password field!")
-        raise HTTPException(status_code=401, detail='Invalid credentials')
-    
-    is_valid = verify_password(login_data.password, password_field)
-    print(f"[DEBUG] Password verification: {is_valid}")
-    
-    if not is_valid:
+    if not password_field or not verify_password(login_data.password, password_field):
         raise HTTPException(status_code=401, detail='Invalid credentials')
     
     if not user.get('is_active', True):
@@ -61,7 +47,6 @@ async def firm_lawyer_login(login_data: FirmLawyerLogin):
     token = create_token(user['id'], user['user_type'])
     user_response = {k: v for k, v in user.items() if k not in ['password', 'password_hash']}
     
-    print(f"[DEBUG] Login successful, returning token")
     return {'token': token, 'user': user_response}
 
 
