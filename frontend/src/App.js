@@ -53,6 +53,8 @@ const ProtectedRoute = ({ children, requiredType }) => {
   if (!token) {
     if (requiredType === 'lawyer') return <Navigate to="/lawyer-login" />;
     if (requiredType === 'law_firm') return <Navigate to="/lawfirm-login" />;
+    if (requiredType === 'firm_lawyer') return <Navigate to="/lawfirm-lawyer-login" />;
+    if (requiredType === 'firm_client') return <Navigate to="/firm-client-login" />;
     return <Navigate to="/user-login" />;
   }
   
