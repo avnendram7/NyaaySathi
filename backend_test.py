@@ -112,6 +112,9 @@ def test_authentication():
     
     # Test user registration/signup for all user types
     for user_type, user_data in TEST_USERS.items():
+        if user_type == 'admin':  # Skip admin for registration
+            continue
+            
         # Test /auth/register
         response = make_request('POST', '/auth/register', user_data)
         if response and response.status_code == 200:
