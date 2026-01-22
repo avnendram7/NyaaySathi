@@ -45,8 +45,8 @@ async def ensure_admin():
         'created_at': datetime.now(timezone.utc).isoformat()
     }
     await db.users.insert_one(admin_data)
-    print(f"✅ Admin created: {admin_data['email']}")
-    print(f"   Password: Admin@123")
+    print("✅ Admin created: {admin_data['email']}")
+    print("   Password: Admin@123")
     return admin_data['email']
 
 
