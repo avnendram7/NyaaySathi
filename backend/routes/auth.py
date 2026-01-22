@@ -18,9 +18,8 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
     return user
 
 
-@router.post("/register", response_model=TokenResponse)
-async def register(user_data: UserCreate):
-    """Register a new user"""
+async def register_user(user_data: UserCreate):
+    """Register a new user - shared logic"""
     existing = await db.users.find_one(
         {'email': user_data.email, 'user_type': user_data.user_type}, 
         {'_id': 0}
@@ -42,6 +41,18 @@ async def register(user_data: UserCreate):
     user_response = user_obj.model_dump()
     
     return {'token': token, 'user': user_response}
+
+
+@router.post("/register", response_model=TokenResponse)
+async def register(user_data: UserCreate):
+    """Register a new user"""
+    return await register_user(user_data)
+
+
+@router.post("/signup", response_model=TokenResponse)
+async def signup(user_data: UserCreate):
+    """Sign up a new user (alias for register)"""
+    return await register_user(user_data)
 
 
 @router.post("/login", response_model=TokenResponse)
