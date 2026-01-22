@@ -261,11 +261,11 @@ def test_lawyer_applications():
     print("\n=== LAWYER APPLICATION TESTS ===")
     
     lawyer_app_data = {
-        'name': 'Vikram Singh',
-        'email': 'vikram.singh@lawyer.com',
+        'name': f'Vikram Singh {TEST_RUN_ID}',
+        'email': f'vikram.singh.{TEST_RUN_ID}@lawyer.com',
         'phone': '+91-9876543230',
         'password': 'LawyerVikram123!',
-        'bar_council_number': 'BAR/2020/12345',
+        'bar_council_number': f'BAR/2020/{TEST_RUN_ID}',
         'specialization': 'Criminal Law',
         'experience': 5,
         'cases_won': 45,
