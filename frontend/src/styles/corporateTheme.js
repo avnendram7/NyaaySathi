@@ -33,19 +33,11 @@ export const corporateTheme = {
     hover: '0 10px 15px -3px rgba(0, 0, 0, 0.3)',
   },
   
-  gradients: {
-    primary: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
-    blue: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
-    subtle: 'linear-gradient(180deg, rgba(59, 130, 246, 0.1) 0%, rgba(37, 99, 235, 0) 100%)',
-  },
-  
   borderRadius: {
     sm: '0.375rem',
     md: '0.5rem',
     lg: '0.75rem',
     xl: '1rem',
-    '2xl': '1.5rem',
-    full: '9999px',
   },
   
   spacing: {
