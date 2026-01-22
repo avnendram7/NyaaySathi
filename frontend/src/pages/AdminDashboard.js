@@ -934,16 +934,18 @@ export default function AdminDashboard() {
                 onClick={async () => {
                   try {
                     setActionLoading(app._id || app.id);
+                    const token = localStorage.getItem('adminToken');
                     await axios.put(
                       `${API}/firm-clients/applications/${app.id}/status`,
                       { status: 'rejected' },
-                      { headers: { Authorization: `Bearer ${adminToken}` } }
+                      { headers: { Authorization: `Bearer ${token}` } }
                     );
                     toast.success('Application rejected');
                     fetchAllApplications();
                     onClose();
                   } catch (error) {
-                    toast.error('Failed to reject application');
+                    console.error('Rejection error:', error);
+                    toast.error(error.response?.data?.detail || 'Failed to reject application');
                   } finally {
                     setActionLoading(null);
                   }
