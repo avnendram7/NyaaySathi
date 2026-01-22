@@ -1,13 +1,22 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Scale, Building2, User, ArrowRight, Sparkles, Search } from 'lucide-react';
+import NavigationHeader from '../components/NavigationHeader';
 
 export default function UserGetStarted() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 py-12 px-4">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+      {/* Navigation Header */}
+      <NavigationHeader 
+        backPath="/role-selection"
+        showBack={true}
+        showHome={true}
+        showLogout={false}
+      />
+
+      <div className="max-w-6xl mx-auto py-12 px-4">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
