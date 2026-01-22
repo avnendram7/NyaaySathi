@@ -5,11 +5,12 @@ import { toast } from 'sonner';
 import axios from 'axios';
 import { API } from '../App';
 import { CorporateInput, CorporateButton } from '../components/CorporateComponents';
+import { dummyLawFirms } from '../data/lawFirmsData';
 
 export default function FirmClientApplication() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [lawFirms, setLawFirms] = useState([]);
+  const [lawFirms, setLawFirms] = useState(dummyLawFirms); // Use dummy data as default
   const [formData, setFormData] = useState({
     full_name: '',
     email: '',
@@ -28,9 +29,14 @@ export default function FirmClientApplication() {
   const fetchLawFirms = async () => {
     try {
       const response = await axios.get(`${API}/lawfirms`);
-      setLawFirms(response.data.filter(firm => firm.status === 'approved'));
+      if (response.data && response.data.length > 0) {
+        // Combine API data with dummy data
+        const approvedFirms = response.data.filter(firm => firm.status === 'approved');
+        setLawFirms([...approvedFirms, ...dummyLawFirms]);
+      }
     } catch (error) {
-      console.error('Error fetching law firms:', error);
+      console.log('Using dummy law firms data');
+      // Already set to dummy data
     }
   };
 
