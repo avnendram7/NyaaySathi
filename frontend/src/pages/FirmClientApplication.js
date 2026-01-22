@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Scale, Building2, ArrowRight, Mail, Phone, Briefcase, FileText, User } from 'lucide-react';
+import { Scale, Building2, ArrowRight, Mail, Phone, Briefcase, FileText, User, Lock, Eye, EyeOff } from 'lucide-react';
 import { toast } from 'sonner';
 import axios from 'axios';
 import { API } from '../App';
@@ -10,10 +10,14 @@ import { dummyLawFirms } from '../data/lawFirmsData';
 export default function FirmClientApplication() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [lawFirms, setLawFirms] = useState(dummyLawFirms); // Use dummy data as default
   const [formData, setFormData] = useState({
     full_name: '',
     email: '',
+    password: '',
+    confirm_password: '',
     phone: '',
     company_name: '',
     case_type: 'civil',
