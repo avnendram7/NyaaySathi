@@ -38,12 +38,9 @@ TEST_USERS = {
         'phone': '+91-9876543212',
         'firm_name': 'Corporate Legal Associates'
     },
-    'firm_lawyer': {
-        'email': 'junior.lawyer@corporatelaw.com',
-        'password': 'JuniorPass321!',
-        'full_name': 'Neha Patel',
-        'user_type': 'firm_lawyer',
-        'phone': '+91-9876543213'
+    'admin': {
+        'email': 'admin@nyaaysathi.com',
+        'password': 'admin123'
     }
 }
 
