@@ -43,6 +43,7 @@ import BookConsultation from './pages/BookConsultation';
 import BookConsultationWithSignup from './pages/BookConsultationWithSignup';
 import UserGetStarted from './pages/UserGetStarted';
 import FindLawFirmManual from './pages/FindLawFirmManual';
+import FindLawFirmAI from './pages/FindLawFirmAI';
 import JoinLawFirmWithSignup from './pages/JoinLawFirmWithSignup';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -104,7 +105,7 @@ function App() {
               <Route path="/book-consultation-signup" element={<BookConsultationWithSignup />} />
               <Route path="/user-get-started" element={<UserGetStarted />} />
               <Route path="/find-lawfirm/manual" element={<FindLawFirmManual />} />
-              <Route path="/find-lawfirm/ai" element={<FindLawFirmManual />} />
+              <Route path="/find-lawfirm/ai" element={<FindLawFirmAI />} />
               <Route path="/join-lawfirm-signup" element={<JoinLawFirmWithSignup />} />
               <Route path="/user-login" element={<UserLoginPage />} />
               <Route path="/user-signup" element={<UserSignupPage />} />
