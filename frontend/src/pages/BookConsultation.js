@@ -69,7 +69,7 @@ export default function BookConsultation() {
         card_last_four: paymentData.cardNumber.slice(-4)
       };
 
-      const response = await axios.post(`${API}/bookings`, bookingPayload);
+      const response = await axios.post(`${API}/bookings/guest`, bookingPayload);
 
       toast.success('Payment Successful! Booking Confirmed');
       
