@@ -154,7 +154,7 @@ export default function FirmClientDashboard() {
               </div>
             </div>
             <p className="text-white font-medium">{client?.assigned_lawyer_name || 'Will be assigned soon'}</p>
-          </GlowCard>
+          </SimpleCard>
 
           {/* Contact Info */}
           <SimpleCard className="p-6">
@@ -171,7 +171,7 @@ export default function FirmClientDashboard() {
               <p className="text-sm text-slate-400">Email: <span className="text-white">{client?.email}</span></p>
               <p className="text-sm text-slate-400">Phone: <span className="text-white">{client?.phone}</span></p>
             </div>
-          </GlowCard>
+          </SimpleCard>
 
           {/* Law Firm */}
           <SimpleCard className="p-6">
@@ -186,7 +186,7 @@ export default function FirmClientDashboard() {
             </div>
             <p className="text-white font-medium">{client?.law_firm_name}</p>
             <CorporateBadge variant="success" className="mt-2">Active Client</CorporateBadge>
-          </GlowCard>
+          </SimpleCard>
         </div>
 
         {/* Case Updates Timeline */}
