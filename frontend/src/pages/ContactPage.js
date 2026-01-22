@@ -370,7 +370,7 @@ export default function ContactPage() {
                   { icon: Users, value: '200+', label: 'Cases Resolved', color: 'blue' },
                   { icon: Scale, value: '100+', label: 'Verified Lawyers', color: 'purple' },
                   { icon: Building2, value: '25+', label: 'Law Firms', color: 'green' },
-                  { icon: Headphones, value: '<2hrs', label: 'Response Time', color: 'amber' }
+                  { icon: Headphones, value: '90%+', label: 'User Satisfaction', color: 'amber' }
                 ].map((stat, idx) => (
                   <motion.div
                     key={idx}
