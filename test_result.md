@@ -118,6 +118,18 @@ user_problem_statement: |
     - Use dummy data for dashboards
 
 backend:
+  - task: "User Authentication - Signup/Register"
+    implemented: true
+    working: true
+    file: "/app/backend/routes/auth.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Fixed missing /auth/signup endpoint. Added alias endpoint that maps to register logic. Tested successfully with user creation."
+  
   - task: "Firm Client Models"
     implemented: true
     working: "NA"
