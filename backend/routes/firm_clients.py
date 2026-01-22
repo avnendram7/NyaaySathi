@@ -17,7 +17,7 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 async def submit_firm_client_application(application: FirmClientApplication):
     """Submit application to join a law firm as a client"""
     try:
-        collection = await get_collection("firm_client_applications")
+        collection = db.firm_client_applications
         
         # Check if already applied
         existing = await collection.find_one({"email": application.email, "law_firm_id": application.law_firm_id})
