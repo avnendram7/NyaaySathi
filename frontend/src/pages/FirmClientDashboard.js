@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Scale, User, FileText, Calendar, MessageSquare, LogOut, Briefcase, Clock, CheckCircle, AlertCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { StatCard, CorporateBadge, GlowCard } from '../components/CorporateComponents';
+import { StatCard, CorporateBadge, SimpleCard } from '../components/CorporateComponents';
 import axios from 'axios';
 import { API } from '../App';
 import { toast } from 'sonner';
