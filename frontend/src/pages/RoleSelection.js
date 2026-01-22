@@ -12,7 +12,7 @@ export default function RoleSelection() {
       title: 'I am a User',
       subtitle: 'Seeking legal advice? Connect with top-tier professionals seamlessly.',
       icon: User,
-      route: isLoginMode ? '/user-login' : '/find-lawyer',
+      route: isLoginMode ? '/user-login' : '/user-get-started',
       testId: 'role-user-card'
     },
     {
