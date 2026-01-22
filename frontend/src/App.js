@@ -11,6 +11,8 @@ import QuickChat from './pages/QuickChat';
 import InitialLanding from './pages/InitialLanding';
 import RoleSelection from './pages/RoleSelection';
 import FindLawyer from './pages/FindLawyer';
+import FindLawyerManual from './pages/FindLawyerManual';
+import FindLawyerAI from './pages/FindLawyerAI';
 import LawyerApplication from './pages/LawyerApplication';
 import LawFirmApplication from './pages/LawFirmApplication';
 import AdminLogin from './pages/AdminLogin';
