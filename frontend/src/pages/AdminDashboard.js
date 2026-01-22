@@ -838,6 +838,22 @@ export default function AdminDashboard() {
               </span>
             )}
           </button>
+          <button
+            onClick={() => { setActiveSection('firmclients'); setFilter('pending'); }}
+            className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all ${
+              activeSection === 'firmclients'
+                ? 'bg-gradient-to-r from-pink-600 to-rose-700 text-white shadow-lg shadow-pink-500/30'
+                : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
+            }`}
+          >
+            <Users className="w-5 h-5" />
+            Firm Client Applications
+            {firmClientStats.pending > 0 && (
+              <span className="bg-amber-500 text-white text-xs px-2 py-0.5 rounded-full ml-2">
+                {firmClientStats.pending}
+              </span>
+            )}
+          </button>
         </div>
 
         {/* Stats Cards */}
