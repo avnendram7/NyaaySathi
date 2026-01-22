@@ -481,65 +481,113 @@ export default function JoinLawFirmWithSignup() {
             animate={{ opacity: 1, scale: 1 }}
             className="bg-slate-900 border border-slate-800 rounded-2xl p-8 text-center"
           >
-            <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Check className="w-10 h-10 text-green-400" />
+            <div className="w-24 h-24 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+              <Check className="w-12 h-12 text-green-400" />
             </div>
             
-            <h2 className="text-3xl font-bold text-white mb-2">Success!</h2>
-            <p className="text-slate-400 mb-8">You have successfully joined {selectedFirm.firm_name}</p>
+            <h2 className="text-4xl font-bold text-white mb-3">Congratulations!</h2>
+            <p className="text-xl text-slate-300 mb-2">You are now a client of</p>
+            <p className="text-2xl font-bold text-blue-400 mb-8">{selectedFirm.firm_name}</p>
 
-            <div className="bg-slate-800 border border-slate-700 rounded-xl p-6 mb-8 text-left">
-              <h3 className="text-lg font-semibold text-white mb-4">What's Next?</h3>
-              <div className="space-y-3">
-                <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+            {/* Payment Confirmation */}
+            <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-4 mb-6">
+              <div className="flex items-center justify-center gap-2 text-green-400 font-semibold mb-2">
+                <Check className="w-5 h-5" />
+                Payment Successful: ₹{consultationFee}
+              </div>
+              <p className="text-slate-400 text-sm">Transaction ID: TXN{Date.now()}</p>
+            </div>
+
+            {/* Login Instructions - HIGHLIGHTED */}
+            <div className="bg-blue-500/10 border-2 border-blue-500/50 rounded-2xl p-6 mb-8">
+              <h3 className="text-xl font-bold text-white mb-4 flex items-center justify-center gap-2">
+                <Building2 className="w-6 h-6 text-blue-400" />
+                How to Access Your Dashboard
+              </h3>
+              
+              <div className="bg-slate-800/80 rounded-xl p-4 mb-4">
+                <p className="text-blue-300 font-semibold text-lg mb-2">Login through "Firm Client Login"</p>
+                <p className="text-slate-300 text-sm">
+                  Go to <span className="text-blue-400 font-medium">Login → Law Firm → Client Login</span>
+                </p>
+                <p className="text-slate-400 text-xs mt-2">
+                  Use email: <span className="text-white font-mono">{signupData.email}</span>
+                </p>
+              </div>
+
+              <div className="text-left space-y-3">
+                <p className="text-slate-300 text-sm font-medium">Your dashboard will include:</p>
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="flex items-center gap-2 text-slate-300 text-sm">
                     <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                    Case Status Updates
                   </div>
-                  <p className="text-slate-300 text-sm">Your account has been created and you're now a client of {selectedFirm.firm_name}</p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <div className="flex items-center gap-2 text-slate-300 text-sm">
                     <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                    Assigned Lawyer Details
                   </div>
-                  <p className="text-slate-300 text-sm">A lawyer from the firm will be assigned to your case within 24 hours</p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-6 h-6 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <div className="flex items-center gap-2 text-slate-300 text-sm">
                     <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                    Court Hearing Dates
                   </div>
-                  <p className="text-slate-300 text-sm">You'll receive case updates, hearing dates, and documents through your dashboard</p>
+                  <div className="flex items-center gap-2 text-slate-300 text-sm">
+                    <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                    Document Management
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-4 mb-6">
-              <p className="text-green-300 font-medium mb-2">✅ Payment Successful: ₹{consultationFee}</p>
-              <p className="text-slate-300 text-sm">
-                Login to your <strong>Firm Client Dashboard</strong> to view:
-              </p>
-              <ul className="text-slate-300 text-sm mt-2 space-y-1">
-                <li>• Assigned lawyer details</li>
-                <li>• Case progress updates</li>
-                <li>• Upcoming court hearings</li>
-                <li>• Document submissions</li>
-              </ul>
+            {/* What's Next */}
+            <div className="bg-slate-800 border border-slate-700 rounded-xl p-6 mb-8 text-left">
+              <h3 className="text-lg font-semibold text-white mb-4">What Happens Next?</h3>
+              <div className="space-y-3">
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0 text-white font-bold text-sm">1</div>
+                  <div>
+                    <p className="text-white font-medium">Lawyer Assignment</p>
+                    <p className="text-slate-400 text-sm">A specialized lawyer will be assigned to your case within 24 hours</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0 text-white font-bold text-sm">2</div>
+                  <div>
+                    <p className="text-white font-medium">Initial Consultation</p>
+                    <p className="text-slate-400 text-sm">Your lawyer will contact you to discuss your case details</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0 text-white font-bold text-sm">3</div>
+                  <div>
+                    <p className="text-white font-medium">Case Progress</p>
+                    <p className="text-slate-400 text-sm">Track all updates through your Firm Client Dashboard</p>
+                  </div>
+                </div>
+              </div>
             </div>
 
+            {/* Action Buttons */}
             <div className="space-y-3">
               <button
-                onClick={handleFirmClientLogin}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 rounded-xl transition-all flex items-center justify-center gap-2"
+                onClick={() => navigate('/firm-client-login')}
+                className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-xl transition-all flex items-center justify-center gap-2 text-lg"
               >
-                Login to Firm Client Dashboard
+                <Building2 className="w-6 h-6" />
+                Go to Firm Client Login
                 <ArrowRight className="w-5 h-5" />
               </button>
               <button
                 onClick={() => navigate('/')}
-                className="w-full bg-slate-800 hover:bg-slate-700 text-white font-semibold py-4 rounded-xl transition-all"
+                className="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold py-3 rounded-xl transition-all"
               >
                 Back to Home
               </button>
             </div>
+
+            {/* Help Text */}
+            <p className="text-slate-500 text-sm mt-6">
+              Need help? Contact support or the law firm directly
+            </p>
           </motion.div>
         )}
       </div>
