@@ -182,58 +182,58 @@ export default function FirmClientDashboardDemo() {
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Assigned Lawyer */}
-            <SimpleCard>
-              <h3 className="text-lg font-semibold text-white mb-4">Assigned Lawyer</h3>
+            <div className="bg-white rounded-xl shadow-xl p-6">
+              <h3 className="text-lg font-bold text-slate-900 mb-4">Assigned Lawyer</h3>
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
-                    <User className="w-6 h-6 text-white" />
+                  <div className="w-14 h-14 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-full flex items-center justify-center shadow-lg">
+                    <User className="w-7 h-7 text-white" />
                   </div>
                   <div>
-                    <p className="font-medium text-white">Adv. Priya Sharma</p>
-                    <p className="text-sm text-slate-400">Civil Law</p>
+                    <p className="font-bold text-slate-900">Adv. Priya Sharma</p>
+                    <p className="text-sm text-indigo-600 font-semibold">Civil Law</p>
                   </div>
                 </div>
                 
-                <div className="pt-4 border-t border-slate-800 space-y-3">
-                  <div>
-                    <p className="text-xs text-slate-500 mb-1">Experience</p>
-                    <p className="text-sm text-white">12+ years</p>
+                <div className="pt-4 border-t-2 border-slate-200 space-y-3">
+                  <div className="bg-slate-50 p-3 rounded-lg">
+                    <p className="text-xs text-slate-600 font-semibold mb-1">Experience</p>
+                    <p className="text-sm text-slate-900 font-bold">12+ years</p>
                   </div>
-                  <div>
-                    <p className="text-xs text-slate-500 mb-1">Phone</p>
-                    <p className="text-sm text-white">+91 98765 43210</p>
+                  <div className="bg-slate-50 p-3 rounded-lg">
+                    <p className="text-xs text-slate-600 font-semibold mb-1">Phone</p>
+                    <p className="text-sm text-slate-900 font-bold">+91 98765 43210</p>
                   </div>
-                  <div>
-                    <p className="text-xs text-slate-500 mb-1">Email</p>
-                    <p className="text-sm text-white">priya@shahandassociates.com</p>
+                  <div className="bg-slate-50 p-3 rounded-lg">
+                    <p className="text-xs text-slate-600 font-semibold mb-1">Email</p>
+                    <p className="text-sm text-indigo-600 font-bold">priya@shahandassociates.com</p>
                   </div>
                 </div>
               </div>
-            </SimpleCard>
+            </div>
 
             {/* Case Information */}
-            <SimpleCard>
-              <h3 className="text-lg font-semibold text-white mb-4">Case Information</h3>
+            <div className="bg-gradient-to-br from-slate-700 to-slate-800 rounded-xl shadow-xl p-6">
+              <h3 className="text-lg font-bold text-white mb-4">Case Information</h3>
               <div className="space-y-3">
-                <div>
-                  <p className="text-xs text-slate-500 mb-1">Law Firm</p>
-                  <p className="text-sm text-white">Shah & Associates</p>
+                <div className="bg-white bg-opacity-10 p-3 rounded-lg">
+                  <p className="text-xs text-blue-300 font-semibold mb-1">Law Firm</p>
+                  <p className="text-sm text-white font-bold">Shah & Associates</p>
                 </div>
-                <div>
-                  <p className="text-xs text-slate-500 mb-1">Case Type</p>
-                  <p className="text-sm text-white">Civil Law</p>
+                <div className="bg-white bg-opacity-10 p-3 rounded-lg">
+                  <p className="text-xs text-blue-300 font-semibold mb-1">Case Type</p>
+                  <p className="text-sm text-white font-bold">Civil Law</p>
                 </div>
-                <div>
-                  <p className="text-xs text-slate-500 mb-1">Status</p>
-                  <CorporateBadge variant="success">Active</CorporateBadge>
+                <div className="bg-white bg-opacity-10 p-3 rounded-lg">
+                  <p className="text-xs text-blue-300 font-semibold mb-1">Status</p>
+                  <span className="inline-block px-3 py-1 bg-green-500 text-white rounded-full text-sm font-bold">Active</span>
                 </div>
-                <div>
-                  <p className="text-xs text-slate-500 mb-1">Started On</p>
-                  <p className="text-sm text-white">Jan 10, 2025</p>
+                <div className="bg-white bg-opacity-10 p-3 rounded-lg">
+                  <p className="text-xs text-blue-300 font-semibold mb-1">Started On</p>
+                  <p className="text-sm text-white font-bold">Jan 10, 2025</p>
                 </div>
               </div>
-            </SimpleCard>
+            </div>
           </div>
         </div>
       </main>
