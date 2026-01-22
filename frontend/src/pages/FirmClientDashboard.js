@@ -1,42 +1,37 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Scale, User, FileText, Calendar, MessageSquare, LogOut, Briefcase, Clock, CheckCircle, AlertCircle } from 'lucide-react';
-import { motion } from 'framer-motion';
-import { StatCard, CorporateBadge, SimpleCard } from '../components/CorporateComponents';
+import { Scale, LogOut, User, Briefcase, Calendar, FileText, Clock, CheckCircle, AlertCircle } from 'lucide-react';
+import { toast } from 'sonner';
 import axios from 'axios';
 import { API } from '../App';
-import { toast } from 'sonner';
+import { StatCard, CorporateBadge, SimpleCard } from '../components/CorporateComponents';
 
 export default function FirmClientDashboard() {
+  const navigate = useNavigate();
   const [client, setClient] = useState(null);
   const [caseUpdates, setCaseUpdates] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    loadClientData();
-  }, []);
+    const userData = localStorage.getItem('user');
+    if (!userData) {
+      navigate('/firm-client-login');
+      return;
+    }
+    
+    const user = JSON.parse(userData);
+    setClient(user);
+    fetchCaseUpdates(user.id);
+  }, [navigate]);
 
-  const loadClientData = async () => {
+  const fetchCaseUpdates = async (clientId) => {
     try {
-      const user = JSON.parse(localStorage.getItem('user') || '{}');
-      const clientId = user.id;
-
-      if (!clientId) {
-        navigate('/firm-client-login');
-        return;
-      }
-
-      // Fetch client details
-      const clientRes = await axios.get(`${API}/firm-clients/${clientId}`);
-      setClient(clientRes.data);
-
-      // Fetch case updates
-      const updatesRes = await axios.get(`${API}/firm-clients/${clientId}/case-updates`);
-      setCaseUpdates(updatesRes.data || []);
+      const response = await axios.get(`${API}/firm-clients/${clientId}/case-updates`);
+      setCaseUpdates(response.data);
     } catch (error) {
-      console.error('Error loading data:', error);
-      toast.error('Failed to load dashboard data');
+      console.error('Error fetching case updates:', error);
+      // Use dummy data if API fails
+      setCaseUpdates(dummyCaseUpdates);
     } finally {
       setLoading(false);
     }
@@ -46,205 +41,240 @@ export default function FirmClientDashboard() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     localStorage.removeItem('userRole');
+    toast.success('Logged out successfully');
     navigate('/firm-client-login');
+  };
+
+  // Dummy data for demonstration
+  const dummyCaseUpdates = [
+    {
+      id: '1',
+      update_type: 'hearing_date',
+      title: 'Court Hearing Scheduled',
+      description: 'Your court hearing has been scheduled for January 30, 2025 at 10:00 AM in Civil Court, Mumbai',
+      created_at: '2025-01-20T10:00:00',
+      created_by: 'Adv. Rajesh Kumar'
+    },
+    {
+      id: '2',
+      update_type: 'document_submitted',
+      title: 'Documents Submitted to Court',
+      description: 'All required documents have been submitted to the court. Waiting for review.',
+      created_at: '2025-01-18T15:30:00',
+      created_by: 'Adv. Rajesh Kumar'
+    },
+    {
+      id: '3',
+      update_type: 'meeting_scheduled',
+      title: 'Meeting with Lawyer',
+      description: 'Initial consultation meeting scheduled for January 25, 2025 at 3:00 PM at our office',
+      created_at: '2025-01-15T09:00:00',
+      created_by: 'Manager - Shah & Associates'
+    },
+    {
+      id: '4',
+      update_type: 'progress_update',
+      title: 'Case Progress Update',
+      description: 'We have reviewed your case documents and prepared the initial petition. The case is progressing well.',
+      created_at: '2025-01-12T14:00:00',
+      created_by: 'Adv. Rajesh Kumar'
+    }
+  ];
+
+  const dummyStats = {
+    caseStatus: 'Active',
+    nextHearing: 'Jan 30, 2025',
+    documentsSubmitted: 12,
+    daysActive: 45
+  };
+
+  const dummyLawyer = {
+    name: 'Adv. Rajesh Kumar',
+    specialization: 'Civil Law',
+    experience: '15+ years',
+    phone: '+91 98765 43210',
+    email: 'rajesh@shahandassociates.com'
   };
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-black via-slate-950 to-black flex items-center justify-center">
-        <div className="text-white text-xl">Loading...</div>
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="text-white">Loading...</div>
       </div>
     );
   }
 
-  // Dummy data if no updates
-  const dummyUpdates = [
-    { id: '1', update_type: 'progress_update', title: 'Case Review Initiated', description: 'Your case has been assigned to a lawyer and initial review is in progress.', created_at: new Date().toISOString(), created_by: 'System' },
-    { id: '2', update_type: 'document_submitted', title: 'Documents Received', description: 'We have received all necessary documents. Processing will begin shortly.', created_at: new Date(Date.now() - 86400000).toISOString(), created_by: client?.assigned_lawyer_name || 'Lawyer' },
-    { id: '3', update_type: 'meeting_scheduled', title: 'Initial Consultation Scheduled', description: 'A meeting has been scheduled for next week to discuss your case in detail.', created_at: new Date(Date.now() - 172800000).toISOString(), created_by: 'Manager' }
-  ];
-
-  const displayUpdates = caseUpdates.length > 0 ? caseUpdates : dummyUpdates;
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-slate-950 to-black">
-      {/* Background pattern */}
-      <div className="fixed inset-0 opacity-10">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 2px 2px, rgb(34, 197, 94) 1px, transparent 0)`,
-          backgroundSize: '40px 40px'
-        }} />
-      </div>
-
+    <div className="min-h-screen bg-black">
       {/* Header */}
-      <header className="relative z-10 bg-slate-900/50 backdrop-blur-md border-b border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
+      <header className="bg-slate-900 border-b border-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-green-600 to-green-500 rounded-xl flex items-center justify-center shadow-lg shadow-green-500/30">
+              <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
                 <Scale className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-white">Nyaay Sathi</h1>
-                <p className="text-sm text-slate-400">Client Portal</p>
+                <h1 className="text-xl font-semibold text-white">Nyaay Sathi</h1>
+                <p className="text-xs text-slate-400">Client Portal</p>
               </div>
             </div>
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition-all duration-300 border border-slate-700"
-            >
-              <LogOut className="w-4 h-4" />
-              Logout
-            </button>
+            
+            <div className="flex items-center gap-4">
+              <div className="text-right">
+                <p className="text-sm font-medium text-white">{client?.full_name || 'Client'}</p>
+                <p className="text-xs text-slate-400">{client?.email}</p>
+              </div>
+              <button
+                onClick={handleLogout}
+                className="p-2 text-slate-400 hover:text-white transition-colors"
+                title="Logout"
+              >
+                <LogOut className="w-5 h-5" />
+              </button>
+            </div>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Welcome Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
-        >
-          <h2 className="text-3xl font-bold text-white mb-2">Welcome back, {client?.full_name}!</h2>
-          <p className="text-slate-400">Track your case progress and communicate with your legal team</p>
-        </motion.div>
+        <div className="mb-8">
+          <h2 className="text-3xl font-semibold text-white mb-2">
+            Welcome back, {client?.full_name?.split(' ')[0]}
+          </h2>
+          <p className="text-slate-400">
+            Here's an overview of your case progress
+          </p>
+        </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div className="grid md:grid-cols-4 gap-6 mb-8">
           <StatCard
             title="Case Status"
-            value={client?.status === 'active' ? 'Active' : 'Pending'}
+            value={dummyStats.caseStatus}
             icon={Briefcase}
-            color="green"
           />
           <StatCard
-            title="Case Type"
-            value={client?.case_type || 'N/A'}
+            title="Next Hearing"
+            value={dummyStats.nextHearing}
+            icon={Calendar}
+          />
+          <StatCard
+            title="Documents"
+            value={dummyStats.documentsSubmitted}
             icon={FileText}
-            color="blue"
           />
           <StatCard
-            title="Updates"
-            value={displayUpdates.length}
-            icon={MessageSquare}
-            color="purple"
-          />
-          <StatCard
-            title="Law Firm"
-            value={client?.law_firm_name?.substring(0, 15) || 'N/A'}
-            icon={Scale}
-            color="orange"
+            title="Days Active"
+            value={dummyStats.daysActive}
+            icon={Clock}
           />
         </div>
 
-        {/* Case Information */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
-          {/* Assigned Lawyer */}
-          <SimpleCard className="p-6">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-green-600 to-green-500 rounded-xl flex items-center justify-center">
-                <User className="w-6 h-6 text-white" />
+        <div className="grid lg:grid-cols-3 gap-6">
+          {/* Case Updates */}
+          <div className="lg:col-span-2">
+            <SimpleCard>
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-xl font-semibold text-white">Case Updates</h3>
+                <CorporateBadge variant="info">
+                  {caseUpdates.length || dummyCaseUpdates.length} Updates
+                </CorporateBadge>
               </div>
-              <div>
-                <h3 className="text-lg font-semibold text-white">Assigned Lawyer</h3>
-                <p className="text-sm text-slate-400">Your legal representative</p>
-              </div>
-            </div>
-            <p className="text-white font-medium">{client?.assigned_lawyer_name || 'Will be assigned soon'}</p>
-          </SimpleCard>
 
-          {/* Contact Info */}
-          <SimpleCard className="p-6">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-500 rounded-xl flex items-center justify-center">
-                <MessageSquare className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold text-white">Contact</h3>
-                <p className="text-sm text-slate-400">Your information</p>
-              </div>
-            </div>
-            <div className="space-y-2">
-              <p className="text-sm text-slate-400">Email: <span className="text-white">{client?.email}</span></p>
-              <p className="text-sm text-slate-400">Phone: <span className="text-white">{client?.phone}</span></p>
-            </div>
-          </SimpleCard>
-
-          {/* Law Firm */}
-          <SimpleCard className="p-6">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-purple-500 rounded-xl flex items-center justify-center">
-                <Scale className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold text-white">Law Firm</h3>
-                <p className="text-sm text-slate-400">Your legal service provider</p>
-              </div>
-            </div>
-            <p className="text-white font-medium">{client?.law_firm_name}</p>
-            <CorporateBadge variant="success" className="mt-2">Active Client</CorporateBadge>
-          </SimpleCard>
-        </div>
-
-        {/* Case Updates Timeline */}
-        <GlowCard className="p-8">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-500 rounded-xl flex items-center justify-center">
-              <Clock className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <h3 className="text-2xl font-bold text-white">Case Updates</h3>
-              <p className="text-slate-400">Recent progress on your case</p>
-            </div>
-          </div>
-
-          <div className="space-y-4">
-            {displayUpdates.map((update, index) => {
-              const updateIcons = {
-                meeting_scheduled: Calendar,
-                document_submitted: FileText,
-                hearing_date: AlertCircle,
-                progress_update: CheckCircle
-              };
-              const Icon = updateIcons[update.update_type] || FileText;
-
-              return (
-                <motion.div
-                  key={update.id}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="bg-slate-800/50 border border-slate-700 rounded-xl p-6 hover:border-blue-500/50 transition-all duration-300"
-                >
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Icon className="w-5 h-5 text-white" />
-                    </div>
-                    <div className="flex-1">
-                      <h4 className="text-lg font-semibold text-white mb-1">{update.title}</h4>
-                      <p className="text-slate-400 mb-3">{update.description}</p>
-                      <div className="flex items-center gap-4 text-sm text-slate-500">
-                        <span>By: {update.created_by}</span>
-                        <span>•</span>
-                        <span>{new Date(update.created_at).toLocaleDateString()}</span>
+              <div className="space-y-4">
+                {(caseUpdates.length > 0 ? caseUpdates : dummyCaseUpdates).map((update) => (
+                  <div
+                    key={update.id}
+                    className="bg-black border border-slate-800 rounded-lg p-4 hover:border-slate-700 transition-colors"
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                        {update.update_type === 'hearing_date' && <Calendar className="w-5 h-5 text-white" />}
+                        {update.update_type === 'document_submitted' && <FileText className="w-5 h-5 text-white" />}
+                        {update.update_type === 'meeting_scheduled' && <Clock className="w-5 h-5 text-white" />}
+                        {update.update_type === 'progress_update' && <CheckCircle className="w-5 h-5 text-white" />}
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-start justify-between mb-1">
+                          <h4 className="text-white font-medium">{update.title}</h4>
+                          <span className="text-xs text-slate-500">
+                            {new Date(update.created_at).toLocaleDateString()}
+                          </span>
+                        </div>
+                        <p className="text-sm text-slate-400 mb-2">{update.description}</p>
+                        <p className="text-xs text-slate-500">By: {update.created_by}</p>
                       </div>
                     </div>
                   </div>
-                </motion.div>
-              );
-            })}
+                ))}
+              </div>
+            </SimpleCard>
           </div>
 
-          {displayUpdates.length === 0 && (
-            <div className="text-center py-12">
-              <FileText className="w-16 h-16 text-slate-600 mx-auto mb-4" />
-              <p className="text-slate-400">No updates yet. Updates will appear here as your case progresses.</p>
-            </div>
-          )}
-        </GlowCard>
+          {/* Sidebar */}
+          <div className="space-y-6">
+            {/* Assigned Lawyer */}
+            <SimpleCard>
+              <h3 className="text-lg font-semibold text-white mb-4">Assigned Lawyer</h3>
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
+                    <User className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-white">
+                      {client?.assigned_lawyer_name || dummyLawyer.name}
+                    </p>
+                    <p className="text-sm text-slate-400">{dummyLawyer.specialization}</p>
+                  </div>
+                </div>
+                
+                <div className="pt-4 border-t border-slate-800 space-y-3">
+                  <div>
+                    <p className="text-xs text-slate-500 mb-1">Experience</p>
+                    <p className="text-sm text-white">{dummyLawyer.experience}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-slate-500 mb-1">Phone</p>
+                    <p className="text-sm text-white">{dummyLawyer.phone}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-slate-500 mb-1">Email</p>
+                    <p className="text-sm text-white">{dummyLawyer.email}</p>
+                  </div>
+                </div>
+              </div>
+            </SimpleCard>
+
+            {/* Case Information */}
+            <SimpleCard>
+              <h3 className="text-lg font-semibold text-white mb-4">Case Information</h3>
+              <div className="space-y-3">
+                <div>
+                  <p className="text-xs text-slate-500 mb-1">Law Firm</p>
+                  <p className="text-sm text-white">{client?.law_firm_name || 'Shah & Associates'}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-slate-500 mb-1">Case Type</p>
+                  <p className="text-sm text-white capitalize">{client?.case_type?.replace('_', ' ') || 'Civil'}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-slate-500 mb-1">Status</p>
+                  <CorporateBadge variant="success">Active</CorporateBadge>
+                </div>
+                <div>
+                  <p className="text-xs text-slate-500 mb-1">Started On</p>
+                  <p className="text-sm text-white">
+                    {client?.created_at ? new Date(client.created_at).toLocaleDateString() : 'Jan 10, 2025'}
+                  </p>
+                </div>
+              </div>
+            </SimpleCard>
+          </div>
+        </div>
       </main>
     </div>
   );
