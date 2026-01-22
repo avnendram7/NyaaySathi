@@ -76,40 +76,32 @@ export default function JoinLawFirmWithSignup() {
       // Simulate payment processing
       await new Promise(resolve => setTimeout(resolve, 2000));
 
-      // Create user account
-      const userPayload = {
-        ...signupData,
-        user_type: 'client'
-      };
-      
-      const signupResponse = await axios.post(`${API}/auth/signup`, userPayload);
-      
-      // Store token
-      localStorage.setItem('token', signupResponse.data.token);
-      localStorage.setItem('user', JSON.stringify(signupResponse.data.user));
-
-      // Create firm client application
-      const applicationPayload = {
+      // Register directly as firm client (auto-approved after payment)
+      const clientPayload = {
         full_name: signupData.full_name,
         email: signupData.email,
         phone: signupData.phone,
+        password: signupData.password,
         law_firm_id: selectedFirm.id,
         law_firm_name: selectedFirm.firm_name,
         case_type: signupData.case_type,
         case_description: caseDetails.description,
-        status: 'approved', // Auto-approve after payment
+        payment_amount: consultationFee
       };
-
-      await axios.post(`${API}/firm-clients/applications`, applicationPayload, {
-        headers: { Authorization: `Bearer ${signupResponse.data.token}` }
-      });
+      
+      const response = await axios.post(`${API}/firm-clients/register-paid`, clientPayload);
+      
+      // Store token
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+      localStorage.setItem('userRole', 'firm_client');
 
       toast.success('Account created and payment successful!');
       setStep(4); // Success
       
     } catch (error) {
       console.error('Error:', error);
-      if (error.response?.data?.detail?.includes('already exists')) {
+      if (error.response?.data?.detail?.includes('already registered')) {
         toast.error('Email already registered. Please login instead.');
       } else {
         toast.error(error.response?.data?.detail || 'Process failed. Please try again.');
