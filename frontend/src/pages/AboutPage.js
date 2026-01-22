@@ -96,10 +96,10 @@ export default function AboutPage() {
   ];
 
   const milestones = [
-    { year: '2023', title: 'Founded', description: 'Nyaay Sathi was born with a vision to democratize legal assistance' },
-    { year: '2024', title: 'AI Integration', description: 'Launched AI-powered case analysis and legal assistant' },
-    { year: '2024', title: '10,000+ Users', description: 'Reached milestone of helping over 10,000 clients' },
-    { year: '2025', title: 'Pan-India Coverage', description: 'Expanded network to cover all major cities in India' }
+    { year: '2026', title: 'Founded', description: 'Nyaay Sathi was born with a vision to democratize legal assistance' },
+    { year: '2026', title: 'AI Integration', description: 'Launched AI-powered case analysis and legal assistant' },
+    { year: '2026', title: 'Growing Fast', description: 'Rapidly expanding our network of verified lawyers and law firms' },
+    { year: '2026', title: 'Pan-India Vision', description: 'Building towards coverage across all major cities in India' }
   ];
 
   return (
