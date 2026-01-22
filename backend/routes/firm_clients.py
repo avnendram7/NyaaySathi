@@ -28,6 +28,10 @@ async def submit_firm_client_application(application: FirmClientApplication):
             )
         
         app_dict = application.model_dump()
+        
+        # Hash the password before storing
+        app_dict["password"] = pwd_context.hash(application.password)
+        
         await collection.insert_one(app_dict)
         
         return {
