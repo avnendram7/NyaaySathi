@@ -51,10 +51,9 @@ export const corporateClasses = {
   // Page
   page: 'min-h-screen bg-black',
   
-  // Card styles
-  card: 'bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-xl p-6 transition-all duration-300 hover:bg-slate-900/70 hover:border-blue-500/50 hover:shadow-lg hover:shadow-blue-500/20',
-  cardFloating: 'bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-xl p-6 transition-all duration-500 hover:-translate-y-2 hover:bg-slate-900/70 hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/30',
-  cardGlow: 'bg-slate-900/80 backdrop-blur-md border border-blue-500/30 rounded-xl p-6 shadow-lg shadow-blue-500/20',
+  // Cards - simple, clean, no glow
+  card: 'bg-slate-900 border border-slate-800 rounded-lg p-6 hover:border-slate-700 transition-all duration-300',
+  cardHover: 'bg-slate-900 border border-slate-800 rounded-lg p-6 hover:border-slate-700 hover:-translate-y-1 transition-all duration-300',
   
   // Button styles
   buttonPrimary: 'px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/50 hover:-translate-y-0.5',
