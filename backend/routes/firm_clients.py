@@ -251,33 +251,57 @@ async def firm_client_login(credentials: FirmClientLogin):
     try:
         collection = db.firm_clients
         
-        # Find client
+        # Find client in firm_clients collection
         client = await collection.find_one({"email": credentials.email})
-        if not client:
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Invalid credentials"
-            )
         
-        # Verify password
-        if not pwd_context.verify(credentials.password, client["password"]):
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Invalid credentials"
-            )
+        # If not found, check applications with approved status
+        if not client:
+            applications_collection = db.firm_client_applications
+            application = await applications_collection.find_one({
+                "email": credentials.email,
+                "status": "approved"
+            })
+            
+            if application:
+                # Check if password exists in application (from old flow)
+                if "password" in application and application.get("password"):
+                    if not pwd_context.verify(credentials.password, application["password"]):
+                        raise HTTPException(
+                            status_code=status.HTTP_401_UNAUTHORIZED,
+                            detail="Invalid credentials"
+                        )
+                    client = application
+                else:
+                    raise HTTPException(
+                        status_code=status.HTTP_401_UNAUTHORIZED,
+                        detail="Please sign up again through the law firm selection flow"
+                    )
+            else:
+                raise HTTPException(
+                    status_code=status.HTTP_401_UNAUTHORIZED,
+                    detail="Invalid credentials. Please check your email or sign up first."
+                )
+        else:
+            # Verify password
+            if not pwd_context.verify(credentials.password, client["password"]):
+                raise HTTPException(
+                    status_code=status.HTTP_401_UNAUTHORIZED,
+                    detail="Invalid credentials"
+                )
         
         # Update last login
-        await collection.update_one(
-            {"email": credentials.email},
-            {"$set": {"last_login": datetime.utcnow()}}
-        )
+        if client.get("_id"):
+            await collection.update_one(
+                {"email": credentials.email},
+                {"$set": {"last_login": datetime.utcnow()}}
+            )
         
         # Generate token
         token_data = {
             "email": client["email"],
             "role": "firm_client",
-            "client_id": client["id"],
-            "law_firm_id": client["law_firm_id"]
+            "client_id": client.get("id", str(client.get("_id", ""))),
+            "law_firm_id": client.get("law_firm_id", "")
         }
         token = jwt.encode(
             token_data,
@@ -285,14 +309,27 @@ async def firm_client_login(credentials: FirmClientLogin):
             algorithm="HS256"
         )
         
-        # Remove password from response
-        client.pop("password", None)
-        if "_id" in client:
-            client["_id"] = str(client["_id"])
+        # Prepare response - remove sensitive data
+        response_client = {
+            "id": client.get("id", str(client.get("_id", ""))),
+            "full_name": client.get("full_name"),
+            "email": client.get("email"),
+            "phone": client.get("phone"),
+            "law_firm_id": client.get("law_firm_id"),
+            "law_firm_name": client.get("law_firm_name"),
+            "case_type": client.get("case_type"),
+            "case_description": client.get("case_description"),
+            "assigned_lawyer_id": client.get("assigned_lawyer_id"),
+            "assigned_lawyer_name": client.get("assigned_lawyer_name"),
+            "status": client.get("status", "active"),
+            "payment_status": client.get("payment_status"),
+            "payment_amount": client.get("payment_amount"),
+            "created_at": str(client.get("created_at", "")),
+        }
         
         return {
             "token": token,
-            "user": client,
+            "user": response_client,
             "role": "firm_client"
         }
     
