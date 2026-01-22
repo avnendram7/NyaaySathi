@@ -7,6 +7,7 @@ class FirmClientApplication(BaseModel):
     id: str = Field(default_factory=lambda: __import__('uuid').uuid4().hex)
     full_name: str
     email: EmailStr
+    password: str  # Will be hashed before storing
     phone: str
     company_name: Optional[str] = None
     case_type: str  # civil, criminal, corporate, family, etc.
