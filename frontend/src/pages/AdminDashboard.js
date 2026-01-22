@@ -1010,7 +1010,9 @@ export default function AdminDashboard() {
                 ? <LawyerApplicationCard key={app._id || app.id} app={app} />
                 : activeSection === 'lawfirms'
                   ? <LawFirmApplicationCard key={app._id || app.id} app={app} />
-                  : <FirmLawyerApplicationCard key={app._id || app.id} app={app} />
+                  : activeSection === 'firmclients'
+                    ? <FirmClientApplicationCard key={app._id || app.id} app={app} />
+                    : <FirmLawyerApplicationCard key={app._id || app.id} app={app} />
             ))}
           </div>
         )}
