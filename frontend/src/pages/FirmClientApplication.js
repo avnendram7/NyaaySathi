@@ -171,6 +171,68 @@ export default function FirmClientApplication() {
               </div>
             </div>
 
+            {/* Account Credentials */}
+            <div className="pt-6 border-t border-slate-800">
+              <h3 className="text-lg font-semibold text-white mb-4">Account Credentials</h3>
+              <p className="text-sm text-slate-400 mb-4">
+                Set your password for login after approval
+              </p>
+              <div className="space-y-4">
+                <div className="relative">
+                  <label className="block text-sm font-medium text-slate-400 mb-2">
+                    Password
+                  </label>
+                  <div className="relative">
+                    <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-500" />
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      value={formData.password}
+                      onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                      placeholder="Enter password (min 6 characters)"
+                      className="w-full pl-12 pr-12 py-3 bg-slate-900 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-600 transition-colors duration-200"
+                      required
+                      minLength={6}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-4 top-1/2 transform -translate-y-1/2 text-slate-500 hover:text-slate-400"
+                    >
+                      {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    </button>
+                  </div>
+                </div>
+
+                <div className="relative">
+                  <label className="block text-sm font-medium text-slate-400 mb-2">
+                    Confirm Password
+                  </label>
+                  <div className="relative">
+                    <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-500" />
+                    <input
+                      type={showConfirmPassword ? 'text' : 'password'}
+                      value={formData.confirm_password}
+                      onChange={(e) => setFormData({ ...formData, confirm_password: e.target.value })}
+                      placeholder="Confirm your password"
+                      className="w-full pl-12 pr-12 py-3 bg-slate-900 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-600 transition-colors duration-200"
+                      required
+                      minLength={6}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      className="absolute right-4 top-1/2 transform -translate-y-1/2 text-slate-500 hover:text-slate-400"
+                    >
+                      {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    </button>
+                  </div>
+                  {formData.confirm_password && formData.password !== formData.confirm_password && (
+                    <p className="text-red-500 text-xs mt-1">Passwords do not match</p>
+                  )}
+                </div>
+              </div>
+            </div>
+
             {/* Case Details */}
             <div className="pt-6 border-t border-slate-800">
               <h3 className="text-lg font-semibold text-white mb-4">Case Details</h3>
