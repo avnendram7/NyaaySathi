@@ -48,9 +48,8 @@ export const corporateTheme = {
 
 // Harvey-style utility classes
 export const corporateClasses = {
-  // Page containers
+  // Page
   page: 'min-h-screen bg-black',
-  pageGradient: 'min-h-screen bg-gradient-to-br from-black via-slate-900 to-black',
   
   // Card styles
   card: 'bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-xl p-6 transition-all duration-300 hover:bg-slate-900/70 hover:border-blue-500/50 hover:shadow-lg hover:shadow-blue-500/20',
