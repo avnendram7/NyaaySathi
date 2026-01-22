@@ -67,6 +67,26 @@ async def get_firm_client_applications(law_firm_id: str, status: str = None):
             detail=f"Error fetching applications: {str(e)}"
         )
 
+# Get ALL client applications (for admin)
+@router.get("/applications/all")
+async def get_all_client_applications():
+    """Get all client applications across all law firms (Admin only)"""
+    try:
+        collection = db.firm_client_applications
+        applications = await collection.find({}).to_list(length=1000)
+        
+        # Convert ObjectId to string if present
+        for app in applications:
+            if "_id" in app:
+                app["_id"] = str(app["_id"])
+        
+        return applications
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error fetching applications: {str(e)}"
+        )
+
 # Approve/Reject client application
 @router.put("/applications/{application_id}/status")
 async def update_client_application_status(
