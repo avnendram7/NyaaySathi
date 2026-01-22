@@ -24,12 +24,19 @@ Build a comprehensive legal-tech platform "Nyaay Sathi" that helps users find la
 ## Implemented Features (as of Jan 2025)
 
 ### User/Client Features
-- [x] Role selection page (Client / Lawyer / Law Firm)
+- [x] Role selection page (Client / Lawyer / Law Firm) - 3 options at /role-selection
+- [x] User Get Started page with 2 cards: "I Want a Lawyer" / "I Want a Law Firm" at /user-get-started
 - [x] Client signup and login
-- [x] Find Lawyer page with "Independent Lawyer" vs "Law Firm" search split
-- [x] AI-powered lawyer search assistant
-- [x] Manual lawyer search with filters
+- [x] Find Lawyer page with AI Assistant and Manual search options
+- [x] Find Law Firm page with AI Assistant and Manual search options (with dummy data)
+- [x] AI-powered lawyer/law firm search assistant
+- [x] Manual lawyer/law firm search with filters
 - [x] Client dashboard
+
+### User Flow (Updated Jan 22, 2025)
+1. Landing → Get Started → Role Selection (User/Lawyer/Law Firm)
+2. User → User Get Started → "I Want a Lawyer" or "I Want a Law Firm"
+3. Each option has: "Find with AI Assistant" and "Browse Manually"
 
 ### Independent Lawyer Features
 - [x] Lawyer application form
