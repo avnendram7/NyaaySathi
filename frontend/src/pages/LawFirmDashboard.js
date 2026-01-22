@@ -106,6 +106,7 @@ export default function LawFirmDashboard() {
           {[
             { id: 'dashboard', icon: LayoutDashboard, label: 'Dashboard' },
             { id: 'lawyers', icon: Users, label: 'Manage Lawyers' },
+            { id: 'clients', icon: Shield, label: 'Client Applications', badge: 3 },
             { id: 'cases', icon: FileText, label: 'Cases' },
             { id: 'calendar', icon: Calendar, label: 'Calendar' },
             { id: 'messages', icon: MessageSquare, label: 'Messages', badge: 2 },
