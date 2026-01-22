@@ -225,7 +225,7 @@ def test_firm_client_management():
             # Test client login with temp password
             if temp_password:
                 login_data = {
-                    'email': 'suresh@enterprises.com',
+                    'email': f'suresh.{TEST_RUN_ID}@enterprises.com',
                     'password': temp_password
                 }
                 response = make_request('POST', '/firm-clients/login', login_data)
