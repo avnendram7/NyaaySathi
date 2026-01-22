@@ -210,11 +210,11 @@ export default function AboutPage() {
               </div>
               {/* Floating Stats */}
               <div className="absolute -bottom-6 -left-6 bg-slate-900 border border-slate-700 rounded-xl p-4 shadow-xl">
-                <div className="text-3xl font-bold text-blue-400">10,000+</div>
+                <div className="text-3xl font-bold text-blue-400">200+</div>
                 <div className="text-slate-400 text-sm">Cases Resolved</div>
               </div>
               <div className="absolute -top-6 -right-6 bg-slate-900 border border-slate-700 rounded-xl p-4 shadow-xl">
-                <div className="text-3xl font-bold text-purple-400">500+</div>
+                <div className="text-3xl font-bold text-purple-400">100+</div>
                 <div className="text-slate-400 text-sm">Verified Lawyers</div>
               </div>
             </motion.div>
