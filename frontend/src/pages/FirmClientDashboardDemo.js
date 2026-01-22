@@ -121,36 +121,62 @@ export default function FirmClientDashboardDemo() {
         <div className="grid lg:grid-cols-3 gap-6">
           {/* Case Updates */}
           <div className="lg:col-span-2">
-            <SimpleCard>
+            <div className="bg-white rounded-xl shadow-xl p-6">
               <div className="flex items-center justify-between mb-6">
-                <h3 className="text-xl font-semibold text-white">Case Updates</h3>
-                <CorporateBadge variant="info">3 Updates</CorporateBadge>
+                <h3 className="text-xl font-bold text-slate-900">Case Updates</h3>
+                <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold">3 Updates</span>
               </div>
 
               <div className="space-y-4">
-                {caseUpdates.map((update) => (
-                  <div key={update.id} className="bg-black border border-slate-800 rounded-lg p-4 hover:border-slate-700 transition-colors">
-                    <div className="flex items-start gap-4">
-                      <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                        {update.update_type === 'hearing_date' && <Calendar className="w-5 h-5 text-white" />}
-                        {update.update_type === 'document_submitted' && <FileText className="w-5 h-5 text-white" />}
-                        {update.update_type === 'meeting_scheduled' && <Clock className="w-5 h-5 text-white" />}
+                <div className="bg-gradient-to-r from-blue-50 to-blue-100 border-l-4 border-blue-500 rounded-lg p-4 hover:shadow-md transition-all">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center flex-shrink-0 shadow-md">
+                      <Calendar className="w-6 h-6 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-start justify-between mb-1">
+                        <h4 className="text-slate-900 font-bold">Court Hearing Scheduled</h4>
+                        <span className="text-xs text-slate-600 bg-white px-2 py-1 rounded">1/20/2025</span>
                       </div>
-                      <div className="flex-1">
-                        <div className="flex items-start justify-between mb-1">
-                          <h4 className="text-white font-medium">{update.title}</h4>
-                          <span className="text-xs text-slate-500">
-                            {new Date(update.created_at).toLocaleDateString()}
-                          </span>
-                        </div>
-                        <p className="text-sm text-slate-400 mb-2">{update.description}</p>
-                        <p className="text-xs text-slate-500">By: {update.created_by}</p>
-                      </div>
+                      <p className="text-sm text-slate-700 mb-2">Your court hearing has been scheduled for January 30, 2025 at 10:00 AM in Civil Court, Mumbai</p>
+                      <p className="text-xs text-slate-600">By: Adv. Priya Sharma</p>
                     </div>
                   </div>
-                ))}
+                </div>
+
+                <div className="bg-gradient-to-r from-green-50 to-green-100 border-l-4 border-green-500 rounded-lg p-4 hover:shadow-md transition-all">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center flex-shrink-0 shadow-md">
+                      <FileText className="w-6 h-6 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-start justify-between mb-1">
+                        <h4 className="text-slate-900 font-bold">Documents Submitted to Court</h4>
+                        <span className="text-xs text-slate-600 bg-white px-2 py-1 rounded">1/18/2025</span>
+                      </div>
+                      <p className="text-sm text-slate-700 mb-2">All required documents have been submitted to the court. Waiting for review.</p>
+                      <p className="text-xs text-slate-600">By: Adv. Priya Sharma</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-gradient-to-r from-purple-50 to-purple-100 border-l-4 border-purple-500 rounded-lg p-4 hover:shadow-md transition-all">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0 shadow-md">
+                      <Clock className="w-6 h-6 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-start justify-between mb-1">
+                        <h4 className="text-slate-900 font-bold">Meeting with Lawyer</h4>
+                        <span className="text-xs text-slate-600 bg-white px-2 py-1 rounded">1/15/2025</span>
+                      </div>
+                      <p className="text-sm text-slate-700 mb-2">Initial consultation meeting completed. Next review meeting scheduled for January 25, 2025 at 3:00 PM</p>
+                      <p className="text-xs text-slate-600">By: Manager - Shah & Associates</p>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </SimpleCard>
+            </div>
           </div>
 
           {/* Sidebar */}
