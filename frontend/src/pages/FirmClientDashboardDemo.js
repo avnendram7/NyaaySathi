@@ -40,27 +40,27 @@ export default function FirmClientDashboardDemo() {
   ];
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       {/* Header */}
-      <header className="bg-slate-900 border-b border-slate-800">
+      <header className="bg-gradient-to-r from-slate-900 to-blue-900 border-b border-blue-800 shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center shadow-md">
                 <Scale className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-semibold text-white">Nyaay Sathi</h1>
-                <p className="text-xs text-slate-400">Client Portal</p>
+                <h1 className="text-xl font-bold text-white">Nyaay Sathi</h1>
+                <p className="text-xs text-blue-300">Client Portal</p>
               </div>
             </div>
             
             <div className="flex items-center gap-4">
               <div className="text-right">
-                <p className="text-sm font-medium text-white">{client.full_name}</p>
-                <p className="text-xs text-slate-400">{client.email}</p>
+                <p className="text-sm font-semibold text-white">{client.full_name}</p>
+                <p className="text-xs text-blue-300">{client.email}</p>
               </div>
-              <button className="p-2 text-slate-400 hover:text-white transition-colors">
+              <button className="p-2 text-blue-300 hover:text-white transition-colors hover:bg-slate-700 rounded-lg">
                 <LogOut className="w-5 h-5" />
               </button>
             </div>
@@ -72,20 +72,50 @@ export default function FirmClientDashboardDemo() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Welcome Section */}
         <div className="mb-8">
-          <h2 className="text-3xl font-semibold text-white mb-2">
+          <h2 className="text-3xl font-bold text-white mb-2">
             Welcome back, Rajesh
           </h2>
-          <p className="text-slate-400">
+          <p className="text-blue-200">
             Here's an overview of your case progress
           </p>
         </div>
 
         {/* Stats Grid */}
         <div className="grid md:grid-cols-4 gap-6 mb-8">
-          <StatCard title="Case Status" value="Active" icon={Briefcase} />
-          <StatCard title="Next Hearing" value="Jan 30, 2025" icon={Calendar} />
-          <StatCard title="Documents" value="12" icon={FileText} />
-          <StatCard title="Days Active" value="45" icon={Clock} />
+          <div className="bg-gradient-to-br from-green-600 to-green-700 rounded-xl p-6 shadow-xl transform hover:scale-105 transition-all">
+            <div className="flex items-center justify-between mb-2">
+              <Briefcase className="w-8 h-8 text-white" />
+              <div className="w-10 h-10 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
+                <CheckCircle className="w-5 h-5 text-white" />
+              </div>
+            </div>
+            <p className="text-green-100 text-sm mb-1">Case Status</p>
+            <p className="text-2xl font-bold text-white">Active</p>
+          </div>
+          
+          <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl p-6 shadow-xl transform hover:scale-105 transition-all">
+            <div className="flex items-center justify-between mb-2">
+              <Calendar className="w-8 h-8 text-white" />
+            </div>
+            <p className="text-blue-100 text-sm mb-1">Next Hearing</p>
+            <p className="text-xl font-bold text-white">Jan 30, 2025</p>
+          </div>
+          
+          <div className="bg-gradient-to-br from-purple-600 to-purple-700 rounded-xl p-6 shadow-xl transform hover:scale-105 transition-all">
+            <div className="flex items-center justify-between mb-2">
+              <FileText className="w-8 h-8 text-white" />
+            </div>
+            <p className="text-purple-100 text-sm mb-1">Documents</p>
+            <p className="text-2xl font-bold text-white">12</p>
+          </div>
+          
+          <div className="bg-gradient-to-br from-orange-600 to-orange-700 rounded-xl p-6 shadow-xl transform hover:scale-105 transition-all">
+            <div className="flex items-center justify-between mb-2">
+              <Clock className="w-8 h-8 text-white" />
+            </div>
+            <p className="text-orange-100 text-sm mb-1">Days Active</p>
+            <p className="text-2xl font-bold text-white">45</p>
+          </div>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-6">
