@@ -12,7 +12,7 @@ import uuid
 import time
 
 # Get backend URL from environment
-BACKEND_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://lawfirm-connect-2.preview.emergentagent.com')
+BACKEND_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://quick-reader-11.preview.emergentagent.com')
 API_BASE = f"{BACKEND_URL}/api"
 
 # Generate unique timestamp for this test run
