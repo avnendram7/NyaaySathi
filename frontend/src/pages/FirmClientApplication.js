@@ -48,6 +48,19 @@ export default function FirmClientApplication() {
     e.preventDefault();
     setLoading(true);
 
+    // Validate passwords
+    if (formData.password !== formData.confirm_password) {
+      toast.error('Passwords do not match');
+      setLoading(false);
+      return;
+    }
+
+    if (formData.password.length < 6) {
+      toast.error('Password must be at least 6 characters long');
+      setLoading(false);
+      return;
+    }
+
     try {
       const selectedFirm = lawFirms.find(f => f.id === formData.law_firm_id);
       if (!selectedFirm) {
@@ -57,7 +70,14 @@ export default function FirmClientApplication() {
       }
 
       const payload = {
-        ...formData,
+        full_name: formData.full_name,
+        email: formData.email,
+        password: formData.password,
+        phone: formData.phone,
+        company_name: formData.company_name,
+        case_type: formData.case_type,
+        case_description: formData.case_description,
+        law_firm_id: formData.law_firm_id,
         law_firm_name: selectedFirm.firm_name
       };
 
