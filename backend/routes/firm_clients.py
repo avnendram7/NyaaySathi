@@ -28,7 +28,7 @@ async def submit_firm_client_application(application: FirmClientApplication):
             )
         
         app_dict = application.model_dump()
-        result = await collection.insert_one(app_dict)
+        await collection.insert_one(app_dict)
         
         return {
             "message": "Application submitted successfully",
