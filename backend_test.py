@@ -479,10 +479,9 @@ def test_bookings_endpoints():
     # Test create booking
     booking_data = {
         'lawyer_id': user_ids.get('lawyer', 'lawyer123'),
-        'consultation_date': '2024-02-15',
-        'consultation_time': '10:00',
-        'consultation_type': 'video_call',
-        'notes': 'Need consultation for property dispute case'
+        'date': '2024-02-15',
+        'time': '10:00',
+        'description': 'Need consultation for property dispute case'
     }
     
     response = make_request('POST', '/bookings', booking_data, auth_token=client_token)
