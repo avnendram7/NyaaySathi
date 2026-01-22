@@ -55,11 +55,10 @@ export const corporateClasses = {
   card: 'bg-slate-900 border border-slate-800 rounded-lg p-6 hover:border-slate-700 transition-all duration-300',
   cardHover: 'bg-slate-900 border border-slate-800 rounded-lg p-6 hover:border-slate-700 hover:-translate-y-1 transition-all duration-300',
   
-  // Button styles
-  buttonPrimary: 'px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/50 hover:-translate-y-0.5',
-  buttonSecondary: 'px-6 py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-lg font-semibold transition-all duration-300 border border-slate-700 hover:border-blue-500/50',
-  buttonOutline: 'px-6 py-3 bg-transparent border-2 border-blue-600 text-blue-500 hover:bg-blue-600 hover:text-white rounded-lg font-semibold transition-all duration-300',
-  buttonGhost: 'px-6 py-3 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg font-medium transition-all duration-300',
+  // Buttons - solid, no gradients
+  buttonPrimary: 'px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-medium transition-colors duration-200',
+  buttonSecondary: 'px-6 py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-lg font-medium transition-colors duration-200',
+  buttonOutline: 'px-6 py-3 border border-slate-700 hover:border-blue-600 text-slate-300 hover:text-white rounded-lg font-medium transition-all duration-200',
   
   // Input styles
   input: 'w-full px-4 py-3 bg-slate-900/50 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-300',
