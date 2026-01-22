@@ -1,5 +1,6 @@
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Scale, User, Building2, ArrowRight, UserCircle, LogIn } from 'lucide-react';
+import NavigationHeader from '../components/NavigationHeader';
 
 export default function LawFirmRoleSelection() {
   const navigate = useNavigate();
@@ -41,18 +42,13 @@ export default function LawFirmRoleSelection() {
   
   return (
     <div className="min-h-screen bg-black">
-      {/* Header */}
-      <header className="p-6">
-        <button 
-          onClick={() => navigate('/role-selection')}
-          className="flex items-center space-x-3 text-white hover:text-blue-500 transition-colors"
-        >
-          <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-            <Building2 className="w-6 h-6 text-white" />
-          </div>
-          <span className="text-xl font-semibold">Nyaay Sathi</span>
-        </button>
-      </header>
+      {/* Navigation Header */}
+      <NavigationHeader 
+        backPath="/role-selection"
+        showBack={true}
+        showHome={true}
+        showLogout={false}
+      />
 
       {/* Main Content */}
       <main className="flex items-center justify-center px-4 py-16">
