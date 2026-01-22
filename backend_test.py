@@ -509,10 +509,10 @@ def test_documents_endpoints():
     
     # Test create document
     doc_data = {
+        'case_id': 'case123',
         'title': 'Property Deed',
-        'file_path': '/documents/property_deed.pdf',
-        'file_type': 'pdf',
-        'case_id': 'case123'
+        'file_url': '/documents/property_deed.pdf',
+        'file_type': 'pdf'
     }
     
     response = make_request('POST', '/documents', doc_data, auth_token=client_token)
