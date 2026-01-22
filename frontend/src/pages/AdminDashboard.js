@@ -902,16 +902,18 @@ export default function AdminDashboard() {
                 onClick={async () => {
                   try {
                     setActionLoading(app._id || app.id);
+                    const token = localStorage.getItem('adminToken');
                     await axios.put(
                       `${API}/firm-clients/applications/${app.id}/status`,
                       { status: 'approved' },
-                      { headers: { Authorization: `Bearer ${adminToken}` } }
+                      { headers: { Authorization: `Bearer ${token}` } }
                     );
                     toast.success('Application approved successfully!');
                     fetchAllApplications();
                     onClose();
                   } catch (error) {
-                    toast.error('Failed to approve application');
+                    console.error('Approval error:', error);
+                    toast.error(error.response?.data?.detail || 'Failed to approve application');
                   } finally {
                     setActionLoading(null);
                   }
