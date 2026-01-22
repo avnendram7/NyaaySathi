@@ -124,11 +124,23 @@ backend:
     file: "/app/backend/routes/auth.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "Fixed missing /auth/signup endpoint. Added alias endpoint that maps to register logic. Tested successfully with user creation."
+  
+  - task: "Firm Lawyer Authentication"
+    implemented: true
+    working: true
+    file: "/app/backend/routes/firm_lawyers.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Firm lawyer login endpoint at /firm-lawyers/login working correctly. Connects to users collection with user_type='firm_lawyer'."
   
   - task: "Firm Client Models"
     implemented: true
