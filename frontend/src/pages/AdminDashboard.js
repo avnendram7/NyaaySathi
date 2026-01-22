@@ -460,7 +460,7 @@ export default function AdminDashboard() {
           {/* Professional Info */}
           <div className="grid grid-cols-3 gap-4">
             <div className="bg-slate-800/50 rounded-xl p-4 text-center">
-              <p className="text-2xl font-bold text-purple-400">{app.experience}</p>
+              <p className="text-2xl font-bold text-purple-400">{app.experience_years || app.experience || 0}</p>
               <p className="text-slate-400 text-sm">Years Exp</p>
             </div>
             <div className="bg-slate-800/50 rounded-xl p-4 text-center">
@@ -468,7 +468,7 @@ export default function AdminDashboard() {
               <p className="text-slate-400 text-sm">Cases Won</p>
             </div>
             <div className="bg-slate-800/50 rounded-xl p-4 text-center">
-              <p className="text-lg font-bold text-amber-400">{app.fee_range}</p>
+              <p className="text-lg font-bold text-amber-400">{app.fee_range || 'N/A'}</p>
               <p className="text-slate-400 text-sm">Fee Range</p>
             </div>
           </div>
