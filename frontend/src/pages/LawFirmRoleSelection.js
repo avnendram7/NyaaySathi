@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Scale, User, Building2, ArrowRight, Briefcase, Users } from 'lucide-react';
+import { Scale, User, Building2, ArrowRight, UserCircle } from 'lucide-react';
+import { FloatingCard, FloatingIcon } from '../components/CorporateComponents';
 
 export default function LawFirmRoleSelection() {
   const navigate = useNavigate();
@@ -9,24 +10,35 @@ export default function LawFirmRoleSelection() {
     {
       id: 'lawyer',
       title: 'I am a Lawyer',
-      subtitle: 'Working at a law firm? Login to access your tasks, cases, and performance dashboard.',
+      subtitle: 'Working at a law firm? Access your tasks, cases, and performance dashboard.',
       icon: Scale,
-      features: ['View assigned tasks', 'Track case progress', 'See performance metrics', 'Communicate with clients'],
-      gradient: 'from-purple-600 to-purple-700',
-      glowColor: 'purple',
+      features: ['View assigned tasks', 'Track case progress', 'Performance metrics', 'Client communication'],
+      color: 'purple',
       route: '/firm-lawyer-application',
+      loginRoute: '/lawfirm-lawyer-login',
       testId: 'lawfirm-lawyer-card'
     },
     {
       id: 'manager',
       title: 'I am a Manager',
-      subtitle: 'Manage your law firm, onboard lawyers, track performance, and view comprehensive reports.',
+      subtitle: 'Manage your law firm, onboard lawyers, track performance and reports.',
       icon: Building2,
       features: ['Register your firm', 'Manage lawyers', 'View all reports', 'Track firm revenue'],
-      gradient: 'from-blue-600 to-indigo-700',
-      glowColor: 'blue',
+      color: 'blue',
       route: '/lawfirm-application',
+      loginRoute: '/lawfirm-login',
       testId: 'lawfirm-manager-card'
+    },
+    {
+      id: 'client',
+      title: 'I am a Client',
+      subtitle: 'Join a law firm as a client. Track your case progress and communicate with your lawyer.',
+      icon: UserCircle,
+      features: ['Apply to join a firm', 'Track case progress', 'View assigned lawyer', 'Receive updates'],
+      color: 'cyan',
+      route: '/firm-client-application',
+      loginRoute: '/firm-client-login',
+      testId: 'lawfirm-client-card'
     }
   ];
   
