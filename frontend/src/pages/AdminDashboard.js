@@ -811,6 +811,155 @@ export default function AdminDashboard() {
     </motion.div>
   );
 
+  // Firm Client Application Modal
+  const FirmClientApplicationModal = ({ app, onClose }) => (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onClick={onClose}
+      className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+    >
+      <motion.div
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.9, opacity: 0 }}
+        onClick={(e) => e.stopPropagation()}
+        className="bg-slate-900 border border-slate-800 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+      >
+        <div className="p-8">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold text-white">{app.full_name}</h2>
+            <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+              app.status === 'pending' ? 'bg-amber-500/20 text-amber-400' :
+              app.status === 'approved' ? 'bg-green-500/20 text-green-400' :
+              'bg-red-500/20 text-red-400'
+            }`}>
+              {app.status?.charAt(0).toUpperCase() + app.status?.slice(1)}
+            </span>
+          </div>
+
+          <div className="space-y-6">
+            {/* Contact Info */}
+            <div>
+              <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-3">Contact Information</h3>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-slate-800/50 rounded-xl p-4">
+                  <p className="text-slate-400 text-sm mb-1">Email</p>
+                  <p className="text-white font-medium">{app.email}</p>
+                </div>
+                <div className="bg-slate-800/50 rounded-xl p-4">
+                  <p className="text-slate-400 text-sm mb-1">Phone</p>
+                  <p className="text-white font-medium">{app.phone}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Law Firm & Case Info */}
+            <div>
+              <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-3">Application Details</h3>
+              <div className="space-y-3">
+                <div className="bg-slate-800/50 rounded-xl p-4">
+                  <p className="text-slate-400 text-sm mb-1">Law Firm</p>
+                  <p className="text-pink-400 font-semibold text-lg">{app.law_firm_name}</p>
+                </div>
+                <div className="bg-slate-800/50 rounded-xl p-4">
+                  <p className="text-slate-400 text-sm mb-1">Case Type</p>
+                  <p className="text-white font-medium capitalize">{app.case_type}</p>
+                </div>
+                {app.company_name && (
+                  <div className="bg-slate-800/50 rounded-xl p-4">
+                    <p className="text-slate-400 text-sm mb-1">Company Name</p>
+                    <p className="text-white font-medium">{app.company_name}</p>
+                  </div>
+                )}
+                {app.case_description && (
+                  <div className="bg-slate-800/50 rounded-xl p-4">
+                    <p className="text-slate-400 text-sm mb-2">Case Description</p>
+                    <p className="text-slate-300 text-sm">{app.case_description}</p>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Application Date */}
+            <div className="bg-slate-800/50 rounded-xl p-4">
+              <p className="text-slate-400 text-sm mb-1">Application Date</p>
+              <p className="text-white font-medium">
+                {new Date(app.created_at).toLocaleDateString('en-US', { 
+                  year: 'numeric', 
+                  month: 'long', 
+                  day: 'numeric' 
+                })}
+              </p>
+            </div>
+          </div>
+
+          {/* Actions */}
+          {app.status === 'pending' && (
+            <div className="flex gap-4 pt-6 mt-6 border-t border-slate-800">
+              <Button
+                onClick={async () => {
+                  try {
+                    setActionLoading(app._id || app.id);
+                    await axios.put(
+                      `${API}/firm-clients/applications/${app.id}/status`,
+                      { status: 'approved' },
+                      { headers: { Authorization: `Bearer ${adminToken}` } }
+                    );
+                    toast.success('Application approved successfully!');
+                    fetchAllApplications();
+                    onClose();
+                  } catch (error) {
+                    toast.error('Failed to approve application');
+                  } finally {
+                    setActionLoading(null);
+                  }
+                }}
+                disabled={actionLoading === (app._id || app.id)}
+                className="flex-1 bg-green-600 hover:bg-green-500 rounded-full"
+              >
+                {actionLoading === (app._id || app.id) ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <>
+                    <CheckCircle className="w-4 h-4 mr-2" />
+                    Approve
+                  </>
+                )}
+              </Button>
+              <Button
+                onClick={async () => {
+                  try {
+                    setActionLoading(app._id || app.id);
+                    await axios.put(
+                      `${API}/firm-clients/applications/${app.id}/status`,
+                      { status: 'rejected' },
+                      { headers: { Authorization: `Bearer ${adminToken}` } }
+                    );
+                    toast.success('Application rejected');
+                    fetchAllApplications();
+                    onClose();
+                  } catch (error) {
+                    toast.error('Failed to reject application');
+                  } finally {
+                    setActionLoading(null);
+                  }
+                }}
+                disabled={actionLoading === (app._id || app.id)}
+                variant="outline"
+                className="flex-1 border-red-500 text-red-400 hover:bg-red-500/10 rounded-full"
+              >
+                <XCircle className="w-4 h-4 mr-2" />
+                Reject
+              </Button>
+            </div>
+          )}
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
       {/* Header */}
