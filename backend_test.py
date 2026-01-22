@@ -62,7 +62,7 @@ def log_test(test_name, status, details=""):
         'timestamp': datetime.now().isoformat()
     }
     test_results.append(result)
-    status_symbol = "✅" if status == "PASS" else "❌"
+    status_symbol = "✅" if status == "PASS" else "❌" if status == "FAIL" else "⏭️"
     print(f"{status_symbol} {test_name}: {details}")
 
 def make_request(method, endpoint, data=None, headers=None, auth_token=None):
