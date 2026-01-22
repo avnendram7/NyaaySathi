@@ -83,6 +83,23 @@ export default function AdminDashboard() {
         setFirmLawyerApplications([]);
         setFirmLawyerStats({ pending: 0, approved: 0, rejected: 0 });
       }
+      
+      // Fetch firm client applications
+      try {
+        const firmClientRes = await axios.get(`${API}/firm-clients/applications/all`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const clientApps = firmClientRes.data || [];
+        setFirmClientApplications(clientApps);
+        setFirmClientStats({
+          pending: clientApps.filter(a => a.status === 'pending').length,
+          approved: clientApps.filter(a => a.status === 'approved').length,
+          rejected: clientApps.filter(a => a.status === 'rejected').length
+        });
+      } catch (e) {
+        setFirmClientApplications([]);
+        setFirmClientStats({ pending: 0, approved: 0, rejected: 0 });
+      }
     } catch (error) {
       if (error.response?.status === 401 || error.response?.status === 403) {
         localStorage.removeItem('adminToken');
