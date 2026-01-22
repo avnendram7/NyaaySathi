@@ -179,6 +179,18 @@ backend:
         comment: "Added firm_clients_router to server.py, backend running successfully"
 
 frontend:
+  - task: "Firm Lawyer Login Fix"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/pages/LawFirmLawyerLogin.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Fixed to use correct endpoint /firm-lawyers/login instead of /auth/login. Updated ProtectedRoute to handle firm_lawyer and firm_client redirects."
+  
   - task: "User Dashboard Redesign"
     implemented: true
     working: true
