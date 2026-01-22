@@ -133,6 +133,7 @@ function App() {
               <Route path="/firm-client-login" element={<FirmClientLogin />} />
               <Route path="/firm-client-application" element={<FirmClientApplication />} />
               <Route path="/firm-client-dashboard" element={<FirmClientDashboard />} />
+              <Route path="/firm-client-dashboard-demo" element={<FirmClientDashboardDemo />} />
               <Route path="/admin-login" element={<AdminLogin />} />
               <Route path="/admin-dashboard" element={<AdminDashboard />} />
               <Route path="/admin" element={<AdminDashboard />} />
