@@ -437,9 +437,9 @@ def test_cases_endpoints():
     # Test create case
     case_data = {
         'title': 'Property Ownership Dispute',
+        'case_number': 'PROP/2024/001',
         'description': 'Legal dispute over property ownership with neighbor',
-        'case_type': 'civil',
-        'status': 'open'
+        'status': 'active'
     }
     
     response = make_request('POST', '/cases', case_data, auth_token=client_token)
