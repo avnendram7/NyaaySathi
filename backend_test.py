@@ -375,15 +375,15 @@ def test_firm_lawyer_endpoints():
     
     # Test firm lawyer application
     firm_lawyer_app = {
-        'full_name': 'Anita Desai',
-        'email': 'anita.desai@corporatelaw.com',
+        'full_name': f'Anita Desai {TEST_RUN_ID}',
+        'email': f'anita.desai.{TEST_RUN_ID}@corporatelaw.com',
         'phone': '+91-9876543250',
         'password': 'AnitaLawyer123!',
         'firm_id': user_ids.get('law_firm', 'firm123'),
         'firm_name': 'Corporate Legal Associates',
         'specialization': 'Contract Law',
         'experience_years': 3,
-        'bar_council_number': 'BAR/2021/67890',
+        'bar_council_number': f'BAR/2021/{TEST_RUN_ID}',
         'education': 'LLM from National Law School',
         'languages': ['Hindi', 'English', 'Marathi'],
         'bio': 'Specialist in contract drafting and review'
