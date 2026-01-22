@@ -325,10 +325,10 @@ export default function AboutPage() {
         
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-            <StatCard number="10,000+" label="Happy Clients" icon={Users} delay={0} glowColor="blue" />
-            <StatCard number="500+" label="Verified Lawyers" icon={Scale} delay={0.1} glowColor="purple" />
-            <StatCard number="50+" label="Cities Covered" icon={Globe} delay={0.2} glowColor="green" />
-            <StatCard number="98%" label="Success Rate" icon={Award} delay={0.3} glowColor="amber" />
+            <StatCard number="200+" label="Cases Resolved" icon={Scale} delay={0} glowColor="blue" />
+            <StatCard number="100+" label="Verified Lawyers" icon={Users} delay={0.1} glowColor="purple" />
+            <StatCard number="25+" label="Trusted Law Firms" icon={Building2} delay={0.2} glowColor="green" />
+            <StatCard number="98%" label="Client Satisfaction" icon={Award} delay={0.3} glowColor="amber" />
           </div>
         </div>
       </section>
