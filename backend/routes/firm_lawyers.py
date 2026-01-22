@@ -266,7 +266,7 @@ async def get_firm_tasks(firm_id: str):
         {'id': 1, '_id': 0}
     ).to_list(100)
     
-    lawyer_ids = [l['id'] for l in lawyers]
+    lawyer_ids = [lawyer['id'] for lawyer in lawyers]
     
     tasks = await db.firm_tasks.find(
         {'assigned_to': {'$in': lawyer_ids}},
@@ -301,7 +301,7 @@ async def get_firm_report(firm_id: str):
         {'_id': 0, 'password_hash': 0, 'password': 0}
     ).to_list(100)
     
-    lawyer_ids = [l['id'] for l in lawyers]
+    lawyer_ids = [lawyer['id'] for lawyer in lawyers]
     
     # Get all tasks
     tasks = await db.firm_tasks.find(
