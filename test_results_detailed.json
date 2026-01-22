@@ -3,204 +3,204 @@
     "test": "Root Endpoint",
     "status": "PASS",
     "details": "Status: 200",
-    "timestamp": "2026-01-22T03:08:32.231917"
+    "timestamp": "2026-01-22T03:09:23.141994"
   },
   {
     "test": "Health Check",
     "status": "PASS",
     "details": "Status: 200",
-    "timestamp": "2026-01-22T03:08:32.269324"
+    "timestamp": "2026-01-22T03:09:23.175465"
   },
   {
     "test": "Register client",
     "status": "FAIL",
     "details": "Status: No response",
-    "timestamp": "2026-01-22T03:08:32.346822"
+    "timestamp": "2026-01-22T03:09:23.211453"
   },
   {
     "test": "Signup client",
     "status": "FAIL",
     "details": "Status: No response",
-    "timestamp": "2026-01-22T03:08:32.388967"
+    "timestamp": "2026-01-22T03:09:23.291521"
   },
   {
     "test": "Register lawyer",
     "status": "FAIL",
     "details": "Status: No response",
-    "timestamp": "2026-01-22T03:08:32.424509"
+    "timestamp": "2026-01-22T03:09:23.328677"
   },
   {
     "test": "Signup lawyer",
     "status": "FAIL",
     "details": "Status: No response",
-    "timestamp": "2026-01-22T03:08:32.464038"
+    "timestamp": "2026-01-22T03:09:23.368037"
   },
   {
     "test": "Register law_firm",
     "status": "FAIL",
     "details": "Status: No response",
-    "timestamp": "2026-01-22T03:08:32.503795"
+    "timestamp": "2026-01-22T03:09:23.410927"
   },
   {
     "test": "Signup law_firm",
     "status": "FAIL",
     "details": "Status: No response",
-    "timestamp": "2026-01-22T03:08:32.541272"
+    "timestamp": "2026-01-22T03:09:23.444226"
   },
   {
     "test": "Login client",
     "status": "PASS",
     "details": "Token received",
-    "timestamp": "2026-01-22T03:08:32.840449"
+    "timestamp": "2026-01-22T03:09:23.708430"
   },
   {
     "test": "Login lawyer",
     "status": "PASS",
     "details": "Token received",
-    "timestamp": "2026-01-22T03:08:33.103385"
+    "timestamp": "2026-01-22T03:09:23.967347"
   },
   {
     "test": "Login law_firm",
     "status": "PASS",
     "details": "Token received",
-    "timestamp": "2026-01-22T03:08:33.378210"
+    "timestamp": "2026-01-22T03:09:24.248702"
   },
   {
     "test": "Get Profile client",
     "status": "PASS",
     "details": "Profile retrieved",
-    "timestamp": "2026-01-22T03:08:33.411352"
+    "timestamp": "2026-01-22T03:09:24.290182"
   },
   {
     "test": "Get Profile lawyer",
     "status": "PASS",
     "details": "Profile retrieved",
-    "timestamp": "2026-01-22T03:08:33.453710"
+    "timestamp": "2026-01-22T03:09:24.331223"
   },
   {
     "test": "Get Profile law_firm",
     "status": "PASS",
     "details": "Profile retrieved",
-    "timestamp": "2026-01-22T03:08:33.486095"
+    "timestamp": "2026-01-22T03:09:24.365199"
   },
   {
     "test": "Firm Client Tests",
     "status": "SKIP",
     "details": "No law firm user created",
-    "timestamp": "2026-01-22T03:08:33.486849"
+    "timestamp": "2026-01-22T03:09:24.365922"
   },
   {
     "test": "Submit Lawyer Application",
     "status": "FAIL",
     "details": "Status: No response",
-    "timestamp": "2026-01-22T03:08:33.522171"
+    "timestamp": "2026-01-22T03:09:24.401885"
   },
   {
     "test": "Get All Lawyers",
     "status": "PASS",
-    "details": "Found 3 lawyers",
-    "timestamp": "2026-01-22T03:08:33.564150"
+    "details": "Found 4 lawyers",
+    "timestamp": "2026-01-22T03:09:24.440407"
   },
   {
     "test": "Submit Law Firm Application",
     "status": "FAIL",
     "details": "Status: No response",
-    "timestamp": "2026-01-22T03:08:33.606856"
+    "timestamp": "2026-01-22T03:09:24.472872"
   },
   {
     "test": "Get All Law Firms",
     "status": "PASS",
-    "details": "Found 2 law firms",
-    "timestamp": "2026-01-22T03:08:33.682762"
+    "details": "Found 3 law firms",
+    "timestamp": "2026-01-22T03:09:24.512541"
   },
   {
     "test": "Admin Login",
     "status": "PASS",
     "details": "Admin logged in successfully",
-    "timestamp": "2026-01-22T03:08:33.714110"
+    "timestamp": "2026-01-22T03:09:24.548966"
   },
   {
     "test": "Get Lawyer Applications (Admin)",
     "status": "PASS",
     "details": "Found 2 applications",
-    "timestamp": "2026-01-22T03:08:33.754168"
+    "timestamp": "2026-01-22T03:09:24.587872"
   },
   {
     "test": "Get Law Firm Applications (Admin)",
     "status": "PASS",
     "details": "Found 1 applications",
-    "timestamp": "2026-01-22T03:08:33.800083"
+    "timestamp": "2026-01-22T03:09:24.625057"
   },
   {
     "test": "Submit Firm Lawyer Application",
     "status": "FAIL",
     "details": "Status: No response",
-    "timestamp": "2026-01-22T03:08:33.878940"
+    "timestamp": "2026-01-22T03:09:24.659335"
   },
   {
     "test": "Get Firm Lawyer Applications",
     "status": "PASS",
-    "details": "Found 1 applications",
-    "timestamp": "2026-01-22T03:08:33.913762"
+    "details": "Found 2 applications",
+    "timestamp": "2026-01-22T03:09:24.737475"
   },
   {
     "test": "Guest Chat",
     "status": "PASS",
-    "details": "Session ID: guest_1ed4a6b9-e135-4493-9e01-9c4014714341",
-    "timestamp": "2026-01-22T03:08:38.948762"
+    "details": "Session ID: guest_cf566dbe-74fd-4e57-9f25-7cc085cfc040",
+    "timestamp": "2026-01-22T03:09:30.306321"
   },
   {
     "test": "Authenticated Chat",
     "status": "PASS",
     "details": "Chat response received",
-    "timestamp": "2026-01-22T03:08:43.960884"
+    "timestamp": "2026-01-22T03:09:36.300452"
   },
   {
     "test": "Get Chat History",
     "status": "PASS",
-    "details": "Found 2 messages",
-    "timestamp": "2026-01-22T03:08:44.014926"
+    "details": "Found 3 messages",
+    "timestamp": "2026-01-22T03:09:36.362627"
   },
   {
     "test": "Create Case",
     "status": "PASS",
-    "details": "Case ID: c104ec69-c270-44b5-a45b-3a4ee35e3559",
-    "timestamp": "2026-01-22T03:08:44.061237"
+    "details": "Case ID: 9f4de06f-a135-41a2-bb6e-5c18c463f523",
+    "timestamp": "2026-01-22T03:09:36.399633"
   },
   {
     "test": "Get Cases",
     "status": "PASS",
-    "details": "Found 1 cases",
-    "timestamp": "2026-01-22T03:08:44.099791"
+    "details": "Found 2 cases",
+    "timestamp": "2026-01-22T03:09:36.440621"
   },
   {
     "test": "Get Specific Case",
     "status": "PASS",
     "details": "Case details retrieved",
-    "timestamp": "2026-01-22T03:08:44.140781"
+    "timestamp": "2026-01-22T03:09:36.483249"
   },
   {
     "test": "Create Booking",
     "status": "PASS",
     "details": "Booking created successfully",
-    "timestamp": "2026-01-22T03:08:44.193811"
+    "timestamp": "2026-01-22T03:09:36.532425"
   },
   {
     "test": "Get Bookings",
     "status": "PASS",
-    "details": "Found 1 bookings",
-    "timestamp": "2026-01-22T03:08:44.232414"
+    "details": "Found 2 bookings",
+    "timestamp": "2026-01-22T03:09:36.574590"
   },
   {
     "test": "Create Document",
     "status": "PASS",
     "details": "Document created successfully",
-    "timestamp": "2026-01-22T03:08:44.282425"
+    "timestamp": "2026-01-22T03:09:36.625237"
   },
   {
     "test": "Get Documents",
     "status": "PASS",
-    "details": "Found 1 documents",
-    "timestamp": "2026-01-22T03:08:44.358410"
+    "details": "Found 2 documents",
+    "timestamp": "2026-01-22T03:09:36.661952"
   }
 ]
