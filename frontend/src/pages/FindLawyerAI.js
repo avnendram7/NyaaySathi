@@ -174,12 +174,7 @@ export default function FindLawyerAI() {
   };
 
   const handleBookConsultation = (lawyer) => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      navigate('/user-dashboard', { state: { bookingLawyer: lawyer } });
-    } else {
-      navigate('/user-signup', { state: { bookingLawyer: lawyer } });
-    }
+    navigate('/book-consultation-signup', { state: { lawyer } });
   };
 
   const getCardIcon = (iconType) => {
