@@ -256,7 +256,7 @@ async def get_firm_clients(law_firm_id: str):
 async def add_case_update(update: ClientCaseUpdate):
     """Add a case progress update for a client"""
     try:
-        collection = await get_collection("client_case_updates")
+        collection = db.client_case_updates
         
         update_dict = update.model_dump()
         await collection.insert_one(update_dict)
@@ -273,7 +273,7 @@ async def add_case_update(update: ClientCaseUpdate):
 async def get_client_case_updates(client_id: str):
     """Get all case updates for a client"""
     try:
-        collection = await get_collection("client_case_updates")
+        collection = db.client_case_updates
         updates = await collection.find({"client_id": client_id}).sort("created_at", -1).to_list(length=100)
         
         for update in updates:
