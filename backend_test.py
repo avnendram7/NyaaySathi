@@ -180,8 +180,8 @@ def test_firm_client_management():
     
     # Test client application submission
     application_data = {
-        'full_name': 'Suresh Enterprises Pvt Ltd',
-        'email': 'suresh@enterprises.com',
+        'full_name': f'Suresh Enterprises Pvt Ltd {TEST_RUN_ID}',
+        'email': f'suresh.{TEST_RUN_ID}@enterprises.com',
         'phone': '+91-9876543220',
         'company_name': 'Suresh Enterprises',
         'case_type': 'corporate',
