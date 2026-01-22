@@ -23,7 +23,8 @@ from routes import (
     lawfirms_router,
     waitlist_router,
     admin_router,
-    firm_lawyers_router
+    firm_lawyers_router,
+    firm_clients_router
 )
 from services.database import close_db
 
