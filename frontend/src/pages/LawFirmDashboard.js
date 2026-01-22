@@ -65,6 +65,45 @@ export default function LawFirmDashboard() {
     { name: 'Sunita Devi', message: 'Case won! Thank you so much!', time: 'Yesterday', unread: false, avatar: 'S', color: 'bg-green-500' }
   ];
 
+  const clientApplications = [
+    { 
+      id: 'app_1', 
+      full_name: 'Arjun Malhotra', 
+      email: 'arjun@example.com', 
+      phone: '+91 98765 43210',
+      company_name: 'Malhotra Enterprises',
+      case_type: 'Property Law', 
+      case_description: 'Property dispute with neighbor over land boundary. Need urgent legal assistance.',
+      status: 'pending',
+      applied_date: '2026-01-20',
+      photo: 'https://randomuser.me/api/portraits/men/45.jpg'
+    },
+    { 
+      id: 'app_2', 
+      full_name: 'Kavita Desai', 
+      email: 'kavita.desai@example.com', 
+      phone: '+91 97654 32109',
+      company_name: null,
+      case_type: 'Family Law', 
+      case_description: 'Divorce case with custody dispute. Looking for experienced family law attorney.',
+      status: 'pending',
+      applied_date: '2026-01-19',
+      photo: 'https://randomuser.me/api/portraits/women/52.jpg'
+    },
+    { 
+      id: 'app_3', 
+      full_name: 'Rohan Verma', 
+      email: 'rohan.v@example.com', 
+      phone: '+91 96543 21098',
+      company_name: 'Verma Tech Solutions',
+      case_type: 'Corporate Law', 
+      case_description: 'Partnership dissolution and asset distribution. Need corporate law expert.',
+      status: 'pending',
+      applied_date: '2026-01-18',
+      photo: 'https://randomuser.me/api/portraits/men/67.jpg'
+    }
+  ];
+
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
