@@ -63,12 +63,10 @@ export const corporateClasses = {
   // Inputs
   input: 'w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-600 transition-colors duration-200',
   
-  // Text styles
+  // Text
   textPrimary: 'text-white',
   textSecondary: 'text-slate-400',
-  textAccent: 'text-blue-500',
-  heading: 'text-white font-bold',
-  subheading: 'text-slate-300 font-semibold',
+  heading: 'text-white font-semibold',
   
   // Container styles
   container: 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8',
