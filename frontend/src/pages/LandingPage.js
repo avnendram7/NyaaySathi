@@ -28,7 +28,7 @@ export default function LandingPage() {
               Nyaay Sathi helps you understand your case, track progress, and connect with verified lawyers - all in one platform
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/user-login">
+              <Link to="/user-get-started">
                 <Button 
                   data-testid="get-started-btn"
                   className="bg-blue-700 hover:bg-blue-600 text-white rounded-full px-8 py-6 text-lg font-medium btn-primary glow-blue"
