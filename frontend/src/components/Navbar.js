@@ -133,7 +133,7 @@ export const Navbar = () => {
               <Info className="w-4 h-4" />
               <span>About</span>
             </Link>
-            <Link to="/contact" className="flex items-center space-x-2 text-slate-300 hover:text-white py-2">
+            <Link to="/how-it-works" className="flex items-center space-x-2 text-slate-300 hover:text-white py-2">
               <HelpCircle className="w-4 h-4" />
               <span>Help</span>
             </Link>
