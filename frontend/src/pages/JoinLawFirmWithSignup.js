@@ -90,13 +90,14 @@ export default function JoinLawFirmWithSignup() {
 
       // Create firm client application
       const applicationPayload = {
+        full_name: signupData.full_name,
+        email: signupData.email,
+        phone: signupData.phone,
         law_firm_id: selectedFirm.id,
         law_firm_name: selectedFirm.firm_name,
         case_type: signupData.case_type,
-        description: caseDetails.description,
+        case_description: caseDetails.description,
         status: 'approved', // Auto-approve after payment
-        payment_amount: consultationFee,
-        payment_status: 'paid'
       };
 
       await axios.post(`${API}/firm-clients/applications`, applicationPayload, {
