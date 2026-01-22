@@ -1,8 +1,10 @@
-import { useNavigate } from 'react-router-dom';
-import { Scale, User, Building2, ArrowRight, UserCircle } from 'lucide-react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Scale, User, Building2, ArrowRight, UserCircle, LogIn } from 'lucide-react';
 
 export default function LawFirmRoleSelection() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const isLoginMode = searchParams.get('mode') === 'login';
   
   const roles = [
     {
