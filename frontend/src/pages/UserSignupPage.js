@@ -83,6 +83,71 @@ export default function UserSignupPage() {
             />
             
             <CorporateInput
+              label="Email"
+              type="email"
+              data-testid="user-email-input"
+              value={formData.email}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              placeholder="john@example.com"
+              icon={Mail}
+              required
+            />
+            
+            <CorporateInput
+              label="Phone"
+              type="tel"
+              data-testid="user-phone-input"
+              value={formData.phone}
+              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+              placeholder="+91 98765 43210"
+              icon={Phone}
+              required
+            />
+            
+            <CorporateInput
+              label="Password"
+              type="password"
+              data-testid="user-password-input"
+              value={formData.password}
+              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+              placeholder="••••••••"
+              icon={Lock}
+              required
+            />
+            
+            <CorporateButton
+              type="submit"
+              loading={loading}
+              disabled={loading}
+              className="w-full"
+            >
+              Create Account
+              <ArrowRight className="ml-2 w-5 h-5" />
+            </CorporateButton>
+          </form>
+          
+          <div className="mt-6 text-center">
+            <p className="text-slate-400">
+              Already have an account?{' '}
+              <Link to="/user-login" className="text-blue-500 hover:text-blue-400 font-medium transition-colors">
+                Login
+              </Link>
+            </p>
+          </div>
+          
+          <div className="mt-4 text-center">
+            <p className="text-slate-400">
+              Want to join as Lawyer or Law Firm?{' '}
+              <Link to="/role-selection" className="text-blue-500 hover:text-blue-400 font-medium transition-colors">
+                Choose Role
+              </Link>
+            </p>
+          </div>
+              icon={User}
+              required
+            />
+            
+            <CorporateInput
               label="Email Address"
               type="email"
               data-testid="user-email-input"
