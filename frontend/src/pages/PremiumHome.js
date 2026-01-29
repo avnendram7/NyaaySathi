@@ -296,24 +296,14 @@ const ServicesSection = ({ showAllServices, setShowAllServices, fadeInUp, stagge
           </p>
         </motion.div>
 
-        <motion.div
-          initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
-          variants={staggerContainer}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {displayServices.map((service, index) => (
-            <ServiceCard key={index} service={service} fadeInUp={fadeInUp} />
+            <ServiceCard key={index} service={service} index={index} isVisible={isInView} />
           ))}
-        </motion.div>
+        </div>
 
         {/* More/Less Button */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ delay: 0.8 }}
-          className="text-center mt-12"
-        >
+        <div className="text-center mt-12">
           <Button
             onClick={() => setShowAllServices(!showAllServices)}
             variant="outline"
@@ -329,7 +319,7 @@ const ServicesSection = ({ showAllServices, setShowAllServices, fadeInUp, stagge
               </>
             )}
           </Button>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
