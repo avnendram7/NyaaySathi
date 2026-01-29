@@ -1,4 +1,4 @@
-// Dummy Law Firm Data for Nyaay Sathi
+// Dummy Law Firm Data for Lxwyer Up
 
 export const dummyLawFirms = [
   {

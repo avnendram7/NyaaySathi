@@ -1,4 +1,4 @@
-// Comprehensive dummy lawyer data for Nyaay Sathi
+// Comprehensive dummy lawyer data for Lxwyer Up
 // 300 lawyers across 4 states: Delhi, Uttar Pradesh, Haryana, Maharashtra
 
 export const states = {
