@@ -491,7 +491,7 @@ const HappyClientsSection = ({ fadeInUp }) => {
           <div className="absolute inset-0 bg-gradient-to-t from-[#0F2944]/80 via-[#0F2944]/40 to-transparent flex items-end">
             <div className="p-12 text-white">
               <p className="text-2xl font-light mb-4 italic">
-                "Lxwyer Up made finding the right lawyer incredibly easy. The entire process was transparent and professional."
+                &ldquo;Lxwyer Up made finding the right lawyer incredibly easy. The entire process was transparent and professional.&rdquo;
               </p>
               <div className="flex items-center space-x-3">
                 <div className="w-12 h-12 bg-white/20 rounded-full" />
