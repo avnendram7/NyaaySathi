@@ -30,13 +30,13 @@ export const Navbar = () => {
               <Home className="w-4 h-4" />
               <span>Home</span>
             </Link>
-            <Link to="/about" className="flex items-center space-x-1 text-slate-300 hover:text-white transition-colors">
+            <Link to="/premium-about" className="flex items-center space-x-1 text-slate-300 hover:text-white transition-colors">
               <Info className="w-4 h-4" />
               <span>About</span>
             </Link>
-            <Link to="/how-it-works" className="flex items-center space-x-1 text-slate-300 hover:text-white transition-colors">
+            <Link to="/premium-contact" className="flex items-center space-x-1 text-slate-300 hover:text-white transition-colors">
               <HelpCircle className="w-4 h-4" />
-              <span>Help</span>
+              <span>Contact</span>
             </Link>
           </div>
           
