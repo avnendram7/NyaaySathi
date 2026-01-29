@@ -153,7 +153,7 @@ const FirmProfile = () => {
             {/* Action Buttons */}
             <div className="mt-6 pt-6 border-t border-gray-100 flex flex-wrap gap-4">
               <Button
-                onClick={() => navigate('/role-selection?redirect=join-firm')}
+                onClick={() => navigate(`/join-firm/${firm.id}`)}
                 className="bg-[#0F2944] hover:bg-[#0F2944]/90 text-white px-8 py-4 rounded-xl font-semibold text-lg group"
               >
                 Join This Firm
