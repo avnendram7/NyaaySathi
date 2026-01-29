@@ -120,15 +120,17 @@ const ScatteredImages = () => {
               alt={image.alt}
               className="w-full h-full object-cover"
               style={{ 
-                filter: 'brightness(3.0) contrast(5.0) saturate(10.0) hue-rotate(40deg) sepia(1.2) drop-shadow(0 0 20px rgba(255,100,100,0.8))'
+                filter: 'brightness(4.0) contrast(6.0) saturate(15.0) hue-rotate(60deg) sepia(2.0) invert(0.1) drop-shadow(0 0 30px rgba(255,0,255,1))'
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-br from-red-800/60 via-orange-700/55 to-yellow-600/65 mix-blend-overlay" />
-            <div className="absolute inset-0 bg-gradient-to-tl from-pink-700/55 via-purple-700/50 to-indigo-800/55 mix-blend-soft-light" />
-            <div className="absolute inset-0 bg-gradient-to-r from-green-700/50 to-teal-800/50 mix-blend-color-dodge" />
-            <div className="absolute inset-0 bg-gradient-to-b from-cyan-600/45 via-blue-700/40 to-violet-700/45 mix-blend-multiply" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-rose-600/40 via-amber-600/35 to-lime-600/40 mix-blend-screen" />
-            <div className="absolute inset-0 bg-gradient-to-bl from-fuchsia-600/35 via-emerald-600/30 to-sky-600/35 mix-blend-color-burn" />
+            <div className="absolute inset-0 bg-gradient-to-br from-red-900/70 via-orange-800/65 to-yellow-700/75 mix-blend-overlay" />
+            <div className="absolute inset-0 bg-gradient-to-tl from-pink-800/65 via-purple-800/60 to-indigo-900/65 mix-blend-soft-light" />
+            <div className="absolute inset-0 bg-gradient-to-r from-green-800/60 to-teal-900/60 mix-blend-color-dodge" />
+            <div className="absolute inset-0 bg-gradient-to-b from-cyan-700/55 via-blue-800/50 to-violet-800/55 mix-blend-multiply" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-rose-700/50 via-amber-700/45 to-lime-700/50 mix-blend-screen" />
+            <div className="absolute inset-0 bg-gradient-to-bl from-fuchsia-700/45 via-emerald-700/40 to-sky-700/45 mix-blend-color-burn" />
+            <div className="absolute inset-0 bg-gradient-to-t from-red-600/40 via-green-600/35 to-blue-600/40 mix-blend-difference" />
+            <div className="absolute inset-0 bg-gradient-to-l from-yellow-600/35 via-magenta-600/30 to-cyan-600/35 mix-blend-exclusion" />
           </div>
         </motion.div>
       ))}
