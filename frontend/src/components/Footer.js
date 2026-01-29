@@ -60,7 +60,7 @@ export const Footer = () => {
         </div>
         
         <div className="border-t border-slate-800 mt-8 pt-8 text-center text-slate-400 text-sm">
-          <p>&copy; {new Date().getFullYear()} Nyaay Sathi. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Lxwyer Up. All rights reserved.</p>
         </div>
       </div>
     </footer>
