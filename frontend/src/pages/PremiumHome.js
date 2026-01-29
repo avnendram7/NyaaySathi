@@ -108,6 +108,10 @@ const ScatteredImages = () => {
               ease: 'easeInOut'
             }
           }}
+          whileHover={{ 
+            scale: 1.05,
+            transition: { duration: 0.3 }
+          }}
           className={`absolute ${image.position} ${image.size} z-10 hidden lg:block`}
         >
           <div className="relative w-full h-full overflow-hidden rounded-3xl shadow-2xl">
@@ -116,13 +120,9 @@ const ScatteredImages = () => {
               alt={image.alt}
               className="w-full h-full object-cover"
               style={{ 
-                filter: 'brightness(1.6) contrast(2.2) saturate(3.5) hue-rotate(10deg) sepia(0.3)',
-                imageRendering: 'crisp-edges'
+                filter: 'brightness(1.1) contrast(1.1) saturate(1.2)'
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-br from-orange-600/35 via-yellow-500/30 to-red-600/35 mix-blend-overlay" />
-            <div className="absolute inset-0 bg-gradient-to-tl from-amber-500/25 via-transparent to-green-600/25 mix-blend-soft-light" />
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-500/15 to-pink-500/15 mix-blend-color" />
           </div>
         </motion.div>
       ))}
