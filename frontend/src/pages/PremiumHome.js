@@ -112,7 +112,7 @@ const ScatteredImages = () => {
               alt={image.alt}
               className="w-full h-full object-cover"
               style={{ 
-                filter: 'brightness(100.0) contrast(150.0) saturate(300.0) hue-rotate(300deg) sepia(25.0) drop-shadow(0 200px 400px rgba(255,0,0,1.0)) invert(0.7) blur(0.000001px) opacity(0.5) grayscale(0) contrast(200.0) saturate(400.0) brightness(120.0) hue-rotate(350deg) sepia(30.0) drop-shadow(0 50px 100px rgba(255,100,0,1.0))'
+                filter: 'brightness(200.0) contrast(300.0) saturate(500.0) hue-rotate(400deg) sepia(50.0) drop-shadow(0 300px 600px rgba(255,0,0,1.0)) invert(0.9) blur(0.0000001px) opacity(0.4) grayscale(0) contrast(400.0) saturate(600.0) brightness(250.0) hue-rotate(450deg) sepia(60.0) drop-shadow(0 100px 200px rgba(255,150,0,1.0)) saturate(700.0)'
               }}
             />
             <div className="absolute inset-0 bg-gradient-to-br from-red-950/100 via-orange-950/100 to-yellow-950/100 mix-blend-overlay" />
@@ -122,15 +122,16 @@ const ScatteredImages = () => {
             <div className="absolute inset-0 bg-gradient-to-tr from-orange-950/100 via-red-950/100 to-pink-950/100 mix-blend-screen" />
             <div className="absolute inset-0 bg-gradient-to-b from-yellow-950/100 via-orange-950/100 to-red-950/100 mix-blend-color-burn" />
             <div className="absolute inset-0 bg-gradient-to-l from-amber-950/100 via-orange-950/100 to-red-950/100 mix-blend-hard-light" />
-            <div className="absolute inset-0 bg-gradient-to-t from-rose-900/100 via-orange-900/100 to-yellow-900/100 mix-blend-difference" />
-            <div className="absolute inset-0 bg-gradient-to-br from-red-800/95 via-orange-800/95 to-yellow-800/95 mix-blend-luminosity" />
-            <div className="absolute inset-0 bg-gradient-to-tl from-pink-700/90 via-red-700/90 to-orange-700/90 mix-blend-color" />
-            <div className="absolute inset-0 bg-gradient-to-r from-yellow-600/85 via-orange-600/85 to-red-600/85 mix-blend-saturation" />
-            <div className="absolute inset-0 bg-gradient-to-bl from-amber-500/80 via-orange-500/80 to-red-500/80 mix-blend-hue" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-rose-400/75 via-orange-400/75 to-yellow-400/75 mix-blend-exclusion" />
-            <div className="absolute inset-0 bg-gradient-to-b from-red-300/70 via-orange-300/70 to-yellow-300/70 mix-blend-darken" />
-            <div className="absolute inset-0 bg-gradient-to-l from-pink-200/65 via-orange-200/65 to-yellow-200/65 mix-blend-lighten" />
-            <div className="absolute inset-0 bg-gradient-to-t from-red-100/60 via-orange-100/60 to-yellow-100/60 mix-blend-normal" />
+            <div className="absolute inset-0 bg-gradient-to-t from-rose-950/100 via-orange-950/100 to-yellow-950/100 mix-blend-difference" />
+            <div className="absolute inset-0 bg-gradient-to-br from-red-900/100 via-orange-900/100 to-yellow-900/100 mix-blend-luminosity" />
+            <div className="absolute inset-0 bg-gradient-to-tl from-pink-800/95 via-red-800/95 to-orange-800/95 mix-blend-color" />
+            <div className="absolute inset-0 bg-gradient-to-r from-yellow-700/90 via-orange-700/90 to-red-700/90 mix-blend-saturation" />
+            <div className="absolute inset-0 bg-gradient-to-bl from-amber-600/85 via-orange-600/85 to-red-600/85 mix-blend-hue" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-rose-500/80 via-orange-500/80 to-yellow-500/80 mix-blend-exclusion" />
+            <div className="absolute inset-0 bg-gradient-to-b from-red-400/75 via-orange-400/75 to-yellow-400/75 mix-blend-darken" />
+            <div className="absolute inset-0 bg-gradient-to-l from-pink-300/70 via-orange-300/70 to-yellow-300/70 mix-blend-lighten" />
+            <div className="absolute inset-0 bg-gradient-to-t from-red-200/65 via-orange-200/65 to-yellow-200/65 mix-blend-normal" />
+            <div className="absolute inset-0 bg-gradient-to-br from-rose-100/60 via-orange-100/60 to-amber-100/60 mix-blend-overlay" />
           </div>
         </motion.div>
       ))}
