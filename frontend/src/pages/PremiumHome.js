@@ -348,10 +348,11 @@ const ServiceCard = ({ service, fadeInUp }) => {
     <motion.div
       variants={fadeInUp}
       whileHover={{ y: -10, scale: 1.02 }}
-      className="group relative bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300"
+      className="group relative bg-white p-8 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden"
     >
-      <div className="w-16 h-16 bg-gray-100 group-hover:bg-gray-700 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300">
-        <Icon className="w-8 h-8 text-gray-800 group-hover:text-white transition-colors duration-300" />
+      <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
+      <div className={`w-16 h-16 bg-gradient-to-br ${service.color} rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 shadow-lg`}>
+        <Icon className="w-8 h-8 text-white transition-colors duration-300" />
       </div>
       <h3 className="text-2xl font-bold text-gray-800 mb-4">{service.title}</h3>
       <p className="text-gray-600 leading-relaxed">{service.description}</p>
