@@ -356,7 +356,7 @@ const BrowseFirms = () => {
                       View Profile
                     </Button>
                     <Button
-                      onClick={() => navigate('/role-selection?redirect=join-firm')}
+                      onClick={() => navigate(`/join-firm/${firm.id}`)}
                       className="bg-[#0F2944] hover:bg-[#0F2944]/90 text-white px-6 py-3 rounded-xl font-semibold group"
                     >
                       Join Firm
