@@ -16,6 +16,7 @@ import RoleSelection from './pages/RoleSelection';
 import LegalAssistanceSelection from './pages/LegalAssistanceSelection';
 import AIChat from './pages/AIChat';
 import BrowseLawyers from './pages/BrowseLawyers';
+import BrowseFirms from './pages/BrowseFirms';
 import AILawFirmFinder from './pages/AILawFirmFinder';
 import FindLawyer from './pages/FindLawyer';
 import FindLawyerManual from './pages/FindLawyerManual';
