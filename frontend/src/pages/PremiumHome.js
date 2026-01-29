@@ -16,9 +16,9 @@ const SimpleNavbar = ({ navigate }) => {
           </button>
           
           <div className="hidden md:flex items-center space-x-8">
-            <button onClick={() => navigate('/')} className="text-black hover:text-gray-700 transition-colors">Home</button>
-            <button onClick={() => navigate('/premium-about')} className="text-black hover:text-gray-700 transition-colors">About</button>
-            <button onClick={() => navigate('/premium-contact')} className="text-black hover:text-gray-700 transition-colors">Contact</button>
+            <button onClick={() => navigate('/')} className="text-black hover:text-gray-600 transition-colors">Home</button>
+            <button onClick={() => navigate('/premium-about')} className="text-black hover:text-gray-600 transition-colors">About</button>
+            <button onClick={() => navigate('/premium-contact')} className="text-black hover:text-gray-600 transition-colors">Contact</button>
           </div>
           
           <Button
