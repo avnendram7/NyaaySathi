@@ -48,7 +48,8 @@ const UnifiedLogin = () => {
       title: 'Login as User',
       description: 'Access your account to find lawyers and manage consultations',
       redirectPath: '/user-dashboard',
-      userType: 'client'
+      userType: 'client',
+      endpoint: 'auth'
     },
     {
       id: 'lawyer',
@@ -56,7 +57,8 @@ const UnifiedLogin = () => {
       title: 'Login as Lawyer',
       description: 'Access your practice dashboard and manage your cases',
       redirectPath: '/lawyer-dashboard',
-      userType: 'lawyer'
+      userType: 'lawyer',
+      endpoint: 'auth'
     },
     {
       id: 'lawfirm',
@@ -64,7 +66,17 @@ const UnifiedLogin = () => {
       title: 'Login as Law Firm',
       description: 'Manage your firm, lawyers, and clients',
       redirectPath: '/lawfirm-dashboard',
-      userType: 'law_firm'
+      userType: 'law_firm',
+      endpoint: 'auth'
+    },
+    {
+      id: 'firmclient',
+      icon: UserCircle,
+      title: 'Login as Firm Client',
+      description: 'Track your case progress with your assigned law firm',
+      redirectPath: '/firm-client-dashboard',
+      userType: 'firm_client',
+      endpoint: 'firm-clients'
     }
   ];
 
