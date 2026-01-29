@@ -104,11 +104,11 @@ const MissionVision = ({ fadeInUp }) => {
           >
             <div className="relative rounded-3xl overflow-hidden shadow-2xl">
               <img
-                src="https://upload.wikimedia.org/wikipedia/commons/6/65/Supreme_Court_of_India_-_200705_%28edited%29.jpg"
-                alt="Indian Supreme Court Building"
-                className="w-full h-[500px] object-cover"
+                src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Indian High Court Interior"
+                className="w-full h-[500px] object-cover brightness-110 contrast-110 saturate-120"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0F2944]/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-amber-900/40 to-transparent" />
             </div>
           </motion.div>
 
