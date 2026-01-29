@@ -36,68 +36,70 @@ const SimpleNavbar = ({ navigate }) => {
 // Scattered Images Component with Vibrant Colors - Indian Legal Context
 const ScatteredImages = () => {
   const images = [
+    // LEFT SIDE IMAGES (4 images)
     {
       src: 'https://customer-assets.emergentagent.com/job_lxwyerup/artifacts/s897zzt0_ChatGPT%20Image%20Jan%2029%2C%202026%20at%2007_42_37%20AM.png',
       alt: 'Indian Lawyer with Book',
-      position: 'top-24 left-4',
-      size: 'w-44 h-56',
+      position: 'top-24 left-8',
+      size: 'w-52 h-64',
       rotation: -8,
       delay: 0.2
     },
     {
       src: 'https://customer-assets.emergentagent.com/job_lxwyerup/artifacts/hcvutxga_ChatGPT%20Image%20Jan%2029%2C%202026%20at%2007_44_01%20AM.png',
       alt: 'Lawyer Client Consultation',
-      position: 'top-16 left-48',
-      size: 'w-48 h-56',
+      position: 'top-16 left-64',
+      size: 'w-56 h-68',
       rotation: 6,
       delay: 0.3
     },
     {
       src: 'https://customer-assets.emergentagent.com/job_lxwyerup/artifacts/a6uxjrba_ChatGPT%20Image%20Jan%2029%2C%202026%20at%2007_46_59%20AM.png',
       alt: 'Legal Tech Innovation',
-      position: 'top-72 left-4',
-      size: 'w-44 h-52',
+      position: 'bottom-32 left-8',
+      size: 'w-48 h-56',
       rotation: 12,
       delay: 0.4
     },
     {
       src: 'https://customer-assets.emergentagent.com/job_lxwyerup/artifacts/rrzwyi3v_ChatGPT%20Image%20Jan%2029%2C%202026%20at%2007_48_28%20AM.png',
       alt: 'Indian Supreme Court',
-      position: 'bottom-16 left-40',
-      size: 'w-40 h-48',
+      position: 'bottom-16 left-56',
+      size: 'w-52 h-60',
       rotation: -5,
       delay: 0.5
     },
+    // RIGHT SIDE IMAGES (4 images)
     {
       src: 'https://customer-assets.emergentagent.com/job_lxwyerup/artifacts/tafuoi17_ChatGPT%20Image%20Jan%2029%2C%202026%20at%2007_52_50%20AM.png',
       alt: 'Lawyers Handshake',
-      position: 'bottom-32 left-4',
-      size: 'w-36 h-44',
-      rotation: -12,
+      position: 'top-20 right-64',
+      size: 'w-56 h-68',
+      rotation: 8,
       delay: 0.6
     },
     {
       src: 'https://customer-assets.emergentagent.com/job_lxwyerup/artifacts/b3qq5iee_ChatGPT%20Image%20Jan%2029%2C%202026%20at%2007_53_30%20AM.png',
       alt: 'Senior Lawyers',
-      position: 'top-40 left-80',
-      size: 'w-44 h-52',
-      rotation: 10,
+      position: 'top-28 right-8',
+      size: 'w-52 h-64',
+      rotation: -6,
       delay: 0.7
     },
     {
       src: 'https://customer-assets.emergentagent.com/job_lxwyerup/artifacts/l4hc8h43_ChatGPT%20Image%20Jan%2029%2C%202026%20at%2009_33_27%20AM.png',
       alt: 'Video Call Consultation',
-      position: 'bottom-8 left-72',
-      size: 'w-44 h-52',
-      rotation: -6,
+      position: 'bottom-20 right-56',
+      size: 'w-52 h-60',
+      rotation: 10,
       delay: 0.8
     },
     {
       src: 'https://customer-assets.emergentagent.com/job_lxwyerup/artifacts/47z3o5x8_Screenshot%202026-01-29%20at%208.30.07%E2%80%AFAM.png',
       alt: 'Lawyer Dashboard',
-      position: 'top-80 left-[340px]',
-      size: 'w-52 h-60',
-      rotation: 4,
+      position: 'bottom-32 right-8',
+      size: 'w-56 h-64',
+      rotation: -4,
       delay: 0.9
     }
   ];
