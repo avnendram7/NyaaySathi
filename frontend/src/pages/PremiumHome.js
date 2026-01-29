@@ -511,7 +511,7 @@ const Footer = ({ navigate }) => {
           
           <div>
             <h3 className="font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2 text-gray-400 text-sm">
+            <ul className="space-y-2 text-orange-200 text-sm">
               <li><button onClick={() => navigate('/')} className="hover:text-white transition-colors">Home</button></li>
               <li><button onClick={() => navigate('/premium-about')} className="hover:text-white transition-colors">About</button></li>
               <li><button onClick={() => navigate('/premium-contact')} className="hover:text-white transition-colors">Contact</button></li>
