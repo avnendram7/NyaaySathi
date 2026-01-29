@@ -27,7 +27,7 @@
 ## 📝 STEP-BY-STEP APPROVAL PROCESS:
 
 ### Step 1: Login to Admin Dashboard
-1. Go to: `https://lxwyerup.preview.emergentagent.com/admin-login`
+1. Go to: `https://justice-tech-2.preview.emergentagent.com/admin-login`
 2. Enter credentials:
    - Email: `admin@nyaaysathi.com`
    - Password: `admin123`
