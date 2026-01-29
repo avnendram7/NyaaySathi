@@ -520,7 +520,7 @@ const Footer = ({ navigate }) => {
           
           <div>
             <h3 className="font-semibold mb-4">Services</h3>
-            <ul className="space-y-2 text-gray-400 text-sm">
+            <ul className="space-y-2 text-orange-200 text-sm">
               <li>Legal Consultation</li>
               <li>Find Lawyers</li>
               <li>AI Assistant</li>
@@ -529,7 +529,7 @@ const Footer = ({ navigate }) => {
           
           <div>
             <h3 className="font-semibold mb-4">Contact</h3>
-            <ul className="space-y-2 text-gray-400 text-sm">
+            <ul className="space-y-2 text-orange-200 text-sm">
               <li>avnendram.7@gmail.com</li>
               <li>+91 8318216968</li>
               <li>Sonipat, Haryana</li>
