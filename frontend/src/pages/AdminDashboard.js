@@ -267,19 +267,32 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleFirmClientAction = async (appId, action) => {
+  const handleFirmClientAction = async (appId, action, source) => {
     setActionLoading(appId);
     try {
       const token = localStorage.getItem('adminToken');
-      const status = action === 'approve' ? 'approved' : 'rejected';
-      await axios.put(`${API}/firm-clients/applications/${appId}/status?status=${status}`, {}, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      toast.success(`Client application ${action}d successfully!`);
+      
+      // Different endpoint based on source (application vs paid client)
+      if (source === 'paid') {
+        // Use the firm-clients approval endpoint for paid clients
+        await axios.put(`${API}/firm-clients/${appId}/approve`, 
+          { action: action === 'approve' ? 'approve' : 'reject' },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+      } else {
+        // Use the applications endpoint for regular applications
+        const status = action === 'approve' ? 'approved' : 'rejected';
+        await axios.put(`${API}/firm-clients/applications/${appId}/status`, 
+          { status },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+      }
+      
+      toast.success(`Client ${action}d successfully!`);
       setSelectedApp(null);
       fetchAllApplications();
     } catch (error) {
-      toast.error(`Failed to ${action} application`);
+      toast.error(`Failed to ${action} client`);
     } finally {
       setActionLoading(null);
     }
