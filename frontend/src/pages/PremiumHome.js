@@ -45,40 +45,40 @@ const ScatteredImages = () => {
       delay: 0.2
     },
     {
-      src: 'https://images.pexels.com/photos/7841443/pexels-photo-7841443.jpeg',
-      alt: 'Indian Lawyer in Black Coat',
+      src: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      alt: 'Indian High Court Interior',
       position: 'top-64 right-32',
       size: 'w-64 h-80',
       rotation: 8,
       delay: 0.4
     },
     {
-      src: 'https://images.pexels.com/photos/7841469/pexels-photo-7841469.jpeg',
-      alt: 'Legal Consultation Meeting',
+      src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      alt: 'Indian Legal Professional Meeting',
       position: 'bottom-48 left-32',
       size: 'w-60 h-72',
       rotation: 15,
       delay: 0.6
     },
     {
-      src: 'https://images.pexels.com/photos/5673490/pexels-photo-5673490.jpeg',
-      alt: 'Professional Legal Meeting',
+      src: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      alt: 'Indian Business Legal Consultation',
       position: 'bottom-32 right-20',
       size: 'w-52 h-64',
       rotation: -8,
       delay: 0.8
     },
     {
-      src: 'https://images.pexels.com/photos/7841854/pexels-photo-7841854.jpeg',
-      alt: 'Lawyer Office Consultation',
+      src: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      alt: 'Indian Lawyer Office',
       position: 'top-1/2 left-12',
       size: 'w-48 h-60',
       rotation: -15,
       delay: 1.0
     },
     {
-      src: 'https://images.pexels.com/photos/7841444/pexels-photo-7841444.jpeg',
-      alt: 'Indian Legal Professional',
+      src: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      alt: 'Indian Legal Documentation',
       position: 'top-1/3 right-12',
       size: 'w-44 h-56',
       rotation: 10,
