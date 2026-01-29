@@ -1,0 +1,283 @@
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { User, Scale, Building2, Mail, Lock, Eye, EyeOff, ArrowRight } from 'lucide-react';
+import { Button } from '../components/ui/button';
+import { toast } from 'sonner';
+import axios from 'axios';
+import { API } from '../App';
+
+const SimpleNavbar = ({ navigate }) => {
+  return (
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          <button onClick={() => navigate('/')} className="flex items-center space-x-2">
+            <Scale className="w-6 h-6 text-[#0F2944]" />
+            <span className="text-xl font-bold text-[#0F2944]">Lxwyer Up</span>
+          </button>
+          
+          <Button
+            onClick={() => navigate('/role-selection')}
+            className="text-[#0F2944] hover:text-[#0F2944]/80"
+            variant="ghost"
+          >
+            Sign Up
+          </Button>
+        </div>
+      </div>
+    </nav>
+  );
+};
+
+const UnifiedLogin = () => {
+  const navigate = useNavigate();
+  const [selectedRole, setSelectedRole] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  
+  const [loginData, setLoginData] = useState({
+    email: '',
+    password: ''
+  });
+
+  const roles = [
+    {
+      id: 'user',
+      icon: User,
+      title: 'Login as User',
+      description: 'Access your account to find lawyers and manage consultations',
+      apiEndpoint: '/auth/login',
+      redirectPath: '/user-dashboard',
+      userType: 'client'
+    },
+    {
+      id: 'lawyer',
+      icon: Scale,
+      title: 'Login as Lawyer',
+      description: 'Access your practice dashboard and manage your cases',
+      apiEndpoint: '/auth/lawyer-login',
+      redirectPath: '/lawyer-dashboard',
+      userType: 'lawyer'
+    },
+    {
+      id: 'lawfirm',
+      icon: Building2,
+      title: 'Login as Law Firm',
+      description: 'Manage your firm, lawyers, and clients',
+      apiEndpoint: '/auth/lawfirm-login',
+      redirectPath: '/lawfirm-dashboard',
+      userType: 'law_firm'
+    }
+  ];
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    
+    if (!selectedRole) {
+      toast.error('Please select your role');
+      return;
+    }
+
+    if (!loginData.email || !loginData.password) {
+      toast.error('Please enter email and password');
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const role = roles.find(r => r.id === selectedRole);
+      const response = await axios.post(`${API}${role.apiEndpoint}`, {
+        email: loginData.email,
+        password: loginData.password
+      });
+
+      if (response.data.token) {
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('user', JSON.stringify({
+          ...response.data.user,
+          user_type: role.userType
+        }));
+        
+        toast.success('Login successful!');
+        navigate(role.redirectPath);
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      toast.error(error.response?.data?.detail || 'Invalid credentials');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50">
+      <SimpleNavbar navigate={navigate} />
+      
+      <div className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto">
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <h1 className="text-4xl sm:text-5xl font-bold text-[#0F2944] mb-4">
+              Welcome Back
+            </h1>
+            <p className="text-lg text-gray-600">
+              Select your role and login to continue
+            </p>
+          </motion.div>
+
+          {/* Role Selection Cards */}
+          <div className="grid md:grid-cols-3 gap-6 mb-8">
+            {roles.map((role, index) => {
+              const Icon = role.icon;
+              const isSelected = selectedRole === role.id;
+              
+              return (
+                <motion.div
+                  key={role.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  onClick={() => setSelectedRole(role.id)}
+                  className={`cursor-pointer rounded-2xl p-6 transition-all duration-300 border-2 ${
+                    isSelected
+                      ? 'bg-[#0F2944] border-[#0F2944] shadow-xl'
+                      : 'bg-white border-gray-200 hover:border-[#0F2944] hover:shadow-lg'
+                  }`}
+                >
+                  <div className="flex flex-col items-center text-center">
+                    <div 
+                      className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-4 transition-all duration-300 ${
+                        isSelected ? 'bg-white/20' : 'bg-[#0F2944]/10'
+                      }`}
+                    >
+                      <Icon className={`w-8 h-8 ${isSelected ? 'text-white' : 'text-[#0F2944]'}`} />
+                    </div>
+                    
+                    <h3 className={`text-xl font-bold mb-2 ${isSelected ? 'text-white' : 'text-[#0F2944]'}`}>
+                      {role.title}
+                    </h3>
+                    
+                    <p className={`text-sm ${isSelected ? 'text-white/90' : 'text-gray-600'}`}>
+                      {role.description}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* Login Form */}
+          {selectedRole && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="max-w-md mx-auto"
+            >
+              <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+                <form onSubmit={handleLogin} className="space-y-6">
+                  {/* Email Field */}
+                  <div>
+                    <label className="block text-sm font-semibold text-[#0F2944] mb-2">
+                      Email Address *
+                    </label>
+                    <div className="relative">
+                      <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                      <input
+                        type="email"
+                        value={loginData.email}
+                        onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
+                        placeholder="your@email.com"
+                        className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0F2944]/20 focus:border-[#0F2944]"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  {/* Password Field */}
+                  <div>
+                    <label className="block text-sm font-semibold text-[#0F2944] mb-2">
+                      Password *
+                    </label>
+                    <div className="relative">
+                      <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                      <input
+                        type={showPassword ? 'text' : 'password'}
+                        value={loginData.password}
+                        onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
+                        placeholder="Enter your password"
+                        className="w-full pl-10 pr-12 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0F2944]/20 focus:border-[#0F2944]"
+                        required
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                      >
+                        {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Forgot Password */}
+                  <div className="flex justify-end">
+                    <button
+                      type="button"
+                      className="text-sm text-[#0F2944] hover:underline"
+                    >
+                      Forgot Password?
+                    </button>
+                  </div>
+
+                  {/* Login Button */}
+                  <Button
+                    type="submit"
+                    disabled={loading}
+                    className="w-full bg-[#0F2944] hover:bg-[#0F2944]/90 text-white py-6 rounded-xl font-semibold transition-all duration-300 group"
+                  >
+                    {loading ? (
+                      <span className="flex items-center justify-center">
+                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Logging in...
+                      </span>
+                    ) : (
+                      <>
+                        Login
+                        <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                      </>
+                    )}
+                  </Button>
+                </form>
+
+                {/* Sign Up Link */}
+                <div className="mt-6 text-center">
+                  <p className="text-gray-600">
+                    Don't have an account?{' '}
+                    <button
+                      onClick={() => navigate('/role-selection')}
+                      className="text-[#0F2944] font-semibold hover:underline"
+                    >
+                      Sign Up
+                    </button>
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default UnifiedLogin;
