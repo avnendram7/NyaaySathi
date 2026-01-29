@@ -392,16 +392,16 @@ const FeaturesSection = ({ fadeInUp }) => {
           >
             <div className="relative rounded-3xl overflow-hidden shadow-2xl">
               <img
-                src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
-                alt="Indian Supreme Court - Modern Justice System"
+                src="https://images.unsplash.com/photo-1589994965851-a8f479c573a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+                alt="Indian Court Interior - Modern Justice System"
                 className="w-full h-[500px] object-cover"
                 style={{ 
-                  filter: 'brightness(1.3) contrast(1.6) saturate(2.0) sepia(0.2)',
+                  filter: 'brightness(1.5) contrast(1.8) saturate(2.2) sepia(0.2)',
                   imageRendering: 'crisp-edges'
                 }}
               />
               <div className="absolute inset-0 bg-gradient-to-br from-gray-800/20 via-gray-600/15 to-gray-900/10 mix-blend-overlay" />
-              <div className="absolute inset-0 bg-gradient-to-tl from-blue-500/15 via-blue-400/10 to-blue-600/10 mix-blend-soft-light" />
+              <div className="absolute inset-0 bg-gradient-to-tl from-orange-500/15 via-amber-400/10 to-red-600/10 mix-blend-soft-light" />
             </div>
           </motion.div>
         </div>
