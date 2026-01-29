@@ -489,7 +489,7 @@ const CTASection = ({ navigate, fadeInUp }) => {
 // Footer Component
 const Footer = ({ navigate }) => {
   return (
-    <footer className="bg-gradient-to-br from-gray-900 via-slate-800 to-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8">
+    <footer className="bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           <div>
@@ -497,14 +497,14 @@ const Footer = ({ navigate }) => {
               <Scale className="w-6 h-6" />
               <span className="text-xl font-bold">Lxwyer Up</span>
             </div>
-            <p className="text-orange-200 text-sm">
+            <p className="text-gray-300 text-sm">
               Justice You Understand, Technology You Trust
             </p>
           </div>
           
           <div>
             <h3 className="font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2 text-orange-200 text-sm">
+            <ul className="space-y-2 text-gray-300 text-sm">
               <li><button onClick={() => navigate('/')} className="hover:text-white transition-colors">Home</button></li>
               <li><button onClick={() => navigate('/premium-about')} className="hover:text-white transition-colors">About</button></li>
               <li><button onClick={() => navigate('/premium-contact')} className="hover:text-white transition-colors">Contact</button></li>
@@ -513,7 +513,7 @@ const Footer = ({ navigate }) => {
           
           <div>
             <h3 className="font-semibold mb-4">Services</h3>
-            <ul className="space-y-2 text-orange-200 text-sm">
+            <ul className="space-y-2 text-gray-300 text-sm">
               <li>Legal Consultation</li>
               <li>Find Lawyers</li>
               <li>AI Assistant</li>
@@ -522,7 +522,7 @@ const Footer = ({ navigate }) => {
           
           <div>
             <h3 className="font-semibold mb-4">Contact</h3>
-            <ul className="space-y-2 text-orange-200 text-sm">
+            <ul className="space-y-2 text-gray-300 text-sm">
               <li>avnendram.7@gmail.com</li>
               <li>+91 8318216968</li>
               <li>Sonipat, Haryana</li>
@@ -530,7 +530,7 @@ const Footer = ({ navigate }) => {
           </div>
         </div>
         
-        <div className="border-t border-orange-800 pt-8 text-center text-orange-200 text-sm">
+        <div className="border-t border-gray-700 pt-8 text-center text-gray-300 text-sm">
           <p>&copy; {new Date().getFullYear()} Lxwyer Up. All rights reserved.</p>
         </div>
       </div>
