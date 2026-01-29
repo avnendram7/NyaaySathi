@@ -259,23 +259,23 @@ export default function LawyerDashboard() {
             {/* Header */}
             <div className="flex items-center justify-between mb-8">
               <div>
-                <p className="text-sm text-green-400 flex items-center mb-2">
-                  <span className="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
+                <p className="text-sm text-green-600 flex items-center mb-2">
+                  <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
                   Wednesday, January 14
                 </p>
-                <h1 className="text-4xl font-bold text-white">
-                  Good Morning, <span className="text-blue-400">Lawyer</span>
+                <h1 className="text-4xl font-bold text-[#0F2944]">
+                  Good Morning, <span className="text-blue-600">Lawyer</span>
                 </h1>
               </div>
               <div className="flex items-center space-x-3">
-                <button className="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center hover:bg-zinc-800 transition-all">
-                  <Search className="w-5 h-5 text-zinc-400" />
+                <button className="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-all shadow-sm">
+                  <Search className="w-5 h-5 text-gray-500" />
                 </button>
-                <button className="w-10 h-10 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center hover:bg-zinc-800 transition-all relative">
+                <button className="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-all relative shadow-sm">
                   <span className="w-2 h-2 bg-red-500 rounded-full absolute top-2 right-2"></span>
                   <span className="text-xl">🔔</span>
                 </button>
-                <Button className="bg-blue-600 hover:bg-blue-500 text-white rounded-xl px-6">
+                <Button className="bg-[#0F2944] hover:bg-[#0F2944]/90 text-white rounded-xl px-6">
                   + New Case
                 </Button>
               </div>
@@ -283,53 +283,53 @@ export default function LawyerDashboard() {
             
             {/* Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="bg-zinc-900 rounded-2xl p-6 border border-zinc-800 hover:border-zinc-700 transition-colors">
+              <div className="bg-white rounded-2xl p-6 border border-gray-200 hover:border-blue-200 transition-colors shadow-sm">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center">
-                    <FileText className="w-6 h-6 text-white" />
+                  <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                    <FileText className="w-6 h-6 text-blue-600" />
                   </div>
                   <div className="text-right">
-                    <p className="text-xs text-zinc-500 uppercase tracking-wider mb-1">Active Cases</p>
-                    <h3 className="text-4xl font-bold text-white">12</h3>
+                    <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">Active Cases</p>
+                    <h3 className="text-4xl font-bold text-[#0F2944]">12</h3>
                   </div>
                 </div>
                 <div className="flex items-center text-sm">
-                  <span className="text-blue-400 font-semibold">+2 New</span>
-                  <span className="ml-2 text-zinc-600">→</span>
+                  <span className="text-blue-600 font-semibold">+2 New</span>
+                  <span className="ml-2 text-gray-400">→</span>
                 </div>
               </div>
               
-              <div className="bg-zinc-900 rounded-2xl p-6 border border-amber-500/20 relative overflow-hidden group hover:border-amber-500/40 transition-all duration-300">
-                <div className="absolute -right-4 -top-4 w-24 h-24 bg-amber-500/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition-all duration-500"></div>
+              <div className="bg-white rounded-2xl p-6 border border-amber-200 relative overflow-hidden group hover:shadow-md transition-all">
+                <div className="absolute -right-4 -top-4 w-24 h-24 bg-amber-100 rounded-full blur-2xl opacity-50"></div>
                 <div className="flex items-center justify-between mb-4 relative z-10">
-                  <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg shadow-amber-500/50 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                  <div className="w-12 h-12 bg-gradient-to-br from-amber-400 to-orange-500 rounded-xl flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-all duration-300">
                     <Clock className="w-6 h-6 text-white" />
                   </div>
                   <div className="text-right">
-                    <p className="text-xs text-zinc-400 uppercase tracking-wider mb-1">Pending Actions</p>
-                    <h3 className="text-4xl font-bold text-white">4</h3>
+                    <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">Pending Actions</p>
+                    <h3 className="text-4xl font-bold text-[#0F2944]">4</h3>
                   </div>
                 </div>
                 <div className="flex items-center text-sm relative z-10">
-                  <span className="text-amber-400 font-semibold">Urgent</span>
-                  <span className="ml-2 text-zinc-500">→</span>
+                  <span className="text-amber-600 font-semibold">Urgent</span>
+                  <span className="ml-2 text-gray-400">→</span>
                 </div>
               </div>
               
-              <div className="bg-zinc-900 rounded-2xl p-6 border border-green-500/20 relative overflow-hidden group hover:border-green-500/40 transition-all duration-300">
-                <div className="absolute -right-4 -top-4 w-24 h-24 bg-green-500/10 rounded-full blur-2xl group-hover:bg-green-500/20 transition-all duration-500"></div>
+              <div className="bg-white rounded-2xl p-6 border border-green-200 relative overflow-hidden group hover:shadow-md transition-all">
+                <div className="absolute -right-4 -top-4 w-24 h-24 bg-green-100 rounded-full blur-2xl opacity-50"></div>
                 <div className="flex items-center justify-between mb-4 relative z-10">
-                  <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg shadow-green-500/50 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                  <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-all duration-300">
                     <span className="text-2xl text-white">₹</span>
                   </div>
                   <div className="text-right">
-                    <p className="text-xs text-zinc-400 uppercase tracking-wider mb-1">Total Earnings</p>
-                    <h3 className="text-4xl font-bold text-white">₹8,500</h3>
+                    <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">Total Earnings</p>
+                    <h3 className="text-4xl font-bold text-[#0F2944]">₹8,500</h3>
                   </div>
                 </div>
                 <div className="flex items-center text-sm relative z-10">
-                  <span className="text-green-400 font-semibold">+15% Growth</span>
-                  <span className="ml-2 text-zinc-500">→</span>
+                  <span className="text-green-600 font-semibold">+15% Growth</span>
+                  <span className="ml-2 text-gray-400">→</span>
                 </div>
               </div>
             </div>
@@ -337,13 +337,13 @@ export default function LawyerDashboard() {
             {/* Schedule and Messages */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* Today's Schedule */}
-              <div className="lg:col-span-2 bg-zinc-900 rounded-2xl border border-zinc-800 p-6">
+              <div className="lg:col-span-2 bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
                 <div className="flex items-center justify-between mb-6">
                   <div>
-                    <h2 className="text-xl font-bold text-white mb-1">Today's Schedule</h2>
-                    <p className="text-sm text-zinc-400">You have 5 sessions remaining today</p>
+                    <h2 className="text-xl font-bold text-[#0F2944] mb-1">Today's Schedule</h2>
+                    <p className="text-sm text-gray-500">You have 5 sessions remaining today</p>
                   </div>
-                  <button className="text-zinc-400 hover:text-white transition-colors">
+                  <button className="text-gray-400 hover:text-gray-600 transition-colors">
                     <MoreVertical className="w-5 h-5" />
                   </button>
                 </div>
@@ -351,35 +351,35 @@ export default function LawyerDashboard() {
                 <div className="space-y-3">
                   {todaySchedule.map((session, idx) => (
                     <div key={idx} className={`flex items-center space-x-4 p-4 rounded-xl transition-all duration-300 ${
-                      idx === 0 ? 'bg-blue-500/10 border border-blue-500/30' : 'bg-zinc-900/50 border border-zinc-800/50'
-                    } hover:bg-zinc-800/70`}>
+                      idx === 0 ? 'bg-blue-50 border border-blue-200' : 'bg-gray-50 border border-gray-100'
+                    } hover:shadow-sm`}>
                       <div className="flex-shrink-0">
-                        <div className={`w-1 h-12 rounded-full ${idx === 0 ? 'bg-blue-500 shadow-lg shadow-blue-500/50' : 'bg-slate-600'}`} />
+                        <div className={`w-1 h-12 rounded-full ${idx === 0 ? 'bg-blue-500' : 'bg-gray-300'}`} />
                       </div>
                       <div className="flex-1">
                         <div className="flex items-start justify-between">
                           <div>
-                            <p className="font-bold text-lg text-white">{session.time}</p>
-                            <p className="text-xs text-zinc-400 uppercase tracking-wider">{session.timeLabel}</p>
+                            <p className="font-bold text-lg text-[#0F2944]">{session.time}</p>
+                            <p className="text-xs text-gray-500 uppercase tracking-wider">{session.timeLabel}</p>
                           </div>
                           <div className="text-right flex-1 px-4">
                             <div className="flex items-center justify-end space-x-2 mb-1">
-                              {session.type === 'Video' && <Video className="w-4 h-4 text-blue-400" />}
-                              {session.type === 'Call' && <Phone className="w-4 h-4 text-zinc-400" />}
-                              {session.type === 'In-Person' && <Users className="w-4 h-4 text-purple-400" />}
+                              {session.type === 'Video' && <Video className="w-4 h-4 text-blue-500" />}
+                              {session.type === 'Call' && <Phone className="w-4 h-4 text-gray-500" />}
+                              {session.type === 'In-Person' && <Users className="w-4 h-4 text-purple-500" />}
                               <span className={`text-xs px-2 py-1 rounded-full ${
-                                session.type === 'Video' ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' :
-                                session.type === 'Call' ? 'bg-slate-700/50 text-zinc-300 border border-slate-600/30' :
-                                'bg-purple-500/20 text-purple-400 border border-purple-500/30'
+                                session.type === 'Video' ? 'bg-blue-100 text-blue-600' :
+                                session.type === 'Call' ? 'bg-gray-100 text-gray-600' :
+                                'bg-purple-100 text-purple-600'
                               }`}>
                                 {session.type}
                               </span>
                             </div>
-                            <p className="font-semibold text-white">{session.client}</p>
-                            <p className="text-xs text-zinc-400">{session.matter}</p>
+                            <p className="font-semibold text-[#0F2944]">{session.client}</p>
+                            <p className="text-xs text-gray-500">{session.matter}</p>
                           </div>
                           {idx === 2 && (
-                            <Button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-lg px-4 py-2 text-sm shadow-lg shadow-blue-500/50">
+                            <Button className="bg-[#0F2944] hover:bg-[#0F2944]/90 text-white rounded-lg px-4 py-2 text-sm shadow-lg">
                               Join
                             </Button>
                           )}
@@ -391,33 +391,33 @@ export default function LawyerDashboard() {
               </div>
               
               {/* Messages */}
-              <div className="bg-zinc-900 rounded-2xl border border-zinc-800 p-6">
+              <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
                 <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-xl font-bold text-white">Messages</h2>
-                  <button className="text-zinc-400 hover:text-white transition-colors">
+                  <h2 className="text-xl font-bold text-[#0F2944]">Messages</h2>
+                  <button className="text-gray-400 hover:text-gray-600 transition-colors">
                     <Search className="w-5 h-5" />
                   </button>
                 </div>
                 
                 <div className="space-y-4">
                   {messages.map((msg, idx) => (
-                    <div key={idx} className="flex items-start space-x-3 hover:bg-zinc-800/30 p-2 rounded-xl transition-all duration-300 cursor-pointer">
+                    <div key={idx} className="flex items-start space-x-3 hover:bg-gray-50 p-2 rounded-xl transition-all duration-300 cursor-pointer">
                       <div className={`w-10 h-10 ${msg.color} rounded-full flex items-center justify-center flex-shrink-0 shadow-lg`}>
                         <span className="text-white font-bold">{msg.initial}</span>
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between mb-1">
-                          <p className="font-semibold text-sm text-white">{msg.name}</p>
-                          <span className="text-xs text-zinc-500">{msg.time}</span>
+                          <p className="font-semibold text-sm text-[#0F2944]">{msg.name}</p>
+                          <span className="text-xs text-gray-500">{msg.time}</span>
                         </div>
-                        <p className="text-xs text-zinc-400 truncate">{msg.message}</p>
+                        <p className="text-xs text-gray-500 truncate">{msg.message}</p>
                       </div>
-                      <div className="w-2 h-2 bg-green-400 rounded-full flex-shrink-0 mt-2 shadow-lg shadow-green-400/50" />
+                      <div className="w-2 h-2 bg-green-500 rounded-full flex-shrink-0 mt-2" />
                     </div>
                   ))}
                 </div>
                 
-                <Button className="w-full mt-6 bg-gradient-to-r from-slate-800 to-slate-900 hover:from-slate-700 hover:to-slate-800 text-white rounded-xl py-3 border border-zinc-800/50">
+                <Button variant="outline" className="w-full mt-6 border-gray-200 text-[#0F2944] hover:bg-gray-50 rounded-xl py-3">
                   View All Messages →
                 </Button>
               </div>
