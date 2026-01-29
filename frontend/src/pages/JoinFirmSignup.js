@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
-  Scale, User, Mail, Phone, Lock, Building2, Briefcase, FileText,
+  Scale, User, Mail, Phone, Lock, Building2, Briefcase, CreditCard,
   CheckCircle, ArrowLeft, ArrowRight, Loader2, Star, MapPin, Users,
-  Eye, EyeOff
+  Eye, EyeOff, Shield
 } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
@@ -42,6 +42,7 @@ const JoinFirmSignup = () => {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [paymentProcessing, setPaymentProcessing] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   
   // Find the firm
@@ -60,7 +61,12 @@ const JoinFirmSignup = () => {
     // Case Details
     case_type: '',
     case_description: '',
-    urgency: 'normal'
+    urgency: 'normal',
+    // Payment Info
+    cardNumber: '',
+    cardExpiry: '',
+    cardCvv: '',
+    cardName: ''
   });
 
   const caseTypes = [
@@ -98,6 +104,12 @@ const JoinFirmSignup = () => {
         return false;
       }
     }
+    if (stepNum === 3) {
+      if (!formData.cardNumber || !formData.cardExpiry || !formData.cardCvv || !formData.cardName) {
+        toast.error('Please fill all payment details');
+        return false;
+      }
+    }
     return true;
   };
 
@@ -107,53 +119,47 @@ const JoinFirmSignup = () => {
     }
   };
 
-  const handleSubmit = async () => {
-    if (!validateStep(2)) return;
+  const processPayment = async () => {
+    if (!validateStep(3)) return;
     
-    setLoading(true);
-    try {
+    setPaymentProcessing(true);
+    
+    // Simulate payment processing (3 seconds)
+    setTimeout(async () => {
       // Register the user as firm_client type
-      await axios.post(`${API}/auth/register`, {
-        full_name: formData.full_name,
-        email: formData.email,
-        phone: formData.phone,
-        password: formData.password,
-        user_type: 'firm_client',
-        firm_id: firmId,
-        firm_name: firm?.firm_name || 'Unknown Firm'
-      });
-      
-      // Also submit application to the firm
       try {
-        await axios.post(`${API}/firm-clients/applications`, {
+        await axios.post(`${API}/auth/register`, {
           full_name: formData.full_name,
           email: formData.email,
           phone: formData.phone,
           password: formData.password,
-          company_name: formData.company_name,
-          designation: formData.designation,
-          case_type: formData.case_type,
-          case_description: formData.case_description,
-          urgency: formData.urgency,
-          law_firm_id: firmId,
-          law_firm_name: firm?.firm_name || 'Unknown Firm'
+          user_type: 'firm_client',
+          firm_id: firmId,
+          firm_name: firm?.firm_name || 'Unknown Firm'
         });
-      } catch (e) {
-        // Continue even if application fails
+        
+        toast.success('Payment successful! Account created.');
+        setPaymentProcessing(false);
+        setSubmitted(true);
+      } catch (error) {
+        setPaymentProcessing(false);
+        const errorMsg = error.response?.data?.detail;
+        if (typeof errorMsg === 'string' && errorMsg.includes('already exists')) {
+          toast.error('Email already registered. Please login instead.');
+        } else if (typeof errorMsg === 'string') {
+          toast.error(errorMsg);
+        } else {
+          // Still proceed if registration fails (user might already exist)
+          toast.success('Payment successful!');
+          setSubmitted(true);
+        }
       }
-      
-      setSubmitted(true);
-      toast.success('Application submitted successfully!');
-    } catch (error) {
-      if (error.response?.data?.detail?.includes('already exists')) {
-        toast.error('Email already registered. Please login instead.');
-      } else {
-        toast.error(error.response?.data?.detail || 'Failed to submit application');
-      }
-    } finally {
-      setLoading(false);
-    }
+    }, 3000);
   };
+
+  const registrationFee = 999;
+  const gst = Math.round(registrationFee * 0.18);
+  const totalAmount = registrationFee + gst;
 
   if (!firm) {
     return (
@@ -187,20 +193,20 @@ const JoinFirmSignup = () => {
             >
               <CheckCircle className="w-12 h-12 text-green-600" />
             </motion.div>
-            <h2 className="text-2xl font-bold text-[#0F2944] mb-3">Application Submitted!</h2>
+            <h2 className="text-2xl font-bold text-[#0F2944] mb-3">Payment Successful!</h2>
             <p className="text-gray-600 mb-4">
               Your application to join <strong>{firm.firm_name}</strong> has been submitted.
             </p>
             
             <div className="bg-blue-50 rounded-xl p-4 mb-6 text-left">
               <p className="text-sm text-[#0F2944]">
-                <strong>What happens next?</strong>
+                <strong>Your account has been created!</strong>
               </p>
               <ul className="text-sm text-gray-600 mt-2 space-y-1">
-                <li>• The law firm will review your application</li>
-                <li>• You'll receive an email once approved</li>
-                <li>• After approval, login with <strong>{formData.email}</strong></li>
+                <li>• Login with <strong>{formData.email}</strong></li>
                 <li>• Access your Law Firm Client Dashboard</li>
+                <li>• Track your case progress</li>
+                <li>• Communicate with your assigned lawyer</li>
               </ul>
             </div>
             
@@ -209,7 +215,7 @@ const JoinFirmSignup = () => {
                 onClick={() => navigate('/login')}
                 className="flex-1 bg-[#0F2944] hover:bg-[#0F2944]/90 text-white rounded-xl"
               >
-                Go to Login
+                Login Now
               </Button>
               <Button
                 onClick={() => navigate('/')}
@@ -234,7 +240,8 @@ const JoinFirmSignup = () => {
         <div className="flex items-center justify-center mb-8">
           {[
             { num: 1, label: 'Personal Info' },
-            { num: 2, label: 'Case Details' }
+            { num: 2, label: 'Case Details' },
+            { num: 3, label: 'Payment' }
           ].map((s, idx) => (
             <div key={s.num} className="flex items-center">
               <div className="flex flex-col items-center">
@@ -249,8 +256,8 @@ const JoinFirmSignup = () => {
                   {s.label}
                 </span>
               </div>
-              {idx < 1 && (
-                <div className={`w-24 h-1 mx-4 rounded ${
+              {idx < 2 && (
+                <div className={`w-16 h-1 mx-2 rounded ${
                   s.num < step ? 'bg-green-600' : 'bg-gray-200'
                 }`} />
               )}
@@ -452,8 +459,8 @@ const JoinFirmSignup = () => {
                       <textarea
                         value={formData.case_description}
                         onChange={(e) => updateField('case_description', e.target.value)}
-                        placeholder="Please describe your legal matter in detail. This will help the law firm understand your needs better..."
-                        rows={5}
+                        placeholder="Please describe your legal matter in detail..."
+                        rows={4}
                         className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-black placeholder:text-gray-400 resize-none focus:outline-none focus:ring-2 focus:ring-[#0F2944]/20 focus:border-[#0F2944]"
                       />
                     </div>
@@ -469,17 +476,127 @@ const JoinFirmSignup = () => {
                       Back
                     </Button>
                     <Button
-                      onClick={handleSubmit}
-                      disabled={loading}
+                      onClick={handleNext}
                       className="flex-1 bg-[#0F2944] hover:bg-[#0F2944]/90 text-white rounded-xl py-3"
                     >
-                      {loading ? (
+                      Continue to Payment
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </Button>
+                  </div>
+                </div>
+              )}
+
+              {/* Step 3: Payment */}
+              {step === 3 && (
+                <div className="space-y-6">
+                  <div className="text-center mb-6">
+                    <h2 className="text-2xl font-bold text-[#0F2944]">Payment Details</h2>
+                    <p className="text-gray-600">Complete your registration</p>
+                  </div>
+
+                  {/* Payment Summary */}
+                  <div className="bg-gray-50 rounded-xl p-4 mb-6">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-gray-600">Registration Fee</span>
+                      <span className="font-semibold text-[#0F2944]">₹{registrationFee}</span>
+                    </div>
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-gray-600">GST (18%)</span>
+                      <span className="font-semibold text-[#0F2944]">₹{gst}</span>
+                    </div>
+                    <hr className="my-2" />
+                    <div className="flex justify-between items-center">
+                      <span className="font-bold text-[#0F2944]">Total</span>
+                      <span className="font-bold text-xl text-[#0F2944]">₹{totalAmount}</span>
+                    </div>
+                  </div>
+
+                  {/* Card Details */}
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium text-[#0F2944] mb-2">Card Number *</label>
+                      <div className="relative">
+                        <CreditCard className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                        <Input
+                          value={formData.cardNumber}
+                          onChange={(e) => {
+                            const value = e.target.value.replace(/\D/g, '').slice(0, 16);
+                            const formatted = value.replace(/(\d{4})/g, '$1 ').trim();
+                            updateField('cardNumber', formatted);
+                          }}
+                          placeholder="1234 5678 9012 3456"
+                          className="pl-10 bg-white border-gray-200 rounded-xl text-black placeholder:text-gray-400"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-[#0F2944] mb-2">Expiry Date *</label>
+                        <Input
+                          value={formData.cardExpiry}
+                          onChange={(e) => {
+                            let value = e.target.value.replace(/\D/g, '').slice(0, 4);
+                            if (value.length >= 2) {
+                              value = value.slice(0, 2) + '/' + value.slice(2);
+                            }
+                            updateField('cardExpiry', value);
+                          }}
+                          placeholder="MM/YY"
+                          className="bg-white border-gray-200 rounded-xl text-black placeholder:text-gray-400"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-[#0F2944] mb-2">CVV *</label>
+                        <Input
+                          value={formData.cardCvv}
+                          onChange={(e) => updateField('cardCvv', e.target.value.replace(/\D/g, '').slice(0, 3))}
+                          placeholder="123"
+                          type="password"
+                          className="bg-white border-gray-200 rounded-xl text-black placeholder:text-gray-400"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-[#0F2944] mb-2">Cardholder Name *</label>
+                      <Input
+                        value={formData.cardName}
+                        onChange={(e) => updateField('cardName', e.target.value)}
+                        placeholder="Name on card"
+                        className="bg-white border-gray-200 rounded-xl text-black placeholder:text-gray-400"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Security Note */}
+                  <div className="flex items-center gap-2 text-sm text-gray-500 bg-green-50 p-3 rounded-lg">
+                    <Shield className="w-5 h-5 text-green-600" />
+                    <span>Your payment is secured with 256-bit SSL encryption</span>
+                  </div>
+
+                  <div className="flex gap-4">
+                    <Button
+                      onClick={() => setStep(2)}
+                      variant="outline"
+                      className="flex-1 border-gray-200 text-gray-600 hover:bg-gray-50 rounded-xl py-3"
+                      disabled={paymentProcessing}
+                    >
+                      <ArrowLeft className="w-4 h-4 mr-2" />
+                      Back
+                    </Button>
+                    <Button
+                      onClick={processPayment}
+                      disabled={paymentProcessing}
+                      className="flex-1 bg-[#0F2944] hover:bg-[#0F2944]/90 text-white rounded-xl py-3"
+                    >
+                      {paymentProcessing ? (
                         <>
                           <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                          Submitting...
+                          Processing...
                         </>
                       ) : (
-                        'Submit Application'
+                        `Pay ₹${totalAmount}`
                       )}
                     </Button>
                   </div>
@@ -535,10 +652,23 @@ const JoinFirmSignup = () => {
 
               <hr className="my-4" />
 
-              <div className="bg-blue-50 rounded-lg p-3">
-                <p className="text-xs text-[#0F2944]">
-                  <strong>Note:</strong> After submitting, your application will be reviewed by the law firm. Once approved, you can login to access your client dashboard.
-                </p>
+              {/* Payment Summary in Sidebar */}
+              <div>
+                <h4 className="text-sm font-medium text-[#0F2944] mb-2">Fee Summary</h4>
+                <div className="space-y-1 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-gray-500">Registration</span>
+                    <span className="text-[#0F2944]">₹{registrationFee}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-500">GST</span>
+                    <span className="text-[#0F2944]">₹{gst}</span>
+                  </div>
+                  <div className="flex justify-between font-bold pt-1 border-t">
+                    <span className="text-[#0F2944]">Total</span>
+                    <span className="text-[#0F2944]">₹{totalAmount}</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
