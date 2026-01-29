@@ -85,9 +85,10 @@ const UnifiedLogin = () => {
 
     try {
       const role = roles.find(r => r.id === selectedRole);
-      const response = await axios.post(`${API}${role.apiEndpoint}`, {
+      const response = await axios.post(`${API}/auth/login`, {
         email: loginData.email,
-        password: loginData.password
+        password: loginData.password,
+        user_type: role.userType
       });
 
       if (response.data.token) {
