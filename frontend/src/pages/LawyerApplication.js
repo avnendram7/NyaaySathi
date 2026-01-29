@@ -1,25 +1,42 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Scale, User, Mail, Phone, Lock, MapPin, Briefcase, GraduationCap, Languages, IndianRupee, FileText, Camera, CheckCircle, ArrowLeft, Loader2, ArrowRight } from 'lucide-react';
+import { Scale, User, Mail, Phone, Lock, MapPin, Briefcase, GraduationCap, Languages, IndianRupee, FileText, Camera, CheckCircle, ArrowLeft, Loader2, ArrowRight, Building2 } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { toast } from 'sonner';
 import axios from 'axios';
 import { API } from '../App';
+import { dummyLawFirms } from '../data/lawFirmsDataExtended';
 
-const states = ["Delhi", "Uttar Pradesh", "Haryana", "Maharashtra"];
+const states = ["Delhi", "Uttar Pradesh", "Haryana", "Maharashtra", "Karnataka", "Tamil Nadu", "Gujarat", "West Bengal", "Telangana", "Punjab", "Rajasthan", "Kerala"];
 const citiesByState = {
-  "Delhi": ["New Delhi"],
-  "Uttar Pradesh": ["Lucknow", "Noida", "Varanasi"],
-  "Haryana": ["Gurugram", "Chandigarh", "Faridabad"],
-  "Maharashtra": ["Mumbai", "Pune", "Nagpur"]
+  "Delhi": ["New Delhi", "North Delhi", "South Delhi", "West Delhi", "East Delhi"],
+  "Uttar Pradesh": ["Lucknow", "Noida", "Ghaziabad", "Varanasi", "Kanpur"],
+  "Haryana": ["Gurugram", "Faridabad", "Chandigarh", "Rohtak"],
+  "Maharashtra": ["Mumbai", "Pune", "Nagpur", "Thane"],
+  "Karnataka": ["Bangalore", "Mysore", "Hubli"],
+  "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai"],
+  "Gujarat": ["Ahmedabad", "Surat", "Vadodara"],
+  "West Bengal": ["Kolkata", "Howrah", "Durgapur"],
+  "Telangana": ["Hyderabad", "Secunderabad", "Warangal"],
+  "Punjab": ["Chandigarh", "Ludhiana", "Amritsar"],
+  "Rajasthan": ["Jaipur", "Jodhpur", "Udaipur"],
+  "Kerala": ["Kochi", "Thiruvananthapuram", "Kozhikode"]
 };
 const courtsByState = {
   "Delhi": ["Delhi High Court", "Tis Hazari Courts", "Saket District Court", "Patiala House Court"],
   "Uttar Pradesh": ["Allahabad High Court", "District Court Lucknow", "Gautam Budh Nagar District Court"],
   "Haryana": ["Punjab & Haryana High Court", "Gurugram District Court", "Faridabad District Court"],
-  "Maharashtra": ["Bombay High Court", "Pune District Court", "NCLT Mumbai"]
+  "Maharashtra": ["Bombay High Court", "Pune District Court", "NCLT Mumbai"],
+  "Karnataka": ["Karnataka High Court", "Bangalore City Civil Court"],
+  "Tamil Nadu": ["Madras High Court", "Chennai City Civil Court"],
+  "Gujarat": ["Gujarat High Court", "City Civil Court Ahmedabad"],
+  "West Bengal": ["Calcutta High Court", "City Civil Court Kolkata"],
+  "Telangana": ["Telangana High Court", "City Civil Court Hyderabad"],
+  "Punjab": ["Punjab and Haryana High Court", "District Court Chandigarh"],
+  "Rajasthan": ["Rajasthan High Court", "District Court Jaipur"],
+  "Kerala": ["Kerala High Court", "District Court Kochi"]
 };
 const specializations = [
   "Criminal Law", "Family Law", "Property Law", "Corporate Law", "Civil Law",
@@ -56,6 +73,7 @@ export default function LawyerApplication() {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [lawFirms, setLawFirms] = useState([]);
   
   const [formData, setFormData] = useState({
     name: '',
@@ -64,6 +82,9 @@ export default function LawyerApplication() {
     password: '',
     confirmPassword: '',
     photo: '',
+    lawyerType: '', // 'independent' or 'law_firm'
+    lawFirmId: '',
+    lawFirmName: '',
     barCouncilNumber: '',
     specialization: '',
     experience: '',
@@ -77,6 +98,23 @@ export default function LawyerApplication() {
     feeMax: '',
     bio: ''
   });
+
+  useEffect(() => {
+    // Fetch law firms from API or use dummy data
+    const fetchLawFirms = async () => {
+      try {
+        const response = await axios.get(`${API}/lawfirms`);
+        if (response.data && response.data.length > 0) {
+          setLawFirms([...response.data, ...dummyLawFirms]);
+        } else {
+          setLawFirms(dummyLawFirms);
+        }
+      } catch (error) {
+        setLawFirms(dummyLawFirms);
+      }
+    };
+    fetchLawFirms();
+  }, []);
 
   const updateField = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -103,6 +141,14 @@ export default function LawyerApplication() {
       }
       if (formData.password.length < 6) {
         toast.error('Password must be at least 6 characters');
+        return false;
+      }
+      if (!formData.lawyerType) {
+        toast.error('Please select if you are Independent or Law Firm Associate');
+        return false;
+      }
+      if (formData.lawyerType === 'law_firm' && !formData.lawFirmId) {
+        toast.error('Please select your law firm');
         return false;
       }
     }
@@ -141,6 +187,9 @@ export default function LawyerApplication() {
         phone: formData.phone,
         password: formData.password,
         photo: formData.photo || `https://randomuser.me/api/portraits/${Math.random() > 0.5 ? 'men' : 'women'}/${Math.floor(Math.random() * 90)}.jpg`,
+        lawyer_type: formData.lawyerType,
+        law_firm_id: formData.lawyerType === 'law_firm' ? formData.lawFirmId : null,
+        law_firm_name: formData.lawyerType === 'law_firm' ? formData.lawFirmName : null,
         bar_council_number: formData.barCouncilNumber,
         specialization: formData.specialization,
         experience: parseInt(formData.experience),
@@ -182,12 +231,24 @@ export default function LawyerApplication() {
               <CheckCircle className="w-10 h-10 text-green-600" />
             </motion.div>
             <h2 className="text-2xl font-bold text-[#0F2944] mb-3">Application Submitted!</h2>
-            <p className="text-gray-600 mb-6">
+            <p className="text-gray-600 mb-4">
               Thank you for applying to join Lxwyer Up. Our team will review your application and get back to you within 24-48 hours.
             </p>
-            <p className="text-sm text-gray-500 mb-6">
-              You will receive an email at <span className="text-[#0F2944] font-medium">{formData.email}</span> once your application is approved.
-            </p>
+            
+            <div className="bg-blue-50 rounded-xl p-4 mb-6 text-left">
+              <p className="text-sm text-[#0F2944]">
+                <strong>Application Type:</strong> {formData.lawyerType === 'independent' ? 'Independent Lawyer' : 'Law Firm Associate'}
+              </p>
+              {formData.lawyerType === 'law_firm' && (
+                <p className="text-sm text-[#0F2944] mt-1">
+                  <strong>Law Firm:</strong> {formData.lawFirmName}
+                </p>
+              )}
+              <p className="text-sm text-gray-600 mt-2">
+                Once approved, you can login with <strong>{formData.email}</strong> to access your {formData.lawyerType === 'independent' ? 'personal lawyer' : 'law firm'} dashboard.
+              </p>
+            </div>
+            
             <Button
               onClick={() => navigate('/')}
               className="bg-[#0F2944] hover:bg-[#0F2944]/90 text-white rounded-xl px-8"
@@ -232,7 +293,7 @@ export default function LawyerApplication() {
           animate={{ opacity: 1, x: 0 }}
           className="bg-white border border-gray-200 shadow-lg rounded-2xl p-6"
         >
-          {/* Step 1: Personal Info */}
+          {/* Step 1: Personal Info + Lawyer Type */}
           {step === 1 && (
             <div className="space-y-6">
               <div className="text-center mb-6">
@@ -309,6 +370,78 @@ export default function LawyerApplication() {
                     </div>
                   </div>
                 </div>
+
+                {/* Lawyer Type Selection */}
+                <div>
+                  <label className="block text-sm font-medium text-[#0F2944] mb-3">Are you an Independent Lawyer or Law Firm Associate? *</label>
+                  <div className="grid grid-cols-2 gap-4">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        updateField('lawyerType', 'independent');
+                        updateField('lawFirmId', '');
+                        updateField('lawFirmName', '');
+                      }}
+                      className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
+                        formData.lawyerType === 'independent'
+                          ? 'border-[#0F2944] bg-[#0F2944]/5'
+                          : 'border-gray-200 hover:border-gray-300'
+                      }`}
+                    >
+                      <User className={`w-8 h-8 ${formData.lawyerType === 'independent' ? 'text-[#0F2944]' : 'text-gray-400'}`} />
+                      <span className={`font-medium ${formData.lawyerType === 'independent' ? 'text-[#0F2944]' : 'text-gray-600'}`}>
+                        Independent Lawyer
+                      </span>
+                      <span className="text-xs text-gray-500 text-center">Personal practice</span>
+                    </button>
+                    
+                    <button
+                      type="button"
+                      onClick={() => updateField('lawyerType', 'law_firm')}
+                      className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
+                        formData.lawyerType === 'law_firm'
+                          ? 'border-[#0F2944] bg-[#0F2944]/5'
+                          : 'border-gray-200 hover:border-gray-300'
+                      }`}
+                    >
+                      <Building2 className={`w-8 h-8 ${formData.lawyerType === 'law_firm' ? 'text-[#0F2944]' : 'text-gray-400'}`} />
+                      <span className={`font-medium ${formData.lawyerType === 'law_firm' ? 'text-[#0F2944]' : 'text-gray-600'}`}>
+                        Law Firm Associate
+                      </span>
+                      <span className="text-xs text-gray-500 text-center">Working with a firm</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Law Firm Selection (if law_firm type selected) */}
+                {formData.lawyerType === 'law_firm' && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    className="overflow-hidden"
+                  >
+                    <label className="block text-sm font-medium text-[#0F2944] mb-2">Select Your Law Firm *</label>
+                    <select
+                      value={formData.lawFirmId}
+                      onChange={(e) => {
+                        const selectedFirm = lawFirms.find(f => f.id === e.target.value);
+                        updateField('lawFirmId', e.target.value);
+                        updateField('lawFirmName', selectedFirm?.firm_name || '');
+                      }}
+                      className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-black focus:outline-none focus:ring-2 focus:ring-[#0F2944]/20 focus:border-[#0F2944]"
+                    >
+                      <option value="">Select a law firm</option>
+                      {lawFirms.map(firm => (
+                        <option key={firm.id} value={firm.id}>
+                          {firm.firm_name} - {firm.city}
+                        </option>
+                      ))}
+                    </select>
+                    <p className="text-xs text-gray-500 mt-2">
+                      Don't see your firm? Ask your firm admin to register on Lxwyer Up first.
+                    </p>
+                  </motion.div>
+                )}
 
                 <div>
                   <label className="block text-sm font-medium text-[#0F2944] mb-2">Profile Photo URL (Optional)</label>
