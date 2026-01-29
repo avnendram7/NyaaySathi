@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Scale, User, Mail, Phone, Lock, MapPin, Briefcase, GraduationCap, Languages, IndianRupee, FileText, Camera, CheckCircle, ArrowLeft, Loader2 } from 'lucide-react';
+import { Scale, User, Mail, Phone, Lock, MapPin, Briefcase, GraduationCap, Languages, IndianRupee, FileText, Camera, CheckCircle, ArrowLeft, Loader2, ArrowRight } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { toast } from 'sonner';
@@ -28,6 +28,29 @@ const specializations = [
 ];
 const languageOptions = ["Hindi", "English", "Marathi", "Punjabi", "Gujarati", "Tamil", "Telugu", "Bengali", "Kannada", "Malayalam", "Urdu"];
 
+const SimpleNavbar = ({ navigate }) => {
+  return (
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          <button onClick={() => navigate('/')} className="flex items-center space-x-2">
+            <Scale className="w-6 h-6 text-[#0F2944]" />
+            <span className="text-xl font-bold text-[#0F2944]">Lxwyer Up</span>
+          </button>
+          
+          <button
+            onClick={() => navigate('/role-selection')}
+            className="flex items-center gap-2 text-gray-600 hover:text-[#0F2944] transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back
+          </button>
+        </div>
+      </div>
+    </nav>
+  );
+};
+
 export default function LawyerApplication() {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
@@ -35,26 +58,19 @@ export default function LawyerApplication() {
   const [submitted, setSubmitted] = useState(false);
   
   const [formData, setFormData] = useState({
-    // Personal Info
     name: '',
     email: '',
     phone: '',
     password: '',
     confirmPassword: '',
     photo: '',
-    
-    // Professional Info
     barCouncilNumber: '',
     specialization: '',
     experience: '',
     casesWon: '',
-    
-    // Location
     state: '',
     city: '',
     court: '',
-    
-    // Additional Info
     education: '',
     languages: [],
     feeMin: '',
@@ -149,73 +165,60 @@ export default function LawyerApplication() {
 
   if (submitted) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center p-4">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="bg-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-8 max-w-md w-full text-center"
-        >
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50">
+        <SimpleNavbar navigate={navigate} />
+        <div className="pt-24 flex items-center justify-center p-4">
           <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.2, type: "spring" }}
-            className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="bg-white border border-gray-200 shadow-xl rounded-2xl p-8 max-w-md w-full text-center"
           >
-            <CheckCircle className="w-10 h-10 text-green-500" />
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.2, type: "spring" }}
+              className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6"
+            >
+              <CheckCircle className="w-10 h-10 text-green-600" />
+            </motion.div>
+            <h2 className="text-2xl font-bold text-[#0F2944] mb-3">Application Submitted!</h2>
+            <p className="text-gray-600 mb-6">
+              Thank you for applying to join Lxwyer Up. Our team will review your application and get back to you within 24-48 hours.
+            </p>
+            <p className="text-sm text-gray-500 mb-6">
+              You will receive an email at <span className="text-[#0F2944] font-medium">{formData.email}</span> once your application is approved.
+            </p>
+            <Button
+              onClick={() => navigate('/')}
+              className="bg-[#0F2944] hover:bg-[#0F2944]/90 text-white rounded-xl px-8"
+            >
+              Back to Home
+            </Button>
           </motion.div>
-          <h2 className="text-2xl font-bold text-white mb-3">Application Submitted!</h2>
-          <p className="text-slate-400 mb-6">
-            Thank you for applying to join Lxwyer Up. Our team will review your application and get back to you within 24-48 hours.
-          </p>
-          <p className="text-sm text-slate-500 mb-6">
-            You will receive an email at <span className="text-blue-400">{formData.email}</span> once your application is approved.
-          </p>
-          <Button
-            onClick={() => navigate('/')}
-            className="bg-blue-600 hover:bg-blue-500 rounded-full px-8"
-          >
-            Back to Home
-          </Button>
-        </motion.div>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
-      {/* Header */}
-      <div className="bg-slate-900/80 backdrop-blur-xl border-b border-slate-800/50 sticky top-0 z-10">
-        <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-          <button
-            onClick={() => navigate('/role-selection')}
-            className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            <span>Back</span>
-          </button>
-          <div className="flex items-center gap-2">
-            <Scale className="w-6 h-6 text-purple-500" />
-            <span className="font-semibold text-white">Lxwyer Up</span>
-          </div>
-          <div className="w-20"></div>
-        </div>
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50">
+      <SimpleNavbar navigate={navigate} />
 
-      <div className="max-w-2xl mx-auto px-4 py-8">
+      <div className="pt-24 pb-12 max-w-2xl mx-auto px-4">
         {/* Progress Steps */}
         <div className="flex items-center justify-center mb-8">
           {[1, 2, 3, 4].map((s) => (
             <div key={s} className="flex items-center">
               <div className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold transition-all ${
-                s === step ? 'bg-purple-600 text-white' :
+                s === step ? 'bg-[#0F2944] text-white' :
                 s < step ? 'bg-green-600 text-white' :
-                'bg-slate-800 text-slate-500'
+                'bg-gray-200 text-gray-500'
               }`}>
                 {s < step ? '✓' : s}
               </div>
               {s < 4 && (
                 <div className={`w-16 h-1 mx-2 rounded ${
-                  s < step ? 'bg-green-600' : 'bg-slate-800'
+                  s < step ? 'bg-green-600' : 'bg-gray-200'
                 }`} />
               )}
             </div>
@@ -227,95 +230,95 @@ export default function LawyerApplication() {
           key={step}
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="bg-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-6"
+          className="bg-white border border-gray-200 shadow-lg rounded-2xl p-6"
         >
           {/* Step 1: Personal Info */}
           {step === 1 && (
             <div className="space-y-6">
               <div className="text-center mb-6">
-                <h2 className="text-2xl font-bold text-white">Personal Information</h2>
-                <p className="text-slate-400">Let's start with your basic details</p>
+                <h2 className="text-2xl font-bold text-[#0F2944]">Personal Information</h2>
+                <p className="text-gray-600">Let's start with your basic details</p>
               </div>
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm text-slate-400 mb-2">Full Name *</label>
+                  <label className="block text-sm font-medium text-[#0F2944] mb-2">Full Name *</label>
                   <div className="relative">
-                    <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                    <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                     <Input
                       value={formData.name}
                       onChange={(e) => updateField('name', e.target.value)}
                       placeholder="Adv. Rajesh Kumar"
-                      className="pl-10 bg-slate-800 border-slate-700 rounded-xl"
+                      className="pl-10 bg-white border-gray-200 rounded-xl text-black placeholder:text-gray-400"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm text-slate-400 mb-2">Email Address *</label>
+                  <label className="block text-sm font-medium text-[#0F2944] mb-2">Email Address *</label>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                     <Input
                       type="email"
                       value={formData.email}
                       onChange={(e) => updateField('email', e.target.value)}
                       placeholder="advocate@example.com"
-                      className="pl-10 bg-slate-800 border-slate-700 rounded-xl"
+                      className="pl-10 bg-white border-gray-200 rounded-xl text-black placeholder:text-gray-400"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm text-slate-400 mb-2">Phone Number *</label>
+                  <label className="block text-sm font-medium text-[#0F2944] mb-2">Phone Number *</label>
                   <div className="relative">
-                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                     <Input
                       value={formData.phone}
                       onChange={(e) => updateField('phone', e.target.value)}
                       placeholder="+91 98765 43210"
-                      className="pl-10 bg-slate-800 border-slate-700 rounded-xl"
+                      className="pl-10 bg-white border-gray-200 rounded-xl text-black placeholder:text-gray-400"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm text-slate-400 mb-2">Password *</label>
+                    <label className="block text-sm font-medium text-[#0F2944] mb-2">Password *</label>
                     <div className="relative">
-                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                       <Input
                         type="password"
                         value={formData.password}
                         onChange={(e) => updateField('password', e.target.value)}
                         placeholder="••••••••"
-                        className="pl-10 bg-slate-800 border-slate-700 rounded-xl"
+                        className="pl-10 bg-white border-gray-200 rounded-xl text-black placeholder:text-gray-400"
                       />
                     </div>
                   </div>
                   <div>
-                    <label className="block text-sm text-slate-400 mb-2">Confirm Password *</label>
+                    <label className="block text-sm font-medium text-[#0F2944] mb-2">Confirm Password *</label>
                     <div className="relative">
-                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                       <Input
                         type="password"
                         value={formData.confirmPassword}
                         onChange={(e) => updateField('confirmPassword', e.target.value)}
                         placeholder="••••••••"
-                        className="pl-10 bg-slate-800 border-slate-700 rounded-xl"
+                        className="pl-10 bg-white border-gray-200 rounded-xl text-black placeholder:text-gray-400"
                       />
                     </div>
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm text-slate-400 mb-2">Profile Photo URL (Optional)</label>
+                  <label className="block text-sm font-medium text-[#0F2944] mb-2">Profile Photo URL (Optional)</label>
                   <div className="relative">
-                    <Camera className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                    <Camera className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                     <Input
                       value={formData.photo}
                       onChange={(e) => updateField('photo', e.target.value)}
                       placeholder="https://example.com/photo.jpg"
-                      className="pl-10 bg-slate-800 border-slate-700 rounded-xl"
+                      className="pl-10 bg-white border-gray-200 rounded-xl text-black placeholder:text-gray-400"
                     />
                   </div>
                 </div>
@@ -327,30 +330,30 @@ export default function LawyerApplication() {
           {step === 2 && (
             <div className="space-y-6">
               <div className="text-center mb-6">
-                <h2 className="text-2xl font-bold text-white">Professional Details</h2>
-                <p className="text-slate-400">Tell us about your legal practice</p>
+                <h2 className="text-2xl font-bold text-[#0F2944]">Professional Details</h2>
+                <p className="text-gray-600">Tell us about your legal practice</p>
               </div>
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm text-slate-400 mb-2">Bar Council Registration Number *</label>
+                  <label className="block text-sm font-medium text-[#0F2944] mb-2">Bar Council Registration Number *</label>
                   <div className="relative">
-                    <FileText className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                    <FileText className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                     <Input
                       value={formData.barCouncilNumber}
                       onChange={(e) => updateField('barCouncilNumber', e.target.value)}
                       placeholder="D/1234/2015"
-                      className="pl-10 bg-slate-800 border-slate-700 rounded-xl"
+                      className="pl-10 bg-white border-gray-200 rounded-xl text-black placeholder:text-gray-400"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm text-slate-400 mb-2">Specialization *</label>
+                  <label className="block text-sm font-medium text-[#0F2944] mb-2">Specialization *</label>
                   <select
                     value={formData.specialization}
                     onChange={(e) => updateField('specialization', e.target.value)}
-                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white"
+                    className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-black focus:outline-none focus:ring-2 focus:ring-[#0F2944]/20 focus:border-[#0F2944]"
                   >
                     <option value="">Select your specialization</option>
                     {specializations.map(spec => (
@@ -361,28 +364,28 @@ export default function LawyerApplication() {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm text-slate-400 mb-2">Years of Experience *</label>
+                    <label className="block text-sm font-medium text-[#0F2944] mb-2">Years of Experience *</label>
                     <div className="relative">
-                      <Briefcase className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                      <Briefcase className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                       <Input
                         type="number"
                         value={formData.experience}
                         onChange={(e) => updateField('experience', e.target.value)}
                         placeholder="10"
-                        className="pl-10 bg-slate-800 border-slate-700 rounded-xl"
+                        className="pl-10 bg-white border-gray-200 rounded-xl text-black placeholder:text-gray-400"
                       />
                     </div>
                   </div>
                   <div>
-                    <label className="block text-sm text-slate-400 mb-2">Cases Won (Approx)</label>
+                    <label className="block text-sm font-medium text-[#0F2944] mb-2">Cases Won (Approx)</label>
                     <div className="relative">
-                      <Scale className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                      <Scale className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                       <Input
                         type="number"
                         value={formData.casesWon}
                         onChange={(e) => updateField('casesWon', e.target.value)}
                         placeholder="150"
-                        className="pl-10 bg-slate-800 border-slate-700 rounded-xl"
+                        className="pl-10 bg-white border-gray-200 rounded-xl text-black placeholder:text-gray-400"
                       />
                     </div>
                   </div>
@@ -395,13 +398,13 @@ export default function LawyerApplication() {
           {step === 3 && (
             <div className="space-y-6">
               <div className="text-center mb-6">
-                <h2 className="text-2xl font-bold text-white">Practice Location</h2>
-                <p className="text-slate-400">Where do you practice law?</p>
+                <h2 className="text-2xl font-bold text-[#0F2944]">Practice Location</h2>
+                <p className="text-gray-600">Where do you practice law?</p>
               </div>
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm text-slate-400 mb-2">State *</label>
+                  <label className="block text-sm font-medium text-[#0F2944] mb-2">State *</label>
                   <select
                     value={formData.state}
                     onChange={(e) => {
@@ -409,7 +412,7 @@ export default function LawyerApplication() {
                       updateField('city', '');
                       updateField('court', '');
                     }}
-                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white"
+                    className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-black focus:outline-none focus:ring-2 focus:ring-[#0F2944]/20 focus:border-[#0F2944]"
                   >
                     <option value="">Select State</option>
                     {states.map(state => (
@@ -419,11 +422,11 @@ export default function LawyerApplication() {
                 </div>
 
                 <div>
-                  <label className="block text-sm text-slate-400 mb-2">City *</label>
+                  <label className="block text-sm font-medium text-[#0F2944] mb-2">City *</label>
                   <select
                     value={formData.city}
                     onChange={(e) => updateField('city', e.target.value)}
-                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white"
+                    className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-black focus:outline-none focus:ring-2 focus:ring-[#0F2944]/20 focus:border-[#0F2944]"
                     disabled={!formData.state}
                   >
                     <option value="">Select City</option>
@@ -434,11 +437,11 @@ export default function LawyerApplication() {
                 </div>
 
                 <div>
-                  <label className="block text-sm text-slate-400 mb-2">Primary Court *</label>
+                  <label className="block text-sm font-medium text-[#0F2944] mb-2">Primary Court *</label>
                   <select
                     value={formData.court}
                     onChange={(e) => updateField('court', e.target.value)}
-                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white"
+                    className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-black focus:outline-none focus:ring-2 focus:ring-[#0F2944]/20 focus:border-[#0F2944]"
                     disabled={!formData.state}
                   >
                     <option value="">Select Court</option>
@@ -455,26 +458,26 @@ export default function LawyerApplication() {
           {step === 4 && (
             <div className="space-y-6">
               <div className="text-center mb-6">
-                <h2 className="text-2xl font-bold text-white">Additional Information</h2>
-                <p className="text-slate-400">Complete your profile</p>
+                <h2 className="text-2xl font-bold text-[#0F2944]">Additional Information</h2>
+                <p className="text-gray-600">Complete your profile</p>
               </div>
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm text-slate-400 mb-2">Education & Qualifications *</label>
+                  <label className="block text-sm font-medium text-[#0F2944] mb-2">Education & Qualifications *</label>
                   <div className="relative">
-                    <GraduationCap className="absolute left-3 top-3 w-5 h-5 text-slate-500" />
+                    <GraduationCap className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
                     <Input
                       value={formData.education}
                       onChange={(e) => updateField('education', e.target.value)}
                       placeholder="LLB from Delhi University, LLM from NLS"
-                      className="pl-10 bg-slate-800 border-slate-700 rounded-xl"
+                      className="pl-10 bg-white border-gray-200 rounded-xl text-black placeholder:text-gray-400"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm text-slate-400 mb-2">Languages *</label>
+                  <label className="block text-sm font-medium text-[#0F2944] mb-2">Languages *</label>
                   <div className="flex flex-wrap gap-2">
                     {languageOptions.map(lang => (
                       <button
@@ -483,8 +486,8 @@ export default function LawyerApplication() {
                         onClick={() => toggleLanguage(lang)}
                         className={`px-3 py-1.5 rounded-full text-sm transition-all ${
                           formData.languages.includes(lang)
-                            ? 'bg-purple-600 text-white'
-                            : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
+                            ? 'bg-[#0F2944] text-white'
+                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                         }`}
                       >
                         {lang}
@@ -494,39 +497,39 @@ export default function LawyerApplication() {
                 </div>
 
                 <div>
-                  <label className="block text-sm text-slate-400 mb-2">Consultation Fee Range *</label>
+                  <label className="block text-sm font-medium text-[#0F2944] mb-2">Consultation Fee Range *</label>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="relative">
-                      <IndianRupee className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                      <IndianRupee className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                       <Input
                         type="number"
                         value={formData.feeMin}
                         onChange={(e) => updateField('feeMin', e.target.value)}
                         placeholder="Min (e.g., 3000)"
-                        className="pl-10 bg-slate-800 border-slate-700 rounded-xl"
+                        className="pl-10 bg-white border-gray-200 rounded-xl text-black placeholder:text-gray-400"
                       />
                     </div>
                     <div className="relative">
-                      <IndianRupee className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                      <IndianRupee className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                       <Input
                         type="number"
                         value={formData.feeMax}
                         onChange={(e) => updateField('feeMax', e.target.value)}
                         placeholder="Max (e.g., 10000)"
-                        className="pl-10 bg-slate-800 border-slate-700 rounded-xl"
+                        className="pl-10 bg-white border-gray-200 rounded-xl text-black placeholder:text-gray-400"
                       />
                     </div>
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm text-slate-400 mb-2">Professional Bio *</label>
+                  <label className="block text-sm font-medium text-[#0F2944] mb-2">Professional Bio *</label>
                   <textarea
                     value={formData.bio}
                     onChange={(e) => updateField('bio', e.target.value)}
                     placeholder="Write a brief description about your practice, expertise, and achievements..."
                     rows={4}
-                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white resize-none"
+                    className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-black placeholder:text-gray-400 resize-none focus:outline-none focus:ring-2 focus:ring-[#0F2944]/20 focus:border-[#0F2944]"
                   />
                 </div>
               </div>
@@ -539,8 +542,9 @@ export default function LawyerApplication() {
               <Button
                 variant="outline"
                 onClick={() => setStep(step - 1)}
-                className="border-slate-700 text-slate-300 hover:bg-slate-800 rounded-full px-6"
+                className="border-gray-200 text-gray-600 hover:bg-gray-50 rounded-xl px-6"
               >
+                <ArrowLeft className="w-4 h-4 mr-2" />
                 Previous
               </Button>
             ) : (
@@ -550,15 +554,16 @@ export default function LawyerApplication() {
             {step < 4 ? (
               <Button
                 onClick={handleNext}
-                className="bg-purple-600 hover:bg-purple-500 rounded-full px-8"
+                className="bg-[#0F2944] hover:bg-[#0F2944]/90 text-white rounded-xl px-8"
               >
                 Next
+                <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             ) : (
               <Button
                 onClick={handleSubmit}
                 disabled={loading}
-                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 rounded-full px-8"
+                className="bg-[#0F2944] hover:bg-[#0F2944]/90 text-white rounded-xl px-8"
               >
                 {loading ? (
                   <>
@@ -574,7 +579,7 @@ export default function LawyerApplication() {
         </motion.div>
 
         {/* Info Note */}
-        <p className="text-center text-slate-500 text-sm mt-6">
+        <p className="text-center text-gray-500 text-sm mt-6">
           By submitting, you agree to our verification process. Applications are typically reviewed within 24-48 hours.
         </p>
       </div>

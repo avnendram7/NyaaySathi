@@ -1,40 +1,56 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Building2, User, Phone, Mail, MapPin, FileText, Users, CheckCircle, ArrowRight, ArrowLeft, Briefcase, Globe, Shield } from 'lucide-react';
+import { Building2, User, Phone, Mail, MapPin, FileText, Users, CheckCircle, ArrowRight, ArrowLeft, Briefcase, Globe, Shield, Scale } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { toast } from 'sonner';
 import axios from 'axios';
 import { API } from '../App';
 
+const SimpleNavbar = ({ navigate }) => {
+  return (
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          <button onClick={() => navigate('/')} className="flex items-center space-x-2">
+            <Scale className="w-6 h-6 text-[#0F2944]" />
+            <span className="text-xl font-bold text-[#0F2944]">Lxwyer Up</span>
+          </button>
+          
+          <button
+            onClick={() => navigate('/lawfirm-role')}
+            className="flex items-center gap-2 text-gray-600 hover:text-[#0F2944] transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back
+          </button>
+        </div>
+      </div>
+    </nav>
+  );
+};
+
 export default function LawFirmApplication() {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    // Step 1: Firm Details
     firm_name: '',
     registration_number: '',
     established_year: '',
     website: '',
-    
-    // Step 2: Contact Person
     contact_name: '',
     contact_email: '',
     contact_phone: '',
     contact_designation: '',
     password: '',
     confirm_password: '',
-    
-    // Step 3: Location & Practice
     address: '',
     city: '',
     state: '',
     pincode: '',
     practice_areas: [],
-    
-    // Step 4: Firm Info
     total_lawyers: '',
     total_staff: '',
     description: '',
@@ -96,6 +112,8 @@ export default function LawFirmApplication() {
           return false;
         }
         break;
+      default:
+        break;
     }
     return true;
   };
@@ -115,7 +133,7 @@ export default function LawFirmApplication() {
     
     setLoading(true);
     try {
-      const response = await axios.post(`${API}/lawfirm-applications`, {
+      await axios.post(`${API}/lawfirm-applications`, {
         firm_name: formData.firm_name,
         registration_number: formData.registration_number,
         established_year: parseInt(formData.established_year),
@@ -153,22 +171,14 @@ export default function LawFirmApplication() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-slate-950 py-12 px-4">
-      {/* Background Effects */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl" />
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50">
+      <SimpleNavbar navigate={navigate} />
 
-      <div className="max-w-3xl mx-auto relative z-10">
+      <div className="pt-24 pb-12 max-w-3xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-10">
-          <Link to="/" className="inline-flex items-center space-x-2 mb-6">
-            <Building2 className="w-10 h-10 text-blue-500" />
-            <span className="text-2xl font-bold text-white">Lxwyer Up</span>
-          </Link>
-          <h1 className="text-3xl sm:text-4xl font-bold text-white mb-3">Register Your Law Firm</h1>
-          <p className="text-slate-400">Join India's leading legal platform and grow your practice</p>
+          <h1 className="text-3xl sm:text-4xl font-bold text-[#0F2944] mb-3">Register Your Law Firm</h1>
+          <p className="text-gray-600">Join India's leading legal platform and grow your practice</p>
         </div>
 
         {/* Progress Steps */}
@@ -180,17 +190,17 @@ export default function LawFirmApplication() {
                 <div className={`flex flex-col items-center ${idx !== steps.length - 1 ? 'flex-1' : ''}`}>
                   <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
                     step >= s.num
-                      ? 'bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/50'
-                      : 'bg-slate-800 text-slate-500'
+                      ? 'bg-[#0F2944] text-white shadow-lg'
+                      : 'bg-gray-200 text-gray-500'
                   }`}>
                     {step > s.num ? <CheckCircle className="w-6 h-6" /> : <Icon className="w-6 h-6" />}
                   </div>
-                  <span className={`text-xs mt-2 ${step >= s.num ? 'text-blue-400' : 'text-slate-500'}`}>
+                  <span className={`text-xs mt-2 ${step >= s.num ? 'text-[#0F2944] font-medium' : 'text-gray-500'}`}>
                     {s.title}
                   </span>
                 </div>
                 {idx !== steps.length - 1 && (
-                  <div className={`flex-1 h-1 mx-2 rounded ${step > s.num ? 'bg-blue-500' : 'bg-slate-700'}`} />
+                  <div className={`flex-1 h-1 mx-2 rounded ${step > s.num ? 'bg-[#0F2944]' : 'bg-gray-200'}`} />
                 )}
               </div>
             );
@@ -198,7 +208,7 @@ export default function LawFirmApplication() {
         </div>
 
         {/* Form Card */}
-        <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-8">
+        <div className="bg-white border border-gray-200 shadow-lg rounded-2xl p-8">
           <AnimatePresence mode="wait">
             {/* Step 1: Firm Details */}
             {step === 1 && (
@@ -210,52 +220,52 @@ export default function LawFirmApplication() {
                 className="space-y-6"
               >
                 <div className="flex items-center space-x-3 mb-6">
-                  <Building2 className="w-8 h-8 text-blue-400" />
-                  <h2 className="text-2xl font-bold text-white">Firm Details</h2>
+                  <Building2 className="w-8 h-8 text-[#0F2944]" />
+                  <h2 className="text-2xl font-bold text-[#0F2944]">Firm Details</h2>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">Firm Name *</label>
+                  <label className="block text-sm font-medium text-[#0F2944] mb-2">Firm Name *</label>
                   <Input
                     data-testid="firm-name-input"
                     value={formData.firm_name}
                     onChange={(e) => setFormData({ ...formData, firm_name: e.target.value })}
                     placeholder="e.g., Sharma & Associates"
-                    className="bg-slate-800 border-slate-700 rounded-xl text-white"
+                    className="bg-white border-gray-200 rounded-xl text-black placeholder:text-gray-400"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">Registration Number *</label>
+                  <label className="block text-sm font-medium text-[#0F2944] mb-2">Registration Number *</label>
                   <Input
                     data-testid="registration-number-input"
                     value={formData.registration_number}
                     onChange={(e) => setFormData({ ...formData, registration_number: e.target.value })}
                     placeholder="Bar Council Registration Number"
-                    className="bg-slate-800 border-slate-700 rounded-xl text-white"
+                    className="bg-white border-gray-200 rounded-xl text-black placeholder:text-gray-400"
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-slate-300 mb-2">Established Year *</label>
+                    <label className="block text-sm font-medium text-[#0F2944] mb-2">Established Year *</label>
                     <Input
                       data-testid="established-year-input"
                       type="number"
                       value={formData.established_year}
                       onChange={(e) => setFormData({ ...formData, established_year: e.target.value })}
                       placeholder="e.g., 2010"
-                      className="bg-slate-800 border-slate-700 rounded-xl text-white"
+                      className="bg-white border-gray-200 rounded-xl text-black placeholder:text-gray-400"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-slate-300 mb-2">Website (Optional)</label>
+                    <label className="block text-sm font-medium text-[#0F2944] mb-2">Website (Optional)</label>
                     <Input
                       data-testid="website-input"
                       value={formData.website}
                       onChange={(e) => setFormData({ ...formData, website: e.target.value })}
                       placeholder="https://yourfirm.com"
-                      className="bg-slate-800 border-slate-700 rounded-xl text-white"
+                      className="bg-white border-gray-200 rounded-xl text-black placeholder:text-gray-400"
                     />
                   </div>
                 </div>
@@ -272,78 +282,78 @@ export default function LawFirmApplication() {
                 className="space-y-6"
               >
                 <div className="flex items-center space-x-3 mb-6">
-                  <User className="w-8 h-8 text-blue-400" />
-                  <h2 className="text-2xl font-bold text-white">Contact Person</h2>
+                  <User className="w-8 h-8 text-[#0F2944]" />
+                  <h2 className="text-2xl font-bold text-[#0F2944]">Contact Person</h2>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-slate-300 mb-2">Full Name *</label>
+                    <label className="block text-sm font-medium text-[#0F2944] mb-2">Full Name *</label>
                     <Input
                       data-testid="contact-name-input"
                       value={formData.contact_name}
                       onChange={(e) => setFormData({ ...formData, contact_name: e.target.value })}
                       placeholder="Contact person name"
-                      className="bg-slate-800 border-slate-700 rounded-xl text-white"
+                      className="bg-white border-gray-200 rounded-xl text-black placeholder:text-gray-400"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-slate-300 mb-2">Designation</label>
+                    <label className="block text-sm font-medium text-[#0F2944] mb-2">Designation</label>
                     <Input
                       data-testid="contact-designation-input"
                       value={formData.contact_designation}
                       onChange={(e) => setFormData({ ...formData, contact_designation: e.target.value })}
                       placeholder="e.g., Managing Partner"
-                      className="bg-slate-800 border-slate-700 rounded-xl text-white"
+                      className="bg-white border-gray-200 rounded-xl text-black placeholder:text-gray-400"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">Email *</label>
+                  <label className="block text-sm font-medium text-[#0F2944] mb-2">Email *</label>
                   <Input
                     data-testid="contact-email-input"
                     type="email"
                     value={formData.contact_email}
                     onChange={(e) => setFormData({ ...formData, contact_email: e.target.value })}
                     placeholder="contact@yourfirm.com"
-                    className="bg-slate-800 border-slate-700 rounded-xl text-white"
+                    className="bg-white border-gray-200 rounded-xl text-black placeholder:text-gray-400"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">Phone *</label>
+                  <label className="block text-sm font-medium text-[#0F2944] mb-2">Phone *</label>
                   <Input
                     data-testid="contact-phone-input"
                     type="tel"
                     value={formData.contact_phone}
                     onChange={(e) => setFormData({ ...formData, contact_phone: e.target.value })}
                     placeholder="+91 XXXXX XXXXX"
-                    className="bg-slate-800 border-slate-700 rounded-xl text-white"
+                    className="bg-white border-gray-200 rounded-xl text-black placeholder:text-gray-400"
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-slate-300 mb-2">Password *</label>
+                    <label className="block text-sm font-medium text-[#0F2944] mb-2">Password *</label>
                     <Input
                       data-testid="firm-password-input"
                       type="password"
                       value={formData.password}
                       onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                       placeholder="Min 6 characters"
-                      className="bg-slate-800 border-slate-700 rounded-xl text-white"
+                      className="bg-white border-gray-200 rounded-xl text-black placeholder:text-gray-400"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-slate-300 mb-2">Confirm Password *</label>
+                    <label className="block text-sm font-medium text-[#0F2944] mb-2">Confirm Password *</label>
                     <Input
                       data-testid="firm-confirm-password-input"
                       type="password"
                       value={formData.confirm_password}
                       onChange={(e) => setFormData({ ...formData, confirm_password: e.target.value })}
                       placeholder="Re-enter password"
-                      className="bg-slate-800 border-slate-700 rounded-xl text-white"
+                      className="bg-white border-gray-200 rounded-xl text-black placeholder:text-gray-400"
                     />
                   </div>
                 </div>
@@ -360,29 +370,29 @@ export default function LawFirmApplication() {
                 className="space-y-6"
               >
                 <div className="flex items-center space-x-3 mb-6">
-                  <MapPin className="w-8 h-8 text-blue-400" />
-                  <h2 className="text-2xl font-bold text-white">Location & Practice Areas</h2>
+                  <MapPin className="w-8 h-8 text-[#0F2944]" />
+                  <h2 className="text-2xl font-bold text-[#0F2944]">Location & Practice Areas</h2>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">Office Address</label>
+                  <label className="block text-sm font-medium text-[#0F2944] mb-2">Office Address</label>
                   <Input
                     data-testid="firm-address-input"
                     value={formData.address}
                     onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                     placeholder="Full office address"
-                    className="bg-slate-800 border-slate-700 rounded-xl text-white"
+                    className="bg-white border-gray-200 rounded-xl text-black placeholder:text-gray-400"
                   />
                 </div>
 
                 <div className="grid grid-cols-3 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-slate-300 mb-2">State *</label>
+                    <label className="block text-sm font-medium text-[#0F2944] mb-2">State *</label>
                     <select
                       data-testid="firm-state-select"
                       value={formData.state}
                       onChange={(e) => setFormData({ ...formData, state: e.target.value })}
-                      className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white"
+                      className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-black focus:outline-none focus:ring-2 focus:ring-[#0F2944]/20 focus:border-[#0F2944]"
                     >
                       <option value="">Select State</option>
                       {states.map(state => (
@@ -391,29 +401,29 @@ export default function LawFirmApplication() {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-slate-300 mb-2">City *</label>
+                    <label className="block text-sm font-medium text-[#0F2944] mb-2">City *</label>
                     <Input
                       data-testid="firm-city-input"
                       value={formData.city}
                       onChange={(e) => setFormData({ ...formData, city: e.target.value })}
                       placeholder="City"
-                      className="bg-slate-800 border-slate-700 rounded-xl text-white"
+                      className="bg-white border-gray-200 rounded-xl text-black placeholder:text-gray-400"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-slate-300 mb-2">Pincode</label>
+                    <label className="block text-sm font-medium text-[#0F2944] mb-2">Pincode</label>
                     <Input
                       data-testid="firm-pincode-input"
                       value={formData.pincode}
                       onChange={(e) => setFormData({ ...formData, pincode: e.target.value })}
                       placeholder="110001"
-                      className="bg-slate-800 border-slate-700 rounded-xl text-white"
+                      className="bg-white border-gray-200 rounded-xl text-black placeholder:text-gray-400"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-3">Practice Areas * (Select all that apply)</label>
+                  <label className="block text-sm font-medium text-[#0F2944] mb-3">Practice Areas * (Select all that apply)</label>
                   <div className="grid grid-cols-3 gap-3">
                     {practiceAreas.map(area => (
                       <button
@@ -422,8 +432,8 @@ export default function LawFirmApplication() {
                         onClick={() => handlePracticeAreaToggle(area)}
                         className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
                           formData.practice_areas.includes(area)
-                            ? 'bg-blue-600 text-white border-blue-500'
-                            : 'bg-slate-800 text-slate-400 border-slate-700 hover:bg-slate-700'
+                            ? 'bg-[#0F2944] text-white border-[#0F2944]'
+                            : 'bg-gray-100 text-gray-600 border-gray-200 hover:bg-gray-200'
                         } border`}
                       >
                         {area}
@@ -444,65 +454,65 @@ export default function LawFirmApplication() {
                 className="space-y-6"
               >
                 <div className="flex items-center space-x-3 mb-6">
-                  <FileText className="w-8 h-8 text-blue-400" />
-                  <h2 className="text-2xl font-bold text-white">Firm Information</h2>
+                  <FileText className="w-8 h-8 text-[#0F2944]" />
+                  <h2 className="text-2xl font-bold text-[#0F2944]">Firm Information</h2>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-slate-300 mb-2">Total Lawyers *</label>
+                    <label className="block text-sm font-medium text-[#0F2944] mb-2">Total Lawyers *</label>
                     <Input
                       data-testid="total-lawyers-input"
                       type="number"
                       value={formData.total_lawyers}
                       onChange={(e) => setFormData({ ...formData, total_lawyers: e.target.value })}
                       placeholder="Number of lawyers"
-                      className="bg-slate-800 border-slate-700 rounded-xl text-white"
+                      className="bg-white border-gray-200 rounded-xl text-black placeholder:text-gray-400"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-slate-300 mb-2">Total Staff</label>
+                    <label className="block text-sm font-medium text-[#0F2944] mb-2">Total Staff</label>
                     <Input
                       data-testid="total-staff-input"
                       type="number"
                       value={formData.total_staff}
                       onChange={(e) => setFormData({ ...formData, total_staff: e.target.value })}
                       placeholder="Support staff count"
-                      className="bg-slate-800 border-slate-700 rounded-xl text-white"
+                      className="bg-white border-gray-200 rounded-xl text-black placeholder:text-gray-400"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">About Your Firm *</label>
+                  <label className="block text-sm font-medium text-[#0F2944] mb-2">About Your Firm *</label>
                   <textarea
                     data-testid="firm-description-input"
                     value={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                     placeholder="Describe your firm's expertise, values, and approach..."
                     rows={4}
-                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 resize-none"
+                    className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-black placeholder:text-gray-400 resize-none focus:outline-none focus:ring-2 focus:ring-[#0F2944]/20 focus:border-[#0F2944]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">Key Achievements (Optional)</label>
+                  <label className="block text-sm font-medium text-[#0F2944] mb-2">Key Achievements (Optional)</label>
                   <textarea
                     data-testid="firm-achievements-input"
                     value={formData.achievements}
                     onChange={(e) => setFormData({ ...formData, achievements: e.target.value })}
                     placeholder="Notable cases won, awards, recognitions..."
                     rows={3}
-                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 resize-none"
+                    className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-black placeholder:text-gray-400 resize-none focus:outline-none focus:ring-2 focus:ring-[#0F2944]/20 focus:border-[#0F2944]"
                   />
                 </div>
 
-                <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-4">
+                <div className="bg-[#0F2944]/10 border border-[#0F2944]/30 rounded-xl p-4">
                   <div className="flex items-start space-x-3">
-                    <Shield className="w-5 h-5 text-blue-400 mt-0.5" />
+                    <Shield className="w-5 h-5 text-[#0F2944] mt-0.5" />
                     <div>
-                      <p className="text-blue-400 font-semibold">Verification Process</p>
-                      <p className="text-slate-400 text-sm mt-1">
+                      <p className="text-[#0F2944] font-semibold">Verification Process</p>
+                      <p className="text-gray-600 text-sm mt-1">
                         Your application will be reviewed by our team. You'll receive an email once approved.
                         After approval, you can login and manage your firm on Lxwyer Up.
                       </p>
@@ -520,14 +530,14 @@ export default function LawFirmApplication() {
                 data-testid="firm-back-btn"
                 onClick={handleBack}
                 variant="outline"
-                className="border-slate-700 text-slate-300 hover:bg-slate-800 rounded-xl px-6"
+                className="border-gray-200 text-gray-600 hover:bg-gray-50 rounded-xl px-6"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back
               </Button>
             ) : (
-              <Link to="/role-selection">
-                <Button variant="outline" className="border-slate-700 text-slate-300 hover:bg-slate-800 rounded-xl px-6">
+              <Link to="/lawfirm-role">
+                <Button variant="outline" className="border-gray-200 text-gray-600 hover:bg-gray-50 rounded-xl px-6">
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Cancel
                 </Button>
@@ -538,7 +548,7 @@ export default function LawFirmApplication() {
               <Button
                 data-testid="firm-next-btn"
                 onClick={handleNext}
-                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-xl px-6"
+                className="bg-[#0F2944] hover:bg-[#0F2944]/90 text-white rounded-xl px-6"
               >
                 Next
                 <ArrowRight className="w-4 h-4 ml-2" />
@@ -548,7 +558,7 @@ export default function LawFirmApplication() {
                 data-testid="firm-submit-btn"
                 onClick={handleSubmit}
                 disabled={loading}
-                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-xl px-8"
+                className="bg-[#0F2944] hover:bg-[#0F2944]/90 text-white rounded-xl px-8"
               >
                 {loading ? 'Submitting...' : 'Submit Application'}
               </Button>
@@ -558,8 +568,8 @@ export default function LawFirmApplication() {
 
         {/* Already have account */}
         <div className="text-center mt-6">
-          <span className="text-slate-400">Already registered? </span>
-          <Link to="/lawfirm-login" className="text-blue-400 hover:text-blue-300 font-semibold">
+          <span className="text-gray-600">Already registered? </span>
+          <Link to="/lawfirm-login" className="text-[#0F2944] hover:underline font-semibold">
             Login here
           </Link>
         </div>
