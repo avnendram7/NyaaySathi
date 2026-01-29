@@ -126,17 +126,27 @@ const JoinFirmSignup = () => {
     
     // Simulate payment processing (3 seconds)
     setTimeout(async () => {
-      // Register the user as firm_client type
+      // Register the user as firm_client using the dedicated endpoint
       try {
-        await axios.post(`${API}/auth/register`, {
+        const response = await axios.post(`${API}/firm-clients/register-paid`, {
           full_name: formData.full_name,
           email: formData.email,
           phone: formData.phone,
           password: formData.password,
-          user_type: 'firm_client',
-          firm_id: firmId,
-          firm_name: firm?.firm_name || 'Unknown Firm'
+          company_name: formData.company_name || null,
+          case_type: formData.case_type,
+          case_description: formData.case_description,
+          law_firm_id: firmId,
+          law_firm_name: firm?.firm_name || 'Unknown Firm',
+          payment_amount: totalAmount
         });
+        
+        // Store token and user data for auto-login
+        if (response.data.token) {
+          localStorage.setItem('token', response.data.token);
+          localStorage.setItem('user', JSON.stringify(response.data.user));
+          localStorage.setItem('userRole', 'firm_client');
+        }
         
         toast.success('Payment successful! Account created.');
         setPaymentProcessing(false);
