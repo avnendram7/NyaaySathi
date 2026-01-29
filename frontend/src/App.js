@@ -56,6 +56,7 @@ import JoinLawFirmWithSignup from './pages/JoinLawFirmWithSignup';
 import LawyerProfile from './pages/LawyerProfile';
 import FirmProfile from './pages/FirmProfile';
 import BookingSignup from './pages/BookingSignup';
+import JoinFirmSignup from './pages/JoinFirmSignup';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 export const API = `${BACKEND_URL}/api`;
