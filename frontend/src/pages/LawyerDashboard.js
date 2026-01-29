@@ -107,25 +107,25 @@ export default function LawyerDashboard() {
   };
   
   return (
-    <div className="min-h-screen bg-black flex">
+    <div className="min-h-screen bg-gray-50 flex">
       {/* Sidebar */}
-      <div className="w-64 bg-zinc-950 border-r border-zinc-800 flex flex-col">
+      <div className="w-64 bg-white border-r border-gray-200 flex flex-col shadow-sm">
         {/* Logo */}
-        <div className="p-6 border-b border-zinc-800">
+        <div className="p-6 border-b border-gray-200">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full flex items-center justify-center shadow-lg shadow-blue-500/30">
-              <span className="text-white font-bold text-lg">N</span>
+            <div className="w-10 h-10 bg-[#0F2944] rounded-xl flex items-center justify-center shadow-lg">
+              <Scale className="w-6 h-6 text-white" />
             </div>
             <div>
-              <span className="text-xl font-bold block text-white">NyaaySathi</span>
-              <span className="text-xs text-blue-400">LEGAL PARTNER</span>
+              <span className="text-xl font-bold block text-[#0F2944]">Lxwyer Up</span>
+              <span className="text-xs text-blue-600">LEGAL PARTNER</span>
             </div>
           </div>
         </div>
         
         {/* Menu Label */}
         <div className="px-6 py-3">
-          <span className="text-xs text-zinc-500 uppercase font-semibold tracking-wider">MENU</span>
+          <span className="text-xs text-gray-500 uppercase font-semibold tracking-wider">MENU</span>
         </div>
         
         {/* Navigation */}
@@ -135,8 +135,8 @@ export default function LawyerDashboard() {
             onClick={() => setActiveTab('dashboard')}
             className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${
               activeTab === 'dashboard' 
-                ? 'bg-blue-600 text-white' 
-                : 'text-zinc-400 hover:bg-zinc-900 hover:text-white'
+                ? 'bg-[#0F2944] text-white shadow-lg' 
+                : 'text-gray-600 hover:bg-gray-100 hover:text-[#0F2944]'
             }`}
           >
             <LayoutDashboard className="w-5 h-5" />
@@ -148,8 +148,8 @@ export default function LawyerDashboard() {
             onClick={() => setActiveTab('cases')}
             className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${
               activeTab === 'cases' 
-                ? 'bg-blue-600 text-white' 
-                : 'text-zinc-400 hover:bg-zinc-900 hover:text-white'
+                ? 'bg-[#0F2944] text-white shadow-lg' 
+                : 'text-gray-600 hover:bg-gray-100 hover:text-[#0F2944]'
             }`}
           >
             <FileText className="w-5 h-5" />
@@ -161,8 +161,8 @@ export default function LawyerDashboard() {
             onClick={() => setActiveTab('calendar')}
             className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${
               activeTab === 'calendar' 
-                ? 'bg-blue-600 text-white' 
-                : 'text-zinc-400 hover:bg-zinc-900 hover:text-white'
+                ? 'bg-[#0F2944] text-white shadow-lg' 
+                : 'text-gray-600 hover:bg-gray-100 hover:text-[#0F2944]'
             }`}
           >
             <CalendarIcon className="w-5 h-5" />
@@ -174,8 +174,8 @@ export default function LawyerDashboard() {
             onClick={() => setActiveTab('messages')}
             className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${
               activeTab === 'messages' 
-                ? 'bg-blue-600 text-white' 
-                : 'text-zinc-400 hover:bg-zinc-900 hover:text-white'
+                ? 'bg-[#0F2944] text-white shadow-lg' 
+                : 'text-gray-600 hover:bg-gray-100 hover:text-[#0F2944]'
             }`}
           >
             <MessageSquare className="w-5 h-5" />
@@ -187,8 +187,8 @@ export default function LawyerDashboard() {
             onClick={() => setActiveTab('documents')}
             className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${
               activeTab === 'documents' 
-                ? 'bg-blue-600 text-white' 
-                : 'text-zinc-400 hover:bg-zinc-900 hover:text-white'
+                ? 'bg-[#0F2944] text-white shadow-lg' 
+                : 'text-gray-600 hover:bg-gray-100 hover:text-[#0F2944]'
             }`}
           >
             <FileText className="w-5 h-5" />
@@ -200,13 +200,13 @@ export default function LawyerDashboard() {
             onClick={() => setActiveTab('network')}
             className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${
               activeTab === 'network' 
-                ? 'bg-blue-600 text-white' 
-                : 'text-zinc-400 hover:bg-zinc-900 hover:text-white'
+                ? 'bg-[#0F2944] text-white shadow-lg' 
+                : 'text-gray-600 hover:bg-gray-100 hover:text-[#0F2944]'
             }`}
           >
             <Users className="w-5 h-5" />
             <span className="font-medium">Lawyer Network</span>
-            <span className="ml-auto w-2 h-2 bg-green-400 rounded-full" />
+            <span className="ml-auto w-2 h-2 bg-green-500 rounded-full" />
           </button>
           
           <button
@@ -214,8 +214,8 @@ export default function LawyerDashboard() {
             onClick={() => setActiveTab('earnings')}
             className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${
               activeTab === 'earnings' 
-                ? 'bg-blue-600 text-white' 
-                : 'text-zinc-400 hover:bg-zinc-900 hover:text-white'
+                ? 'bg-[#0F2944] text-white shadow-lg' 
+                : 'text-gray-600 hover:bg-gray-100 hover:text-[#0F2944]'
             }`}
           >
             <TrendingUp className="w-5 h-5" />
@@ -225,25 +225,25 @@ export default function LawyerDashboard() {
         
         {/* New Case Button */}
         <div className="p-4">
-          <Button className="w-full bg-blue-600 hover:bg-blue-500 text-white rounded-xl py-6">
+          <Button className="w-full bg-[#0F2944] hover:bg-[#0F2944]/90 text-white rounded-xl py-6">
             <span className="mr-2 text-2xl">+</span> New Case
           </Button>
         </div>
         
         {/* User Profile */}
-        <div className="p-4 border-t border-zinc-800">
+        <div className="p-4 border-t border-gray-200">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-600 rounded-full flex items-center justify-center">
+            <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-600 rounded-full flex items-center justify-center shadow-lg">
               <span className="text-white font-bold">L</span>
             </div>
             <div className="flex-1">
-              <p className="text-sm font-semibold text-white">{user?.full_name || 'Lawyer'}</p>
-              <p className="text-xs text-zinc-400">Criminal Law</p>
+              <p className="text-sm font-semibold text-[#0F2944]">{user?.full_name || 'Lawyer'}</p>
+              <p className="text-xs text-gray-500">Criminal Law</p>
             </div>
             <button
               data-testid="lawyer-logout-btn"
               onClick={handleLogout}
-              className="text-zinc-500 hover:text-white transition-colors"
+              className="text-gray-400 hover:text-red-500 transition-colors"
             >
               <LogOut className="w-5 h-5" />
             </button>
@@ -252,7 +252,7 @@ export default function LawyerDashboard() {
       </div>
       
       {/* Main Content */}
-      <div className="flex-1 overflow-y-auto bg-black">
+      <div className="flex-1 overflow-y-auto bg-gray-50">
         {/* Dashboard Tab */}
         {activeTab === 'dashboard' && (
           <div className="p-8">
