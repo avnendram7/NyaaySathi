@@ -395,16 +395,16 @@ const FeaturesSection = ({ fadeInUp }) => {
           >
             <div className="relative rounded-3xl overflow-hidden shadow-2xl">
               <img
-                src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                alt="Indian Court Interior - Modern Justice System"
+                src="https://customer-assets.emergentagent.com/job_ddba30ef-1bd5-4249-895f-f947c592082a/artifacts/1gipxvnv_ChatGPT%20Image%20Jan%2029%2C%202026%20at%2007_48_28%20AM.png"
+                alt="Indian Supreme Court - Modern Justice System"
                 className="w-full h-[500px] object-cover"
                 style={{ 
-                  filter: 'brightness(1.3) contrast(1.2) saturate(1.3)',
+                  filter: 'brightness(1.5) contrast(1.4) saturate(1.8) sepia(0.2)',
                   imageRendering: 'crisp-edges'
                 }}
               />
-              <div className="absolute inset-0 bg-gradient-to-br from-orange-600/30 via-amber-500/25 to-red-600/30 mix-blend-overlay" />
-              <div className="absolute inset-0 bg-gradient-to-tl from-yellow-500/20 via-orange-400/15 to-red-500/20 mix-blend-soft-light" />
+              <div className="absolute inset-0 bg-gradient-to-br from-orange-600/35 via-amber-500/30 to-red-600/25 mix-blend-overlay" />
+              <div className="absolute inset-0 bg-gradient-to-tl from-yellow-500/25 via-orange-400/20 to-red-500/20 mix-blend-soft-light" />
             </div>
           </motion.div>
         </div>
