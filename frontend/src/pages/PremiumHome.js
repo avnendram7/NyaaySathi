@@ -271,7 +271,7 @@ const ServicesSection = ({ showAllServices, setShowAllServices, fadeInUp, stagge
       icon: FileText,
       title: 'Case Management',
       description: 'Track your case progress, documents, and timelines in one secure platform.',
-      color: 'from-purple-500 to-indigo-500'
+      color: 'from-purple-500 to-violet-500'
     }
   ];
 
@@ -298,7 +298,7 @@ const ServicesSection = ({ showAllServices, setShowAllServices, fadeInUp, stagge
       icon: UserCheck,
       title: 'Lawyer Verification',
       description: 'All lawyers are verified with bar council credentials and client reviews.',
-      color: 'from-violet-500 to-purple-500'
+      color: 'from-indigo-500 to-purple-500'
     },
     {
       icon: Shield,
