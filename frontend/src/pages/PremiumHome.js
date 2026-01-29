@@ -444,12 +444,13 @@ const FeaturesSection = ({ fadeInUp }) => {
                 alt="Indian Court Interior - Justice System"
                 className="w-full h-[500px] object-cover"
                 style={{ 
-                  filter: 'brightness(1.4) contrast(1.6) saturate(2.0) hue-rotate(15deg) sepia(0.15)',
+                  filter: 'brightness(1.6) contrast(2.0) saturate(3.2) hue-rotate(10deg) sepia(0.2)',
                   imageRendering: 'crisp-edges'
                 }}
               />
-              <div className="absolute inset-0 bg-gradient-to-br from-orange-600/30 via-yellow-500/25 to-red-500/30" />
-              <div className="absolute inset-0 bg-gradient-to-tl from-amber-500/20 via-transparent to-green-500/25" />
+              <div className="absolute inset-0 bg-gradient-to-br from-orange-600/35 via-yellow-500/30 to-red-600/35 mix-blend-overlay" />
+              <div className="absolute inset-0 bg-gradient-to-tl from-amber-500/25 via-transparent to-green-600/25 mix-blend-soft-light" />
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/15 to-pink-500/15 mix-blend-color" />
             </div>
           </motion.div>
         </div>
