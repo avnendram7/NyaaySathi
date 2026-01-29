@@ -166,15 +166,13 @@ const PremiumHome = () => {
             transition={{ duration: 1, delay: 0.3 }}
           >
             <motion.h1 
-              className="text-6xl sm:text-7xl lg:text-8xl font-bold text-gray-800 mb-16 leading-tight"
+              className="text-6xl sm:text-7xl lg:text-8xl font-light text-gray-800 mb-16 leading-tight"
               style={{ fontFamily: "'Playfair Display', serif" }}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
             >
-              Justice You <span className="font-black">Understand</span>,
-              <br />
-              Technology You <span className="font-black">Trust</span>
+              Justice You <span className="relative inline-block font-semibold">Understand<motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.8, delay: 1.2 }} className="absolute -bottom-2 left-0 right-0 h-1 bg-blue-600 rounded-full" /></span>, Technology You <span className="relative inline-block font-semibold">Trust<motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.8, delay: 1.4 }} className="absolute -bottom-2 left-0 right-0 h-1 bg-blue-600 rounded-full" /></span>
             </motion.h1>
             
             <motion.div
