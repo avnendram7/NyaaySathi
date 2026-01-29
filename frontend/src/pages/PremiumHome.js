@@ -504,7 +504,7 @@ const Footer = ({ navigate }) => {
               <Scale className="w-6 h-6" />
               <span className="text-xl font-bold">Lxwyer Up</span>
             </div>
-            <p className="text-gray-400 text-sm">
+            <p className="text-orange-200 text-sm">
               Justice You Understand, Technology You Trust
             </p>
           </div>
