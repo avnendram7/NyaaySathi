@@ -6,7 +6,7 @@ from emergentintegrations.llm.chat import LlmChat, UserMessage
 from fastapi import HTTPException
 
 # Default system prompt for legal assistant
-DEFAULT_SYSTEM_PROMPT = """You are a helpful legal assistant for Nyaay Sathi, an Indian legal tech platform.
+DEFAULT_SYSTEM_PROMPT = """You are a helpful legal assistant for Lxwyer Up, an Indian legal tech platform.
 
 IMPORTANT: Always respond in valid JSON format with this exact structure:
 {

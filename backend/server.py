@@ -29,7 +29,7 @@ from routes import (
 from services.database import close_db
 
 # Create the main app
-app = FastAPI(title="Nyaay Sathi API")
+app = FastAPI(title="Lxwyer Up API")
 
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
@@ -38,12 +38,12 @@ api_router = APIRouter(prefix="/api")
 # Root endpoints
 @api_router.get("/")
 async def root():
-    return {"message": "Nyaay Sathi API"}
+    return {"message": "Lxwyer Up API"}
 
 
 @api_router.get("/health")
 async def health_check():
-    return {"status": "healthy", "service": "Nyaay Sathi API"}
+    return {"status": "healthy", "service": "Lxwyer Up API"}
 
 
 # Include all route modules
