@@ -141,14 +141,8 @@ const JoinFirmSignup = () => {
           payment_amount: totalAmount
         });
         
-        // Store token and user data for auto-login
-        if (response.data.token) {
-          localStorage.setItem('token', response.data.token);
-          localStorage.setItem('user', JSON.stringify(response.data.user));
-          localStorage.setItem('userRole', 'firm_client');
-        }
-        
-        toast.success('Payment successful! Account created.');
+        // Don't store token - user needs admin approval first
+        toast.success('Payment successful! Your account is pending admin approval.');
         setPaymentProcessing(false);
         setSubmitted(true);
       } catch (error) {
