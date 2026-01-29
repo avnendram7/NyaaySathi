@@ -83,6 +83,29 @@ Design elements applied:
 - Black text for inputs with gray placeholders
 - Consistent navigation with "Lxwyer Up" branding
 
+### Jan 29, 2026 - Browse Pages Enhancement
+**Dummy Data:**
+- Added 500 dummy lawyers with comprehensive profiles (lawyersData.js)
+- Added 100 law firms with comprehensive profiles (lawFirmsDataExtended.js)
+
+**Browse Lawyers Page:**
+- Functional filters: Specialization, State, Min/Max Experience, Min Rating, Verified Only
+- Search by name, specialization, or location
+- Pagination (20 items per page)
+- "View Profile" → LawyerProfile page
+- "Book" → Redirects to role-selection (signup) page
+
+**Browse Firms Page:**
+- Functional filters: Practice Area, State, Min Lawyers, Min Rating, Verified Only
+- Search functionality
+- Pagination (10 items per page)
+- "View Profile" → FirmProfile page
+- "Join Firm" → Redirects to role-selection (signup) page
+
+**New Profile Pages:**
+- **LawyerProfile.js** - Detailed lawyer profile with contact info, practice areas, stats
+- **FirmProfile.js** - Detailed firm profile with services, overview, contact info
+
 ## Upcoming Tasks (P1)
 - Redesign User/Law Firm Dashboards with new design language
 - Finalize About & Contact pages with full premium design
