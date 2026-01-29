@@ -173,15 +173,31 @@ export default function AdminDashboard() {
       }
       
       try {
-        const firmClientRes = await axios.get(`${API}/firm-clients/applications/all`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        const clientApps = firmClientRes.data || [];
-        setFirmClientApplications(clientApps);
+        // Fetch both firm_client_applications AND paid clients from firm_clients that are pending
+        const [appRes, paidClientRes] = await Promise.all([
+          axios.get(`${API}/firm-clients/applications/all`, {
+            headers: { Authorization: `Bearer ${token}` }
+          }).catch(() => ({ data: [] })),
+          axios.get(`${API}/firm-clients/pending-approvals`, {
+            headers: { Authorization: `Bearer ${token}` }
+          }).catch(() => ({ data: [] }))
+        ]);
+        
+        // Combine both sources - applications and paid clients
+        const applicationClients = (appRes.data || []).map(c => ({ ...c, source: 'application' }));
+        const paidClients = (paidClientRes.data || []).map(c => ({ ...c, source: 'paid', status: c.status || 'pending_approval' }));
+        
+        // Normalize status for display
+        const allClients = [...applicationClients, ...paidClients].map(c => ({
+          ...c,
+          status: c.status === 'pending_approval' ? 'pending' : c.status
+        }));
+        
+        setFirmClientApplications(allClients);
         setFirmClientStats({
-          pending: clientApps.filter(a => a.status === 'pending').length,
-          approved: clientApps.filter(a => a.status === 'approved').length,
-          rejected: clientApps.filter(a => a.status === 'rejected').length
+          pending: allClients.filter(a => a.status === 'pending' || a.status === 'pending_approval').length,
+          approved: allClients.filter(a => a.status === 'approved' || a.status === 'active').length,
+          rejected: allClients.filter(a => a.status === 'rejected').length
         });
       } catch (e) {
         setFirmClientApplications([]);
