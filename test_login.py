@@ -3,7 +3,7 @@ import requests
 import json
 
 # Test the login API directly
-backend_url = "https://justice-tech-2.preview.emergentagent.com/api"
+backend_url = "https://legalpro-login.preview.emergentagent.com/api"
 
 def test_login(email, password, user_type):
     print(f"\n=== Testing {user_type} login ===")
