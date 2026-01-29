@@ -45,16 +45,16 @@ const ScatteredImages = () => {
       delay: 0.2
     },
     {
-      src: 'https://images.unsplash.com/photo-1505664194779-8beaceb93744?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Indian Lawyer with Client',
+      src: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      alt: 'Indian Lawyer Consultation',
       position: 'top-64 right-32',
       size: 'w-64 h-80',
       rotation: 8,
       delay: 0.4
     },
     {
-      src: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Legal Documents and Consultation',
+      src: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      alt: 'Indian Legal Documents',
       position: 'bottom-48 left-32',
       size: 'w-60 h-72',
       rotation: 15,
@@ -69,8 +69,8 @@ const ScatteredImages = () => {
       delay: 0.8
     },
     {
-      src: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Indian Legal Team Meeting',
+      src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      alt: 'Indian Legal Professional',
       position: 'top-1/2 left-12',
       size: 'w-48 h-60',
       rotation: -15,
