@@ -1,118 +1,146 @@
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { User, Scale, Building2, ArrowRight } from 'lucide-react';
-import NavigationHeader from '../components/NavigationHeader';
+import { Button } from '../components/ui/button';
 
-export default function RoleSelection() {
+const SimpleNavbar = ({ navigate }) => {
+  return (
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          <button onClick={() => navigate('/')} className="flex items-center space-x-2">
+            <Scale className="w-6 h-6 text-[#0F2944]" />
+            <span className="text-xl font-bold text-[#0F2944]">Lxwyer Up</span>
+          </button>
+          
+          <Button
+            onClick={() => navigate('/')}
+            className="text-[#0F2944] hover:text-[#0F2944]/80"
+            variant="ghost"
+          >
+            Home
+          </Button>
+        </div>
+      </div>
+    </nav>
+  );
+};
+
+const RoleSelection = () => {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const isLoginMode = searchParams.get('mode') === 'login';
-  
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const mode = searchParams.get('mode'); // 'login' or null for signup
+
   const roles = [
     {
-      id: 'client',
-      title: 'I am a User',
-      subtitle: 'Seeking legal advice? Connect with top-tier professionals seamlessly.',
       icon: User,
-      route: isLoginMode ? '/user-login' : '/user-get-started',
-      testId: 'role-user-card'
+      title: 'I am a User',
+      description: 'Seeking legal advice? Connect with top-tier professionals seamlessly.',
+      path: mode === 'login' ? '/user-login' : '/user-signup',
+      color: '#0F2944'
     },
     {
-      id: 'lawyer',
-      title: 'I am a Lawyer',
-      subtitle: 'Join our network. Build your practice and reach clients effectively.',
       icon: Scale,
-      route: isLoginMode ? '/lawyer-login' : '/lawyer-application',
-      testId: 'role-lawyer-card'
+      title: 'I am a Lawyer',
+      description: 'Join our network. Build your practice and reach clients effectively.',
+      path: mode === 'login' ? '/lawyer-login' : '/lawyer-signup',
+      color: '#0F2944'
     },
     {
-      id: 'law_firm',
-      title: 'I am a Law Firm',
-      subtitle: 'Manage your firm, onboard lawyers, and scale your legal operations.',
       icon: Building2,
-      route: isLoginMode ? '/lawfirm-role?mode=login' : '/lawfirm-role',
-      testId: 'role-lawfirm-card'
+      title: 'I am a Law Firm',
+      description: 'Manage your firm, onboard lawyers, and scale your legal operations.',
+      path: mode === 'login' ? '/firm-login' : '/firm-signup',
+      color: '#0F2944'
     }
   ];
-  
-  return (
-    <div className="min-h-screen bg-black">
-      {/* Navigation Header */}
-      <NavigationHeader 
-        backPath="/"
-        showBack={true}
-        showHome={true}
-        showLogout={false}
-      />
 
-      {/* Main Content */}
-      <main className="flex items-center justify-center px-4 py-16">
-        <div className="w-full max-w-6xl">
-          {/* Title */}
-          <div className="text-center mb-16">
-            <h1 className="text-5xl font-semibold text-white mb-4">
-              {isLoginMode ? 'Welcome Back' : 'Get Started'}
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50">
+      <SimpleNavbar navigate={navigate} />
+      
+      <div className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto">
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h1 className="text-4xl sm:text-5xl font-bold text-[#0F2944] mb-4">
+              Get Started
             </h1>
-            <p className="text-slate-400 text-lg">
-              {isLoginMode ? 'Choose your account type to login' : 'Select how you want to use Lxwyer Up'}
+            <p className="text-lg text-gray-600">
+              Select how you want to use Lxwyer Up
             </p>
-          </div>
+          </motion.div>
 
           {/* Role Cards */}
-          <div className="grid md:grid-cols-3 gap-6">
-            {roles.map((role) => {
+          <div className="grid md:grid-cols-3 gap-8">
+            {roles.map((role, index) => {
               const Icon = role.icon;
               return (
-                <div
-                  key={role.id}
-                  data-testid={role.testId}
-                  onClick={() => navigate(role.route)}
-                  className="bg-slate-900 border border-slate-800 rounded-lg p-8 cursor-pointer hover:border-slate-700 hover:-translate-y-1 transition-all duration-300"
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  whileHover={{ y: -8, transition: { duration: 0.2 } }}
+                  className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100"
                 >
-                  {/* Icon */}
-                  <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mb-6">
-                    <Icon className="w-6 h-6 text-white" />
+                  <div className="flex flex-col items-center text-center">
+                    <div 
+                      className="w-20 h-20 rounded-2xl flex items-center justify-center mb-6"
+                      style={{ backgroundColor: `${role.color}15` }}
+                    >
+                      <Icon className="w-10 h-10" style={{ color: role.color }} />
+                    </div>
+                    
+                    <h3 className="text-2xl font-bold text-[#0F2944] mb-4">
+                      {role.title}
+                    </h3>
+                    
+                    <p className="text-gray-600 mb-8 leading-relaxed">
+                      {role.description}
+                    </p>
+                    
+                    <Button
+                      onClick={() => navigate(role.path)}
+                      className="w-full bg-[#0F2944] hover:bg-[#0F2944]/90 text-white py-6 rounded-xl font-semibold transition-all duration-300 group"
+                    >
+                      GET STARTED
+                      <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    </Button>
                   </div>
-
-                  {/* Content */}
-                  <h2 className="text-xl font-semibold text-white mb-3">{role.title}</h2>
-                  <p className="text-slate-400 mb-6 text-sm leading-relaxed">{role.subtitle}</p>
-
-                  {/* Button */}
-                  <button className="w-full py-3 px-6 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-lg flex items-center justify-center gap-2 transition-colors duration-200">
-                    {isLoginMode ? 'LOGIN' : 'GET STARTED'}
-                    <ArrowRight className="w-5 h-5" />
-                  </button>
-                </div>
+                </motion.div>
               );
             })}
           </div>
 
-          {/* Toggle Mode Link */}
-          <div className="text-center mt-12">
-            {isLoginMode ? (
-              <p className="text-slate-400">
-                Don't have an account?{' '}
-                <button 
-                  onClick={() => navigate('/role-selection')}
-                  className="text-blue-500 hover:text-blue-400 font-medium transition-colors"
-                >
-                  Get Started
-                </button>
-              </p>
-            ) : (
-              <p className="text-slate-400">
-                Already have an account?{' '}
-                <button 
-                  onClick={() => navigate('/role-selection?mode=login')}
-                  className="text-blue-500 hover:text-blue-400 font-medium transition-colors"
-                >
-                  Login
-                </button>
-              </p>
-            )}
-          </div>
+          {/* Login Link */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-center mt-12"
+          >
+            <p className="text-gray-600">
+              Already have an account?{' '}
+              <button
+                onClick={() => navigate('/role-selection?mode=login')}
+                className="text-[#0F2944] font-semibold hover:underline"
+              >
+                Login
+              </button>
+            </p>
+          </motion.div>
         </div>
-      </main>
+      </div>
     </div>
   );
-}
+};
+
+export default RoleSelection;
