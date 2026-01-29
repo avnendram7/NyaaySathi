@@ -205,7 +205,7 @@ const PremiumHome = () => {
           </motion.div>
         </div>
 
-        {/* Scroll Up Arrow */}
+        {/* Swipe Up Indicator */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -213,12 +213,18 @@ const PremiumHome = () => {
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
         >
           <motion.div
-            animate={{ y: [0, -10, 0] }}
+            animate={{ y: [0, -8, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
             className="flex flex-col items-center text-gray-600"
           >
-            <ArrowUp className="w-6 h-6 mb-2" />
-            <span className="text-sm font-medium">Explore Services</span>
+            <div className="w-8 h-12 border-2 border-gray-400 rounded-full flex justify-center">
+              <motion.div
+                animate={{ y: [0, 8, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+                className="w-1 h-3 bg-gray-400 rounded-full mt-2"
+              />
+            </div>
+            <span className="text-sm font-medium mt-2">Swipe Up</span>
           </motion.div>
         </motion.div>
       </section>
