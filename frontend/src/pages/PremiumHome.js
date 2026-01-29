@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
-import { ArrowRight, Shield, Zap, Users, CheckCircle, Scale, Brain, Clock, Award, ChevronDown, ChevronUp, FileText, Gavel, BookOpen, MessageSquare, Search, UserCheck, ArrowUp } from 'lucide-react';
+import { ArrowRight, Shield, Zap, Users, CheckCircle, Scale, Brain, Clock, Award, ChevronDown, ChevronUp, FileText, Gavel, BookOpen, MessageSquare, Search, UserCheck } from 'lucide-react';
 import { Button } from '../components/ui/button';
 
 // Simple Navbar Component
