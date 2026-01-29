@@ -92,3 +92,15 @@ curl -X POST "$(grep REACT_APP_BACKEND_URL /app/frontend/.env | cut -d '=' -f2)/
 - All passwords follow the format: `[RoleType]@123`
 - Backend API is at: `${REACT_APP_BACKEND_URL}/api`
 - Frontend is at: `http://localhost:3000`
+
+## Admin Credentials
+| Email | Password |
+|-------|----------|
+| admin@lxwyerup.com | admin123 |
+
+## Law Firm Client Login Flow
+Law firm clients must be approved by admin before they can login:
+1. Client signs up via "Join Firm" page (/join-firm/{firmId})
+2. Client's status is set to `pending_approval`
+3. Admin approves via Admin Dashboard → Firm Clients tab
+4. Client can now login at /firm-client-login
