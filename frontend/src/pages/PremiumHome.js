@@ -120,7 +120,7 @@ const ScatteredImages = () => {
               alt={image.alt}
               className="w-full h-full object-cover"
               style={{ 
-                filter: 'brightness(1.3) contrast(1.6) saturate(2.2) vibrance(1.4)'
+                filter: 'brightness(1.2) contrast(1.8) saturate(2.5) hue-rotate(5deg)'
               }}
             />
           </div>
