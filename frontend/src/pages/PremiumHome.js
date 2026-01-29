@@ -33,11 +33,11 @@ const SimpleNavbar = ({ navigate }) => {
   );
 };
 
-// Scattered Images Component with Full Color
+// Scattered Images Component with Full Color - Indian Context
 const ScatteredImages = () => {
   const images = [
     {
-      src: 'https://images.pexels.com/photos/34995952/pexels-photo-34995952.jpeg',
+      src: 'https://upload.wikimedia.org/wikipedia/commons/6/65/Supreme_Court_of_India_-_200705_%28edited%29.jpg',
       alt: 'Indian Supreme Court',
       position: 'top-32 left-20',
       size: 'w-56 h-72',
@@ -45,40 +45,40 @@ const ScatteredImages = () => {
       delay: 0.2
     },
     {
-      src: 'https://images.pexels.com/photos/7841482/pexels-photo-7841482.jpeg',
-      alt: 'Indian Lawyers in Consultation',
+      src: 'https://images.pexels.com/photos/7841443/pexels-photo-7841443.jpeg',
+      alt: 'Indian Lawyer in Black Coat',
       position: 'top-64 right-32',
       size: 'w-64 h-80',
       rotation: 8,
       delay: 0.4
     },
     {
-      src: 'https://images.pexels.com/photos/7841508/pexels-photo-7841508.jpeg',
-      alt: 'Indian Legal Professionals',
+      src: 'https://images.pexels.com/photos/7841469/pexels-photo-7841469.jpeg',
+      alt: 'Legal Consultation Meeting',
       position: 'bottom-48 left-32',
       size: 'w-60 h-72',
       rotation: 15,
       delay: 0.6
     },
     {
-      src: 'https://images.pexels.com/photos/35314868/pexels-photo-35314868.jpeg',
-      alt: 'Modern Indian Court Building',
+      src: 'https://images.pexels.com/photos/5673490/pexels-photo-5673490.jpeg',
+      alt: 'Professional Legal Meeting',
       position: 'bottom-32 right-20',
       size: 'w-52 h-64',
       rotation: -8,
       delay: 0.8
     },
     {
-      src: 'https://images.pexels.com/photos/7979463/pexels-photo-7979463.jpeg',
-      alt: 'Client Consultation',
+      src: 'https://images.pexels.com/photos/7841854/pexels-photo-7841854.jpeg',
+      alt: 'Lawyer Office Consultation',
       position: 'top-1/2 left-12',
       size: 'w-48 h-60',
       rotation: -15,
       delay: 1.0
     },
     {
-      src: 'https://images.pexels.com/photos/5669619/pexels-photo-5669619.jpeg',
-      alt: 'Legal Documents and Gavel',
+      src: 'https://images.pexels.com/photos/7841444/pexels-photo-7841444.jpeg',
+      alt: 'Indian Legal Professional',
       position: 'top-1/3 right-12',
       size: 'w-44 h-56',
       rotation: 10,
