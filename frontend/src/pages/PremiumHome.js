@@ -419,18 +419,16 @@ const FeaturesSection = ({ fadeInUp }) => {
           >
             <div className="relative rounded-3xl overflow-hidden shadow-2xl">
               <img
-                src="https://upload.wikimedia.org/wikipedia/commons/6/65/Supreme_Court_of_India_-_200705_%28edited%29.jpg"
-                alt="Indian Supreme Court - Symbol of Justice"
+                src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Indian Court Interior - Modern Justice System"
                 className="w-full h-[500px] object-cover"
                 style={{ 
-                  filter: 'brightness(1.6) contrast(1.8) saturate(2.5) hue-rotate(10deg) sepia(0.3)',
+                  filter: 'brightness(1.3) contrast(1.2) saturate(1.3)',
                   imageRendering: 'crisp-edges'
                 }}
               />
-              <div className="absolute inset-0 bg-gradient-to-br from-orange-600/40 via-amber-500/35 to-red-600/40 mix-blend-overlay" />
-              <div className="absolute inset-0 bg-gradient-to-tl from-yellow-500/30 via-orange-400/25 to-red-500/30 mix-blend-soft-light" />
-              <div className="absolute inset-0 bg-gradient-to-r from-amber-700/25 to-orange-700/25 mix-blend-multiply" />
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-yellow-400/15 to-orange-500/20 mix-blend-color-dodge" />
+              <div className="absolute inset-0 bg-gradient-to-br from-orange-600/30 via-amber-500/25 to-red-600/30 mix-blend-overlay" />
+              <div className="absolute inset-0 bg-gradient-to-tl from-yellow-500/20 via-orange-400/15 to-red-500/20 mix-blend-soft-light" />
             </div>
           </motion.div>
         </div>
