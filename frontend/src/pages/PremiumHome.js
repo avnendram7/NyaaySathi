@@ -37,42 +37,42 @@ const SimpleNavbar = ({ navigate }) => {
 const ScatteredImages = () => {
   const images = [
     {
-      src: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Indian Supreme Court Building',
-      position: 'top-32 left-20',
-      size: 'w-56 h-72',
+      src: 'https://customer-assets.emergentagent.com/job_lxwyerup/artifacts/s897zzt0_ChatGPT%20Image%20Jan%2029%2C%202026%20at%2007_42_37%20AM.png',
+      alt: 'Indian Lawyer with Book',
+      position: 'top-32 left-16',
+      size: 'w-64 h-80',
       rotation: -12,
       delay: 0.2
     },
     {
-      src: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Indian Lawyer Consultation',
-      position: 'top-64 right-32',
-      size: 'w-64 h-80',
+      src: 'https://customer-assets.emergentagent.com/job_lxwyerup/artifacts/hcvutxga_ChatGPT%20Image%20Jan%2029%2C%202026%20at%2007_44_01%20AM.png',
+      alt: 'Lawyer Client Consultation',
+      position: 'top-72 right-24',
+      size: 'w-72 h-88',
       rotation: 8,
       delay: 0.4
     },
     {
-      src: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Indian Legal Documents',
-      position: 'bottom-48 left-32',
-      size: 'w-60 h-72',
+      src: 'https://customer-assets.emergentagent.com/job_lxwyerup/artifacts/a6uxjrba_ChatGPT%20Image%20Jan%2029%2C%202026%20at%2007_46_59%20AM.png',
+      alt: 'Legal Tech Innovation',
+      position: 'bottom-40 left-24',
+      size: 'w-68 h-80',
       rotation: 15,
       delay: 0.6
     },
     {
-      src: 'https://images.unsplash.com/photo-1589994965851-a8f479c573a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Indian Court Interior',
-      position: 'bottom-32 right-20',
-      size: 'w-52 h-64',
+      src: 'https://customer-assets.emergentagent.com/job_lxwyerup/artifacts/rrzwyi3v_ChatGPT%20Image%20Jan%2029%2C%202026%20at%2007_48_28%20AM.png',
+      alt: 'Indian Supreme Court',
+      position: 'bottom-24 right-16',
+      size: 'w-60 h-72',
       rotation: -8,
       delay: 0.8
     },
     {
-      src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Indian Legal Professional',
-      position: 'top-1/2 left-12',
-      size: 'w-48 h-60',
+      src: 'https://customer-assets.emergentagent.com/job_lxwyerup/artifacts/tafuoi17_ChatGPT%20Image%20Jan%2029%2C%202026%20at%2007_52_50%20AM.png',
+      alt: 'Lawyers Handshake',
+      position: 'top-1/2 left-8',
+      size: 'w-56 h-68',
       rotation: -15,
       delay: 1.0
     }
@@ -148,14 +148,14 @@ const PremiumHome = () => {
         <ScatteredImages />
 
         {/* Center Content */}
-        <div className="relative z-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="relative z-20 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.3 }}
           >
             <motion.h1 
-              className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-800 mb-16 leading-tight"
+              className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-800 mb-16 leading-tight"
               style={{ fontFamily: "'Playfair Display', serif" }}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
