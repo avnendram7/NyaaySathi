@@ -97,11 +97,23 @@ const UnifiedLogin = () => {
 
     try {
       const role = roles.find(r => r.id === selectedRole);
-      const response = await axios.post(`${API}/auth/login`, {
-        email: loginData.email,
-        password: loginData.password,
-        user_type: role.userType
-      });
+      let response;
+      
+      // Use different endpoints based on role
+      if (role.endpoint === 'firm-clients') {
+        // Firm client uses dedicated login endpoint
+        response = await axios.post(`${API}/firm-clients/login`, {
+          email: loginData.email,
+          password: loginData.password
+        });
+      } else {
+        // All other roles use auth endpoint
+        response = await axios.post(`${API}/auth/login`, {
+          email: loginData.email,
+          password: loginData.password,
+          user_type: role.userType
+        });
+      }
 
       if (response.data.token) {
         localStorage.setItem('token', response.data.token);
@@ -109,6 +121,7 @@ const UnifiedLogin = () => {
           ...response.data.user,
           user_type: role.userType
         }));
+        localStorage.setItem('userRole', role.userType);
         
         toast.success('Login successful!');
         navigate(role.redirectPath);
