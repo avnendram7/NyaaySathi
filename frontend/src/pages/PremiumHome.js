@@ -401,16 +401,17 @@ const FeaturesSection = ({ fadeInUp }) => {
           >
             <div className="relative rounded-3xl overflow-hidden shadow-2xl">
               <img
-                src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                alt="Indian High Court Interior - Justice System in Action"
+                src="https://upload.wikimedia.org/wikipedia/commons/6/65/Supreme_Court_of_India_-_200705_%28edited%29.jpg"
+                alt="Indian Supreme Court - Symbol of Justice"
                 className="w-full h-[500px] object-cover"
                 style={{ 
-                  filter: 'brightness(1.4) contrast(1.5) saturate(2.0) hue-rotate(15deg)',
+                  filter: 'brightness(1.4) contrast(1.6) saturate(2.2) hue-rotate(5deg)',
                   imageRendering: 'crisp-edges'
                 }}
               />
-              <div className="absolute inset-0 bg-gradient-to-br from-orange-600/30 via-amber-500/25 to-red-600/30 mix-blend-overlay" />
-              <div className="absolute inset-0 bg-gradient-to-tl from-yellow-500/20 via-transparent to-orange-600/20 mix-blend-soft-light" />
+              <div className="absolute inset-0 bg-gradient-to-br from-orange-500/35 via-amber-400/30 to-red-500/35 mix-blend-overlay" />
+              <div className="absolute inset-0 bg-gradient-to-tl from-yellow-400/25 via-orange-300/20 to-red-400/25 mix-blend-soft-light" />
+              <div className="absolute inset-0 bg-gradient-to-r from-amber-600/20 to-orange-600/20 mix-blend-multiply" />
             </div>
           </motion.div>
         </div>
