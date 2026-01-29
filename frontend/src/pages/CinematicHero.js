@@ -543,7 +543,7 @@ export default function CinematicHero() {
               Ready to Get Started?
             </h2>
             <p className="text-xl mb-10 text-slate-300">
-              Join thousands of Indians who have simplified their legal journey with Nyaay Sathi
+              Join thousands of Indians who have simplified their legal journey with Lxwyer Up
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
