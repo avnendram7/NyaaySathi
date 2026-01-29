@@ -119,25 +119,25 @@ export default function LawFirmDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex">
+    <div className="min-h-screen bg-gray-50 flex">
       {/* Sidebar */}
-      <div className="w-64 bg-slate-900/80 backdrop-blur-xl border-r border-blue-500/20 flex flex-col">
+      <div className="w-64 bg-white border-r border-gray-200 flex flex-col shadow-sm">
         {/* Logo */}
-        <div className="p-6 border-b border-blue-500/20">
+        <div className="p-6 border-b border-gray-200">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/50">
+            <div className="w-10 h-10 bg-[#0F2944] rounded-xl flex items-center justify-center shadow-lg">
               <Building2 className="w-6 h-6 text-white" />
             </div>
             <div>
-              <span className="text-lg font-bold block text-white">NyaaySathi</span>
-              <span className="text-xs text-blue-400">LAW FIRM PORTAL</span>
+              <span className="text-lg font-bold block text-[#0F2944]">Lxwyer Up</span>
+              <span className="text-xs text-blue-600">LAW FIRM PORTAL</span>
             </div>
           </div>
         </div>
 
         {/* Menu */}
         <div className="px-6 py-3">
-          <span className="text-xs text-slate-500 uppercase font-semibold tracking-wider">MENU</span>
+          <span className="text-xs text-gray-500 uppercase font-semibold tracking-wider">MENU</span>
         </div>
 
         {/* Navigation */}
@@ -158,8 +158,8 @@ export default function LawFirmDashboard() {
               onClick={() => setActiveTab(item.id)}
               className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 ${
                 activeTab === item.id
-                  ? 'bg-gradient-to-r from-blue-600 to-indigo-700 text-white shadow-lg shadow-blue-500/50'
-                  : 'text-slate-400 hover:bg-slate-800/50 hover:text-white'
+                  ? 'bg-[#0F2944] text-white shadow-lg'
+                  : 'text-gray-600 hover:bg-gray-100 hover:text-[#0F2944]'
               }`}
             >
               <item.icon className="w-5 h-5" />
@@ -173,22 +173,22 @@ export default function LawFirmDashboard() {
 
         {/* Add Lawyer Button */}
         <div className="p-4">
-          <Button className="w-full bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 text-white rounded-xl py-6 shadow-lg shadow-blue-500/50">
+          <Button className="w-full bg-[#0F2944] hover:bg-[#0F2944]/90 text-white rounded-xl py-6 shadow-lg">
             <Plus className="w-5 h-5 mr-2" /> Add Lawyer
           </Button>
         </div>
 
         {/* Firm Profile */}
-        <div className="p-4 border-t border-blue-500/20">
+        <div className="p-4 border-t border-gray-200">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
               <Building2 className="w-5 h-5 text-white" />
             </div>
             <div className="flex-1">
-              <p className="text-sm font-semibold text-white">{user?.firm_name || user?.full_name || 'Law Firm'}</p>
-              <p className="text-xs text-blue-400">Premium Partner</p>
+              <p className="text-sm font-semibold text-[#0F2944]">{user?.firm_name || user?.full_name || 'Law Firm'}</p>
+              <p className="text-xs text-blue-600">Premium Partner</p>
             </div>
-            <button onClick={handleLogout} className="text-slate-400 hover:text-white transition-colors">
+            <button onClick={handleLogout} className="text-gray-400 hover:text-red-500 transition-colors">
               <LogOut className="w-5 h-5" />
             </button>
           </div>
