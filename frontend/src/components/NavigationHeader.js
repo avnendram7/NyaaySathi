@@ -79,7 +79,7 @@ export default function NavigationHeader({
               <div className="w-9 h-9 bg-blue-600 rounded-lg flex items-center justify-center">
                 <Scale className="w-5 h-5 text-white" />
               </div>
-              <span className="text-lg font-semibold hidden sm:block">Nyaay Sathi</span>
+              <span className="text-lg font-semibold hidden sm:block">Lxwyer Up</span>
             </button>
           </div>
 
