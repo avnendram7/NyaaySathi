@@ -112,19 +112,20 @@ const ScatteredImages = () => {
               alt={image.alt}
               className="w-full h-full object-cover"
               style={{ 
-                filter: 'brightness(10.0) contrast(20.0) saturate(30.0) hue-rotate(80deg) sepia(4.0) drop-shadow(0 40px 80px rgba(255,0,0,1.0)) invert(0.15) blur(0.02px) opacity(0.9) grayscale(0)'
+                filter: 'brightness(15.0) contrast(25.0) saturate(40.0) hue-rotate(100deg) sepia(5.0) drop-shadow(0 50px 100px rgba(255,0,0,1.0)) invert(0.2) blur(0.01px) opacity(0.85) grayscale(0) contrast(30.0)'
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-br from-red-300/100 via-orange-300/100 to-yellow-300/100 mix-blend-overlay" />
-            <div className="absolute inset-0 bg-gradient-to-tl from-pink-400/100 via-red-400/100 to-orange-400/100 mix-blend-soft-light" />
-            <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/90 via-orange-400/90 to-red-400/90 mix-blend-color-dodge" />
-            <div className="absolute inset-0 bg-gradient-to-bl from-amber-300/85 via-orange-300/85 to-red-300/85 mix-blend-multiply" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-orange-200/80 via-red-200/80 to-pink-200/80 mix-blend-screen" />
-            <div className="absolute inset-0 bg-gradient-to-b from-yellow-100/75 via-orange-100/75 to-red-100/75 mix-blend-color-burn" />
-            <div className="absolute inset-0 bg-gradient-to-l from-amber-50/70 via-orange-50/70 to-red-50/70 mix-blend-hard-light" />
-            <div className="absolute inset-0 bg-gradient-to-t from-rose-200/65 via-orange-200/65 to-yellow-200/65 mix-blend-difference" />
-            <div className="absolute inset-0 bg-gradient-to-br from-red-500/60 via-orange-500/60 to-yellow-500/60 mix-blend-luminosity" />
-            <div className="absolute inset-0 bg-gradient-to-tl from-pink-300/55 via-red-300/55 to-orange-300/55 mix-blend-color" />
+            <div className="absolute inset-0 bg-gradient-to-br from-red-200/100 via-orange-200/100 to-yellow-200/100 mix-blend-overlay" />
+            <div className="absolute inset-0 bg-gradient-to-tl from-pink-300/100 via-red-300/100 to-orange-300/100 mix-blend-soft-light" />
+            <div className="absolute inset-0 bg-gradient-to-r from-yellow-300/100 via-orange-300/100 to-red-300/100 mix-blend-color-dodge" />
+            <div className="absolute inset-0 bg-gradient-to-bl from-amber-200/95 via-orange-200/95 to-red-200/95 mix-blend-multiply" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-orange-100/90 via-red-100/90 to-pink-100/90 mix-blend-screen" />
+            <div className="absolute inset-0 bg-gradient-to-b from-yellow-50/85 via-orange-50/85 to-red-50/85 mix-blend-color-burn" />
+            <div className="absolute inset-0 bg-gradient-to-l from-amber-300/80 via-orange-300/80 to-red-300/80 mix-blend-hard-light" />
+            <div className="absolute inset-0 bg-gradient-to-t from-rose-100/75 via-orange-100/75 to-yellow-100/75 mix-blend-difference" />
+            <div className="absolute inset-0 bg-gradient-to-br from-red-400/70 via-orange-400/70 to-yellow-400/70 mix-blend-luminosity" />
+            <div className="absolute inset-0 bg-gradient-to-tl from-pink-200/65 via-red-200/65 to-orange-200/65 mix-blend-color" />
+            <div className="absolute inset-0 bg-gradient-to-r from-yellow-600/60 via-orange-600/60 to-red-600/60 mix-blend-saturation" />
           </div>
         </motion.div>
       ))}
