@@ -388,7 +388,7 @@ export default function CinematicHero() {
             className="text-center mb-16"
           >
             <span className="text-sm font-semibold tracking-wider uppercase mb-4 block text-blue-400">
-              03 — Why Nyaay Sathi
+              03 — Why Lxwyer Up
             </span>
             <div className="relative inline-block">
               {/* Three lights behind "Precision in Process" text */}
