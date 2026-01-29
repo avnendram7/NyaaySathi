@@ -85,7 +85,7 @@ export default function AdminLogin() {
                 data-testid="admin-email-input"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                placeholder="admin@nyaaysathi.com"
+                placeholder="admin@lxwyerup.com"
                 icon={Mail}
                 required
               />

@@ -104,7 +104,7 @@ export default function HowItWorksPage() {
 
   const support = [
     { icon: MessageSquare, title: 'Live Chat', description: 'Instant support', color: 'blue' },
-    { icon: Mail, title: 'Email', description: 'support@nyaaysathi.com', color: 'purple' },
+    { icon: Mail, title: 'Email', description: 'support@lxwyerup.com', color: 'purple' },
     { icon: Phone, title: 'Phone', description: '+91 1800-XXX-XXXX', color: 'green' },
     { icon: BookOpen, title: 'Help Articles', description: 'Browse guides', color: 'amber' }
   ];

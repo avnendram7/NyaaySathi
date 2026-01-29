@@ -259,7 +259,7 @@ export default function ContactPage() {
               <ContactMethodCard 
                 icon={Mail} 
                 title="Email Us" 
-                value="support@nyaaysathi.com" 
+                value="support@lxwyerup.com" 
                 description="We reply within 24 hours"
                 color="blue"
                 delay={0.1}
