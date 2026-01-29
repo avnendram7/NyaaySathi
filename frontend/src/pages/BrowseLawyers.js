@@ -192,7 +192,7 @@ const BrowseLawyers = () => {
                       <select
                         value={filters.specialization}
                         onChange={(e) => { setFilters({ ...filters, specialization: e.target.value }); setCurrentPage(1); }}
-                        className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0F2944]/20 focus:border-[#0F2944]"
+                        className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm text-black bg-white focus:outline-none focus:ring-2 focus:ring-[#0F2944]/20 focus:border-[#0F2944]"
                       >
                         <option value="">All</option>
                         {specializationsList.map(spec => (
@@ -207,7 +207,7 @@ const BrowseLawyers = () => {
                       <select
                         value={filters.state}
                         onChange={(e) => { setFilters({ ...filters, state: e.target.value }); setCurrentPage(1); }}
-                        className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0F2944]/20 focus:border-[#0F2944]"
+                        className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm text-black bg-white focus:outline-none focus:ring-2 focus:ring-[#0F2944]/20 focus:border-[#0F2944]"
                       >
                         <option value="">All States</option>
                         {statesList.map(state => (
