@@ -22,7 +22,7 @@ const SimpleNavbar = ({ navigate }) => {
           </div>
           
           <Button
-            onClick={() => navigate('/user-login')}
+            onClick={() => navigate('/role-selection')}
             className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full transition-all duration-300"
           >
             Login
