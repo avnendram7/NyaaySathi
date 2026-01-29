@@ -213,7 +213,7 @@ const JoinFirmSignup = () => {
                 <strong>Your account has been created!</strong>
               </p>
               <ul className="text-sm text-gray-600 mt-2 space-y-1">
-                <li>• Login with <strong>{formData.email}</strong></li>
+                <li>• Email: <strong>{formData.email}</strong></li>
                 <li>• Access your Law Firm Client Dashboard</li>
                 <li>• Track your case progress</li>
                 <li>• Communicate with your assigned lawyer</li>
@@ -222,10 +222,11 @@ const JoinFirmSignup = () => {
             
             <div className="flex gap-4">
               <Button
-                onClick={() => navigate('/login')}
+                onClick={() => navigate('/firm-client-dashboard')}
                 className="flex-1 bg-[#0F2944] hover:bg-[#0F2944]/90 text-white rounded-xl"
+                data-testid="go-to-dashboard-btn"
               >
-                Login Now
+                Go to Dashboard
               </Button>
               <Button
                 onClick={() => navigate('/')}
