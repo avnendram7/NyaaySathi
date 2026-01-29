@@ -37,52 +37,44 @@ const SimpleNavbar = ({ navigate }) => {
 const ScatteredImages = () => {
   const images = [
     {
-      src: 'https://upload.wikimedia.org/wikipedia/commons/6/65/Supreme_Court_of_India_-_200705_%28edited%29.jpg',
-      alt: 'Indian Supreme Court Building - Symbol of Justice',
+      src: 'https://customer-assets.emergentagent.com/job_ddba30ef-1bd5-4249-895f-f947c592082a/artifacts/ac5drwy4_ChatGPT%20Image%20Jan%2029%2C%202026%20at%2007_42_37%20AM.png',
+      alt: 'Indian Legal Professional',
       position: 'top-32 left-20',
       size: 'w-56 h-72',
       rotation: -12,
       delay: 0.2
     },
     {
-      src: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Indian Court Interior - Justice in Session',
+      src: 'https://customer-assets.emergentagent.com/job_ddba30ef-1bd5-4249-895f-f947c592082a/artifacts/9tgya7o8_ChatGPT%20Image%20Jan%2029%2C%202026%20at%2007_44_01%20AM.png',
+      alt: 'Indian Lawyer Consultation',
       position: 'top-64 right-32',
       size: 'w-64 h-80',
       rotation: 8,
       delay: 0.4
     },
     {
-      src: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Indian Lawyer Consulting Client - Legal Guidance',
+      src: 'https://customer-assets.emergentagent.com/job_ddba30ef-1bd5-4249-895f-f947c592082a/artifacts/h5ayn8cn_ChatGPT%20Image%20Jan%2029%2C%202026%20at%2007_46_59%20AM.png',
+      alt: 'Legal Tech India',
       position: 'bottom-48 left-32',
       size: 'w-60 h-72',
       rotation: 15,
       delay: 0.6
     },
     {
-      src: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Indian Family with Legal Documents - Getting Help',
+      src: 'https://customer-assets.emergentagent.com/job_ddba30ef-1bd5-4249-895f-f947c592082a/artifacts/1gipxvnv_ChatGPT%20Image%20Jan%2029%2C%202026%20at%2007_48_28%20AM.png',
+      alt: 'Indian Supreme Court',
       position: 'bottom-32 right-20',
       size: 'w-52 h-64',
       rotation: -8,
       delay: 0.8
     },
     {
-      src: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Indian High Court Session - Modern Justice',
+      src: 'https://customer-assets.emergentagent.com/job_ddba30ef-1bd5-4249-895f-f947c592082a/artifacts/v4rlo1il_ChatGPT%20Image%20Jan%2029%2C%202026%20at%2007_52_50%20AM.png',
+      alt: 'Indian Legal Professionals',
       position: 'top-1/2 left-12',
       size: 'w-48 h-60',
       rotation: -15,
       delay: 1.0
-    },
-    {
-      src: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Indian Legal Tech Professional - Digital Justice',
-      position: 'top-1/3 right-12',
-      size: 'w-44 h-56',
-      rotation: 10,
-      delay: 1.2
     }
   ];
 
