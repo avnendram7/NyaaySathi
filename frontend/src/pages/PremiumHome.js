@@ -185,7 +185,7 @@ const PremiumHome = () => {
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Button
                   onClick={() => navigate('/role-selection')}
-                  className="bg-[#0F2944] hover:bg-[#1a3a5c] text-white text-lg px-14 py-8 rounded-full font-semibold shadow-xl transition-all duration-300"
+                  className="bg-gray-800 hover:bg-gray-900 text-white text-lg px-14 py-8 rounded-full font-semibold shadow-xl transition-all duration-300"
                 >
                   Get Started
                 </Button>
@@ -195,7 +195,7 @@ const PremiumHome = () => {
                 <Button
                   onClick={() => navigate('/quick-chat')}
                   variant="outline"
-                  className="border-2 border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white text-lg px-14 py-8 rounded-full font-semibold transition-all duration-300"
+                  className="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white text-lg px-14 py-8 rounded-full font-semibold transition-all duration-300"
                 >
                   Free AI Assistant
                 </Button>
