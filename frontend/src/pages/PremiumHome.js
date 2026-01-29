@@ -412,10 +412,14 @@ const FeaturesSection = ({ fadeInUp }) => {
               <img
                 src="https://images.unsplash.com/photo-1505664194779-8beaceb93744?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
                 alt="Indian Court Interior - Justice System"
-                className="w-full h-[500px] object-cover brightness-110 contrast-120 saturate-150"
+                className="w-full h-[500px] object-cover"
+                style={{ 
+                  filter: 'brightness(1.25) contrast(1.4) saturate(1.7) hue-rotate(5deg) sepia(0.1)',
+                  imageRendering: 'crisp-edges'
+                }}
               />
-              <div className="absolute inset-0 bg-gradient-to-br from-orange-500/20 via-yellow-400/15 to-red-500/20" />
-              <div className="absolute inset-0 bg-gradient-to-tl from-amber-400/10 via-transparent to-green-500/15" />
+              <div className="absolute inset-0 bg-gradient-to-br from-orange-600/25 via-yellow-500/20 to-red-500/25" />
+              <div className="absolute inset-0 bg-gradient-to-tl from-amber-500/15 via-transparent to-green-500/20" />
             </div>
           </motion.div>
         </div>
