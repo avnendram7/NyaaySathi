@@ -156,7 +156,7 @@ const UnifiedLogin = () => {
           </motion.div>
 
           {/* Role Selection Cards */}
-          <div className="grid md:grid-cols-3 gap-6 mb-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             {roles.map((role, index) => {
               const Icon = role.icon;
               const isSelected = selectedRole === role.id;
