@@ -235,20 +235,22 @@ const ServicesSection = ({ showAllServices, setShowAllServices, fadeInUp, stagge
     {
       icon: Brain,
       title: 'AI Legal Assistant',
-      description: 'Get instant answers to your legal queries powered by AI trained on Indian law and procedures.',
-      color: 'from-gray-600 to-gray-700'
+      description: 'Get instant answers to your legal queries powered by AI trained on Indian law and procedures.'
     },
     {
       icon: Search,
       title: 'Find Lawyers',
-      description: 'Connect with verified lawyers across India specializing in your specific legal needs.',
-      color: 'from-gray-700 to-gray-800'
+      description: 'Connect with verified lawyers across India specializing in your specific legal needs.'
     },
     {
       icon: FileText,
       title: 'Case Management',
-      description: 'Track your case progress, documents, and timelines in one secure platform.',
-      color: 'from-gray-600 to-gray-800'
+      description: 'Track your case progress, documents, and timelines in one secure platform.'
+    },
+    {
+      icon: MessageSquare,
+      title: 'Legal Consultation',
+      description: 'Book online or offline consultations with experienced legal professionals.'
     }
   ];
 
