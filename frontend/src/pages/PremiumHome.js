@@ -93,7 +93,7 @@ const ScatteredImages = () => {
           key={index}
           initial={{ opacity: 0, scale: 0.8, rotate: 0 }}
           animate={{ 
-            opacity: 0.6,
+            opacity: 0.85,
             scale: 1,
             rotate: image.rotation,
             y: [0, -25, 0]
@@ -109,7 +109,7 @@ const ScatteredImages = () => {
             }
           }}
           whileHover={{ 
-            opacity: 0.9,
+            opacity: 1,
             scale: 1.05,
             transition: { duration: 0.3 }
           }}
@@ -119,13 +119,9 @@ const ScatteredImages = () => {
             <img
               src={image.src}
               alt={image.alt}
-              className="w-full h-full object-cover brightness-150 contrast-150 saturate-250 hue-rotate-20 sepia-25"
+              className="w-full h-full object-cover brightness-125 contrast-125 saturate-150"
+              style={{ filter: 'brightness(1.25) contrast(1.25) saturate(1.5)' }}
             />
-            <div className="absolute inset-0 bg-gradient-to-br from-orange-600/45 via-yellow-500/35 to-red-600/40" />
-            <div className="absolute inset-0 bg-gradient-to-tl from-pink-500/30 via-purple-400/20 to-green-600/35" />
-            <div className="absolute inset-0 bg-gradient-to-r from-amber-500/25 via-orange-400/30 to-red-500/25" />
-            <div className="absolute inset-0 mix-blend-overlay bg-gradient-to-br from-yellow-400/35 to-orange-500/35" />
-            <div className="absolute inset-0 mix-blend-soft-light bg-gradient-to-tr from-red-400/20 to-yellow-400/20" />
           </div>
         </motion.div>
       ))}
