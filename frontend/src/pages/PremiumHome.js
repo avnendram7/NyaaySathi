@@ -46,7 +46,7 @@ const ScatteredImages = () => {
     },
     {
       src: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Indian Court Session in Progress',
+      alt: 'Indian Court Session - Justice in Action',
       position: 'top-64 right-32',
       size: 'w-64 h-80',
       rotation: 8,
@@ -54,31 +54,31 @@ const ScatteredImages = () => {
     },
     {
       src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Indian Lawyer Consulting Client',
+      alt: 'Indian Lawyer Helping Client - Legal Consultation',
       position: 'bottom-48 left-32',
       size: 'w-60 h-72',
       rotation: 15,
       delay: 0.6
     },
     {
-      src: 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Indian Family Getting Legal Help',
+      src: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      alt: 'Indian Family Getting Legal Help - Technology Bridging Justice',
       position: 'bottom-32 right-20',
       size: 'w-52 h-64',
       rotation: -8,
       delay: 0.8
     },
     {
-      src: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Indian High Court Interior',
+      src: 'https://images.unsplash.com/photo-1589994965851-a8f479c573a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      alt: 'Indian High Court Interior - Modern Justice System',
       position: 'top-1/2 left-12',
       size: 'w-48 h-60',
       rotation: -15,
       delay: 1.0
     },
     {
-      src: 'https://images.unsplash.com/photo-1551836022-deb4988cc6c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Indian Legal Professional with Technology',
+      src: 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      alt: 'Indian Legal Professional Using Technology - Digital Justice',
       position: 'top-1/3 right-12',
       size: 'w-44 h-56',
       rotation: 10,
