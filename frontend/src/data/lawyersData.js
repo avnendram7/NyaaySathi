@@ -132,6 +132,7 @@ const generateLawyers = () => {
 export const dummyLawyers = generateLawyers();
 
 export const specializationsList = specializations;
+export { specializations };
 export const citiesList = cities;
 export const statesList = [...new Set(cities.map(c => c.state))];
 
