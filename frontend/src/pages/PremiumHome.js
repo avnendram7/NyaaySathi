@@ -174,7 +174,7 @@ const PremiumHome = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
             >
-              Justice You <span className="font-bold">Understand</span>, Technology You <span className="font-bold">Trust</span>
+              Justice You <span className="font-bold text-blue-600">Understand</span>, Technology You <span className="font-bold text-blue-600">Trust</span>
             </motion.h1>
             
             <motion.div
