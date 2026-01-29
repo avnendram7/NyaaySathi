@@ -86,22 +86,6 @@ export default function InitialLanding() {
       >
         Lxwyer Up
       </motion.div>
-      
-      <style jsx>{`
-        @keyframes gradient-border {
-          0%, 100% {
-            background-position: 0% 50%;
-          }
-          50% {
-            background-position: 100% 50%;
-          }
-        }
-        
-        .animate-gradient-border {
-          background-size: 200% 200%;
-          animation: gradient-border 3s ease infinite;
-        }
-      `}</style>
     </div>
   );
 }
