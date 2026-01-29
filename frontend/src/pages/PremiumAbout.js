@@ -311,11 +311,11 @@ const TrustSection = ({ fadeInUp }) => {
             className="relative rounded-3xl overflow-hidden shadow-xl"
           >
             <img
-              src="https://images.pexels.com/photos/7841443/pexels-photo-7841443.jpeg"
-              alt="Indian Legal Professional"
-              className="w-full h-[400px] object-cover"
+              src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+              alt="Indian High Court Interior"
+              className="w-full h-[400px] object-cover brightness-110 contrast-110 saturate-110"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0F2944]/60 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-amber-900/40 to-transparent" />
           </motion.div>
 
           <motion.div
@@ -325,11 +325,11 @@ const TrustSection = ({ fadeInUp }) => {
             className="relative rounded-3xl overflow-hidden shadow-xl"
           >
             <img
-              src="https://images.pexels.com/photos/7841469/pexels-photo-7841469.jpeg"
-              alt="Legal Consultation in India"
-              className="w-full h-[400px] object-cover"
+              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+              alt="Indian Legal Consultation"
+              className="w-full h-[400px] object-cover brightness-110 contrast-110 saturate-120"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0F2944]/60 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/40 to-transparent" />
           </motion.div>
         </div>
 
