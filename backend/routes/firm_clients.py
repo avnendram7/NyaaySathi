@@ -171,12 +171,12 @@ async def update_client_application_status(
             detail=f"Error updating application status: {str(e)}"
         )
 
-# Direct registration for paid clients (auto-approved)
+# Direct registration for paid clients (requires admin approval)
 @router.post("/register-paid")
 async def register_paid_firm_client(client_data: dict):
     """
-    Register a firm client directly after payment (auto-approved).
-    This bypasses the application process since payment = approval.
+    Register a firm client after payment.
+    Status is set to 'pending_approval' - admin must approve before login.
     """
     try:
         clients_collection = db.firm_clients
@@ -196,7 +196,7 @@ async def register_paid_firm_client(client_data: dict):
         import uuid
         client_id = uuid.uuid4().hex
         
-        # Create client record
+        # Create client record with pending_approval status
         client = {
             "id": client_id,
             "full_name": client_data.get("full_name"),
@@ -210,7 +210,7 @@ async def register_paid_firm_client(client_data: dict):
             "law_firm_name": client_data.get("law_firm_name"),
             "assigned_lawyer_id": None,
             "assigned_lawyer_name": None,
-            "status": "active",
+            "status": "pending_approval",  # Requires admin approval
             "payment_status": "paid",
             "payment_amount": client_data.get("payment_amount"),
             "created_at": datetime.utcnow().isoformat(),
@@ -219,28 +219,14 @@ async def register_paid_firm_client(client_data: dict):
         
         await clients_collection.insert_one(client)
         
-        # Generate token
-        token_data = {
-            "email": client["email"],
-            "role": "firm_client",
-            "client_id": client["id"],
-            "law_firm_id": client["law_firm_id"]
-        }
-        token = jwt.encode(
-            token_data,
-            os.environ.get("JWT_SECRET", "secret"),
-            algorithm="HS256"
-        )
-        
         # Remove password and _id from response
         client.pop("password", None)
         client.pop("_id", None)
         
         return {
-            "message": "Registration successful",
-            "token": token,
+            "message": "Registration successful! Your account is pending admin approval. You will be able to login once approved.",
             "user": client,
-            "role": "firm_client"
+            "status": "pending_approval"
         }
     
     except HTTPException:
@@ -249,6 +235,72 @@ async def register_paid_firm_client(client_data: dict):
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Registration error: {str(e)}"
+        )
+
+# Get all pending firm client approvals (for admin)
+@router.get("/pending-approvals")
+async def get_pending_firm_clients():
+    """Get all firm clients pending approval (Admin only)"""
+    try:
+        collection = db.firm_clients
+        pending = await collection.find({"status": "pending_approval"}, {"password": 0}).to_list(length=100)
+        
+        for client in pending:
+            if "_id" in client:
+                client["_id"] = str(client["_id"])
+        
+        return pending
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error fetching pending clients: {str(e)}"
+        )
+
+# Approve or reject firm client (Admin only)
+@router.put("/{client_id}/approve")
+async def approve_firm_client(client_id: str, approval_data: dict):
+    """Approve or reject a firm client application"""
+    try:
+        collection = db.firm_clients
+        
+        # Find the client
+        client = await collection.find_one({"id": client_id})
+        if not client:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="Client not found"
+            )
+        
+        action = approval_data.get("action", "approve")  # approve or reject
+        
+        if action == "approve":
+            new_status = "active"
+            message = "Client approved successfully"
+        else:
+            new_status = "rejected"
+            message = "Client rejected"
+        
+        # Update client status
+        await collection.update_one(
+            {"id": client_id},
+            {
+                "$set": {
+                    "status": new_status,
+                    "approved_at": datetime.utcnow().isoformat() if action == "approve" else None,
+                    "approved_by": approval_data.get("approved_by"),
+                    "rejection_reason": approval_data.get("rejection_reason") if action == "reject" else None
+                }
+            }
+        )
+        
+        return {"message": message, "status": new_status}
+    
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error updating client status: {str(e)}"
         )
 
 # Client login
