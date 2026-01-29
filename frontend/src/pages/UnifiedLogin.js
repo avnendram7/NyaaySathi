@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { User, Scale, Building2, Mail, Lock, Eye, EyeOff, ArrowRight } from 'lucide-react';
+import { User, Scale, Building2, UserCircle, Mail, Lock, Eye, EyeOff, ArrowRight } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { toast } from 'sonner';
 import axios from 'axios';
