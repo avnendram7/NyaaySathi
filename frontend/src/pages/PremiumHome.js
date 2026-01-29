@@ -214,7 +214,7 @@ const PremiumHome = () => {
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Button
                   onClick={() => navigate('/role-selection')}
-                  className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white text-lg px-14 py-8 rounded-full font-semibold shadow-xl transition-all duration-300"
+                  className="bg-blue-600 hover:bg-blue-700 text-white text-lg px-14 py-8 rounded-full font-semibold shadow-xl transition-all duration-300"
                 >
                   Get Started
                 </Button>
