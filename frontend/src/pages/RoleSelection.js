@@ -38,21 +38,21 @@ const RoleSelection = () => {
       icon: User,
       title: 'I am a User',
       description: 'Seeking legal advice? Connect with top-tier professionals seamlessly.',
-      path: mode === 'login' ? '/user-login' : '/user-signup',
+      path: mode === 'login' ? '/user-login' : '/legal-assistance',
       color: '#0F2944'
     },
     {
       icon: Scale,
       title: 'I am a Lawyer',
       description: 'Join our network. Build your practice and reach clients effectively.',
-      path: mode === 'login' ? '/lawyer-login' : '/lawyer-signup',
+      path: mode === 'login' ? '/lawyer-login' : '/lawyer-application',
       color: '#0F2944'
     },
     {
       icon: Building2,
       title: 'I am a Law Firm',
       description: 'Manage your firm, onboard lawyers, and scale your legal operations.',
-      path: mode === 'login' ? '/firm-login' : '/firm-signup',
+      path: mode === 'login' ? '/lawfirm-login' : '/lawfirm-application',
       color: '#0F2944'
     }
   ];
