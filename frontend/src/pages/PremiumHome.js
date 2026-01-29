@@ -184,7 +184,25 @@ const PremiumHome = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
             >
-              <span className="font-bold">Justice You Understand</span>, <span className="font-bold">Technology You Trust</span>
+              <span className="relative inline-block font-semibold">
+                Justice
+                <motion.div
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 0.8, delay: 1.0 }}
+                  className="absolute -bottom-2 left-0 right-0 h-1 bg-blue-600 rounded-full"
+                />
+              </span>
+              {' '}You Understand, <span className="relative inline-block font-semibold">
+                Technology
+                <motion.div
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 0.8, delay: 1.4 }}
+                  className="absolute -bottom-2 left-0 right-0 h-1 bg-blue-600 rounded-full"
+                />
+              </span>
+              {' '}You Trust
             </motion.h1>
             
             <motion.div
