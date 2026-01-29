@@ -17,24 +17,25 @@ export const Navbar = () => {
   };
   
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-slate-800/50">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="flex items-center space-x-2">
-            <span className="text-xl font-bold text-white">Lxwyer Up</span>
+            <Scale className="w-6 h-6 text-gray-800" />
+            <span className="text-xl font-bold text-gray-800">Lxwyer Up</span>
           </Link>
           
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link to="/" className="flex items-center space-x-1 text-slate-300 hover:text-white transition-colors">
+            <Link to="/" className="flex items-center space-x-1 text-gray-800 hover:text-gray-600 transition-colors">
               <Home className="w-4 h-4" />
               <span>Home</span>
             </Link>
-            <Link to="/premium-about" className="flex items-center space-x-1 text-slate-300 hover:text-white transition-colors">
+            <Link to="/premium-about" className="flex items-center space-x-1 text-gray-800 hover:text-gray-600 transition-colors">
               <Info className="w-4 h-4" />
               <span>About</span>
             </Link>
-            <Link to="/premium-contact" className="flex items-center space-x-1 text-slate-300 hover:text-white transition-colors">
+            <Link to="/premium-contact" className="flex items-center space-x-1 text-gray-800 hover:text-gray-600 transition-colors">
               <HelpCircle className="w-4 h-4" />
               <span>Contact</span>
             </Link>
