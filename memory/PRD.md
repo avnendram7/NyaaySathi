@@ -143,6 +143,7 @@ Design elements applied:
 **Root Cause:** 
 1. JoinFirmSignup.js was registering users via `/api/auth/register` (stores in `users` collection) but FirmClientLogin.js was checking `/api/firm-clients/login` (looks in `firm_clients` collection)
 2. No admin approval flow existed
+3. Unified login page (/login) didn't have "Firm Client" option
 
 **Fix Applied:** 
 1. Updated JoinFirmSignup.js to use `/api/firm-clients/register-paid` endpoint
@@ -150,16 +151,21 @@ Design elements applied:
 3. Users cannot login until admin approves them
 4. Admin can view and approve pending clients from Admin Dashboard → Firm Clients tab
 5. After approval, status changes to `active` and user can login
+6. **Added "Login as Firm Client" option to the unified login page (/login)**
 
 **New Endpoints:**
 - `GET /api/firm-clients/pending-approvals` - Get all pending clients
 - `PUT /api/firm-clients/{client_id}/approve` - Approve/reject client
 
+**Login Options:**
+- `/login` - Unified login with 4 options: User, Lawyer, Law Firm, Firm Client
+- `/firm-client-login` - Direct firm client login page
+
 **Flow:**
-1. User signs up → gets "pending admin approval" message
-2. Admin views pending clients in Admin Dashboard
+1. User signs up via /join-firm/{firmId} → gets "pending admin approval" message
+2. Admin views pending clients in Admin Dashboard → Firm Clients tab
 3. Admin clicks Approve → client status = "active"
-4. User can now login at /firm-client-login
+4. User can now login at /login (select "Firm Client") or /firm-client-login
 
 **Test Credentials:**
 - Client Email: newtest@example.com
