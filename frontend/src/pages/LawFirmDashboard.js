@@ -203,20 +203,20 @@ export default function LawFirmDashboard() {
             {/* Header */}
             <div className="flex items-center justify-between mb-8">
               <div>
-                <p className="text-sm text-green-400 flex items-center mb-2">
-                  <span className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
+                <p className="text-sm text-green-600 flex items-center mb-2">
+                  <span className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
                   Monday, January 20, 2026
                 </p>
-                <h1 className="text-4xl font-bold text-white">
-                  Welcome, <span className="text-blue-400">{user?.firm_name || 'Law Firm'}</span>
+                <h1 className="text-4xl font-bold text-[#0F2944]">
+                  Welcome, <span className="text-blue-600">{user?.firm_name || 'Law Firm'}</span>
                 </h1>
               </div>
               <div className="flex items-center space-x-3">
                 <div className="relative">
-                  <Search className="w-5 h-5 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
-                  <Input placeholder="Search..." className="pl-10 bg-slate-900/50 border-slate-700 rounded-xl w-64 text-white" />
+                  <Search className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                  <Input placeholder="Search..." className="pl-10 bg-white border-gray-200 rounded-xl w-64 text-gray-800" />
                 </div>
-                <Button className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white rounded-xl px-6 shadow-lg shadow-blue-500/50">
+                <Button className="bg-[#0F2944] hover:bg-[#0F2944]/90 text-white rounded-xl px-6 shadow-lg">
                   + New Case
                 </Button>
               </div>
@@ -235,19 +235,28 @@ export default function LawFirmDashboard() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.1 }}
-                  className={`glass rounded-2xl p-6 border border-${stat.color}-500/20 relative overflow-hidden group hover:border-${stat.color}-500/40 transition-all duration-300`}
+                  className="bg-white rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-300"
                 >
-                  <div className={`absolute -right-4 -top-4 w-24 h-24 bg-${stat.color}-500/10 rounded-full blur-2xl group-hover:bg-${stat.color}-500/20 transition-all duration-500`}></div>
-                  <div className="flex items-center justify-between mb-4 relative z-10">
-                    <div className={`w-12 h-12 bg-gradient-to-br from-${stat.color}-500 to-${stat.color}-700 rounded-xl flex items-center justify-center shadow-lg shadow-${stat.color}-500/50`}>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center shadow-lg ${
+                      stat.color === 'blue' ? 'bg-gradient-to-br from-blue-500 to-blue-600' :
+                      stat.color === 'purple' ? 'bg-gradient-to-br from-purple-500 to-purple-600' :
+                      stat.color === 'green' ? 'bg-gradient-to-br from-green-500 to-green-600' :
+                      'bg-gradient-to-br from-amber-400 to-amber-500'
+                    }`}>
                       <stat.icon className="w-6 h-6 text-white" />
                     </div>
                     <div className="text-right">
-                      <p className="text-xs text-slate-400 uppercase tracking-wider mb-1">{stat.label}</p>
-                      <h3 className="text-3xl font-bold text-white">{stat.value}</h3>
+                      <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">{stat.label}</p>
+                      <h3 className="text-3xl font-bold text-[#0F2944]">{stat.value}</h3>
                     </div>
                   </div>
-                  <p className={`text-sm text-${stat.color}-400 relative z-10`}>{stat.subtext}</p>
+                  <p className={`text-sm font-semibold ${
+                    stat.color === 'blue' ? 'text-blue-600' :
+                    stat.color === 'purple' ? 'text-purple-600' :
+                    stat.color === 'green' ? 'text-green-600' :
+                    'text-amber-600'
+                  }`}>{stat.subtext}</p>
                 </motion.div>
               ))}
             </div>
@@ -255,25 +264,25 @@ export default function LawFirmDashboard() {
             {/* Main Content Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* Upcoming Hearings */}
-              <div className="lg:col-span-2 glass rounded-2xl border border-blue-500/20 p-6">
+              <div className="lg:col-span-2 bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
                 <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-xl font-bold text-white">Upcoming Hearings</h2>
-                  <Button variant="ghost" className="text-slate-400 hover:text-white">View All</Button>
+                  <h2 className="text-xl font-bold text-[#0F2944]">Upcoming Hearings</h2>
+                  <Button variant="ghost" className="text-gray-500 hover:text-[#0F2944]">View All</Button>
                 </div>
                 <div className="space-y-4">
                   {upcomingHearings.map((hearing, idx) => (
-                    <div key={idx} className={`flex items-center space-x-4 p-4 rounded-xl ${idx === 0 ? 'bg-blue-500/10 border border-blue-500/30' : 'bg-slate-900/50 border border-slate-800/50'} hover:bg-slate-800/50 transition-all`}>
-                      <div className="bg-blue-500/20 text-blue-400 px-3 py-2 rounded-lg text-center min-w-[60px]">
+                    <div key={idx} className={`flex items-center space-x-4 p-4 rounded-xl ${idx === 0 ? 'bg-blue-50 border border-blue-200' : 'bg-gray-50 border border-gray-100'} hover:shadow-sm transition-all`}>
+                      <div className="bg-blue-100 text-blue-600 px-3 py-2 rounded-lg text-center min-w-[60px]">
                         <p className="text-lg font-bold">{hearing.date.split(' ')[1]}</p>
                         <p className="text-xs">{hearing.date.split(' ')[0]}</p>
                       </div>
                       <div className="flex-1">
-                        <p className="font-semibold text-white">{hearing.case}</p>
-                        <p className="text-sm text-slate-400">📍 {hearing.court}</p>
+                        <p className="font-semibold text-[#0F2944]">{hearing.case}</p>
+                        <p className="text-sm text-gray-500">📍 {hearing.court}</p>
                       </div>
                       <div className="text-right">
-                        <p className="text-sm text-slate-300">{hearing.time}</p>
-                        <p className="text-xs text-blue-400">{hearing.lawyer}</p>
+                        <p className="text-sm text-gray-700">{hearing.time}</p>
+                        <p className="text-xs text-blue-600">{hearing.lawyer}</p>
                       </div>
                     </div>
                   ))}
@@ -281,17 +290,17 @@ export default function LawFirmDashboard() {
               </div>
 
               {/* Recent Activity */}
-              <div className="glass rounded-2xl border border-blue-500/20 p-6">
-                <h2 className="text-xl font-bold text-white mb-6">Recent Activity</h2>
+              <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
+                <h2 className="text-xl font-bold text-[#0F2944] mb-6">Recent Activity</h2>
                 <div className="space-y-4">
                   {recentActivity.map((activity, idx) => (
                     <div key={idx} className="flex items-start space-x-3">
-                      <div className="w-8 h-8 bg-slate-800 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <activity.icon className="w-4 h-4 text-blue-400" />
+                      <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <activity.icon className="w-4 h-4 text-blue-600" />
                       </div>
                       <div className="flex-1">
-                        <p className="text-sm text-slate-300">{activity.message}</p>
-                        <p className="text-xs text-slate-500">{activity.time}</p>
+                        <p className="text-sm text-gray-700">{activity.message}</p>
+                        <p className="text-xs text-gray-500">{activity.time}</p>
                       </div>
                     </div>
                   ))}
@@ -302,17 +311,17 @@ export default function LawFirmDashboard() {
             {/* Quick Stats Row */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
               {/* Top Performing Lawyers */}
-              <div className="glass rounded-2xl border border-blue-500/20 p-6">
-                <h2 className="text-xl font-bold text-white mb-4">Top Performing Lawyers</h2>
+              <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
+                <h2 className="text-xl font-bold text-[#0F2944] mb-4">Top Performing Lawyers</h2>
                 <div className="space-y-3">
                   {firmLawyers.slice(0, 4).map((lawyer, idx) => (
-                    <div key={idx} className="flex items-center space-x-3 p-3 rounded-xl hover:bg-slate-800/50 transition-all">
-                      <img src={lawyer.photo} alt={lawyer.name} className="w-10 h-10 rounded-full object-cover" />
+                    <div key={idx} className="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-50 transition-all">
+                      <img src={lawyer.photo} alt={lawyer.name} className="w-10 h-10 rounded-full object-cover border-2 border-gray-200" />
                       <div className="flex-1">
-                        <p className="font-semibold text-white text-sm">{lawyer.name}</p>
-                        <p className="text-xs text-slate-400">{lawyer.specialization}</p>
+                        <p className="font-semibold text-[#0F2944] text-sm">{lawyer.name}</p>
+                        <p className="text-xs text-gray-500">{lawyer.specialization}</p>
                       </div>
-                      <div className="flex items-center space-x-1 text-amber-400">
+                      <div className="flex items-center space-x-1 text-amber-500">
                         <Star className="w-4 h-4 fill-amber-400" />
                         <span className="text-sm font-semibold">{lawyer.rating}</span>
                       </div>
@@ -322,20 +331,20 @@ export default function LawFirmDashboard() {
               </div>
 
               {/* Client Messages */}
-              <div className="glass rounded-2xl border border-blue-500/20 p-6">
-                <h2 className="text-xl font-bold text-white mb-4">Client Messages</h2>
+              <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
+                <h2 className="text-xl font-bold text-[#0F2944] mb-4">Client Messages</h2>
                 <div className="space-y-3">
                   {clientMessages.map((msg, idx) => (
-                    <div key={idx} className="flex items-center space-x-3 p-3 rounded-xl hover:bg-slate-800/50 transition-all cursor-pointer">
-                      <div className={`w-10 h-10 ${msg.color} rounded-full flex items-center justify-center`}>
+                    <div key={idx} className="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-50 transition-all cursor-pointer">
+                      <div className={`w-10 h-10 ${msg.color} rounded-full flex items-center justify-center shadow-lg`}>
                         <span className="text-white font-bold">{msg.avatar}</span>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="font-semibold text-white text-sm">{msg.name}</p>
-                        <p className="text-xs text-slate-400 truncate">{msg.message}</p>
+                        <p className="font-semibold text-[#0F2944] text-sm">{msg.name}</p>
+                        <p className="text-xs text-gray-500 truncate">{msg.message}</p>
                       </div>
                       <div className="flex flex-col items-end">
-                        <span className="text-xs text-slate-500">{msg.time}</span>
+                        <span className="text-xs text-gray-500">{msg.time}</span>
                         {msg.unread && <span className="w-2 h-2 bg-blue-500 rounded-full mt-1"></span>}
                       </div>
                     </div>
