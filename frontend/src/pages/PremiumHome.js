@@ -33,7 +33,7 @@ const SimpleNavbar = ({ navigate }) => {
   );
 };
 
-// Scattered Images Component with Full Color - Indian Context
+// Scattered Images Component with Vibrant Colors - Indian Legal Context
 const ScatteredImages = () => {
   const images = [
     {
@@ -45,39 +45,39 @@ const ScatteredImages = () => {
       delay: 0.2
     },
     {
-      src: 'https://images.unsplash.com/photo-1505664194779-8beaceb93744?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Indian Court Interior with Judge',
+      src: 'https://images.pexels.com/photos/7841443/pexels-photo-7841443.jpeg',
+      alt: 'Indian Lawyer Professional',
       position: 'top-64 right-32',
       size: 'w-64 h-80',
       rotation: 8,
       delay: 0.4
     },
     {
-      src: 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Indian Lawyer Consulting Client',
+      src: 'https://images.pexels.com/photos/7841469/pexels-photo-7841469.jpeg',
+      alt: 'Legal Consultation India',
       position: 'bottom-48 left-32',
       size: 'w-60 h-72',
       rotation: 15,
       delay: 0.6
     },
     {
-      src: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Indian Legal Documentation',
+      src: 'https://images.pexels.com/photos/5673490/pexels-photo-5673490.jpeg',
+      alt: 'Indian Legal Meeting',
       position: 'bottom-32 right-20',
       size: 'w-52 h-64',
       rotation: -8,
       delay: 0.8
     },
     {
-      src: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Indian People Using Technology',
+      src: 'https://images.pexels.com/photos/7841854/pexels-photo-7841854.jpeg',
+      alt: 'Indian Law Office',
       position: 'top-1/2 left-12',
       size: 'w-48 h-60',
       rotation: -15,
       delay: 1.0
     },
     {
-      src: 'https://images.unsplash.com/photo-1551836022-deb4988cc6c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      src: 'https://images.pexels.com/photos/7841444/pexels-photo-7841444.jpeg',
       alt: 'Indian Legal Professional',
       position: 'top-1/3 right-12',
       size: 'w-44 h-56',
@@ -93,7 +93,7 @@ const ScatteredImages = () => {
           key={index}
           initial={{ opacity: 0, scale: 0.8, rotate: 0 }}
           animate={{ 
-            opacity: 0.95,
+            opacity: 1,
             scale: 1,
             rotate: image.rotation,
             y: [0, -25, 0]
@@ -108,11 +108,6 @@ const ScatteredImages = () => {
               ease: 'easeInOut'
             }
           }}
-          whileHover={{ 
-            opacity: 1,
-            scale: 1.05,
-            transition: { duration: 0.3 }
-          }}
           className={`absolute ${image.position} ${image.size} z-10 hidden lg:block`}
         >
           <div className="relative w-full h-full overflow-hidden rounded-3xl shadow-2xl">
@@ -121,12 +116,10 @@ const ScatteredImages = () => {
               alt={image.alt}
               className="w-full h-full object-cover"
               style={{ 
-                filter: 'brightness(1.3) contrast(1.5) saturate(1.9) hue-rotate(8deg) sepia(0.15)',
+                filter: 'brightness(1.4) contrast(1.6) saturate(2.2)',
                 imageRendering: 'crisp-edges'
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-br from-orange-600/35 via-yellow-500/25 to-red-500/30 mix-blend-overlay" />
-            <div className="absolute inset-0 bg-gradient-to-tl from-amber-500/20 via-transparent to-green-400/15" />
           </div>
         </motion.div>
       ))}
