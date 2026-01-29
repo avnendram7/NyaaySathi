@@ -13,7 +13,7 @@ router = APIRouter(prefix="/admin", tags=["Admin"])
 security = HTTPBearer()
 
 # Admin credentials from environment
-ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL', 'admin@nyaaysathi.com')
+ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL', 'admin@lxwyerup.com')
 ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'admin123')
 
 

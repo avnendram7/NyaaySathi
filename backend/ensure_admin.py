@@ -38,7 +38,7 @@ async def ensure_admin():
     print("Creating admin user...")
     admin_data = {
         'id': 'admin-001',
-        'email': 'admin@nyaaysathi.com',
+        'email': 'admin@lxwyerup.com',
         'password': hash_password('Admin@123'),
         'full_name': 'Admin User',
         'user_type': 'admin',
