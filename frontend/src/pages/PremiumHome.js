@@ -119,8 +119,9 @@ const ScatteredImages = () => {
             <img
               src={image.src}
               alt={image.alt}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover brightness-110 contrast-110 saturate-125 hue-rotate-15"
             />
+            <div className="absolute inset-0 bg-gradient-to-br from-orange-500/20 via-transparent to-blue-600/20" />
           </div>
         </motion.div>
       ))}
