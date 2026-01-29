@@ -116,12 +116,13 @@ const ScatteredImages = () => {
               alt={image.alt}
               className="w-full h-full object-cover"
               style={{ 
-                filter: 'brightness(1.4) contrast(1.8) saturate(2.8) hue-rotate(15deg) sepia(0.25)',
+                filter: 'brightness(1.6) contrast(2.2) saturate(3.5) hue-rotate(10deg) sepia(0.3)',
                 imageRendering: 'crisp-edges'
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-br from-orange-500/25 via-yellow-400/20 to-red-500/25 mix-blend-overlay" />
-            <div className="absolute inset-0 bg-gradient-to-tl from-amber-400/20 via-transparent to-green-500/20 mix-blend-soft-light" />
+            <div className="absolute inset-0 bg-gradient-to-br from-orange-600/35 via-yellow-500/30 to-red-600/35 mix-blend-overlay" />
+            <div className="absolute inset-0 bg-gradient-to-tl from-amber-500/25 via-transparent to-green-600/25 mix-blend-soft-light" />
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-500/15 to-pink-500/15 mix-blend-color" />
           </div>
         </motion.div>
       ))}
