@@ -394,7 +394,7 @@ const FeaturesSection = ({ fadeInUp }) => {
                   transition={{ delay: index * 0.1 + 0.3 }}
                   className="flex items-center text-gray-700"
                 >
-                  <CheckCircle className="w-6 h-6 text-blue-600 mr-3 flex-shrink-0" />
+                  <CheckCircle className="w-6 h-6 text-green-600 mr-3 flex-shrink-0" />
                   {item}
                 </motion.li>
               ))}
