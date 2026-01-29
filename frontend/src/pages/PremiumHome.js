@@ -9,34 +9,52 @@ import { Navbar } from '../components/Navbar';
 const ScatteredImages = () => {
   const images = [
     {
-      src: "https://images.pexels.com/photos/5668473/pexels-photo-5668473.jpeg",
-      alt: "Indian Supreme Court",
-      className: "absolute top-20 left-10 w-32 h-24 rounded-lg shadow-lg opacity-20 hover:opacity-40 transition-opacity"
+      src: 'https://images.pexels.com/photos/34995952/pexels-photo-34995952.jpeg',
+      alt: 'Indian Supreme Court',
+      position: 'top-32 left-20',
+      size: 'w-48 h-64',
+      rotation: -12,
+      delay: 0.2
     },
     {
-      src: "https://images.pexels.com/photos/7841482/pexels-photo-7841482.jpeg",
-      alt: "Legal Documents",
-      className: "absolute top-40 right-20 w-28 h-20 rounded-lg shadow-lg opacity-25 hover:opacity-50 transition-opacity"
+      src: 'https://images.pexels.com/photos/7841482/pexels-photo-7841482.jpeg',
+      alt: 'Indian Lawyers',
+      position: 'top-64 right-32',
+      size: 'w-56 h-72',
+      rotation: 8,
+      delay: 0.4
     },
     {
-      src: "https://images.pexels.com/photos/5668858/pexels-photo-5668858.jpeg",
-      alt: "Indian Lawyer",
-      className: "absolute bottom-32 left-20 w-36 h-28 rounded-lg shadow-lg opacity-20 hover:opacity-40 transition-opacity"
+      src: 'https://images.pexels.com/photos/7841508/pexels-photo-7841508.jpeg',
+      alt: 'Legal Consultation',
+      position: 'bottom-48 left-32',
+      size: 'w-52 h-64',
+      rotation: 15,
+      delay: 0.6
     },
     {
-      src: "https://images.pexels.com/photos/7979463/pexels-photo-7979463.jpeg",
-      alt: "Legal Consultation",
-      className: "absolute bottom-20 right-10 w-30 h-22 rounded-lg shadow-lg opacity-25 hover:opacity-50 transition-opacity"
+      src: 'https://images.pexels.com/photos/35314868/pexels-photo-35314868.jpeg',
+      alt: 'Modern Law Firm',
+      position: 'bottom-32 right-20',
+      size: 'w-48 h-56',
+      rotation: -8,
+      delay: 0.8
     },
     {
-      src: "https://images.pexels.com/photos/5668772/pexels-photo-5668772.jpeg",
-      alt: "Indian Constitution",
-      className: "absolute top-60 left-1/4 w-24 h-18 rounded-lg shadow-lg opacity-15 hover:opacity-35 transition-opacity"
+      src: 'https://images.pexels.com/photos/7979463/pexels-photo-7979463.jpeg',
+      alt: 'Happy Clients',
+      position: 'top-1/2 left-12',
+      size: 'w-44 h-56',
+      rotation: -15,
+      delay: 1.0
     },
     {
-      src: "https://images.pexels.com/photos/7841481/pexels-photo-7841481.jpeg",
-      alt: "Legal Books",
-      className: "absolute bottom-40 right-1/3 w-26 h-20 rounded-lg shadow-lg opacity-20 hover:opacity-40 transition-opacity"
+      src: 'https://images.unsplash.com/photo-1546104294-d656c99943fd',
+      alt: 'Justice Symbol',
+      position: 'top-1/3 right-12',
+      size: 'w-40 h-52',
+      rotation: 10,
+      delay: 1.2
     }
   ];
 
@@ -45,25 +63,39 @@ const ScatteredImages = () => {
       {images.map((image, index) => (
         <motion.div
           key={index}
-          initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
+          initial={{ opacity: 0, scale: 0.8, rotate: 0 }}
           animate={{ 
-            opacity: [0.15, 0.25, 0.15], 
-            scale: [0.8, 1, 0.8],
-            rotate: [-10, 5, -10]
+            opacity: 0.15,
+            scale: 1,
+            rotate: image.rotation,
+            y: [0, -15, 0]
           }}
           transition={{
-            duration: 8,
-            delay: index * 0.5,
-            repeat: Infinity,
-            ease: "easeInOut"
+            opacity: { duration: 0.8, delay: image.delay },
+            scale: { duration: 0.8, delay: image.delay },
+            rotate: { duration: 0.8, delay: image.delay },
+            y: {
+              duration: 4 + index,
+              repeat: Infinity,
+              ease: 'easeInOut'
+            }
           }}
-          className={image.className}
+          whileHover={{ 
+            opacity: 0.3,
+            scale: 1.05,
+            rotate: 0,
+            transition: { duration: 0.3 }
+          }}
+          className={`absolute ${image.position} ${image.size} z-10 hidden lg:block`}
         >
-          <img
-            src={image.src}
-            alt={image.alt}
-            className="w-full h-full object-cover rounded-lg filter grayscale hover:grayscale-0 transition-all duration-300"
-          />
+          <div className="relative w-full h-full overflow-hidden rounded-2xl shadow-2xl">
+            <img
+              src={image.src}
+              alt={image.alt}
+              className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+            />
+            <div className="absolute inset-0 bg-[#0F2944]/10" />
+          </div>
         </motion.div>
       ))}
     </>
