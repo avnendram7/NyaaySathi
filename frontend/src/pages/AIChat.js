@@ -23,7 +23,7 @@ const SimpleNavbar = ({ navigate }) => {
               Try Manual Search
             </Button>
             <Button
-              onClick={() => navigate('/role-selection?mode=login')}
+              onClick={() => navigate('/login')}
               variant="ghost"
               className="text-[#0F2944] hover:text-[#0F2944]/80"
             >
