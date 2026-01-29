@@ -108,7 +108,9 @@ function App() {
               <Route path="/legal-assistance" element={<LegalAssistanceSelection />} />
               <Route path="/ai-lawyer-chat" element={<AIChat />} />
               <Route path="/browse-lawyers" element={<BrowseLawyers />} />
+              <Route path="/lawyer/:id" element={<LawyerProfile />} />
               <Route path="/browse-firms" element={<BrowseFirms />} />
+              <Route path="/firm/:id" element={<FirmProfile />} />
               <Route path="/ai-firm-finder" element={<AILawFirmFinder />} />
               <Route path="/find-lawyer" element={<FindLawyer />} />
               <Route path="/find-lawyer/manual" element={<FindLawyerManual />} />
