@@ -341,6 +341,19 @@ async def firm_client_login(credentials: FirmClientLogin):
                     detail="No account found with this email. Please sign up first by selecting a law firm."
                 )
         else:
+            # Check if account is approved
+            client_status = client.get("status", "active")
+            if client_status == "pending_approval":
+                raise HTTPException(
+                    status_code=status.HTTP_403_FORBIDDEN,
+                    detail="Your account is pending admin approval. Please wait for approval before logging in."
+                )
+            elif client_status == "rejected":
+                raise HTTPException(
+                    status_code=status.HTTP_403_FORBIDDEN,
+                    detail="Your account application was rejected. Please contact support for more information."
+                )
+            
             # Verify password
             if not pwd_context.verify(credentials.password, client["password"]):
                 raise HTTPException(
