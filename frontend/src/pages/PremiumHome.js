@@ -279,7 +279,7 @@ const ServicesSection = ({ showAllServices, setShowAllServices, fadeInUp, stagge
     }
   ];
 
-  const displayServices = showAllServices ? [...mainServices, ...additionalServices] : mainServices;
+  const displayServices = showAllServices ? [...mainServices, ...additionalServices] : mainServices.slice(0, 3);
 
   return (
     <section ref={ref} className="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50">
@@ -298,7 +298,7 @@ const ServicesSection = ({ showAllServices, setShowAllServices, fadeInUp, stagge
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {displayServices.map((service, index) => (
             <ServiceCard key={index} service={service} index={index} isVisible={isInView} />
           ))}
