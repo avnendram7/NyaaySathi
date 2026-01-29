@@ -465,7 +465,7 @@ const CTASection = ({ navigate, fadeInUp }) => {
   const isInView = useInView(ref, { once: true });
 
   return (
-    <section ref={ref} className="py-24 px-4 sm:px-6 lg:px-8 bg-gray-800">
+    <section ref={ref} className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-orange-800 via-red-800 to-amber-800">
       <div className="max-w-4xl mx-auto text-center">
         <motion.div
           initial="hidden"
@@ -475,7 +475,7 @@ const CTASection = ({ navigate, fadeInUp }) => {
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
             Ready to Get Legal Help?
           </h2>
-          <p className="text-xl text-gray-300 mb-10">
+          <p className="text-xl text-orange-100 mb-10">
             Start your journey towards justice today. Our team is ready to assist you.
           </p>
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
