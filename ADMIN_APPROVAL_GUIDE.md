@@ -27,7 +27,7 @@
 ## 📝 STEP-BY-STEP APPROVAL PROCESS:
 
 ### Step 1: Login to Admin Dashboard
-1. Go to: `https://quick-reader-11.preview.emergentagent.com/admin-login`
+1. Go to: `https://readpreview.preview.emergentagent.com/admin-login`
 2. Enter credentials:
    - Email: `admin@nyaaysathi.com`
    - Password: `admin123`
