@@ -152,7 +152,7 @@ export default function CinematicHero() {
             transition={{ delay: 0.5, duration: 0.8 }}
           >
             <h1 className="text-7xl sm:text-8xl lg:text-9xl font-bold mb-6 bg-gradient-to-r from-white via-blue-200 to-white bg-clip-text text-transparent">
-              Nyaay Sathi
+              Lxwyer Up
             </h1>
             <p className="text-3xl sm:text-4xl text-blue-200 font-light tracking-wide">
               Justice You Understand, Technology You Trust.
