@@ -161,14 +161,31 @@ const PremiumHome = () => {
             transition={{ duration: 1, delay: 0.3 }}
           >
             <motion.h1 
-              className="text-6xl sm:text-7xl lg:text-8xl font-bold text-gray-800 mb-16 leading-tight"
+              className="text-6xl sm:text-7xl lg:text-8xl font-light text-gray-800 mb-16 leading-tight"
               style={{ fontFamily: "'Playfair Display', serif" }}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
             >
-              Justice You Understand,{' '}
-              <span className="text-orange-600">Technology</span> You Trust
+              <span className="relative inline-block font-semibold">
+                Justice
+                <motion.div
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 0.8, delay: 1.0 }}
+                  className="absolute -bottom-2 left-0 right-0 h-1 bg-blue-600 rounded-full"
+                />
+              </span>
+              {' '}You Understand, <span className="relative inline-block font-semibold">
+                Technology
+                <motion.div
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 0.8, delay: 1.4 }}
+                  className="absolute -bottom-2 left-0 right-0 h-1 bg-blue-600 rounded-full"
+                />
+              </span>
+              {' '}You Trust
             </motion.h1>
             
             <motion.div
@@ -180,7 +197,7 @@ const PremiumHome = () => {
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Button
                   onClick={() => navigate('/role-selection')}
-                  className="bg-orange-600 hover:bg-orange-700 text-white text-lg px-14 py-8 rounded-full font-semibold shadow-xl transition-all duration-300"
+                  className="bg-blue-600 hover:bg-blue-700 text-white text-lg px-14 py-8 rounded-full font-semibold shadow-xl transition-all duration-300"
                 >
                   Get Started
                 </Button>
@@ -190,7 +207,7 @@ const PremiumHome = () => {
                 <Button
                   onClick={() => navigate('/quick-chat')}
                   variant="outline"
-                  className="border-2 border-orange-600 text-orange-600 hover:bg-orange-600 hover:text-white text-lg px-14 py-8 rounded-full font-semibold transition-all duration-300"
+                  className="border-2 border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white text-lg px-14 py-8 rounded-full font-semibold transition-all duration-300"
                 >
                   Free AI Assistant
                 </Button>
