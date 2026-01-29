@@ -626,10 +626,16 @@ export default function AdminDashboard() {
             )}
 
             {/* Actions */}
-            {app.status === 'pending' && (
+            {(app.status === 'pending' || app.status === 'pending_approval') && (
               <div className="flex gap-4 pt-4">
                 <Button
-                  onClick={() => config.action(app._id || app.id, 'approve')}
+                  onClick={() => {
+                    if (app.type === 'firmclient') {
+                      config.action(app._id || app.id, 'approve', app.source);
+                    } else {
+                      config.action(app._id || app.id, 'approve');
+                    }
+                  }}
                   disabled={actionLoading === (app._id || app.id)}
                   className="flex-1 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white rounded-xl py-6 text-lg font-semibold shadow-lg shadow-emerald-500/25"
                 >
@@ -643,7 +649,13 @@ export default function AdminDashboard() {
                   )}
                 </Button>
                 <Button
-                  onClick={() => config.action(app._id || app.id, 'reject')}
+                  onClick={() => {
+                    if (app.type === 'firmclient') {
+                      config.action(app._id || app.id, 'reject', app.source);
+                    } else {
+                      config.action(app._id || app.id, 'reject');
+                    }
+                  }}
                   disabled={actionLoading === (app._id || app.id)}
                   variant="outline"
                   className="flex-1 border-2 border-red-500 text-red-400 hover:bg-red-500/10 rounded-xl py-6 text-lg font-semibold"
