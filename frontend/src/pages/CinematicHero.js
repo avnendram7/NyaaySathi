@@ -569,9 +569,9 @@ export default function CinematicHero() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between text-sm text-slate-300">
           <div className="flex items-center space-x-2 mb-4 md:mb-0">
             <Scale className="w-5 h-5 text-blue-400" />
-            <span className="font-semibold text-white">Nyaay Sathi</span>
+            <span className="font-semibold text-white">Lxwyer Up</span>
           </div>
-          <p>© 2026 Nyaay Sathi. All rights reserved.</p>
+          <p>© 2026 Lxwyer Up. All rights reserved.</p>
           <div className="flex items-center space-x-4 mt-4 md:mt-0">
             <span>avnendram.7@gmail.com</span>
             <span>•</span>
