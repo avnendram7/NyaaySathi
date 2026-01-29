@@ -18,6 +18,7 @@ import AIChat from './pages/AIChat';
 import BrowseLawyers from './pages/BrowseLawyers';
 import BrowseFirms from './pages/BrowseFirms';
 import AILawFirmFinder from './pages/AILawFirmFinder';
+import UnifiedLogin from './pages/UnifiedLogin';
 import FindLawyer from './pages/FindLawyer';
 import FindLawyerManual from './pages/FindLawyerManual';
 import FindLawyerAI from './pages/FindLawyerAI';
