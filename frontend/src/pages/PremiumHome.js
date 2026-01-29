@@ -416,8 +416,8 @@ const FeaturesSection = ({ fadeInUp }) => {
           >
             <div className="relative rounded-3xl overflow-hidden shadow-2xl">
               <img
-                src="https://images.pexels.com/photos/7841482/pexels-photo-7841482.jpeg"
-                alt="Indian Legal Professionals"
+                src="https://images.pexels.com/photos/7876192/pexels-photo-7876192.jpeg"
+                alt="Indian Legal Consultation"
                 className="w-full h-[500px] object-cover"
               />
             </div>
