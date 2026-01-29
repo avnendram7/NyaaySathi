@@ -5,6 +5,71 @@ import { ArrowRight, Shield, Zap, Users, CheckCircle, Star, Scale, Brain, Clock,
 import { Button } from '../components/ui/button';
 import { Navbar } from '../components/Navbar';
 
+// Scattered Images Component
+const ScatteredImages = () => {
+  const images = [
+    {
+      src: "https://images.pexels.com/photos/5668473/pexels-photo-5668473.jpeg",
+      alt: "Indian Supreme Court",
+      className: "absolute top-20 left-10 w-32 h-24 rounded-lg shadow-lg opacity-20 hover:opacity-40 transition-opacity"
+    },
+    {
+      src: "https://images.pexels.com/photos/7841482/pexels-photo-7841482.jpeg",
+      alt: "Legal Documents",
+      className: "absolute top-40 right-20 w-28 h-20 rounded-lg shadow-lg opacity-25 hover:opacity-50 transition-opacity"
+    },
+    {
+      src: "https://images.pexels.com/photos/5668858/pexels-photo-5668858.jpeg",
+      alt: "Indian Lawyer",
+      className: "absolute bottom-32 left-20 w-36 h-28 rounded-lg shadow-lg opacity-20 hover:opacity-40 transition-opacity"
+    },
+    {
+      src: "https://images.pexels.com/photos/7979463/pexels-photo-7979463.jpeg",
+      alt: "Legal Consultation",
+      className: "absolute bottom-20 right-10 w-30 h-22 rounded-lg shadow-lg opacity-25 hover:opacity-50 transition-opacity"
+    },
+    {
+      src: "https://images.pexels.com/photos/5668772/pexels-photo-5668772.jpeg",
+      alt: "Indian Constitution",
+      className: "absolute top-60 left-1/4 w-24 h-18 rounded-lg shadow-lg opacity-15 hover:opacity-35 transition-opacity"
+    },
+    {
+      src: "https://images.pexels.com/photos/7841481/pexels-photo-7841481.jpeg",
+      alt: "Legal Books",
+      className: "absolute bottom-40 right-1/3 w-26 h-20 rounded-lg shadow-lg opacity-20 hover:opacity-40 transition-opacity"
+    }
+  ];
+
+  return (
+    <>
+      {images.map((image, index) => (
+        <motion.div
+          key={index}
+          initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
+          animate={{ 
+            opacity: [0.15, 0.25, 0.15], 
+            scale: [0.8, 1, 0.8],
+            rotate: [-10, 5, -10]
+          }}
+          transition={{
+            duration: 8,
+            delay: index * 0.5,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          className={image.className}
+        >
+          <img
+            src={image.src}
+            alt={image.alt}
+            className="w-full h-full object-cover rounded-lg filter grayscale hover:grayscale-0 transition-all duration-300"
+          />
+        </motion.div>
+      ))}
+    </>
+  );
+};
+
 const PremiumHome = () => {
   const navigate = useNavigate();
   const { scrollY } = useScroll();
