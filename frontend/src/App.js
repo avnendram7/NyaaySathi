@@ -114,6 +114,7 @@ function App() {
               <Route path="/booking/:id" element={<BookingSignup />} />
               <Route path="/browse-firms" element={<BrowseFirms />} />
               <Route path="/firm/:id" element={<FirmProfile />} />
+              <Route path="/join-firm/:firmId" element={<JoinFirmSignup />} />
               <Route path="/ai-firm-finder" element={<AILawFirmFinder />} />
               <Route path="/find-lawyer" element={<FindLawyer />} />
               <Route path="/find-lawyer/manual" element={<FindLawyerManual />} />
