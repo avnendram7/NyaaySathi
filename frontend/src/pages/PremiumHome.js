@@ -333,7 +333,7 @@ const ServiceCard = ({ service, index, isVisible }) => {
       </div>
       <h3 className="text-2xl font-bold text-gray-800 mb-4">{service.title}</h3>
       <p className="text-gray-600 leading-relaxed">{service.description}</p>
-      <div className="absolute top-4 right-4 w-2 h-2 bg-blue-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div className="absolute top-4 right-4 w-2 h-2 bg-gray-800 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
     </motion.div>
   );
 };
