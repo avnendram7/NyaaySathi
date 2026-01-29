@@ -256,34 +256,24 @@ const ServicesSection = ({ showAllServices, setShowAllServices, fadeInUp, stagge
 
   const additionalServices = [
     {
-      icon: MessageSquare,
-      title: 'Legal Consultation',
-      description: 'Book online or offline consultations with experienced legal professionals.',
-      color: 'from-gray-500 to-gray-600'
-    },
-    {
       icon: Gavel,
       title: 'Court Representation',
-      description: 'Professional representation in courts across India by experienced advocates.',
-      color: 'from-gray-700 to-gray-800'
+      description: 'Professional representation in courts across India by experienced advocates.'
     },
     {
       icon: BookOpen,
       title: 'Legal Documentation',
-      description: 'Expert assistance in drafting and reviewing legal documents and contracts.',
-      color: 'from-gray-600 to-gray-700'
+      description: 'Expert assistance in drafting and reviewing legal documents and contracts.'
     },
     {
       icon: UserCheck,
       title: 'Lawyer Verification',
-      description: 'All lawyers are verified with bar council credentials and client reviews.',
-      color: 'from-blue-600 to-blue-700'
+      description: 'All lawyers are verified with bar council credentials and client reviews.'
     },
     {
       icon: Shield,
       title: 'Secure Platform',
-      description: 'Your data and communications are protected with end-to-end encryption.',
-      color: 'from-gray-600 to-gray-700'
+      description: 'Your data and communications are protected with end-to-end encryption.'
     }
   ];
 
