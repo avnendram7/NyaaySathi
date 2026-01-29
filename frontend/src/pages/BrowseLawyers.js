@@ -222,7 +222,7 @@ const BrowseLawyers = () => {
                       <select
                         value={filters.experienceMin}
                         onChange={(e) => { setFilters({ ...filters, experienceMin: e.target.value }); setCurrentPage(1); }}
-                        className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0F2944]/20 focus:border-[#0F2944]"
+                        className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm text-black bg-white focus:outline-none focus:ring-2 focus:ring-[#0F2944]/20 focus:border-[#0F2944]"
                       >
                         <option value="">Any</option>
                         <option value="5">5+ years</option>
@@ -238,7 +238,7 @@ const BrowseLawyers = () => {
                       <select
                         value={filters.experienceMax}
                         onChange={(e) => { setFilters({ ...filters, experienceMax: e.target.value }); setCurrentPage(1); }}
-                        className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0F2944]/20 focus:border-[#0F2944]"
+                        className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm text-black bg-white focus:outline-none focus:ring-2 focus:ring-[#0F2944]/20 focus:border-[#0F2944]"
                       >
                         <option value="">Any</option>
                         <option value="5">Up to 5 years</option>
@@ -254,7 +254,7 @@ const BrowseLawyers = () => {
                       <select
                         value={filters.ratingMin}
                         onChange={(e) => { setFilters({ ...filters, ratingMin: e.target.value }); setCurrentPage(1); }}
-                        className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0F2944]/20 focus:border-[#0F2944]"
+                        className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm text-black bg-white focus:outline-none focus:ring-2 focus:ring-[#0F2944]/20 focus:border-[#0F2944]"
                       >
                         <option value="">Any</option>
                         <option value="4.5">4.5+ stars</option>
