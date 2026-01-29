@@ -110,6 +110,7 @@ function App() {
               <Route path="/ai-lawyer-chat" element={<AIChat />} />
               <Route path="/browse-lawyers" element={<BrowseLawyers />} />
               <Route path="/lawyer/:id" element={<LawyerProfile />} />
+              <Route path="/booking/:id" element={<BookingSignup />} />
               <Route path="/browse-firms" element={<BrowseFirms />} />
               <Route path="/firm/:id" element={<FirmProfile />} />
               <Route path="/ai-firm-finder" element={<AILawFirmFinder />} />
