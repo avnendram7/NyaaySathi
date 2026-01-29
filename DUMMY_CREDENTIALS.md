@@ -39,6 +39,10 @@
 | Amit Patel | amit.patel@example.com | Client@123 | Reddy & Partners | Adv. Kavya Krishnan |
 | Priya Reddy | priya.reddy@example.com | Client@123 | Kumar Law Chambers | Adv. Amit Joshi |
 | Vikram Singh | vikram.singh@example.com | Client@123 | Patel & Co Legal Advisors | Adv. Pooja Shah |
+### Law Firm Clients (Login as Firm Client - via /firm-client-login)
+|| Name | Email | Password | Firm |
+||------|-------|----------|------|
+|| Test Client | testclient@example.com | Test@123 | Test Firm |
 
 ## 🧪 Testing Instructions
 
