@@ -253,19 +253,19 @@ const ServicesSection = ({ showAllServices, setShowAllServices, fadeInUp, stagge
       icon: Brain,
       title: 'AI Legal Assistant',
       description: 'Get instant answers to your legal queries powered by AI trained on Indian law and procedures.',
-      color: 'from-orange-500 to-red-500'
+      color: 'from-gray-600 to-gray-700'
     },
     {
       icon: Search,
       title: 'Find Lawyers',
       description: 'Connect with verified lawyers across India specializing in your specific legal needs.',
-      color: 'from-green-500 to-emerald-500'
+      color: 'from-gray-700 to-gray-800'
     },
     {
       icon: FileText,
       title: 'Case Management',
       description: 'Track your case progress, documents, and timelines in one secure platform.',
-      color: 'from-purple-500 to-violet-500'
+      color: 'from-gray-600 to-gray-800'
     }
   ];
 
@@ -274,31 +274,31 @@ const ServicesSection = ({ showAllServices, setShowAllServices, fadeInUp, stagge
       icon: MessageSquare,
       title: 'Legal Consultation',
       description: 'Book online or offline consultations with experienced legal professionals.',
-      color: 'from-amber-500 to-yellow-500'
+      color: 'from-gray-500 to-gray-600'
     },
     {
       icon: Gavel,
       title: 'Court Representation',
       description: 'Professional representation in courts across India by experienced advocates.',
-      color: 'from-rose-500 to-pink-500'
+      color: 'from-gray-700 to-gray-800'
     },
     {
       icon: BookOpen,
       title: 'Legal Documentation',
       description: 'Expert assistance in drafting and reviewing legal documents and contracts.',
-      color: 'from-teal-500 to-cyan-500'
+      color: 'from-gray-600 to-gray-700'
     },
     {
       icon: UserCheck,
       title: 'Lawyer Verification',
       description: 'All lawyers are verified with bar council credentials and client reviews.',
-      color: 'from-indigo-500 to-purple-500'
+      color: 'from-blue-600 to-blue-700'
     },
     {
       icon: Shield,
       title: 'Secure Platform',
       description: 'Your data and communications are protected with end-to-end encryption.',
-      color: 'from-slate-500 to-gray-500'
+      color: 'from-gray-600 to-gray-700'
     }
   ];
 
