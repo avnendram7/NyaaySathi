@@ -407,10 +407,11 @@ const FeaturesSection = ({ fadeInUp }) => {
           >
             <div className="relative rounded-3xl overflow-hidden shadow-2xl">
               <img
-                src="https://images.pexels.com/photos/7876192/pexels-photo-7876192.jpeg"
-                alt="Indian Legal Consultation"
-                className="w-full h-[500px] object-cover"
+                src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Indian Legal Consultation - People Benefiting from Legal Services"
+                className="w-full h-[500px] object-cover brightness-110 contrast-110 saturate-125"
               />
+              <div className="absolute inset-0 bg-gradient-to-br from-orange-500/20 via-transparent to-blue-600/20" />
             </div>
           </motion.div>
         </div>
