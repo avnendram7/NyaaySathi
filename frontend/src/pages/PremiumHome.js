@@ -198,7 +198,7 @@ const PremiumHome = () => {
                 <Button
                   onClick={() => navigate('/quick-chat')}
                   variant="outline"
-                  className="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white text-lg px-14 py-8 rounded-full font-semibold transition-all duration-300"
+                  className="border-2 border-gray-600 text-gray-600 hover:bg-gray-600 hover:text-white text-lg px-14 py-8 rounded-full font-semibold transition-all duration-300"
                 >
                   Free AI Assistant
                 </Button>
