@@ -5,7 +5,7 @@ import { ArrowRight, Shield, Zap, Users, CheckCircle, Star, Scale, Brain, Clock,
 import { Button } from '../components/ui/button';
 import { Navbar } from '../components/Navbar';
 
-// Scattered Images Component
+// Scattered Images Component with Color
 const ScatteredImages = () => {
   const images = [
     {
@@ -49,8 +49,8 @@ const ScatteredImages = () => {
       delay: 1.0
     },
     {
-      src: 'https://images.unsplash.com/photo-1546104294-d656c99943fd',
-      alt: 'Justice Symbol',
+      src: 'https://images.pexels.com/photos/5669619/pexels-photo-5669619.jpeg',
+      alt: 'Legal Documents',
       position: 'top-1/3 right-12',
       size: 'w-40 h-52',
       rotation: 10,
@@ -65,23 +65,23 @@ const ScatteredImages = () => {
           key={index}
           initial={{ opacity: 0, scale: 0.8, rotate: 0 }}
           animate={{ 
-            opacity: 0.15,
+            opacity: 0.4,
             scale: 1,
             rotate: image.rotation,
-            y: [0, -15, 0]
+            y: [0, -20, 0]
           }}
           transition={{
             opacity: { duration: 0.8, delay: image.delay },
             scale: { duration: 0.8, delay: image.delay },
             rotate: { duration: 0.8, delay: image.delay },
             y: {
-              duration: 4 + index,
+              duration: 5 + index,
               repeat: Infinity,
               ease: 'easeInOut'
             }
           }}
           whileHover={{ 
-            opacity: 0.3,
+            opacity: 0.7,
             scale: 1.05,
             rotate: 0,
             transition: { duration: 0.3 }
@@ -92,9 +92,9 @@ const ScatteredImages = () => {
             <img
               src={image.src}
               alt={image.alt}
-              className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+              className="w-full h-full object-cover transition-all duration-500"
             />
-            <div className="absolute inset-0 bg-[#0F2944]/10" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
           </div>
         </motion.div>
       ))}
