@@ -81,6 +81,13 @@ curl -X POST "$(grep REACT_APP_BACKEND_URL /app/frontend/.env | cut -d '=' -f2)/
 -d '{"email":"contact@shahandassociates.com","password":"LawFirm@123","user_type":"law_firm"}'
 ```
 
+**Test Firm Client Login:**
+```bash
+curl -X POST "$(grep REACT_APP_BACKEND_URL /app/frontend/.env | cut -d '=' -f2)/api/firm-clients/login" \
+-H "Content-Type: application/json" \
+-d '{"email":"testclient@example.com","password":"Test@123"}'
+```
+
 ## 📝 Notes:
 - All passwords follow the format: `[RoleType]@123`
 - Backend API is at: `${REACT_APP_BACKEND_URL}/api`
