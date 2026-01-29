@@ -161,7 +161,7 @@ const PremiumHome = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
             >
-              Justice You Understand, Technology You Trust
+              <span className="underline decoration-[#0F2944] decoration-4 underline-offset-8">Justice</span> You Understand, <span className="underline decoration-[#0F2944] decoration-4 underline-offset-8">Technology</span> You Trust
             </motion.h1>
             
             <motion.div
