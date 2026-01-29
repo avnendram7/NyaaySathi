@@ -76,7 +76,7 @@ export default function UserLoginPage() {
             <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-500 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/30 group-hover:shadow-blue-500/50 transition-all">
               <Scale className="w-7 h-7 text-white" />
             </div>
-            <span className="text-2xl font-bold text-white">Nyaay Sathi</span>
+            <span className="text-2xl font-bold text-white">Lxwyer Up</span>
           </Link>
           
           {/* Card */}
