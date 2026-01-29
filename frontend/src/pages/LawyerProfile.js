@@ -149,7 +149,7 @@ const LawyerProfile = () => {
             {/* Book Consultation Button */}
             <div className="mt-6 pt-6 border-t border-gray-100">
               <Button
-                onClick={() => navigate('/role-selection?redirect=booking')}
+                onClick={() => navigate(`/booking/${lawyer.id}`)}
                 className="w-full md:w-auto bg-[#0F2944] hover:bg-[#0F2944]/90 text-white px-8 py-4 rounded-xl font-semibold text-lg group"
               >
                 Book Consultation
