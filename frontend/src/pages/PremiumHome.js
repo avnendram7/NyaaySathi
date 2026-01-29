@@ -451,7 +451,7 @@ const CTASection = ({ navigate, fadeInUp }) => {
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Button
               onClick={() => navigate('/role-selection')}
-              className="bg-orange-600 hover:bg-orange-700 text-white text-lg px-12 py-7 rounded-full font-semibold shadow-2xl transition-all duration-300"
+              className="bg-blue-600 hover:bg-blue-700 text-white text-lg px-12 py-7 rounded-full font-semibold shadow-2xl transition-all duration-300"
             >
               Book Your Consultation
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
