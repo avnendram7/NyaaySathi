@@ -330,8 +330,8 @@ const TrustSection = ({ fadeInUp }) => {
             className="relative rounded-3xl overflow-hidden shadow-xl"
           >
             <img
-              src="https://images.pexels.com/photos/7841508/pexels-photo-7841508.jpeg"
-              alt="Professional Indian Lawyers"
+              src="https://images.pexels.com/photos/7841443/pexels-photo-7841443.jpeg"
+              alt="Indian Legal Professional"
               className="w-full h-[400px] object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0F2944]/60 to-transparent" />
@@ -344,8 +344,8 @@ const TrustSection = ({ fadeInUp }) => {
             className="relative rounded-3xl overflow-hidden shadow-xl"
           >
             <img
-              src="https://images.pexels.com/photos/35314868/pexels-photo-35314868.jpeg"
-              alt="Modern Indian Legal Workspace"
+              src="https://images.pexels.com/photos/7841469/pexels-photo-7841469.jpeg"
+              alt="Legal Consultation in India"
               className="w-full h-[400px] object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0F2944]/60 to-transparent" />
