@@ -23,7 +23,7 @@ const SimpleNavbar = ({ navigate }) => {
           
           <Button
             onClick={() => navigate('/role-selection')}
-            className="bg-[#0F2944] hover:bg-[#1a3a5c] text-white px-6 py-2 rounded-full transition-all duration-300"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full transition-all duration-300"
           >
             Login
           </Button>
