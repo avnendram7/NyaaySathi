@@ -313,12 +313,11 @@ const ServicesSection = ({ showAllServices, setShowAllServices, fadeInUp, stagge
           ))}
         </div>
 
-        {/* More/Less Button */}
         <div className="text-center mt-12">
           <Button
             onClick={() => setShowAllServices(!showAllServices)}
             variant="outline"
-            className="border-2 border-orange-600 text-orange-800 hover:bg-orange-600 hover:text-white px-8 py-6 rounded-full font-semibold transition-all duration-300"
+            className="border-2 border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white px-8 py-6 rounded-full font-semibold transition-all duration-300"
           >
             {showAllServices ? (
               <>
