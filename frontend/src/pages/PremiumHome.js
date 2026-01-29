@@ -63,59 +63,69 @@ const PremiumHome = () => {
     <div className="min-h-screen bg-white">
       <Navbar />
 
-      {/* Hero Section */}
-      <motion.section 
-        style={{ opacity: heroOpacity, y: heroY }}
-        className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#0F2944] via-[#1a3a5c] to-[#0F2944] pt-16"
-      >
-        {/* Animated Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="0.5"/>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#grid)" />
-          </svg>
-        </div>
+      {/* Hero Section - Creative Scattered Layout */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white pt-16">
+        {/* Scattered Floating Images */}
+        <ScatteredImages />
 
-        {/* Floating Elements */}
-        <motion.div
-          animate={{ y: [-20, 20, -20] }}
-          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-20 left-10 w-32 h-32 bg-white/5 rounded-full blur-3xl"
-        />
-        <motion.div
-          animate={{ y: [20, -20, 20] }}
-          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute bottom-20 right-10 w-40 h-40 bg-white/5 rounded-full blur-3xl"
-        />
-
-        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        {/* Center Content */}
+        <div className="relative z-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 0.3 }}
           >
             <motion.h1 
-              className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight"
+              className="text-6xl sm:text-7xl lg:text-8xl font-light text-gray-800 mb-8 leading-tight"
+              style={{ fontFamily: "'Playfair Display', serif" }}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
             >
-              Legal Help Made
-              <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-white">
-                Simple & Accessible
-              </span>
+              We back
+              <motion.span 
+                className="relative inline-block mx-4"
+                whileHover={{ scale: 1.05 }}
+              >
+                <span className="font-bold text-[#0F2944]">bold</span>
+                <motion.div
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 0.8, delay: 1.2 }}
+                  className="absolute bottom-2 left-0 right-0 h-1 bg-[#0F2944] origin-left"
+                />
+              </motion.span>
+              lawyers
             </motion.h1>
             
-            <motion.p 
-              className="text-xl sm:text-2xl text-blue-100 mb-12 max-w-3xl mx-auto font-light"
+            <motion.h2 
+              className="text-5xl sm:text-6xl lg:text-7xl font-light text-gray-400 mb-12 leading-tight"
+              style={{ fontFamily: "'Playfair Display', serif" }}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
+              transition={{ duration: 0.8, delay: 0.7 }}
+            >
+              shaping
+              <motion.span 
+                className="relative inline-block mx-4"
+                whileHover={{ scale: 1.05 }}
+              >
+                <span className="font-normal">the future.</span>
+                <motion.div
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 0.8, delay: 1.4 }}
+                  className="absolute bottom-2 left-0 right-0 h-1 bg-[#0F2944] origin-left"
+                />
+              </motion.span>
+            </motion.h2>
+            
+            <motion.p 
+              className="text-2xl sm:text-3xl text-[#0F2944] mb-16 font-medium"
+              style={{ fontFamily: "'Inter', sans-serif" }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.9 }}
             >
               Justice You Understand, Technology You Trust
             </motion.p>
@@ -123,24 +133,27 @@ const PremiumHome = () => {
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+              transition={{ duration: 0.8, delay: 1.1 }}
+              className="flex flex-col sm:flex-row gap-6 justify-center items-center"
             >
-              <Button
-                onClick={() => navigate('/role-selection')}
-                className="group relative bg-white text-[#0F2944] hover:bg-blue-50 text-lg px-10 py-7 rounded-full font-semibold shadow-2xl transition-all duration-300 hover:shadow-white/20 hover:scale-105"
-              >
-                Book Consultation
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button
+                  onClick={() => navigate('/role-selection')}
+                  className="bg-[#0F2944] hover:bg-[#1a3a5c] text-white text-lg px-12 py-7 rounded-full font-semibold shadow-xl transition-all duration-300"
+                >
+                  Get Started
+                </Button>
+              </motion.div>
               
-              <Button
-                onClick={() => navigate('/quick-chat')}
-                variant="outline"
-                className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-[#0F2944] text-lg px-10 py-7 rounded-full font-semibold transition-all duration-300"
-              >
-                Try AI Assistant
-              </Button>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Button
+                  onClick={() => navigate('/quick-chat')}
+                  variant="outline"
+                  className="border-2 border-[#0F2944] text-[#0F2944] hover:bg-[#0F2944] hover:text-white text-lg px-12 py-7 rounded-full font-semibold transition-all duration-300"
+                >
+                  Free AI Assistant
+                </Button>
+              </motion.div>
             </motion.div>
           </motion.div>
         </div>
@@ -149,13 +162,13 @@ const PremiumHome = () => {
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
+          className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20"
         >
-          <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-white/50 rounded-full mt-2" />
+          <div className="w-6 h-10 border-2 border-[#0F2944]/30 rounded-full flex justify-center">
+            <div className="w-1 h-3 bg-[#0F2944]/50 rounded-full mt-2" />
           </div>
         </motion.div>
-      </motion.section>
+      </section>
 
       {/* Solutions Section */}
       <SolutionsSection solutions={solutions} fadeInUp={fadeInUp} staggerContainer={staggerContainer} />
