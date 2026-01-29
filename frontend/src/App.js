@@ -102,6 +102,7 @@ function App() {
               <Route path="/quick-chat" element={<QuickChat />} />
               <Route path="/hero-alt" element={<InitialLanding />} />
               <Route path="/role-selection" element={<RoleSelection />} />
+              <Route path="/login" element={<UnifiedLogin />} />
               <Route path="/legal-assistance" element={<LegalAssistanceSelection />} />
               <Route path="/ai-lawyer-chat" element={<AIChat />} />
               <Route path="/browse-lawyers" element={<BrowseLawyers />} />
