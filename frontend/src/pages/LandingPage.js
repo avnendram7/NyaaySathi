@@ -2,51 +2,90 @@ import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { Button } from '../components/ui/button';
 import { Link } from 'react-router-dom';
-import { MessageSquare, Calendar, FileText, Scale, Shield, Clock, Users, TrendingUp } from 'lucide-react';
+import { MessageSquare, Calendar, FileText, Scale, Shield, Clock, Users, TrendingUp, ChevronUp, Gavel, BookOpen, UserCheck, Phone, MoreHorizontal } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 
 export default function LandingPage() {
+  const [showAllServices, setShowAllServices] = useState(false);
+
   return (
-    <div className="min-h-screen bg-slate-950">
+    <div className="min-h-screen bg-white">
       <Navbar />
       
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 relative overflow-hidden">
-        <div className="hero-gradient absolute inset-0 pointer-events-none" />
+      <section className="pt-32 pb-20 px-4 relative overflow-hidden bg-gradient-to-br from-orange-50 via-white to-green-50">
         <div className="max-w-7xl mx-auto">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center max-w-4xl mx-auto"
-          >
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              Simplify Your Legal Journey with
-              <span className="text-blue-500"> AI-Powered</span> Guidance
-            </h1>
-            <p className="text-lg sm:text-xl text-slate-400 mb-12 max-w-2xl mx-auto">
-              Lxwyer Up helps you understand your case, track progress, and connect with verified lawyers - all in one platform
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/user-get-started">
-                <Button 
-                  data-testid="get-started-btn"
-                  className="bg-blue-700 hover:bg-blue-600 text-white rounded-full px-8 py-6 text-lg font-medium btn-primary glow-blue"
-                >
-                  Get Started
-                </Button>
-              </Link>
-              <Link to="/how-it-works">
-                <Button 
-                  data-testid="learn-more-btn"
-                  variant="outline"
-                  className="border-slate-700 text-slate-200 hover:bg-slate-800 rounded-full px-8 py-6 text-lg"
-                >
-                  Learn More
-                </Button>
-              </Link>
-            </div>
-          </motion.div>
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left Content */}
+            <motion.div 
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-left"
+            >
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-gray-900">
+                <span className="text-orange-600">Justice</span> You Understand,
+                <br />
+                <span className="text-blue-600">Technology</span> You Trust
+              </h1>
+              <p className="text-lg sm:text-xl text-gray-600 mb-8 max-w-xl">
+                Connect with verified Indian lawyers, get AI-powered legal guidance, and navigate the Indian legal system with confidence
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link to="/user-get-started">
+                  <Button 
+                    data-testid="get-started-btn"
+                    className="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-8 py-4 text-lg font-medium shadow-lg"
+                  >
+                    Get Started
+                  </Button>
+                </Link>
+                <Link to="/how-it-works">
+                  <Button 
+                    data-testid="learn-more-btn"
+                    variant="outline"
+                    className="border-gray-300 text-gray-700 hover:bg-gray-50 rounded-full px-8 py-4 text-lg"
+                  >
+                    Learn More
+                  </Button>
+                </Link>
+              </div>
+              
+              {/* Swipe Up Arrow */}
+              <motion.div 
+                className="mt-12 flex flex-col items-center"
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                <p className="text-sm text-gray-500 mb-2">Explore our services</p>
+                <ChevronUp className="w-6 h-6 text-blue-600" />
+              </motion.div>
+            </motion.div>
+
+            {/* Right Image */}
+            <motion.div 
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="relative"
+            >
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/6/65/Supreme_Court_of_India_-_200705_%28edited%29.jpg"
+                  alt="Indian Supreme Court Building"
+                  className="w-full h-[500px] object-cover brightness-110 contrast-110 saturate-120"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-orange-900/30 to-transparent" />
+                <div className="absolute bottom-6 left-6 right-6">
+                  <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-4">
+                    <p className="text-sm font-semibold text-gray-800">Supreme Court of India</p>
+                    <p className="text-xs text-gray-600">Where justice meets technology</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
       
