@@ -54,25 +54,7 @@ const PremiumAbout = () => {
 // About Hero Component
 const AboutHero = ({ fadeInUp }) => {
   return (
-    <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#0F2944] via-[#1a3a5c] to-[#0F2944] pt-16">
-      {/* Animated Background */}
-      <div className="absolute inset-0 opacity-10">
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 50, repeat: Infinity, ease: 'linear' }}
-          className="absolute inset-0"
-        >
-          <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="aboutGrid" width="50" height="50" patternUnits="userSpaceOnUse">
-                <circle cx="25" cy="25" r="2" fill="white" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#aboutGrid)" />
-          </svg>
-        </motion.div>
-      </div>
-
+    <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden bg-white pt-24">
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <motion.div
           initial="hidden"
@@ -80,19 +62,18 @@ const AboutHero = ({ fadeInUp }) => {
           variants={fadeInUp}
         >
           <motion.h1 
-            className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight"
+            className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-800 mb-6 leading-tight"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             Making Legal Services
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-white">
-              Accessible to All Indians
-            </span>
+            <br />
+            <span className="text-gray-600">Accessible to All Indians</span>
           </motion.h1>
           
           <motion.p 
-            className="text-xl sm:text-2xl text-blue-100 max-w-3xl mx-auto font-light"
+            className="text-xl sm:text-2xl text-gray-600 max-w-3xl mx-auto font-light"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
