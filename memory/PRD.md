@@ -135,5 +135,21 @@ Design elements applied:
 - Implement lawyer comparison tool
 - Integrate payment system
 
+## Completed Bug Fixes
+
+### Jan 29, 2026 - Law Firm Client Login Fix
+**Issue:** Users could not login through the Firm Client Login page
+**Root Cause:** The JoinFirmSignup.js page was registering users via `/api/auth/register` (which stores in `users` collection) but the FirmClientLogin.js was checking `/api/firm-clients/login` (which looks in `firm_clients` collection)
+**Fix:** 
+- Updated JoinFirmSignup.js to use `/api/firm-clients/register-paid` endpoint
+- This correctly stores users in the `firm_clients` collection
+- Login now works with the firm-client-login page
+- After registration, users are automatically logged in and can go directly to dashboard
+
+**Test Credentials:**
+- Email: testclient@example.com
+- Password: Test@123
+- Login URL: /firm-client-login
+
 ## Test Credentials
-- See `/app/DUMMY_DATA_CREDENTIALS.md` for dummy user accounts
+- See `/app/DUMMY_CREDENTIALS.md` for all test accounts
