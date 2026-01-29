@@ -112,14 +112,15 @@ const ScatteredImages = () => {
               alt={image.alt}
               className="w-full h-full object-cover"
               style={{ 
-                filter: 'brightness(3.0) contrast(5.0) saturate(8.0) hue-rotate(25deg) sepia(1.0) drop-shadow(0 10px 20px rgba(255,80,0,0.7)) invert(0.1)'
+                filter: 'brightness(4.0) contrast(6.0) saturate(10.0) hue-rotate(30deg) sepia(1.2) drop-shadow(0 15px 30px rgba(255,60,0,0.9)) blur(0.2px)'
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-br from-orange-800/70 via-red-700/65 to-yellow-700/60 mix-blend-overlay" />
-            <div className="absolute inset-0 bg-gradient-to-tl from-pink-600/50 via-orange-600/45 to-amber-600/50 mix-blend-soft-light" />
-            <div className="absolute inset-0 bg-gradient-to-r from-red-500/40 via-orange-500/35 to-yellow-500/40 mix-blend-color-dodge" />
-            <div className="absolute inset-0 bg-gradient-to-bl from-rose-400/35 via-orange-400/30 to-amber-400/35 mix-blend-multiply" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-red-300/25 via-pink-300/20 to-orange-300/25 mix-blend-screen" />
+            <div className="absolute inset-0 bg-gradient-to-br from-orange-900/80 via-red-800/75 to-yellow-800/70 mix-blend-overlay" />
+            <div className="absolute inset-0 bg-gradient-to-tl from-pink-700/60 via-orange-700/55 to-amber-700/60 mix-blend-soft-light" />
+            <div className="absolute inset-0 bg-gradient-to-r from-red-600/50 via-orange-600/45 to-yellow-600/50 mix-blend-color-dodge" />
+            <div className="absolute inset-0 bg-gradient-to-bl from-rose-500/45 via-orange-500/40 to-amber-500/45 mix-blend-multiply" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-red-400/35 via-pink-400/30 to-orange-400/35 mix-blend-screen" />
+            <div className="absolute inset-0 bg-gradient-to-b from-yellow-300/25 via-orange-300/20 to-red-300/25 mix-blend-color-burn" />
           </div>
         </motion.div>
       ))}
