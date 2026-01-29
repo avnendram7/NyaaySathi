@@ -195,7 +195,7 @@ const PremiumHome = () => {
                 <Button
                   onClick={() => navigate('/quick-chat')}
                   variant="outline"
-                  className="border-2 border-gray-600 text-gray-600 hover:bg-gray-600 hover:text-white text-lg px-14 py-8 rounded-full font-semibold transition-all duration-300"
+                  className="border-2 border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white text-lg px-14 py-8 rounded-full font-semibold transition-all duration-300"
                 >
                   Free AI Assistant
                 </Button>
@@ -203,24 +203,6 @@ const PremiumHome = () => {
             </motion.div>
           </motion.div>
         </div>
-
-        {/* Simple scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1.5 }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-        >
-          <motion.div
-            animate={{ y: [0, -5, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-            className="text-gray-600"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-            </svg>
-          </motion.div>
-        </motion.div>
       </section>
 
       {/* Services Section */}
