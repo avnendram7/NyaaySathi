@@ -193,34 +193,45 @@ const JoinFirmSignup = () => {
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.2, type: "spring" }}
-              className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6"
+              className="w-24 h-24 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-6"
             >
-              <CheckCircle className="w-12 h-12 text-green-600" />
+              <Clock className="w-12 h-12 text-amber-600" />
             </motion.div>
             <h2 className="text-2xl font-bold text-[#0F2944] mb-3">Payment Successful!</h2>
             <p className="text-gray-600 mb-4">
               Your application to join <strong>{firm.firm_name}</strong> has been submitted.
             </p>
             
-            <div className="bg-blue-50 rounded-xl p-4 mb-6 text-left">
-              <p className="text-sm text-[#0F2944]">
-                <strong>Your account has been created!</strong>
+            <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6 text-left">
+              <p className="text-sm text-amber-800 font-semibold mb-2">
+                ⏳ Pending Admin Approval
               </p>
-              <ul className="text-sm text-gray-600 mt-2 space-y-1">
+              <ul className="text-sm text-gray-600 space-y-1">
+                <li>• Your account is being reviewed by the admin</li>
+                <li>• You will be able to login once approved</li>
                 <li>• Email: <strong>{formData.email}</strong></li>
+              </ul>
+            </div>
+            
+            <div className="bg-blue-50 rounded-xl p-4 mb-6 text-left">
+              <p className="text-sm text-[#0F2944] font-semibold mb-2">
+                What happens next?
+              </p>
+              <ul className="text-sm text-gray-600 space-y-1">
+                <li>• Admin will review your application</li>
+                <li>• Once approved, you can login with your email & password</li>
                 <li>• Access your Law Firm Client Dashboard</li>
                 <li>• Track your case progress</li>
-                <li>• Communicate with your assigned lawyer</li>
               </ul>
             </div>
             
             <div className="flex gap-4">
               <Button
-                onClick={() => navigate('/firm-client-dashboard')}
+                onClick={() => navigate('/firm-client-login')}
                 className="flex-1 bg-[#0F2944] hover:bg-[#0F2944]/90 text-white rounded-xl"
-                data-testid="go-to-dashboard-btn"
+                data-testid="go-to-login-btn"
               >
-                Go to Dashboard
+                Go to Login
               </Button>
               <Button
                 onClick={() => navigate('/')}
