@@ -137,19 +137,35 @@ Design elements applied:
 
 ## Completed Bug Fixes
 
-### Jan 29, 2026 - Law Firm Client Login Fix
-**Issue:** Users could not login through the Firm Client Login page
-**Root Cause:** The JoinFirmSignup.js page was registering users via `/api/auth/register` (which stores in `users` collection) but the FirmClientLogin.js was checking `/api/firm-clients/login` (which looks in `firm_clients` collection)
-**Fix:** 
-- Updated JoinFirmSignup.js to use `/api/firm-clients/register-paid` endpoint
-- This correctly stores users in the `firm_clients` collection
-- Login now works with the firm-client-login page
-- After registration, users are automatically logged in and can go directly to dashboard
+### Jan 29, 2026 - Law Firm Client Login with Admin Approval
+**Issue:** Users could not login through the Firm Client Login page, and admin approval was required
+
+**Root Cause:** 
+1. JoinFirmSignup.js was registering users via `/api/auth/register` (stores in `users` collection) but FirmClientLogin.js was checking `/api/firm-clients/login` (looks in `firm_clients` collection)
+2. No admin approval flow existed
+
+**Fix Applied:** 
+1. Updated JoinFirmSignup.js to use `/api/firm-clients/register-paid` endpoint
+2. New users are registered with `status: pending_approval`
+3. Users cannot login until admin approves them
+4. Admin can view and approve pending clients from Admin Dashboard → Firm Clients tab
+5. After approval, status changes to `active` and user can login
+
+**New Endpoints:**
+- `GET /api/firm-clients/pending-approvals` - Get all pending clients
+- `PUT /api/firm-clients/{client_id}/approve` - Approve/reject client
+
+**Flow:**
+1. User signs up → gets "pending admin approval" message
+2. Admin views pending clients in Admin Dashboard
+3. Admin clicks Approve → client status = "active"
+4. User can now login at /firm-client-login
 
 **Test Credentials:**
-- Email: testclient@example.com
-- Password: Test@123
-- Login URL: /firm-client-login
+- Client Email: newtest@example.com
+- Client Password: Test@123
+- Admin Email: admin@lxwyerup.com
+- Admin Password: admin123
 
 ## Test Credentials
 - See `/app/DUMMY_CREDENTIALS.md` for all test accounts
