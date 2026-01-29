@@ -48,7 +48,7 @@ export const Navbar = () => {
                 <Button 
                   data-testid="dashboard-btn"
                   onClick={() => navigate(user.user_type === 'lawyer' ? '/lawyer-dashboard' : '/user-dashboard')}
-                  className="bg-blue-700 hover:bg-blue-600 text-white rounded-full px-6 py-2"
+                  className="bg-gray-800 hover:bg-gray-900 text-white rounded-full px-6 py-2"
                 >
                   Dashboard
                 </Button>
@@ -56,7 +56,7 @@ export const Navbar = () => {
                   data-testid="logout-btn"
                   onClick={handleLogout}
                   variant="outline"
-                  className="border-slate-700 text-slate-200 hover:bg-slate-800 rounded-full px-6 py-2"
+                  className="border-gray-300 text-gray-800 hover:bg-gray-100 rounded-full px-6 py-2"
                 >
                   Logout
                 </Button>
@@ -65,47 +65,10 @@ export const Navbar = () => {
               <Link to="/role-selection?mode=login" className="relative group">
                 <Button 
                   data-testid="login-btn"
-                  className="relative bg-slate-900 hover:bg-slate-800 text-white rounded-full px-8 py-2 flex items-center space-x-2 border border-blue-500/50 overflow-hidden shadow-lg shadow-blue-500/20"
+                  className="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-8 py-2 flex items-center space-x-2 shadow-lg"
                 >
-                  {/* Glowing light effect */}
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-blue-500/20"
-                    animate={{
-                      x: ['-100%', '100%'],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                  />
-                  {/* Floating light orbs */}
-                  <motion.div
-                    className="absolute w-10 h-10 bg-blue-400/40 rounded-full blur-lg"
-                    animate={{
-                      x: [-30, 70, -30],
-                      opacity: [0.3, 0.7, 0.3],
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                  />
-                  <motion.div
-                    className="absolute w-6 h-6 bg-cyan-400/50 rounded-full blur-md"
-                    animate={{
-                      x: [60, -20, 60],
-                      opacity: [0.4, 0.8, 0.4],
-                    }}
-                    transition={{
-                      duration: 2.5,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                  />
-                  <LogIn className="w-4 h-4 relative z-10" />
-                  <span className="relative z-10 font-semibold">Login</span>
+                  <LogIn className="w-4 h-4" />
+                  <span className="font-semibold">Login</span>
                 </Button>
               </Link>
             )}
