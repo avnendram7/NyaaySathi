@@ -45,40 +45,40 @@ const ScatteredImages = () => {
       delay: 0.2
     },
     {
-      src: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Indian Court Session',
+      src: 'https://images.unsplash.com/photo-1589994965851-a8f479c573a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      alt: 'Indian Court Interior with Judge',
       position: 'top-64 right-32',
       size: 'w-64 h-80',
       rotation: 8,
       delay: 0.4
     },
     {
-      src: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Indian Legal Professional',
+      src: 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      alt: 'Indian Legal Professional Helping Client',
       position: 'bottom-48 left-32',
       size: 'w-60 h-72',
       rotation: 15,
       delay: 0.6
     },
     {
-      src: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Legal Consultation in India',
+      src: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      alt: 'Indian Family Getting Legal Help',
       position: 'bottom-32 right-20',
       size: 'w-52 h-64',
       rotation: -8,
       delay: 0.8
     },
     {
-      src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Indian Lawyer with Client',
+      src: 'https://images.unsplash.com/photo-1551836022-deb4988cc6c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      alt: 'Indian Lawyer Consultation',
       position: 'top-1/2 left-12',
       size: 'w-48 h-60',
       rotation: -15,
       delay: 1.0
     },
     {
-      src: 'https://images.unsplash.com/photo-1505664194779-8beaceb93744?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Indian Court Interior',
+      src: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      alt: 'Indian Court Session',
       position: 'top-1/3 right-12',
       size: 'w-44 h-56',
       rotation: 10,
