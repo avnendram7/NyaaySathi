@@ -333,33 +333,7 @@ const TrustSection = ({ fadeInUp }) => {
           </motion.div>
         </div>
 
-        {/* Stats */}
-        <motion.div
-          initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
-          variants={fadeInUp}
-          className="grid sm:grid-cols-3 gap-8 mt-16"
-        >
-          {[
-            { icon: Users, number: '10,000+', label: 'Happy Clients' },
-            { icon: Award, number: '500+', label: 'Verified Lawyers' },
-            { icon: Scale, number: '95%', label: 'Success Rate' }
-          ].map((stat, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ delay: index * 0.1 + 0.4 }}
-              className="bg-white p-8 rounded-2xl text-center shadow-lg"
-            >
-              <div className="w-14 h-14 bg-[#0F2944] rounded-full flex items-center justify-center mx-auto mb-4">
-                <stat.icon className="w-7 h-7 text-white" />
-              </div>
-              <div className="text-4xl font-bold text-[#0F2944] mb-2">{stat.number}</div>
-              <div className="text-gray-600">{stat.label}</div>
-            </motion.div>
-          ))}
-        </motion.div>
+        {/* Removed fake stats section */}
       </div>
     </section>
   );
