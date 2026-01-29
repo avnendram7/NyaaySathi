@@ -38,7 +38,7 @@ const ScatteredImages = () => {
   const images = [
     {
       src: 'https://upload.wikimedia.org/wikipedia/commons/6/65/Supreme_Court_of_India_-_200705_%28edited%29.jpg',
-      alt: 'Indian Supreme Court Building',
+      alt: 'Indian Supreme Court Building - Symbol of Justice',
       position: 'top-32 left-20',
       size: 'w-56 h-72',
       rotation: -12,
@@ -46,31 +46,31 @@ const ScatteredImages = () => {
     },
     {
       src: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Indian Court Session - Justice in Action',
+      alt: 'Indian Court Interior - Justice in Session',
       position: 'top-64 right-32',
       size: 'w-64 h-80',
       rotation: 8,
       delay: 0.4
     },
     {
-      src: 'https://images.unsplash.com/photo-1551836022-deb4988cc6c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Indian Lawyer with Client - Legal Consultation',
+      src: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      alt: 'Indian Lawyer Consulting Client - Legal Guidance',
       position: 'bottom-48 left-32',
       size: 'w-60 h-72',
       rotation: 15,
       delay: 0.6
     },
     {
-      src: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Indian Family Getting Legal Help - Technology Bridging Justice',
+      src: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      alt: 'Indian Family with Legal Documents - Getting Help',
       position: 'bottom-32 right-20',
       size: 'w-52 h-64',
       rotation: -8,
       delay: 0.8
     },
     {
-      src: 'https://images.unsplash.com/photo-1589994965851-a8f479c573a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Indian High Court Interior - Modern Justice System',
+      src: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      alt: 'Indian High Court Session - Modern Justice',
       position: 'top-1/2 left-12',
       size: 'w-48 h-60',
       rotation: -15,
@@ -78,7 +78,7 @@ const ScatteredImages = () => {
     },
     {
       src: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Indian Legal Professional Using Technology - Digital Justice',
+      alt: 'Indian Legal Tech Professional - Digital Justice',
       position: 'top-1/3 right-12',
       size: 'w-44 h-56',
       rotation: 10,
