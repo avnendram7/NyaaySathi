@@ -165,7 +165,7 @@ export default function LawFirmApplication() {
         <div className="text-center mb-10">
           <Link to="/" className="inline-flex items-center space-x-2 mb-6">
             <Building2 className="w-10 h-10 text-blue-500" />
-            <span className="text-2xl font-bold text-white">Nyaay Sathi</span>
+            <span className="text-2xl font-bold text-white">Lxwyer Up</span>
           </Link>
           <h1 className="text-3xl sm:text-4xl font-bold text-white mb-3">Register Your Law Firm</h1>
           <p className="text-slate-400">Join India's leading legal platform and grow your practice</p>
@@ -504,7 +504,7 @@ export default function LawFirmApplication() {
                       <p className="text-blue-400 font-semibold">Verification Process</p>
                       <p className="text-slate-400 text-sm mt-1">
                         Your application will be reviewed by our team. You'll receive an email once approved.
-                        After approval, you can login and manage your firm on Nyaay Sathi.
+                        After approval, you can login and manage your firm on Lxwyer Up.
                       </p>
                     </div>
                   </div>

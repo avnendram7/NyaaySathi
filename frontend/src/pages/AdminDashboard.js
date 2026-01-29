@@ -656,7 +656,7 @@ export default function AdminDashboard() {
               </div>
               <div>
                 <h1 className="text-xl font-bold text-white">Admin Dashboard</h1>
-                <p className="text-xs text-slate-400">Nyaay Sathi Platform</p>
+                <p className="text-xs text-slate-400">Lxwyer Up Platform</p>
               </div>
             </div>
             

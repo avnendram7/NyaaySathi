@@ -80,7 +80,7 @@ export default function UserSignupPage() {
             <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-500 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/30 group-hover:shadow-blue-500/50 transition-all">
               <Scale className="w-7 h-7 text-white" />
             </div>
-            <span className="text-2xl font-bold text-white">Nyaay Sathi</span>
+            <span className="text-2xl font-bold text-white">Lxwyer Up</span>
           </Link>
           
           <div className="bg-slate-900/50 backdrop-blur-md border border-slate-800 rounded-2xl p-8 shadow-2xl">

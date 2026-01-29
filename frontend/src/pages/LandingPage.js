@@ -25,7 +25,7 @@ export default function LandingPage() {
               <span className="text-blue-500"> AI-Powered</span> Guidance
             </h1>
             <p className="text-lg sm:text-xl text-slate-400 mb-12 max-w-2xl mx-auto">
-              Nyaay Sathi helps you understand your case, track progress, and connect with verified lawyers - all in one platform
+              Lxwyer Up helps you understand your case, track progress, and connect with verified lawyers - all in one platform
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/user-get-started">
@@ -54,7 +54,7 @@ export default function LandingPage() {
       <section data-testid="featured-services" className="py-20 px-4 bg-slate-900/30">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">Why Choose Nyaay Sathi?</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">Why Choose Lxwyer Up?</h2>
             <p className="text-slate-400 text-lg max-w-2xl mx-auto">Access powerful tools designed to make legal processes simple and transparent</p>
           </div>
           
@@ -184,7 +184,7 @@ export default function LandingPage() {
         <div className="max-w-4xl mx-auto text-center glass rounded-3xl p-12">
           <h2 className="text-3xl sm:text-4xl font-bold mb-6">Ready to Get Started?</h2>
           <p className="text-slate-400 text-lg mb-8">
-            Join thousands of users who have simplified their legal journey with Nyaay Sathi
+            Join thousands of users who have simplified their legal journey with Lxwyer Up
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/user-login">

@@ -169,7 +169,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h2 className="text-2xl font-bold text-white">Join Our Waitlist</h2>
-                    <p className="text-slate-400 text-sm">Be the first to access Nyaay Sathi</p>
+                    <p className="text-slate-400 text-sm">Be the first to access Lxwyer Up</p>
                   </div>
                 </div>
                 
@@ -362,7 +362,7 @@ export default function ContactPage() {
             <div className="relative z-10">
               <div className="text-center mb-8">
                 <h2 className="text-3xl font-bold text-white mb-2">Why People Trust Us</h2>
-                <p className="text-slate-400">Join thousands who have found legal help through Nyaay Sathi</p>
+                <p className="text-slate-400">Join thousands who have found legal help through Lxwyer Up</p>
               </div>
               
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -414,7 +414,7 @@ export default function ContactPage() {
                       <MapPin className="w-5 h-5 text-blue-400" />
                     </div>
                     <div>
-                      <p className="text-white font-medium">Nyaay Sathi Legal Tech</p>
+                      <p className="text-white font-medium">Lxwyer Up Legal Tech</p>
                       <p className="text-slate-400 text-sm">Sonipat, Haryana 131001, India</p>
                     </div>
                   </div>

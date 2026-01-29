@@ -165,7 +165,7 @@ export default function LawyerApplication() {
           </motion.div>
           <h2 className="text-2xl font-bold text-white mb-3">Application Submitted!</h2>
           <p className="text-slate-400 mb-6">
-            Thank you for applying to join Nyaay Sathi. Our team will review your application and get back to you within 24-48 hours.
+            Thank you for applying to join Lxwyer Up. Our team will review your application and get back to you within 24-48 hours.
           </p>
           <p className="text-sm text-slate-500 mb-6">
             You will receive an email at <span className="text-blue-400">{formData.email}</span> once your application is approved.
@@ -195,7 +195,7 @@ export default function LawyerApplication() {
           </button>
           <div className="flex items-center gap-2">
             <Scale className="w-6 h-6 text-purple-500" />
-            <span className="font-semibold text-white">Nyaay Sathi</span>
+            <span className="font-semibold text-white">Lxwyer Up</span>
           </div>
           <div className="w-20"></div>
         </div>

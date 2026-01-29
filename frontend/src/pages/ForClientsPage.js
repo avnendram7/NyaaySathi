@@ -108,7 +108,7 @@ export default function ForClientsPage() {
           <div className="glass rounded-3xl p-12 text-center">
             <TrendingUp className="w-16 h-16 text-blue-500 mx-auto mb-6" />
             <blockquote className="text-xl italic text-slate-300 mb-4">
-              "Nyaay Sathi helped me understand my case for the first time. The AI chatbot explained everything in simple terms, and I could track all my documents in one place."
+              "Lxwyer Up helped me understand my case for the first time. The AI chatbot explained everything in simple terms, and I could track all my documents in one place."
             </blockquote>
             <p className="text-slate-400">- Satisfied Client</p>
           </div>

@@ -98,7 +98,7 @@ export default function ForLawyersPage() {
           
           {/* Why Join */}
           <div className="glass rounded-3xl p-12 text-center">
-            <h2 className="text-3xl font-bold mb-6">Why Lawyers Choose Nyaay Sathi</h2>
+            <h2 className="text-3xl font-bold mb-6">Why Lawyers Choose Lxwyer Up</h2>
             <div className="max-w-3xl mx-auto space-y-4 text-left">
               <div className="flex items-start space-x-4">
                 <div className="w-8 h-8 rounded-full bg-blue-700/20 flex items-center justify-center flex-shrink-0 mt-1">

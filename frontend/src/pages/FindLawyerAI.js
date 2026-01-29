@@ -13,7 +13,7 @@ export default function FindLawyerAI() {
         {
           type: 'greeting',
           icon: 'bot',
-          title: 'Welcome to Nyaay Sathi AI',
+          title: 'Welcome to Lxwyer Up AI',
           content: "Hello! I'm your AI legal assistant. I'll help you find the perfect lawyer for your case."
         },
         {
@@ -215,7 +215,7 @@ export default function FindLawyerAI() {
               <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
                 <Scale className="w-6 h-6 text-white" />
               </div>
-              <span className="text-xl font-semibold">Nyaay Sathi</span>
+              <span className="text-xl font-semibold">Lxwyer Up</span>
             </button>
             
             <div className="flex items-center gap-4">

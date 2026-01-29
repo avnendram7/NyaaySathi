@@ -16,7 +16,7 @@ export default function QuickChat() {
       role: 'assistant',
       content: {
         cards: [
-          { type: 'greeting', title: 'Welcome to Nyaay Sathi', content: "Hello! I'm your AI legal assistant. I can help you understand legal concepts, procedures, and your rights." },
+          { type: 'greeting', title: 'Welcome to Lxwyer Up', content: "Hello! I'm your AI legal assistant. I can help you understand legal concepts, procedures, and your rights." },
           { type: 'info', title: 'How I Can Help', content: "Ask me about legal procedures, documents needed, your rights, or any general legal query." },
           { type: 'action', title: 'Get Started', content: "Type your legal question below. For example: 'What is bail?' or 'How to file FIR?'" }
         ]
@@ -44,7 +44,7 @@ export default function QuickChat() {
     setLoading(true);
     
     try {
-      const systemPrompt = `You are Nyaay Sathi's AI Legal Assistant for Indian users. Help users understand legal concepts, procedures, and their rights.
+      const systemPrompt = `You are Lxwyer Up's AI Legal Assistant for Indian users. Help users understand legal concepts, procedures, and their rights.
 
 RESPONSE FORMAT - Always respond with structured JSON cards:
 {
@@ -236,7 +236,7 @@ CARD TYPES:
             </button>
             <Bot className="w-8 h-8 text-blue-500" />
             <div>
-              <h1 className="text-xl font-bold text-white">Nyaay Sathi AI Chat</h1>
+              <h1 className="text-xl font-bold text-white">Lxwyer Up AI Chat</h1>
               <p className="text-sm text-slate-400">Ask any legal question</p>
             </div>
           </div>

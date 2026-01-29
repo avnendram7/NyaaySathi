@@ -149,7 +149,7 @@ export default function FirmLawyerApplication() {
 
         <div className="flex items-center justify-center space-x-2 mb-8">
           <Scale className="w-10 h-10 text-purple-500" />
-          <span className="text-2xl font-bold text-white">Nyaay Sathi</span>
+          <span className="text-2xl font-bold text-white">Lxwyer Up</span>
         </div>
 
         {/* Progress Steps */}

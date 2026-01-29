@@ -53,7 +53,7 @@ export default function RoleSelection() {
               {isLoginMode ? 'Welcome Back' : 'Get Started'}
             </h1>
             <p className="text-slate-400 text-lg">
-              {isLoginMode ? 'Choose your account type to login' : 'Select how you want to use Nyaay Sathi'}
+              {isLoginMode ? 'Choose your account type to login' : 'Select how you want to use Lxwyer Up'}
             </p>
           </div>
 

@@ -94,7 +94,7 @@ export default function HowItWorksPage() {
   ];
 
   const faqs = [
-    { question: 'Is Nyaay Sathi free to use?', answer: 'Creating an account and using our AI assistant is completely free. Lawyer consultation fees vary based on the lawyer\'s experience and case complexity.' },
+    { question: 'Is Lxwyer Up free to use?', answer: 'Creating an account and using our AI assistant is completely free. Lawyer consultation fees vary based on the lawyer\'s experience and case complexity.' },
     { question: 'How are lawyers verified?', answer: 'Every lawyer undergoes a 3-step verification: Bar council registration check, experience verification, and background check.' },
     { question: 'Is my information secure?', answer: 'Absolutely! We use 256-bit SSL encryption. Your case information is confidential and only shared with lawyers you choose.' },
     { question: 'What types of cases can I get help with?', answer: 'We cover Civil, Criminal, Family, Property, Corporate, Tax, Intellectual Property, Consumer, and Labor disputes.' },
@@ -260,7 +260,7 @@ export default function HowItWorksPage() {
               <Award className="w-4 h-4 text-green-400" />
               <span className="text-green-400 text-sm font-medium">Why Choose Us</span>
             </div>
-            <h2 className="text-4xl font-bold text-white mb-4">The Nyaay Sathi Advantage</h2>
+            <h2 className="text-4xl font-bold text-white mb-4">The Lxwyer Up Advantage</h2>
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -330,7 +330,7 @@ export default function HowItWorksPage() {
           <FloatingCard glowColor="blue" className="text-center">
             <Sparkles className="w-12 h-12 text-blue-400 mx-auto mb-4" />
             <h2 className="text-3xl font-bold text-white mb-4">Ready to Get Started?</h2>
-            <p className="text-slate-400 mb-8">Join thousands who have found legal help through Nyaay Sathi!</p>
+            <p className="text-slate-400 mb-8">Join thousands who have found legal help through Lxwyer Up!</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a href="/role-selection" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-semibold rounded-xl shadow-lg shadow-blue-500/30">
                 Get Started Free <ArrowRight className="w-5 h-5" />

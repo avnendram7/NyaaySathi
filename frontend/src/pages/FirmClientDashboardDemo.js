@@ -50,7 +50,7 @@ export default function FirmClientDashboardDemo() {
                 <Scale className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-white">Nyaay Sathi</h1>
+                <h1 className="text-xl font-bold text-white">Lxwyer Up</h1>
                 <p className="text-xs text-blue-300">Client Portal</p>
               </div>
             </div>

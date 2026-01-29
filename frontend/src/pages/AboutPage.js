@@ -96,7 +96,7 @@ export default function AboutPage() {
   ];
 
   const milestones = [
-    { year: '2026', title: 'Founded', description: 'Nyaay Sathi was born with a vision to democratize legal assistance' },
+    { year: '2026', title: 'Founded', description: 'Lxwyer Up was born with a vision to democratize legal assistance' },
     { year: '2026', title: 'AI Integration', description: 'Launched AI-powered case analysis and legal assistant' },
     { year: '2026', title: 'Growing Fast', description: 'Rapidly expanding our network of verified lawyers and law firms' },
     { year: '2026', title: 'Pan-India Vision', description: 'Building towards coverage across all major cities in India' }
@@ -125,7 +125,7 @@ export default function AboutPage() {
               <span className="text-blue-400 text-sm font-medium">About Us</span>
             </div>
             <h1 className="text-5xl sm:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-blue-100 to-blue-200 bg-clip-text text-transparent">
-              About Nyaay Sathi
+              About Lxwyer Up
             </h1>
             <p className="text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
               We're on a mission to bridge the gap between citizens and the justice system using technology, AI, and human expertise
@@ -174,7 +174,7 @@ export default function AboutPage() {
                 their rights, and their next steps. This confusion leads to anxiety, delays, and injustice.
               </p>
               <p className="text-lg text-slate-300 leading-relaxed mb-6">
-                Nyaay Sathi exists to solve this problem by making legal information accessible, understandable, 
+                Lxwyer Up exists to solve this problem by making legal information accessible, understandable, 
                 and actionable for everyone—from first-time users to seasoned professionals.
               </p>
               <div className="flex flex-wrap gap-4">
@@ -273,14 +273,14 @@ export default function AboutPage() {
               <Scale className="w-4 h-4 text-amber-400" />
               <span className="text-amber-400 text-sm font-medium">Our Journey</span>
             </div>
-            <h2 className="text-4xl font-bold mb-4 text-white">The Nyaay Sathi Story</h2>
+            <h2 className="text-4xl font-bold mb-4 text-white">The Lxwyer Up Story</h2>
           </motion.div>
 
           <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
             <FloatingCard glowColor="amber" className="h-full">
               <div className="space-y-6 text-slate-300 leading-relaxed">
                 <p className="text-lg">
-                  <span className="text-amber-400 font-semibold">Nyaay Sathi was born from a simple observation:</span> while India has made significant strides in 
+                  <span className="text-amber-400 font-semibold">Lxwyer Up was born from a simple observation:</span> while India has made significant strides in 
                   digitalizing court records and case data, most citizens still struggle to make sense of this information.
                 </p>
                 <p>
@@ -289,7 +289,7 @@ export default function AboutPage() {
                 </p>
                 <p>
                   Our founders, having witnessed the struggles of common people navigating the legal system, decided to create a platform 
-                  that would democratize access to legal assistance. Today, Nyaay Sathi serves both citizens and legal professionals, 
+                  that would democratize access to legal assistance. Today, Lxwyer Up serves both citizens and legal professionals, 
                   creating a more transparent, efficient, and humane justice system for all.
                 </p>
               </div>
@@ -339,7 +339,7 @@ export default function AboutPage() {
           <FloatingCard glowColor="blue" className="text-center">
             <h2 className="text-3xl font-bold mb-4 text-white">Ready to Get Started?</h2>
             <p className="text-slate-400 mb-8 max-w-2xl mx-auto">
-              Join thousands of users who have transformed their legal journey with Nyaay Sathi
+              Join thousands of users who have transformed their legal journey with Lxwyer Up
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a 
