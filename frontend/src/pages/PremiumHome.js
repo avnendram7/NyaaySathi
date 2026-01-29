@@ -93,7 +93,7 @@ const ScatteredImages = () => {
           key={index}
           initial={{ opacity: 0, scale: 0.8, rotate: 0 }}
           animate={{ 
-            opacity: 0.85,
+            opacity: 0.95,
             scale: 1,
             rotate: image.rotation,
             y: [0, -25, 0]
