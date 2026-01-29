@@ -7,6 +7,9 @@ import { ThemeProvider } from './contexts/ThemeContext';
 
 // Pages
 import CinematicHero from './pages/CinematicHero';
+import PremiumHome from './pages/PremiumHome';
+import PremiumAbout from './pages/PremiumAbout';
+import PremiumContact from './pages/PremiumContact';
 import QuickChat from './pages/QuickChat';
 import InitialLanding from './pages/InitialLanding';
 import RoleSelection from './pages/RoleSelection';
