@@ -77,7 +77,7 @@ export const Navbar = () => {
           {/* Mobile Menu Button */}
           <button
             data-testid="mobile-menu-btn"
-            className="md:hidden text-white"
+            className="md:hidden text-gray-800"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -87,33 +87,33 @@ export const Navbar = () => {
       
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div data-testid="mobile-menu" className="md:hidden glass border-t border-slate-800">
+        <div data-testid="mobile-menu" className="md:hidden bg-white border-t border-gray-200">
           <div className="px-4 py-4 space-y-3">
-            <Link to="/" className="flex items-center space-x-2 text-slate-300 hover:text-white py-2">
+            <Link to="/" className="flex items-center space-x-2 text-gray-800 hover:text-gray-600 py-2">
               <Home className="w-4 h-4" />
               <span>Home</span>
             </Link>
-            <Link to="/about" className="flex items-center space-x-2 text-slate-300 hover:text-white py-2">
+            <Link to="/premium-about" className="flex items-center space-x-2 text-gray-800 hover:text-gray-600 py-2">
               <Info className="w-4 h-4" />
               <span>About</span>
             </Link>
-            <Link to="/how-it-works" className="flex items-center space-x-2 text-slate-300 hover:text-white py-2">
+            <Link to="/premium-contact" className="flex items-center space-x-2 text-gray-800 hover:text-gray-600 py-2">
               <HelpCircle className="w-4 h-4" />
-              <span>Help</span>
+              <span>Contact</span>
             </Link>
             <div className="pt-4 space-y-2">
               {user ? (
                 <>
                   <Button 
                     onClick={() => navigate(user.user_type === 'lawyer' ? '/lawyer-dashboard' : user.user_type === 'law_firm' ? '/lawfirm-dashboard' : '/user-dashboard')}
-                    className="w-full bg-blue-700 hover:bg-blue-600 text-white rounded-full"
+                    className="w-full bg-gray-800 hover:bg-gray-900 text-white rounded-full"
                   >
                     Dashboard
                   </Button>
                   <Button 
                     onClick={handleLogout}
                     variant="outline"
-                    className="w-full border-slate-700 text-slate-200 hover:bg-slate-800 rounded-full"
+                    className="w-full border-gray-300 text-gray-800 hover:bg-gray-100 rounded-full"
                   >
                     Logout
                   </Button>
@@ -121,12 +121,12 @@ export const Navbar = () => {
               ) : (
                 <>
                   <Link to="/role-selection" className="block">
-                    <Button className="w-full bg-blue-700 hover:bg-blue-600 text-white rounded-full">
+                    <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-full">
                       Get Started
                     </Button>
                   </Link>
                   <Link to="/quick-chat" className="block">
-                    <Button variant="outline" className="w-full border-slate-700 text-slate-200 hover:bg-slate-800 rounded-full">
+                    <Button variant="outline" className="w-full border-gray-300 text-gray-800 hover:bg-gray-100 rounded-full">
                       AI Chat
                     </Button>
                   </Link>
