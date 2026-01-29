@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
-import { ArrowRight, Shield, Zap, Users, CheckCircle, Scale, Brain, Clock, Award, ChevronDown, ChevronUp, FileText, Gavel, BookOpen, MessageSquare, Search, UserCheck } from 'lucide-react';
+import { ArrowRight, Shield, Zap, Users, CheckCircle, Scale, Brain, Clock, Award, ChevronDown, ChevronUp, FileText, Gavel, BookOpen, MessageSquare, Search, UserCheck, ArrowUp } from 'lucide-react';
 import { Button } from '../components/ui/button';
 
 // Simple Navbar Component
@@ -11,14 +11,14 @@ const SimpleNavbar = ({ navigate }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <button onClick={() => navigate('/')} className="flex items-center space-x-2">
-            <Scale className="w-6 h-6 text-gray-800" />
-            <span className="text-xl font-bold text-gray-800">Lxwyer Up</span>
+            <Scale className="w-6 h-6 text-black" />
+            <span className="text-xl font-bold text-black">Lxwyer Up</span>
           </button>
           
           <div className="hidden md:flex items-center space-x-8">
-            <button onClick={() => navigate('/')} className="text-gray-800 hover:text-gray-600 transition-colors">Home</button>
-            <button onClick={() => navigate('/premium-about')} className="text-gray-800 hover:text-gray-600 transition-colors">About</button>
-            <button onClick={() => navigate('/premium-contact')} className="text-gray-800 hover:text-gray-600 transition-colors">Contact</button>
+            <button onClick={() => navigate('/')} className="text-black hover:text-gray-600 transition-colors">Home</button>
+            <button onClick={() => navigate('/premium-about')} className="text-black hover:text-gray-600 transition-colors">About</button>
+            <button onClick={() => navigate('/premium-contact')} className="text-black hover:text-gray-600 transition-colors">Contact</button>
           </div>
           
           <Button
@@ -116,12 +116,12 @@ const ScatteredImages = () => {
               alt={image.alt}
               className="w-full h-full object-cover"
               style={{ 
-                filter: 'brightness(1.3) contrast(1.8) saturate(2.5) hue-rotate(10deg) sepia(0.2)',
+                filter: 'brightness(1.4) contrast(1.8) saturate(2.8) hue-rotate(15deg) sepia(0.25)',
                 imageRendering: 'crisp-edges'
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-br from-orange-500/20 via-yellow-400/15 to-red-500/20 mix-blend-overlay" />
-            <div className="absolute inset-0 bg-gradient-to-tl from-amber-400/15 via-transparent to-green-500/15 mix-blend-soft-light" />
+            <div className="absolute inset-0 bg-gradient-to-br from-orange-500/25 via-yellow-400/20 to-red-500/25 mix-blend-overlay" />
+            <div className="absolute inset-0 bg-gradient-to-tl from-amber-400/20 via-transparent to-green-500/20 mix-blend-soft-light" />
           </div>
         </motion.div>
       ))}
@@ -201,6 +201,23 @@ const PremiumHome = () => {
             </motion.div>
           </motion.div>
         </div>
+
+        {/* Scroll Up Arrow */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.5 }}
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        >
+          <motion.div
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+            className="flex flex-col items-center text-gray-600"
+          >
+            <ArrowUp className="w-6 h-6 mb-2" />
+            <span className="text-sm font-medium">Explore Services</span>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* Services Section */}
@@ -246,16 +263,16 @@ const ServicesSection = ({ showAllServices, setShowAllServices, fadeInUp, stagge
       title: 'Case Management',
       description: 'Track your case progress, documents, and timelines in one secure platform.',
       color: 'from-purple-500 to-indigo-500'
-    },
+    }
+  ];
+
+  const additionalServices = [
     {
       icon: MessageSquare,
       title: 'Legal Consultation',
       description: 'Book online or offline consultations with experienced legal professionals.',
       color: 'from-amber-500 to-yellow-500'
-    }
-  ];
-
-  const additionalServices = [
+    },
     {
       icon: Gavel,
       title: 'Court Representation',
@@ -305,7 +322,7 @@ const ServicesSection = ({ showAllServices, setShowAllServices, fadeInUp, stagge
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
           variants={staggerContainer}
-          className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {displayServices.map((service, index) => (
             <ServiceCard key={index} service={service} fadeInUp={fadeInUp} />
