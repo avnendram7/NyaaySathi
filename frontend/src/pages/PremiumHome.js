@@ -496,7 +496,7 @@ const CTASection = ({ navigate, fadeInUp }) => {
 // Footer Component
 const Footer = ({ navigate }) => {
   return (
-    <footer className="bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8">
+    <footer className="bg-gradient-to-br from-gray-900 via-slate-800 to-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           <div>
