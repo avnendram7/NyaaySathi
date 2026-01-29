@@ -45,32 +45,32 @@ const ScatteredImages = () => {
       delay: 0.2
     },
     {
-      src: 'https://images.unsplash.com/photo-1589994965851-a8f479c573a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Indian Family Getting Legal Help',
+      src: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      alt: 'Indian Court Interior with Justice Scale',
       position: 'top-64 right-32',
       size: 'w-64 h-80',
       rotation: 8,
       delay: 0.4
     },
     {
-      src: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Indian Lawyer Helping Client',
+      src: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      alt: 'Indian Lawyer with Client Consultation',
       position: 'bottom-48 left-32',
       size: 'w-60 h-72',
       rotation: 15,
       delay: 0.6
     },
     {
-      src: 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Indian Court Interior Justice',
+      src: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      alt: 'Indian Legal Documentation and Technology',
       position: 'bottom-32 right-20',
       size: 'w-52 h-64',
       rotation: -8,
       delay: 0.8
     },
     {
-      src: 'https://images.unsplash.com/photo-1551836022-deb4988cc6c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Indian People Benefiting from Legal Tech',
+      src: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      alt: 'Indian People Using Legal Technology',
       position: 'top-1/2 left-12',
       size: 'w-48 h-60',
       rotation: -15,
@@ -78,7 +78,7 @@ const ScatteredImages = () => {
     },
     {
       src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      alt: 'Indian Legal Documentation Success',
+      alt: 'Indian Legal Professional Success',
       position: 'top-1/3 right-12',
       size: 'w-44 h-56',
       rotation: 10,
