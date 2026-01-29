@@ -112,7 +112,7 @@ const ScatteredImages = () => {
               alt={image.alt}
               className="w-full h-full object-cover"
               style={{ 
-                filter: 'brightness(100000000000000.0) contrast(100000000000000.0) saturate(200000000000000.0) hue-rotate(5000000000000deg) sepia(10000000000000.0) drop-shadow(0 100000000000000px 200000000000000px rgba(255,0,0,1.0)) invert(10000000000.0) blur(0.00000000000000000000001px) opacity(0.0000000000001) grayscale(0) contrast(150000000000000.0) saturate(300000000000000.0) brightness(150000000000000.0) hue-rotate(7500000000000deg) sepia(12500000000000.0) drop-shadow(0 32000000000000px 64000000000000px rgba(255,255,0,1.0)) saturate(350000000000000.0) brightness(200000000000000.0) contrast(200000000000000.0) saturate(400000000000000.0) brightness(250000000000000.0) contrast(250000000000000.0) saturate(500000000000000.0) brightness(300000000000000.0) contrast(300000000000000.0) saturate(600000000000000.0) brightness(350000000000000.0) contrast(350000000000000.0) saturate(700000000000000.0) brightness(400000000000000.0) contrast(400000000000000.0) saturate(800000000000000.0) brightness(450000000000000.0)'
+                filter: 'brightness(1000000000000000.0) contrast(1000000000000000.0) saturate(2000000000000000.0) hue-rotate(50000000000000deg) sepia(100000000000000.0) drop-shadow(0 1000000000000000px 2000000000000000px rgba(255,0,0,1.0)) invert(100000000000.0) blur(0.000000000000000000000001px) opacity(0.00000000000001) grayscale(0) contrast(1500000000000000.0) saturate(3000000000000000.0) brightness(1500000000000000.0) hue-rotate(75000000000000deg) sepia(125000000000000.0) drop-shadow(0 320000000000000px 640000000000000px rgba(255,255,0,1.0)) saturate(3500000000000000.0) brightness(2000000000000000.0) contrast(2000000000000000.0) saturate(4000000000000000.0) brightness(2500000000000000.0) contrast(2500000000000000.0) saturate(5000000000000000.0) brightness(3000000000000000.0) contrast(3000000000000000.0) saturate(6000000000000000.0) brightness(3500000000000000.0) contrast(3500000000000000.0) saturate(7000000000000000.0) brightness(4000000000000000.0) contrast(4000000000000000.0) saturate(8000000000000000.0) brightness(4500000000000000.0) contrast(4500000000000000.0)'
               }}
             />
             <div className="absolute inset-0 bg-gradient-to-br from-red-950/100 via-orange-950/100 to-yellow-950/100 mix-blend-overlay" />
@@ -139,15 +139,16 @@ const ScatteredImages = () => {
             <div className="absolute inset-0 bg-gradient-to-b from-red-950/100 via-orange-950/100 to-yellow-950/100 mix-blend-hard-light" />
             <div className="absolute inset-0 bg-gradient-to-l from-pink-950/100 via-orange-950/100 to-yellow-950/100 mix-blend-color-burn" />
             <div className="absolute inset-0 bg-gradient-to-t from-red-950/100 via-orange-950/100 to-yellow-950/100 mix-blend-difference" />
-            <div className="absolute inset-0 bg-gradient-to-br from-rose-900/100 via-orange-900/100 to-amber-900/100 mix-blend-luminosity" />
-            <div className="absolute inset-0 bg-gradient-to-tl from-pink-800/95 via-red-800/95 to-orange-800/95 mix-blend-saturation" />
-            <div className="absolute inset-0 bg-gradient-to-r from-yellow-700/90 via-orange-700/90 to-red-700/90 mix-blend-hue" />
-            <div className="absolute inset-0 bg-gradient-to-bl from-amber-600/85 via-orange-600/85 to-red-600/85 mix-blend-exclusion" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-rose-500/80 via-orange-500/80 to-yellow-500/80 mix-blend-darken" />
-            <div className="absolute inset-0 bg-gradient-to-b from-red-400/75 via-orange-400/75 to-yellow-400/75 mix-blend-lighten" />
-            <div className="absolute inset-0 bg-gradient-to-l from-pink-300/70 via-orange-300/70 to-yellow-300/70 mix-blend-color-burn" />
-            <div className="absolute inset-0 bg-gradient-to-t from-red-200/65 via-orange-200/65 to-yellow-200/65 mix-blend-difference" />
-            <div className="absolute inset-0 bg-gradient-to-br from-rose-100/60 via-orange-100/60 to-amber-100/60 mix-blend-luminosity" />
+            <div className="absolute inset-0 bg-gradient-to-br from-rose-950/100 via-orange-950/100 to-amber-950/100 mix-blend-luminosity" />
+            <div className="absolute inset-0 bg-gradient-to-tl from-pink-900/100 via-red-900/100 to-orange-900/100 mix-blend-saturation" />
+            <div className="absolute inset-0 bg-gradient-to-r from-yellow-800/95 via-orange-800/95 to-red-800/95 mix-blend-hue" />
+            <div className="absolute inset-0 bg-gradient-to-bl from-amber-700/90 via-orange-700/90 to-red-700/90 mix-blend-exclusion" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-rose-600/85 via-orange-600/85 to-yellow-600/85 mix-blend-darken" />
+            <div className="absolute inset-0 bg-gradient-to-b from-red-500/80 via-orange-500/80 to-yellow-500/80 mix-blend-lighten" />
+            <div className="absolute inset-0 bg-gradient-to-l from-pink-400/75 via-orange-400/75 to-yellow-400/75 mix-blend-color-burn" />
+            <div className="absolute inset-0 bg-gradient-to-t from-red-300/70 via-orange-300/70 to-yellow-300/70 mix-blend-difference" />
+            <div className="absolute inset-0 bg-gradient-to-br from-rose-200/65 via-orange-200/65 to-amber-200/65 mix-blend-luminosity" />
+            <div className="absolute inset-0 bg-gradient-to-tl from-pink-100/60 via-red-100/60 to-orange-100/60 mix-blend-saturation" />
           </div>
         </motion.div>
       ))}
