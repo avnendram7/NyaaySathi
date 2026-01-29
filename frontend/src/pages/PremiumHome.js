@@ -174,7 +174,7 @@ const PremiumHome = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
             >
-              Justice You <span className="relative inline-block font-semibold">Understand<motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.8, delay: 1.2 }} className="absolute -bottom-2 left-0 right-0 h-1 bg-blue-600 rounded-full" /></span>, Technology You <span className="relative inline-block font-semibold">Trust<motion.div initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.8, delay: 1.4 }} className="absolute -bottom-2 left-0 right-0 h-1 bg-blue-600 rounded-full" /></span>
+              Justice You <span className="font-bold">Understand</span>, Technology You <span className="font-bold">Trust</span>
             </motion.h1>
             
             <motion.div
