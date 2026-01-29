@@ -10,7 +10,7 @@ export const Footer = () => {
           <div>
             <div className="flex items-center space-x-2 mb-4">
               <Scale className="w-8 h-8 text-blue-500" />
-              <span className="text-xl font-bold">Nyaay Sathi</span>
+              <span className="text-xl font-bold">Lxwyer Up</span>
             </div>
             <p className="text-slate-400 text-sm">
               Simplifying the justice system using technology and AI
