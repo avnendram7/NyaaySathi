@@ -130,7 +130,7 @@ const RoleSelection = () => {
             <p className="text-gray-600">
               Already have an account?{' '}
               <button
-                onClick={() => navigate('/role-selection?mode=login')}
+                onClick={() => navigate('/login')}
                 className="text-[#0F2944] font-semibold hover:underline"
               >
                 Login
