@@ -120,13 +120,14 @@ const ScatteredImages = () => {
               alt={image.alt}
               className="w-full h-full object-cover"
               style={{ 
-                filter: 'brightness(2.0) contrast(3.0) saturate(6.0) hue-rotate(25deg) sepia(0.8) blur(0px)'
+                filter: 'brightness(2.5) contrast(4.0) saturate(8.0) hue-rotate(30deg) sepia(1.0)'
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-br from-red-600/40 via-orange-500/35 to-yellow-400/45 mix-blend-overlay" />
-            <div className="absolute inset-0 bg-gradient-to-tl from-pink-500/35 via-purple-500/30 to-indigo-600/35 mix-blend-soft-light" />
-            <div className="absolute inset-0 bg-gradient-to-r from-green-500/30 to-teal-600/30 mix-blend-color-dodge" />
-            <div className="absolute inset-0 bg-gradient-to-b from-cyan-400/25 via-blue-500/20 to-violet-500/25 mix-blend-multiply" />
+            <div className="absolute inset-0 bg-gradient-to-br from-red-700/50 via-orange-600/45 to-yellow-500/55 mix-blend-overlay" />
+            <div className="absolute inset-0 bg-gradient-to-tl from-pink-600/45 via-purple-600/40 to-indigo-700/45 mix-blend-soft-light" />
+            <div className="absolute inset-0 bg-gradient-to-r from-green-600/40 to-teal-700/40 mix-blend-color-dodge" />
+            <div className="absolute inset-0 bg-gradient-to-b from-cyan-500/35 via-blue-600/30 to-violet-600/35 mix-blend-multiply" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-rose-500/30 via-amber-500/25 to-lime-500/30 mix-blend-screen" />
           </div>
         </motion.div>
       ))}
