@@ -89,7 +89,10 @@ function App() {
         <div className="App">
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<CinematicHero />} />
+              <Route path="/" element={<PremiumHome />} />
+              <Route path="/premium-about" element={<PremiumAbout />} />
+              <Route path="/premium-contact" element={<PremiumContact />} />
+              <Route path="/old-home" element={<CinematicHero />} />
               <Route path="/quick-chat" element={<QuickChat />} />
               <Route path="/hero-alt" element={<InitialLanding />} />
               <Route path="/role-selection" element={<RoleSelection />} />
