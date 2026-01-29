@@ -135,4 +135,107 @@ export const specializationsList = specializations;
 export const citiesList = cities;
 export const statesList = [...new Set(cities.map(c => c.state))];
 
+// Legacy exports for backward compatibility with FindLawyerManual.js
+export const states = {
+  'Delhi': {
+    cities: ['New Delhi', 'North Delhi', 'South Delhi', 'West Delhi', 'East Delhi'],
+    courts: ['Delhi High Court', 'Tis Hazari Courts', 'Saket District Court', 'Patiala House Court', 'Karkardooma Court']
+  },
+  'Maharashtra': {
+    cities: ['Mumbai', 'Pune', 'Nagpur', 'Thane', 'Nashik'],
+    courts: ['Bombay High Court', 'Mumbai City Civil Court', 'Pune District Court', 'NCLT Mumbai']
+  },
+  'Karnataka': {
+    cities: ['Bangalore', 'Mysore', 'Hubli', 'Mangalore'],
+    courts: ['Karnataka High Court', 'Bangalore City Civil Court', 'District Court Bangalore']
+  },
+  'Tamil Nadu': {
+    cities: ['Chennai', 'Coimbatore', 'Madurai', 'Salem'],
+    courts: ['Madras High Court', 'Chennai City Civil Court', 'District Court Chennai']
+  },
+  'West Bengal': {
+    cities: ['Kolkata', 'Howrah', 'Durgapur', 'Siliguri'],
+    courts: ['Calcutta High Court', 'City Civil Court Kolkata', 'District Court Kolkata']
+  },
+  'Telangana': {
+    cities: ['Hyderabad', 'Secunderabad', 'Warangal', 'Nizamabad'],
+    courts: ['Telangana High Court', 'City Civil Court Hyderabad', 'District Court Hyderabad']
+  },
+  'Gujarat': {
+    cities: ['Ahmedabad', 'Surat', 'Vadodara', 'Rajkot'],
+    courts: ['Gujarat High Court', 'City Civil Court Ahmedabad', 'District Court Ahmedabad']
+  },
+  'Uttar Pradesh': {
+    cities: ['Lucknow', 'Noida', 'Ghaziabad', 'Varanasi', 'Kanpur', 'Agra'],
+    courts: ['Allahabad High Court', 'Lucknow Bench', 'District Court Lucknow', 'District Court Noida']
+  },
+  'Haryana': {
+    cities: ['Gurgaon', 'Faridabad', 'Chandigarh', 'Rohtak', 'Panipat'],
+    courts: ['Punjab and Haryana High Court', 'District Court Gurgaon', 'District Court Faridabad']
+  },
+  'Punjab': {
+    cities: ['Chandigarh', 'Ludhiana', 'Amritsar', 'Jalandhar'],
+    courts: ['Punjab and Haryana High Court', 'District Court Chandigarh', 'District Court Ludhiana']
+  },
+  'Rajasthan': {
+    cities: ['Jaipur', 'Jodhpur', 'Udaipur', 'Kota'],
+    courts: ['Rajasthan High Court', 'District Court Jaipur', 'District Court Jodhpur']
+  },
+  'Madhya Pradesh': {
+    cities: ['Indore', 'Bhopal', 'Jabalpur', 'Gwalior'],
+    courts: ['Madhya Pradesh High Court', 'District Court Indore', 'District Court Bhopal']
+  },
+  'Bihar': {
+    cities: ['Patna', 'Gaya', 'Muzaffarpur', 'Bhagalpur'],
+    courts: ['Patna High Court', 'District Court Patna']
+  },
+  'Kerala': {
+    cities: ['Kochi', 'Thiruvananthapuram', 'Kozhikode', 'Thrissur'],
+    courts: ['Kerala High Court', 'District Court Kochi', 'District Court Thiruvananthapuram']
+  }
+};
+
+// Search function for backward compatibility
+export const searchLawyers = (query, filters) => {
+  return dummyLawyers.filter(lawyer => {
+    // Search query
+    if (query) {
+      const q = query.toLowerCase();
+      const matchesSearch = 
+        lawyer.name.toLowerCase().includes(q) ||
+        lawyer.specialization.toLowerCase().includes(q) ||
+        lawyer.location.toLowerCase().includes(q) ||
+        lawyer.city.toLowerCase().includes(q);
+      if (!matchesSearch) return false;
+    }
+
+    // State filter
+    if (filters.state && lawyer.state !== filters.state) {
+      return false;
+    }
+
+    // City filter
+    if (filters.city && lawyer.city !== filters.city) {
+      return false;
+    }
+
+    // Specialization filter
+    if (filters.specialization && lawyer.specialization !== filters.specialization) {
+      return false;
+    }
+
+    // Court filter
+    if (filters.court && lawyer.court !== filters.court) {
+      return false;
+    }
+
+    // Rating filter
+    if (filters.minRating && lawyer.rating < filters.minRating) {
+      return false;
+    }
+
+    return true;
+  });
+};
+
 export default dummyLawyers;
