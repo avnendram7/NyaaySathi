@@ -208,17 +208,17 @@ export default function FirmLawyerDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-black flex">
+    <div className="min-h-screen bg-gray-50 flex">
       {/* Sidebar */}
-      <div className="w-64 bg-zinc-950 border-r border-zinc-800 flex flex-col">
-        <div className="p-6 border-b border-zinc-800">
+      <div className="w-64 bg-white border-r border-gray-200 flex flex-col shadow-sm">
+        <div className="p-6 border-b border-gray-200">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-purple-600 rounded-xl flex items-center justify-center">
+            <div className="w-10 h-10 bg-[#0F2944] rounded-xl flex items-center justify-center shadow-lg">
               <Scale className="w-6 h-6 text-white" />
             </div>
             <div>
-              <span className="text-lg font-bold block text-white">NyaaySathi</span>
-              <span className="text-xs text-purple-400">FIRM LAWYER</span>
+              <span className="text-lg font-bold block text-[#0F2944]">Lxwyer Up</span>
+              <span className="text-xs text-purple-600">FIRM LAWYER</span>
             </div>
           </div>
         </div>
@@ -237,8 +237,8 @@ export default function FirmLawyerDashboard() {
               onClick={() => setActiveTab(item.id)}
               className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl transition-all ${
                 activeTab === item.id
-                  ? 'bg-purple-600 text-white'
-                  : 'text-zinc-400 hover:bg-zinc-900 hover:text-white'
+                  ? 'bg-[#0F2944] text-white shadow-lg'
+                  : 'text-gray-600 hover:bg-gray-100 hover:text-[#0F2944]'
               }`}
             >
               <item.icon className="w-5 h-5" />
@@ -250,16 +250,16 @@ export default function FirmLawyerDashboard() {
           ))}
         </nav>
 
-        <div className="p-4 border-t border-zinc-800">
+        <div className="p-4 border-t border-gray-200">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-700 rounded-full flex items-center justify-center">
+            <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-700 rounded-full flex items-center justify-center shadow-lg">
               <span className="text-white font-bold">A</span>
             </div>
             <div className="flex-1">
-              <p className="text-sm font-semibold text-white">{user?.full_name || 'Adv. Amit Sharma'}</p>
-              <p className="text-xs text-zinc-500">Sharma & Associates</p>
+              <p className="text-sm font-semibold text-[#0F2944]">{user?.full_name || 'Adv. Amit Sharma'}</p>
+              <p className="text-xs text-gray-500">{user?.firm_name || 'Sharma & Associates'}</p>
             </div>
-            <button onClick={handleLogout} className="text-zinc-500 hover:text-white">
+            <button onClick={handleLogout} className="text-gray-400 hover:text-red-500 transition-colors">
               <LogOut className="w-5 h-5" />
             </button>
           </div>
@@ -267,7 +267,7 @@ export default function FirmLawyerDashboard() {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 overflow-y-auto bg-black p-8">
+      <div className="flex-1 overflow-y-auto bg-gray-50 p-8">
         {/* Dashboard Tab */}
         {activeTab === 'dashboard' && (
           <div>
