@@ -5,7 +5,6 @@ import { toast } from 'sonner';
 import axios from 'axios';
 import { API } from '../App';
 import { motion } from 'framer-motion';
-import { CorporateInput, CorporateButton } from '../components/CorporateComponents';
 
 export default function LawFirmLawyerLogin() {
   const [loading, setLoading] = useState(false);
