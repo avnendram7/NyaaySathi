@@ -631,15 +631,16 @@ export default function AdminDashboard() {
                 <Button
                   onClick={() => {
                     if (app.type === 'firmclient') {
-                      config.action(app._id || app.id, 'approve', app.source);
+                      // Use app.id for firm clients (not _id which is MongoDB ObjectId)
+                      config.action(app.id || app._id, 'approve', app.source);
                     } else {
                       config.action(app._id || app.id, 'approve');
                     }
                   }}
-                  disabled={actionLoading === (app._id || app.id)}
+                  disabled={actionLoading === (app.id || app._id)}
                   className="flex-1 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white rounded-xl py-6 text-lg font-semibold shadow-lg shadow-emerald-500/25"
                 >
-                  {actionLoading === (app._id || app.id) ? (
+                  {actionLoading === (app.id || app._id) ? (
                     <Loader2 className="w-5 h-5 animate-spin" />
                   ) : (
                     <>
@@ -651,12 +652,13 @@ export default function AdminDashboard() {
                 <Button
                   onClick={() => {
                     if (app.type === 'firmclient') {
-                      config.action(app._id || app.id, 'reject', app.source);
+                      // Use app.id for firm clients (not _id which is MongoDB ObjectId)
+                      config.action(app.id || app._id, 'reject', app.source);
                     } else {
                       config.action(app._id || app.id, 'reject');
                     }
                   }}
-                  disabled={actionLoading === (app._id || app.id)}
+                  disabled={actionLoading === (app.id || app._id)}
                   variant="outline"
                   className="flex-1 border-2 border-red-500 text-red-400 hover:bg-red-500/10 rounded-xl py-6 text-lg font-semibold"
                 >
