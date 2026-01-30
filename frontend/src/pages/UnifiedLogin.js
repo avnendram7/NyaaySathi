@@ -115,6 +115,13 @@ const UnifiedLogin = () => {
           email: loginData.email,
           password: loginData.password
         });
+      } else if (role.endpoint === 'firm-lawyers') {
+        // Firm lawyer uses dedicated login endpoint
+        response = await axios.post(`${API}/firm-lawyers/login`, {
+          email: loginData.email,
+          password: loginData.password,
+          user_type: 'firm_lawyer'
+        });
       } else {
         // All other roles use auth endpoint
         response = await axios.post(`${API}/auth/login`, {
