@@ -29,6 +29,7 @@ export default function LawFirmLawyerLogin() {
       
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
+      localStorage.setItem('userRole', 'firm_lawyer');
       
       toast.success('Welcome back!');
       navigate('/firm-lawyer-dashboard');
@@ -40,31 +41,24 @@ export default function LawFirmLawyerLogin() {
   };
   
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-slate-950 to-black flex flex-col">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50 flex flex-col">
       {/* Navigation Bar */}
-      <nav className="p-4 flex items-center justify-between">
+      <nav className="p-4 flex items-center justify-between border-b border-gray-200 bg-white">
         <button
           onClick={() => navigate(-1)}
-          className="flex items-center space-x-2 text-slate-400 hover:text-white transition-colors"
+          className="flex items-center space-x-2 text-gray-600 hover:text-[#0F2944] transition-colors"
         >
           <ArrowLeft className="w-5 h-5" />
           <span>Back</span>
         </button>
         <button
           onClick={() => navigate('/')}
-          className="flex items-center space-x-2 text-slate-400 hover:text-white transition-colors"
+          className="flex items-center space-x-2 text-gray-600 hover:text-[#0F2944] transition-colors"
         >
           <Home className="w-5 h-5" />
           <span>Home</span>
         </button>
       </nav>
-
-      <div className="fixed inset-0 opacity-10 pointer-events-none">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 2px 2px, rgb(99, 102, 241) 1px, transparent 0)`,
-          backgroundSize: '40px 40px'
-        }} />
-      </div>
       
       <div className="flex-1 flex items-center justify-center px-4">
         <motion.div
@@ -74,46 +68,55 @@ export default function LawFirmLawyerLogin() {
           className="relative z-10 w-full max-w-md"
         >
           <Link to="/" className="flex items-center justify-center space-x-3 mb-8 group">
-            <div className="w-12 h-12 bg-gradient-to-br from-indigo-600 to-indigo-500 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/30 group-hover:shadow-indigo-500/50 transition-all">
+            <div className="w-12 h-12 bg-[#0F2944] rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all">
               <Scale className="w-7 h-7 text-white" />
             </div>
-            <span className="text-2xl font-bold text-white">Lxwyer Up</span>
+            <span className="text-2xl font-bold text-[#0F2944]">Lxwyer Up</span>
           </Link>
           
-          <div className="bg-slate-900/50 backdrop-blur-md border border-slate-800 rounded-2xl p-8 shadow-2xl">
+          <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-xl">
             <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-white mb-2">Firm Lawyer Login</h2>
-              <p className="text-slate-400">Access your firm workspace</p>
+              <h2 className="text-3xl font-bold text-[#0F2944] mb-2">Firm Lawyer Login</h2>
+              <p className="text-gray-500">Access your firm workspace</p>
             </div>
             
             <form onSubmit={handleSubmit} className="space-y-6">
-              <CorporateInput
-                label="Email Address"
-                type="email"
-                data-testid="firm-lawyer-email-input"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                placeholder="lawyer@lawfirm.com"
-                icon={Mail}
-                required
-              />
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                <div className="relative">
+                  <Mail className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="email"
+                    data-testid="firm-lawyer-email-input"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    placeholder="lawyer@lawfirm.com"
+                    required
+                    className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0F2944] focus:border-transparent text-gray-800 bg-gray-50"
+                  />
+                </div>
+              </div>
               
-              <CorporateInput
-                label="Password"
-                type="password"
-                data-testid="firm-lawyer-password-input"
-                value={formData.password}
-                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                placeholder="Enter your password"
-                icon={Lock}
-                required
-              />
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                <div className="relative">
+                  <Lock className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="password"
+                    data-testid="firm-lawyer-password-input"
+                    value={formData.password}
+                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                    placeholder="Enter your password"
+                    required
+                    className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0F2944] focus:border-transparent text-gray-800 bg-gray-50"
+                  />
+                </div>
+              </div>
               
-              <CorporateButton
+              <button
                 type="submit"
-                variant="primary"
-                className="w-full flex items-center justify-center gap-2"
                 disabled={loading}
+                className="w-full bg-[#0F2944] hover:bg-[#0F2944]/90 text-white font-semibold py-3 px-6 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg"
               >
                 {loading ? 'Signing in...' : (
                   <>
@@ -121,21 +124,21 @@ export default function LawFirmLawyerLogin() {
                     <ArrowRight className="w-5 h-5" />
                   </>
                 )}
-              </CorporateButton>
+              </button>
             </form>
             
             <div className="mt-6 text-center">
-              <p className="text-slate-400">
+              <p className="text-gray-500">
                 Not registered yet?{' '}
-                <Link to="/firm-lawyer-application" className="text-indigo-400 hover:text-indigo-300 font-semibold transition-colors">
+                <Link to="/firm-lawyer-application" className="text-[#0F2944] hover:text-blue-600 font-semibold transition-colors">
                   Apply now
                 </Link>
               </p>
             </div>
             
             <div className="mt-4 text-center">
-              <Link to="/lawfirm-role" className="text-slate-500 hover:text-slate-400 text-sm transition-colors">
-                Back to role selection
+              <Link to="/login" className="text-gray-400 hover:text-gray-600 text-sm transition-colors">
+                Back to login options
               </Link>
             </div>
           </div>
