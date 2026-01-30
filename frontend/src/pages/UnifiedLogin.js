@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { User, Scale, Building2, UserCircle, Mail, Lock, Eye, EyeOff, ArrowRight } from 'lucide-react';
+import { User, Scale, Building2, UserCircle, Briefcase, Mail, Lock, Eye, EyeOff, ArrowRight } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { toast } from 'sonner';
 import axios from 'axios';
@@ -77,6 +77,15 @@ const UnifiedLogin = () => {
       redirectPath: '/firm-client-dashboard',
       userType: 'firm_client',
       endpoint: 'firm-clients'
+    },
+    {
+      id: 'firmlawyer',
+      icon: Briefcase,
+      title: 'Login as Firm Lawyer',
+      description: 'Access your firm workspace and manage assigned tasks',
+      redirectPath: '/firm-lawyer-dashboard',
+      userType: 'firm_lawyer',
+      endpoint: 'firm-lawyers'
     }
   ];
 
