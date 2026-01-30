@@ -272,80 +272,80 @@ export default function FirmLawyerDashboard() {
         {activeTab === 'dashboard' && (
           <div>
             <div className="mb-8">
-              <h1 className="text-3xl font-bold text-white mb-2">Welcome back, {user?.full_name || 'Advocate'}</h1>
-              <p className="text-zinc-400">Here's your work summary for today</p>
+              <h1 className="text-3xl font-bold text-[#0F2944] mb-2">Welcome back, {user?.full_name || 'Advocate'}</h1>
+              <p className="text-gray-500">Here's your work summary for today</p>
             </div>
 
             {/* Quick Stats */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-              <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+              <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center">
-                    <CheckCircle className="w-6 h-6 text-green-400" />
+                  <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                    <CheckCircle className="w-6 h-6 text-green-600" />
                   </div>
-                  <span className="text-green-400 text-sm font-medium">+5 today</span>
+                  <span className="text-green-600 text-sm font-medium">+5 today</span>
                 </div>
-                <p className="text-3xl font-bold text-white">{lawyerStats.tasksCompleted}</p>
-                <p className="text-zinc-500 text-sm">Tasks Completed</p>
+                <p className="text-3xl font-bold text-[#0F2944]">{lawyerStats.tasksCompleted}</p>
+                <p className="text-gray-500 text-sm">Tasks Completed</p>
               </div>
 
-              <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+              <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="w-12 h-12 bg-amber-500/20 rounded-xl flex items-center justify-center">
-                    <Clock className="w-6 h-6 text-amber-400" />
+                  <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center">
+                    <Clock className="w-6 h-6 text-amber-600" />
                   </div>
-                  <span className="text-amber-400 text-sm font-medium">2 urgent</span>
+                  <span className="text-amber-600 text-sm font-medium">2 urgent</span>
                 </div>
-                <p className="text-3xl font-bold text-white">{lawyerStats.tasksPending}</p>
-                <p className="text-zinc-500 text-sm">Tasks Pending</p>
+                <p className="text-3xl font-bold text-[#0F2944]">{lawyerStats.tasksPending}</p>
+                <p className="text-gray-500 text-sm">Tasks Pending</p>
               </div>
 
-              <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+              <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center">
-                    <FileText className="w-6 h-6 text-blue-400" />
+                  <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                    <FileText className="w-6 h-6 text-blue-600" />
                   </div>
                 </div>
-                <p className="text-3xl font-bold text-white">{lawyerStats.casesActive}</p>
-                <p className="text-zinc-500 text-sm">Active Cases</p>
+                <p className="text-3xl font-bold text-[#0F2944]">{lawyerStats.casesActive}</p>
+                <p className="text-gray-500 text-sm">Active Cases</p>
               </div>
 
-              <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+              <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center">
-                    <Star className="w-6 h-6 text-purple-400" />
+                  <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+                    <Star className="w-6 h-6 text-purple-600" />
                   </div>
                 </div>
-                <p className="text-3xl font-bold text-white">{lawyerStats.rating}</p>
-                <p className="text-zinc-500 text-sm">Client Rating</p>
+                <p className="text-3xl font-bold text-[#0F2944]">{lawyerStats.rating}</p>
+                <p className="text-gray-500 text-sm">Client Rating</p>
               </div>
             </div>
 
             {/* Main Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* Pending Tasks */}
-              <div className="lg:col-span-2 bg-zinc-900 border border-zinc-800 rounded-xl p-6">
+              <div className="lg:col-span-2 bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
                 <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-xl font-bold text-white">Pending Tasks</h2>
-                  <Button variant="ghost" className="text-zinc-400">View All</Button>
+                  <h2 className="text-xl font-bold text-[#0F2944]">Pending Tasks</h2>
+                  <Button variant="ghost" className="text-gray-500 hover:text-[#0F2944]">View All</Button>
                 </div>
                 <div className="space-y-3">
                   {pendingTasks.map(task => (
-                    <div key={task.id} className="flex items-center justify-between p-4 bg-zinc-800/50 rounded-xl hover:bg-zinc-800 transition-colors">
+                    <div key={task.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
                       <div className="flex items-center space-x-4">
                         <div className={`w-2 h-2 rounded-full ${
                           task.priority === 'high' ? 'bg-red-500' :
                           task.priority === 'medium' ? 'bg-amber-500' : 'bg-green-500'
                         }`} />
                         <div>
-                          <p className="font-medium text-white">{task.title}</p>
-                          <p className="text-xs text-zinc-500">{task.case}</p>
+                          <p className="font-medium text-[#0F2944]">{task.title}</p>
+                          <p className="text-xs text-gray-500">{task.case}</p>
                         </div>
                       </div>
                       <div className="text-right">
                         <p className={`text-sm font-medium ${
-                          task.deadline === 'Today' ? 'text-red-400' :
-                          task.deadline === 'Tomorrow' ? 'text-amber-400' : 'text-zinc-400'
+                          task.deadline === 'Today' ? 'text-red-600' :
+                          task.deadline === 'Tomorrow' ? 'text-amber-600' : 'text-gray-500'
                         }`}>{task.deadline}</p>
                       </div>
                     </div>
@@ -354,17 +354,17 @@ export default function FirmLawyerDashboard() {
               </div>
 
               {/* Upcoming Hearings */}
-              <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6">
-                <h2 className="text-xl font-bold text-white mb-6">Upcoming Hearings</h2>
+              <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+                <h2 className="text-xl font-bold text-[#0F2944] mb-6">Upcoming Hearings</h2>
                 <div className="space-y-4">
                   {upcomingHearings.map((hearing, idx) => (
-                    <div key={idx} className="p-4 bg-zinc-800/50 rounded-xl">
+                    <div key={idx} className="p-4 bg-purple-50 border border-purple-100 rounded-xl">
                       <div className="flex items-center justify-between mb-2">
-                        <span className="text-purple-400 font-semibold text-sm">{hearing.date}</span>
-                        <span className="text-zinc-500 text-xs">{hearing.time}</span>
+                        <span className="text-purple-600 font-semibold text-sm">{hearing.date}</span>
+                        <span className="text-gray-500 text-xs">{hearing.time}</span>
                       </div>
-                      <p className="font-medium text-white text-sm">{hearing.case}</p>
-                      <p className="text-xs text-zinc-500">📍 {hearing.court}</p>
+                      <p className="font-medium text-[#0F2944] text-sm">{hearing.case}</p>
+                      <p className="text-xs text-gray-500">📍 {hearing.court}</p>
                     </div>
                   ))}
                 </div>
@@ -372,14 +372,14 @@ export default function FirmLawyerDashboard() {
             </div>
 
             {/* Performance Overview */}
-            <div className="mt-6 bg-zinc-900 border border-zinc-800 rounded-xl p-6">
-              <h2 className="text-xl font-bold text-white mb-6">Performance Overview</h2>
+            <div className="mt-6 bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+              <h2 className="text-xl font-bold text-[#0F2944] mb-6">Performance Overview</h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {performanceMetrics.map((metric, idx) => (
-                  <div key={idx} className="text-center p-4 bg-zinc-800/50 rounded-xl">
-                    <p className="text-2xl font-bold text-white">{metric.value}</p>
-                    <p className="text-zinc-500 text-sm">{metric.label}</p>
-                    <p className="text-green-400 text-xs mt-1">{metric.trend}</p>
+                  <div key={idx} className="text-center p-4 bg-gray-50 rounded-xl">
+                    <p className="text-2xl font-bold text-[#0F2944]">{metric.value}</p>
+                    <p className="text-gray-500 text-sm">{metric.label}</p>
+                    <p className="text-green-600 text-xs mt-1">{metric.trend}</p>
                   </div>
                 ))}
               </div>
