@@ -137,6 +137,11 @@ Design elements applied:
 
 ## Completed Work
 
+### Jan 30, 2026 - Admin Approval Button Fix
+**Issue:** "Failed to approve client" error when clicking Approve button in Admin Dashboard
+**Root Cause:** Frontend was using `app._id` (MongoDB ObjectId like `697c63bfeca567ef771ba23e`) but backend expected `app.id` (custom ID like `fe149721aa064f6fb171b141915d59b1`)
+**Fix:** Changed the action button to use `app.id || app._id` instead of `app._id || app.id` for firm clients
+
 ### Jan 29, 2026 - Dashboard Redesign (Light Professional Theme)
 **Completed:**
 - FirmClientDashboard.js - Fully redesigned with light theme
