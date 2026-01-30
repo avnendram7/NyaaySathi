@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { 
   Scale, User, Mail, Phone, Lock, Building2, Briefcase, CreditCard,
   CheckCircle, ArrowLeft, ArrowRight, Loader2, Star, MapPin, Users,
-  Eye, EyeOff, Shield
+  Eye, EyeOff, Shield, Clock
 } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
