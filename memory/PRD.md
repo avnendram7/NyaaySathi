@@ -137,6 +137,28 @@ Design elements applied:
 
 ## Completed Work
 
+### Jan 30, 2026 - Firm Lawyer Login & Dashboard Feature
+**Implemented:**
+- Added "Login as Firm Lawyer" (5th option) to the unified login page
+- Updated FirmLawyerDashboard.js with light professional theme
+- Updated LawFirmLawyerLogin.js with light professional theme
+- Added route alias `/firm-lawyer-login` for easier access
+
+**Flow:**
+1. Firm lawyer registers via /firm-lawyer-application
+2. Admin approves the application
+3. Firm lawyer can login at /login (select "Firm Lawyer") or /firm-lawyer-login
+4. Redirects to /firm-lawyer-dashboard with full dummy data
+
+**Dashboard Features:**
+- Tasks completed/pending counters
+- Active cases overview
+- Client rating display
+- Pending tasks list with priorities
+- Upcoming hearings
+- Performance overview metrics
+- Messages, Calendar, and Performance tabs
+
 ### Jan 30, 2026 - Admin Approval Button Fix
 **Issue:** "Failed to approve client" error when clicking Approve button in Admin Dashboard
 **Root Cause:** Frontend was using `app._id` (MongoDB ObjectId like `697c63bfeca567ef771ba23e`) but backend expected `app.id` (custom ID like `fe149721aa064f6fb171b141915d59b1`)
