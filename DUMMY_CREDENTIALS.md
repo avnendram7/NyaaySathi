@@ -44,6 +44,11 @@
 ||------|-------|----------|------|
 || Test Client | testclient@example.com | Test@123 | Test Firm |
 
+### Firm Lawyers (Login as Firm Lawyer - via /login or /firm-lawyer-login)
+|| Name | Email | Password | Firm |
+||------|-------|----------|------|
+|| Adv. Rahul Verma | firmlawyer@test.com | Test@123 | Shah & Associates |
+
 ## 🧪 Testing Instructions
 
 ### Test Login Flow:
